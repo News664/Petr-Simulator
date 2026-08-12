@@ -1,0 +1,2970 @@
+{
+  "generatedAt": "2026-08-12T15:10:05.312Z",
+  "contentVersion": "fed06a7cb2760d24b4f2f133e74886959431afda57f95095a64b29fe452dcb42",
+  "balanceVersion": "0.1",
+  "adaptersVersion": "0.1",
+  "sourceFiles": [
+    {
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_001_v0.3.json",
+      "sha256": "b346753fb7ce4d50eccd6737551eb82a821930c4705ae4d304507005912b1f77"
+    },
+    {
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_002_v0.2.json",
+      "sha256": "06fa02146b82ff759b9ec46fcfe0850071bb136678a6045107f593a8aae12110"
+    },
+    {
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_003_v0.1.json",
+      "sha256": "526f4c4e751a0a6b820a8b1b678f3e126c9e51453fe744d323e5d5a78ce3b373"
+    },
+    {
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_004_v0.2.json",
+      "sha256": "0470486bf5a6ec031c579761c88f97ed58b705c5fa5d7e82cacb358d214a3016"
+    },
+    {
+      "path": "content/registries/SOLID_STATE_SPECIES_REGISTRY_v1.1.json",
+      "sha256": "d3fa7bfbeae436a7af9fc06f60aaf1f9986fede1d367e03c5d3527cda7f85cab"
+    },
+    {
+      "path": "content/registries/SOLID_STATE_TALENT_REGISTRY_v1.0.csv",
+      "sha256": "cd8895941565b5a5e5a446e16f32b33c65b2142d9aa29126ebac419057acb3bf"
+    },
+    {
+      "path": "content/registries/SOLID_STATE_ENDING_REGISTRY_v1.0.csv",
+      "sha256": "b4f0d57af8cd2cfa20b9fb298315f3f9be2e7b2f3598324d5266d551ed3f06ec"
+    },
+    {
+      "path": "content/balance/SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.1.json",
+      "sha256": "4125c2f3482035d3ba986a0b92d005087ae9bcb2fc00b10dae29ff010e9e4991"
+    },
+    {
+      "path": "content/balance/SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json",
+      "sha256": "6b4af63c818d0c67db199e99d3aa5cb684bbfa42c3681b0c37b2c915c8baf1a1"
+    }
+  ],
+  "scenarios": [
+    {
+      "scenarioId": "NO_TALENTS_BASELINE",
+      "scenarioLabel": "no-talents",
+      "scenarioDescription": "No talents selected. Isolates content and balance from talent effects.",
+      "options": {
+        "runs": 10000,
+        "baseSeed": "phase1",
+        "speciesStratified": true,
+        "fixedSpecies": null,
+        "maxAge": 120,
+        "pre25CoveragePolicy": "reuse_baseline_repeatables"
+      },
+      "metrics": {
+        "runs": 10000,
+        "completed": 11,
+        "nonterminal": 9989,
+        "coverageErrors": 0,
+        "completedRate": 0.0011,
+        "nonterminalRate": 0.9989,
+        "coverageErrorRate": 0,
+        "averageRunLengthYears": 120.9182,
+        "averageEndingAge": 45.63636363636363,
+        "medianEndingAge": 46,
+        "endingAgeP10": 44,
+        "endingAgeP90": 48,
+        "endingAgeHistogram": {
+          "45-54": 8,
+          "35-44": 3
+        },
+        "endingAgeShareByTargetBucket": [
+          {
+            "band": "18-24",
+            "observedShare": 0,
+            "targetMin": 0.18,
+            "targetMax": 0.22,
+            "withinTarget": false
+          },
+          {
+            "band": "25-34",
+            "observedShare": 0,
+            "targetMin": 0.35,
+            "targetMax": 0.4,
+            "withinTarget": false
+          },
+          {
+            "band": "35-44",
+            "observedShare": 0.2727272727272727,
+            "targetMin": 0.2,
+            "targetMax": 0.25,
+            "withinTarget": false
+          },
+          {
+            "band": "45-54",
+            "observedShare": 0.7272727272727273,
+            "targetMin": 0.08,
+            "targetMax": 0.12,
+            "withinTarget": false
+          },
+          {
+            "band": "55-64",
+            "observedShare": 0,
+            "targetMin": 0.04,
+            "targetMax": 0.07,
+            "withinTarget": false
+          },
+          {
+            "band": "65+",
+            "observedShare": 0,
+            "targetMin": 0.02,
+            "targetMax": 0.05,
+            "withinTarget": false
+          }
+        ],
+        "channelCountsByAgeBand": {
+          "0-5": {
+            "ORD": 55111,
+            "INS": 4889,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "6-11": {
+            "ORD": 49320,
+            "INS": 10680,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "12-17": {
+            "ORD": 43592,
+            "INS": 11869,
+            "TRN": 4539,
+            "SPC": 0
+          },
+          "18-24": {
+            "ORD": 38757,
+            "INS": 18081,
+            "TRN": 13162,
+            "SPC": 0
+          },
+          "25-34": {
+            "ORD": 41950,
+            "INS": 30097,
+            "TRN": 27953,
+            "SPC": 0
+          },
+          "35-44": {
+            "ORD": 58981,
+            "INS": 34729,
+            "TRN": 6288,
+            "SPC": 0
+          },
+          "45-54": {
+            "ORD": 79471,
+            "INS": 20291,
+            "TRN": 148,
+            "SPC": 0
+          },
+          "55-64": {
+            "ORD": 88116,
+            "INS": 11747,
+            "TRN": 27,
+            "SPC": 0
+          },
+          "65+": {
+            "ORD": 549391,
+            "INS": 9993,
+            "TRN": 0,
+            "SPC": 0
+          }
+        },
+        "familyCountsByAgeBand": {
+          "0-5": {
+            "ORD/FAM": 55111,
+            "INS/CIV": 4889
+          },
+          "6-11": {
+            "ORD/EDU": 37320,
+            "INS/EDU": 10680,
+            "ORD/SOC": 12000
+          },
+          "12-17": {
+            "ORD/EDU": 31678,
+            "INS/EDU": 7576,
+            "ORD/SOC": 11914,
+            "INS/FIN": 4293,
+            "TRN/WOOD": 4539
+          },
+          "18-24": {
+            "ORD/CAR": 13243,
+            "INS/REL": 5384,
+            "TRN/STON": 2236,
+            "ORD/CIV": 3395,
+            "ORD/HEA": 5481,
+            "INS/MED": 3792,
+            "INS/COR": 1738,
+            "ORD/SOC": 6369,
+            "TRN/WOOD": 1987,
+            "INS/ACA": 3567,
+            "TRN/METL": 2016,
+            "INS/CIV": 1437,
+            "TRN/CERA": 1829,
+            "ORD/FAM": 2538,
+            "ORD/HOU": 5796,
+            "ORD/EDU": 1662,
+            "TRN/CRYS": 2145,
+            "TRN/GLAS": 2008,
+            "INS/FIN": 466,
+            "INS/MUS": 1582,
+            "TRN/TEMP": 941,
+            "ORD/FIN": 273,
+            "INS/LEG": 115
+          },
+          "25-34": {
+            "ORD/FAM": 4371,
+            "TRN/METL": 4014,
+            "INS/CIV": 2524,
+            "INS/COR": 4014,
+            "ORD/SOC": 11615,
+            "ORD/HEA": 6347,
+            "TRN/WOOD": 4056,
+            "ORD/HOU": 7212,
+            "TRN/GLAS": 4086,
+            "TRN/CERA": 4005,
+            "INS/FIN": 4013,
+            "TRN/TEMP": 3609,
+            "INS/ACA": 9477,
+            "TRN/CRYS": 4017,
+            "ORD/CAR": 7275,
+            "INS/MUS": 2965,
+            "ORD/CIV": 3777,
+            "TRN/STON": 4129,
+            "ORD/FIN": 1353,
+            "INS/MED": 3129,
+            "INS/REL": 1521,
+            "INS/LEG": 2446,
+            "TRN/SYNT": 37,
+            "INS/ARC": 8
+          },
+          "35-44": {
+            "ORD/FAM": 11711,
+            "INS/MUS": 1452,
+            "TRN/TEMP": 5245,
+            "ORD/HOU": 7351,
+            "INS/ACA": 14869,
+            "INS/COR": 3558,
+            "ORD/FIN": 2253,
+            "ORD/CIV": 1179,
+            "INS/MED": 2328,
+            "INS/CIV": 4983,
+            "INS/LEG": 4299,
+            "ORD/CAR": 3473,
+            "ORD/SOC": 25725,
+            "ORD/GEN": 7289,
+            "INS/REL": 907,
+            "INS/FIN": 2242,
+            "TRN/CRYS": 147,
+            "TRN/GLAS": 154,
+            "TRN/CERA": 138,
+            "TRN/WOOD": 125,
+            "TRN/SYNT": 153,
+            "TRN/STON": 153,
+            "INS/ARC": 91,
+            "TRN/METL": 152,
+            "TRN/MIXD": 21
+          },
+          "45-54": {
+            "INS/CIV": 5773,
+            "ORD/HEA": 14918,
+            "ORD/SOC": 12998,
+            "ORD/FAM": 27829,
+            "ORD/GEN": 8263,
+            "ORD/CAR": 15463,
+            "INS/FIN": 8303,
+            "INS/ACA": 1660,
+            "INS/COR": 1788,
+            "INS/MED": 899,
+            "INS/LEG": 1255,
+            "INS/MUS": 158,
+            "INS/REL": 320,
+            "TRN/MIXD": 148,
+            "INS/ARC": 135
+          },
+          "55-64": {
+            "ORD/FAM": 17637,
+            "ORD/CAR": 17499,
+            "INS/CIV": 9988,
+            "ORD/HEA": 13821,
+            "ORD/SOC": 15729,
+            "ORD/GEN": 23430,
+            "INS/FIN": 1684,
+            "TRN/MIXD": 27,
+            "INS/LEG": 31,
+            "INS/MED": 44
+          },
+          "65+": {
+            "INS/CIV": 9990,
+            "ORD/SOC": 109802,
+            "ORD/GEN": 438384,
+            "ORD/FAM": 1203,
+            "ORD/CAR": 2,
+            "INS/FIN": 2,
+            "INS/MED": 1
+          }
+        },
+        "totalEventYears": 1209182,
+        "fallbackYears": 335994,
+        "fallbackUseRate": 0.2778688402572979,
+        "fallbackYearsAge25Plus": 335994,
+        "fallbackShareAge25Plus": 0.35029222816941935,
+        "pre25FallbackYears": 0,
+        "pre25CoverageDefectRate": 0,
+        "pre25CoverageDefectAges": {},
+        "pre25EmergencyReuseYears": 12858,
+        "routeEntryRate": 1,
+        "routeEntryCountsByRoute": {
+          "ROUTE_COR_EMPLOYEE": 6187,
+          "ROUTE_REL_INTEREST": 7530,
+          "ROUTE_CIV_SERVICE": 7258,
+          "ROUTE_MED_SCREENED": 7565,
+          "ROUTE_COR_PRESERVATION_PLAN": 2876,
+          "ROUTE_FAM_PLACEMENT": 8207,
+          "ROUTE_CIV_MEMORIAL": 6513,
+          "ROUTE_COR_CONTRACT": 2876,
+          "ROUTE_MUS_INTEREST": 5713,
+          "ROUTE_ACA_RESEARCH": 6838,
+          "ROUTE_ACA_SPECIALIZATION": 5575,
+          "ROUTE_ACA_CONTINUITY": 2774,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 2774,
+          "ROUTE_CIV_REBRANDED": 5874,
+          "ROUTE_FIN_VALUED": 5289,
+          "ROUTE_FAM_DIRECTIVE": 6157,
+          "ROUTE_TEMP_STUDY": 5573,
+          "ROUTE_ACA_MATERIALS": 2801,
+          "ROUTE_ACA_MATERIALS_EXPOSED": 2801,
+          "ROUTE_FIN_SECURED_DEBT": 1476,
+          "ROUTE_ACA_TENURE_TRACK": 3006,
+          "ROUTE_ACA_TENURE_REVIEW": 3006,
+          "ROUTE_LEG_STATUS_CASE": 919,
+          "ROUTE_REL_CLAIM": 602,
+          "ROUTE_LEG_STATUS_RESOLVED": 919,
+          "ROUTE_MED_PRESERVATION_CONSULT": 2557,
+          "ROUTE_MED_SYNTH_OPTION": 640,
+          "ROUTE_MED_DIRECTIVE": 1323,
+          "ROUTE_MUS_APPRAISED": 248,
+          "ROUTE_MUS_MIXED_OPTION": 196,
+          "ROUTE_ARC_STRUCTURAL": 234
+        },
+        "routeClimaxRate": 0.0011,
+        "routeClimaxCountsByEvent": {
+          "EVT-INS-MED-0003": 11
+        },
+        "routeAbandonmentRate": 0.9881,
+        "expiredScheduleCount": 29871,
+        "expiredSchedulesByEvent": {
+          "EVT-INS-COR-0003": 2876,
+          "EVT-INS-CIV-0006": 6512,
+          "EVT-ORD-FAM-0004": 6152,
+          "EVT-TRN-TEMP-0002": 5571,
+          "EVT-INS-FIN-0005": 1476,
+          "EVT-INS-ACA-0005": 3005,
+          "EVT-INS-REL-0003": 601,
+          "EVT-INS-MED-0003": 2571,
+          "EVT-TRN-SYNT-0001": 450,
+          "EVT-INS-MUS-0003": 240,
+          "EVT-INS-MUS-0005": 185,
+          "EVT-INS-ARC-0002": 232
+        },
+        "priorityCollisionRate": 0.008,
+        "priorityCollisionYears": 80,
+        "scheduleDisplacementCount": 80,
+        "scheduleDisplacementPerRun": 0.008,
+        "finalMaterialDistribution": {
+          "NONE": 8443,
+          "CRYS": 203,
+          "GLAS": 221,
+          "CERA": 178,
+          "MIXD": 196,
+          "WOOD": 183,
+          "SYNT": 159,
+          "STON": 221,
+          "METL": 196
+        },
+        "finalMaterialBySpecies": {
+          "HUMAN": {
+            "NONE": 1413,
+            "GLAS": 43,
+            "MIXD": 40,
+            "WOOD": 36,
+            "SYNT": 20,
+            "CRYS": 31,
+            "CERA": 28,
+            "STON": 27,
+            "METL": 29
+          },
+          "ELF": {
+            "NONE": 1401,
+            "GLAS": 38,
+            "WOOD": 53,
+            "STON": 35,
+            "CRYS": 43,
+            "MIXD": 23,
+            "CERA": 32,
+            "METL": 12,
+            "SYNT": 30
+          },
+          "DWARF": {
+            "NONE": 1407,
+            "CERA": 39,
+            "SYNT": 19,
+            "CRYS": 22,
+            "STON": 57,
+            "METL": 45,
+            "WOOD": 27,
+            "MIXD": 28,
+            "GLAS": 23
+          },
+          "WINGED_KIN": {
+            "NONE": 1398,
+            "SYNT": 28,
+            "CRYS": 39,
+            "STON": 44,
+            "METL": 25,
+            "CERA": 27,
+            "GLAS": 32,
+            "WOOD": 31,
+            "MIXD": 43
+          },
+          "DEMONKIN": {
+            "NONE": 1432,
+            "STON": 23,
+            "GLAS": 38,
+            "CRYS": 29,
+            "WOOD": 16,
+            "MIXD": 35,
+            "SYNT": 34,
+            "METL": 31,
+            "CERA": 28
+          },
+          "DRAGONKIN": {
+            "NONE": 1392,
+            "CRYS": 39,
+            "STON": 35,
+            "CERA": 24,
+            "WOOD": 20,
+            "SYNT": 28,
+            "GLAS": 47,
+            "METL": 54,
+            "MIXD": 27
+          }
+        },
+        "materialCommitmentRate": 0.1557,
+        "materialEntropyBitsOverall": 1.0898431193523765,
+        "materialEntropyBitsBySpecies": {
+          "HUMAN": 1.0673965471892177,
+          "ELF": 1.0967315561383262,
+          "DWARF": 1.0770246785890314,
+          "WINGED_KIN": 1.1168060799371626,
+          "DEMONKIN": 1.0011802015501372,
+          "DRAGONKIN": 1.126225445397427
+        },
+        "pFinalGivenHint": {
+          "WOOD": {
+            "hintRuns": 870,
+            "sameMaterial": 32,
+            "probability": 0.0367816091954023
+          },
+          "STON": {
+            "hintRuns": 905,
+            "sameMaterial": 28,
+            "probability": 0.030939226519337018
+          },
+          "METL": {
+            "hintRuns": 848,
+            "sameMaterial": 33,
+            "probability": 0.03891509433962264
+          },
+          "GLAS": {
+            "hintRuns": 749,
+            "sameMaterial": 18,
+            "probability": 0.02403204272363151
+          },
+          "CRYS": {
+            "hintRuns": 677,
+            "sameMaterial": 17,
+            "probability": 0.025110782865583457
+          }
+        },
+        "pFinalGivenFirstManifestation": {
+          "STON": {
+            "manifestationRuns": 934,
+            "sameMaterial": 16,
+            "probability": 0.017130620985010708
+          },
+          "CERA": {
+            "manifestationRuns": 765,
+            "sameMaterial": 13,
+            "probability": 0.01699346405228758
+          },
+          "WOOD": {
+            "manifestationRuns": 5264,
+            "sameMaterial": 118,
+            "probability": 0.022416413373860182
+          },
+          "METL": {
+            "manifestationRuns": 853,
+            "sameMaterial": 14,
+            "probability": 0.016412661195779603
+          },
+          "CRYS": {
+            "manifestationRuns": 932,
+            "sameMaterial": 15,
+            "probability": 0.016094420600858368
+          },
+          "GLAS": {
+            "manifestationRuns": 860,
+            "sameMaterial": 24,
+            "probability": 0.027906976744186046
+          },
+          "TEMP": {
+            "manifestationRuns": 391,
+            "sameMaterial": 0,
+            "probability": 0
+          }
+        },
+        "multipleManifestationBeforeCommitmentRate": 0.9896,
+        "averageHintAge": 9.459125710051865,
+        "averageFirstManifestationAge": 18.398839883988398,
+        "averageCommitmentAge": 35.870905587668595,
+        "talentActivationRate": {},
+        "talentActivationAverageAge": {},
+        "endingDistribution": {
+          "END-MED-001": 11
+        },
+        "distinctEndingsObserved": 1,
+        "distinctEndingsInRegistry": 24,
+        "endingCoverageShare": 0.041666666666666664,
+        "hiddenEndingRate": 0,
+        "rareEndingRate": 0,
+        "finalStatMeans": {
+          "CHR": 1.1164,
+          "INT": 20.4926,
+          "STR": -3.3455,
+          "MNY": 3.2458,
+          "SPR": 53.437,
+          "FIX": 26.9336
+        },
+        "finalFixPercentiles": {
+          "p50": 26,
+          "p90": 44,
+          "p99": 49,
+          "max": 52
+        },
+        "guardrails": [
+          {
+            "id": "fallback-share",
+            "severity": "warning",
+            "message": "Age-25+ fallback share 35.0% exceeds the warning threshold 5.0% (target 2.0%)."
+          },
+          {
+            "id": "ending-age-share-18-24",
+            "severity": "warning",
+            "message": "Ending age band 18-24: observed 0.0% vs target 18-22%."
+          },
+          {
+            "id": "ending-age-share-25-34",
+            "severity": "warning",
+            "message": "Ending age band 25-34: observed 0.0% vs target 35-40%."
+          },
+          {
+            "id": "ending-age-share-35-44",
+            "severity": "warning",
+            "message": "Ending age band 35-44: observed 27.3% vs target 20-25%."
+          },
+          {
+            "id": "ending-age-share-45-54",
+            "severity": "warning",
+            "message": "Ending age band 45-54: observed 72.7% vs target 8-12%."
+          },
+          {
+            "id": "ending-age-share-55-64",
+            "severity": "warning",
+            "message": "Ending age band 55-64: observed 0.0% vs target 4-7%."
+          },
+          {
+            "id": "ending-age-share-65+",
+            "severity": "warning",
+            "message": "Ending age band 65+: observed 0.0% vs target 2-5%."
+          },
+          {
+            "id": "nonterminal-rate",
+            "severity": "failure",
+            "message": "9989/10000 runs (99.9%) reached the diagnostic maximum age without an ending."
+          }
+        ]
+      }
+    },
+    {
+      "scenarioId": "UNIFORM_RANDOM_THREE_COMPATIBLE_DIAGNOSTIC",
+      "scenarioLabel": "uniform-three",
+      "scenarioDescription": "Three mutually compatible talents drawn uniformly from a 10-talent draft.",
+      "options": {
+        "runs": 10000,
+        "baseSeed": "phase1",
+        "speciesStratified": true,
+        "fixedSpecies": null,
+        "maxAge": 120,
+        "pre25CoveragePolicy": "reuse_baseline_repeatables"
+      },
+      "metrics": {
+        "runs": 10000,
+        "completed": 77,
+        "nonterminal": 9923,
+        "coverageErrors": 0,
+        "completedRate": 0.0077,
+        "nonterminalRate": 0.9923,
+        "coverageErrorRate": 0,
+        "averageRunLengthYears": 120.3909,
+        "averageEndingAge": 40.896103896103895,
+        "medianEndingAge": 41,
+        "endingAgeP10": 34,
+        "endingAgeP90": 48,
+        "endingAgeHistogram": {
+          "35-44": 42,
+          "45-54": 26,
+          "25-34": 9
+        },
+        "endingAgeShareByTargetBucket": [
+          {
+            "band": "18-24",
+            "observedShare": 0,
+            "targetMin": 0.18,
+            "targetMax": 0.22,
+            "withinTarget": false
+          },
+          {
+            "band": "25-34",
+            "observedShare": 0.11688311688311688,
+            "targetMin": 0.35,
+            "targetMax": 0.4,
+            "withinTarget": false
+          },
+          {
+            "band": "35-44",
+            "observedShare": 0.5454545454545454,
+            "targetMin": 0.2,
+            "targetMax": 0.25,
+            "withinTarget": false
+          },
+          {
+            "band": "45-54",
+            "observedShare": 0.33766233766233766,
+            "targetMin": 0.08,
+            "targetMax": 0.12,
+            "withinTarget": false
+          },
+          {
+            "band": "55-64",
+            "observedShare": 0,
+            "targetMin": 0.04,
+            "targetMax": 0.07,
+            "withinTarget": false
+          },
+          {
+            "band": "65+",
+            "observedShare": 0,
+            "targetMin": 0.02,
+            "targetMax": 0.05,
+            "withinTarget": false
+          }
+        ],
+        "channelCountsByAgeBand": {
+          "0-5": {
+            "ORD": 55119,
+            "INS": 4881,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "6-11": {
+            "ORD": 49198,
+            "INS": 10802,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "12-17": {
+            "ORD": 43588,
+            "INS": 11854,
+            "TRN": 4558,
+            "SPC": 0
+          },
+          "18-24": {
+            "ORD": 38719,
+            "INS": 17985,
+            "TRN": 13296,
+            "SPC": 0
+          },
+          "25-34": {
+            "ORD": 41998,
+            "INS": 29956,
+            "TRN": 28024,
+            "SPC": 0
+          },
+          "35-44": {
+            "ORD": 58524,
+            "INS": 35003,
+            "TRN": 6175,
+            "SPC": 0
+          },
+          "45-54": {
+            "ORD": 78109,
+            "INS": 20925,
+            "TRN": 277,
+            "SPC": 0
+          },
+          "55-64": {
+            "ORD": 87357,
+            "INS": 11840,
+            "TRN": 33,
+            "SPC": 0
+          },
+          "65+": {
+            "ORD": 545761,
+            "INS": 9927,
+            "TRN": 0,
+            "SPC": 0
+          }
+        },
+        "familyCountsByAgeBand": {
+          "0-5": {
+            "ORD/FAM": 55119,
+            "INS/CIV": 4881
+          },
+          "6-11": {
+            "ORD/EDU": 36957,
+            "INS/EDU": 10802,
+            "ORD/SOC": 12241
+          },
+          "12-17": {
+            "TRN/WOOD": 4558,
+            "ORD/EDU": 31504,
+            "INS/EDU": 7593,
+            "ORD/SOC": 12084,
+            "INS/FIN": 4261
+          },
+          "18-24": {
+            "INS/REL": 5333,
+            "ORD/CAR": 13315,
+            "ORD/SOC": 6538,
+            "INS/ACA": 3500,
+            "ORD/HEA": 5471,
+            "TRN/WOOD": 2050,
+            "ORD/FAM": 2426,
+            "INS/MUS": 1612,
+            "INS/CIV": 1456,
+            "ORD/HOU": 5806,
+            "INS/MED": 3707,
+            "INS/COR": 1786,
+            "TRN/METL": 2073,
+            "TRN/GLAS": 2062,
+            "TRN/CERA": 1833,
+            "ORD/CIV": 3323,
+            "TRN/CRYS": 2083,
+            "ORD/EDU": 1615,
+            "INS/FIN": 500,
+            "TRN/STON": 2201,
+            "TRN/TEMP": 994,
+            "ORD/FIN": 225,
+            "INS/LEG": 91
+          },
+          "25-34": {
+            "ORD/HOU": 7319,
+            "ORD/CIV": 3780,
+            "ORD/SOC": 11628,
+            "TRN/CERA": 4040,
+            "INS/MED": 3309,
+            "TRN/CRYS": 4069,
+            "TRN/GLAS": 3977,
+            "ORD/FIN": 1178,
+            "ORD/FAM": 4530,
+            "INS/FIN": 3836,
+            "INS/LEG": 2476,
+            "INS/ACA": 9120,
+            "TRN/TEMP": 3584,
+            "TRN/METL": 3990,
+            "INS/COR": 4030,
+            "ORD/CAR": 7260,
+            "TRN/STON": 4188,
+            "ORD/HEA": 6303,
+            "INS/MUS": 3107,
+            "TRN/WOOD": 4062,
+            "INS/CIV": 2496,
+            "INS/REL": 1558,
+            "TRN/SYNT": 113,
+            "INS/ARC": 24,
+            "TRN/MIXD": 1
+          },
+          "35-44": {
+            "ORD/HOU": 7230,
+            "ORD/SOC": 25838,
+            "TRN/TEMP": 4856,
+            "ORD/FAM": 11570,
+            "TRN/CERA": 158,
+            "INS/MED": 2741,
+            "INS/ACA": 14461,
+            "INS/COR": 3511,
+            "ORD/GEN": 7170,
+            "INS/LEG": 4674,
+            "INS/REL": 994,
+            "ORD/CAR": 3393,
+            "INS/CIV": 4834,
+            "ORD/CIV": 1179,
+            "ORD/FIN": 2144,
+            "INS/MUS": 1548,
+            "INS/FIN": 2070,
+            "TRN/GLAS": 191,
+            "TRN/WOOD": 171,
+            "TRN/CRYS": 175,
+            "TRN/SYNT": 207,
+            "INS/ARC": 170,
+            "TRN/MIXD": 46,
+            "TRN/METL": 178,
+            "TRN/STON": 193
+          },
+          "45-54": {
+            "INS/COR": 1773,
+            "ORD/SOC": 12886,
+            "ORD/CAR": 15146,
+            "INS/REL": 440,
+            "ORD/GEN": 8125,
+            "INS/FIN": 8124,
+            "ORD/FAM": 27374,
+            "ORD/HEA": 14578,
+            "INS/ACA": 1651,
+            "INS/CIV": 5649,
+            "INS/LEG": 1600,
+            "INS/MUS": 268,
+            "TRN/MIXD": 277,
+            "INS/MED": 1262,
+            "INS/ARC": 158
+          },
+          "55-64": {
+            "ORD/FAM": 17627,
+            "ORD/SOC": 15730,
+            "INS/CIV": 9921,
+            "ORD/CAR": 17351,
+            "ORD/HEA": 13840,
+            "ORD/GEN": 22809,
+            "INS/FIN": 1799,
+            "INS/MED": 78,
+            "INS/LEG": 42,
+            "TRN/MIXD": 33
+          },
+          "65+": {
+            "INS/CIV": 9925,
+            "ORD/FAM": 1283,
+            "ORD/SOC": 109080,
+            "ORD/GEN": 435398,
+            "INS/FIN": 1,
+            "INS/MED": 1
+          }
+        },
+        "totalEventYears": 1203909,
+        "fallbackYears": 333377,
+        "fallbackUseRate": 0.27691212541811716,
+        "fallbackYearsAge25Plus": 333377,
+        "fallbackShareAge25Plus": 0.34948511860145987,
+        "pre25FallbackYears": 0,
+        "pre25CoverageDefectRate": 0,
+        "pre25CoverageDefectAges": {},
+        "pre25EmergencyReuseYears": 12963,
+        "routeEntryRate": 1,
+        "routeEntryCountsByRoute": {
+          "ROUTE_REL_INTEREST": 7421,
+          "ROUTE_COR_EMPLOYEE": 6245,
+          "ROUTE_ACA_RESEARCH": 6758,
+          "ROUTE_MED_SCREENED": 7397,
+          "ROUTE_FAM_PLACEMENT": 8207,
+          "ROUTE_MED_PRESERVATION_CONSULT": 3063,
+          "ROUTE_ACA_SPECIALIZATION": 5438,
+          "ROUTE_ACA_CONTINUITY": 2972,
+          "ROUTE_MED_DIRECTIVE": 1817,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 2972,
+          "ROUTE_REL_CLAIM": 902,
+          "ROUTE_MUS_INTEREST": 5750,
+          "ROUTE_FIN_VALUED": 5188,
+          "ROUTE_FAM_DIRECTIVE": 6128,
+          "ROUTE_TEMP_STUDY": 5335,
+          "ROUTE_ACA_TENURE_TRACK": 2883,
+          "ROUTE_ACA_TENURE_REVIEW": 2881,
+          "ROUTE_COR_PRESERVATION_PLAN": 2908,
+          "ROUTE_COR_CONTRACT": 2908,
+          "ROUTE_CIV_SERVICE": 7233,
+          "ROUTE_CIV_MEMORIAL": 6424,
+          "ROUTE_CIV_REBRANDED": 5699,
+          "ROUTE_ACA_MATERIALS": 1943,
+          "ROUTE_ACA_MATERIALS_EXPOSED": 1943,
+          "ROUTE_MED_SYNTH_OPTION": 746,
+          "ROUTE_MUS_APPRAISED": 450,
+          "ROUTE_LEG_STATUS_CASE": 1288,
+          "ROUTE_MUS_MIXED_OPTION": 357,
+          "ROUTE_LEG_STATUS_RESOLVED": 1283,
+          "ROUTE_COR_LEGAL_REVIEW": 570,
+          "ROUTE_FIN_SECURED_DEBT": 1268,
+          "ROUTE_ARC_STRUCTURAL": 351,
+          "ROUTE_ACA_POLICY": 523,
+          "ROUTE_ACA_POLICY_EXPOSED": 522,
+          "ROUTE_FIN_LEGAL_REVIEW": 22
+        },
+        "routeClimaxRate": 0.0077,
+        "routeClimaxCountsByEvent": {
+          "EVT-INS-MED-0003": 63,
+          "EVT-ORD-FAM-0004": 2,
+          "EVT-INS-COR-0003": 2,
+          "EVT-INS-MUS-0003": 4,
+          "EVT-INS-CIV-0006": 1,
+          "EVT-INS-ARC-0002": 1,
+          "EVT-INS-MUS-0005": 1,
+          "EVT-INS-REL-0003": 2,
+          "EVT-TRN-TEMP-0002": 1
+        },
+        "routeAbandonmentRate": 0.9857,
+        "expiredScheduleCount": 30382,
+        "expiredSchedulesByEvent": {
+          "EVT-INS-MED-0003": 3055,
+          "EVT-INS-REL-0003": 890,
+          "EVT-ORD-FAM-0004": 6113,
+          "EVT-TRN-TEMP-0002": 5325,
+          "EVT-INS-ACA-0005": 2880,
+          "EVT-INS-COR-0003": 2903,
+          "EVT-INS-CIV-0006": 6407,
+          "EVT-TRN-SYNT-0001": 426,
+          "EVT-INS-MUS-0003": 437,
+          "EVT-INS-MUS-0005": 334,
+          "EVT-INS-FIN-0005": 1266,
+          "EVT-INS-ARC-0002": 346
+        },
+        "priorityCollisionRate": 0.0105,
+        "priorityCollisionYears": 106,
+        "scheduleDisplacementCount": 107,
+        "scheduleDisplacementPerRun": 0.0107,
+        "finalMaterialDistribution": {
+          "CERA": 218,
+          "NONE": 7789,
+          "MIXD": 357,
+          "WOOD": 249,
+          "CRYS": 265,
+          "GLAS": 277,
+          "SYNT": 261,
+          "STON": 307,
+          "METL": 276,
+          "TEMP": 1
+        },
+        "finalMaterialBySpecies": {
+          "HUMAN": {
+            "CERA": 48,
+            "NONE": 1302,
+            "STON": 35,
+            "GLAS": 46,
+            "METL": 42,
+            "MIXD": 55,
+            "SYNT": 41,
+            "CRYS": 52,
+            "WOOD": 46
+          },
+          "ELF": {
+            "NONE": 1314,
+            "MIXD": 55,
+            "CERA": 38,
+            "GLAS": 43,
+            "METL": 18,
+            "CRYS": 43,
+            "STON": 41,
+            "SYNT": 55,
+            "WOOD": 59,
+            "TEMP": 1
+          },
+          "DWARF": {
+            "NONE": 1293,
+            "WOOD": 46,
+            "CRYS": 18,
+            "GLAS": 26,
+            "CERA": 36,
+            "SYNT": 37,
+            "STON": 76,
+            "METL": 76,
+            "MIXD": 59
+          },
+          "WINGED_KIN": {
+            "NONE": 1332,
+            "WOOD": 37,
+            "SYNT": 34,
+            "STON": 58,
+            "MIXD": 56,
+            "GLAS": 50,
+            "CRYS": 45,
+            "METL": 27,
+            "CERA": 28
+          },
+          "DEMONKIN": {
+            "NONE": 1271,
+            "SYNT": 57,
+            "STON": 52,
+            "WOOD": 30,
+            "MIXD": 66,
+            "CRYS": 42,
+            "METL": 47,
+            "GLAS": 73,
+            "CERA": 28
+          },
+          "DRAGONKIN": {
+            "NONE": 1277,
+            "CERA": 40,
+            "CRYS": 65,
+            "SYNT": 37,
+            "GLAS": 39,
+            "METL": 66,
+            "MIXD": 66,
+            "STON": 45,
+            "WOOD": 31
+          }
+        },
+        "materialCommitmentRate": 0.2211,
+        "materialEntropyBitsOverall": 1.4233786504223354,
+        "materialEntropyBitsBySpecies": {
+          "HUMAN": 1.412416733497614,
+          "ELF": 1.3709839634950298,
+          "DWARF": 1.409646120811924,
+          "WINGED_KIN": 1.3159091936523275,
+          "DEMONKIN": 1.485322401650449,
+          "DRAGONKIN": 1.471341857389098
+        },
+        "pFinalGivenHint": {
+          "STON": {
+            "hintRuns": 880,
+            "sameMaterial": 36,
+            "probability": 0.04090909090909091
+          },
+          "WOOD": {
+            "hintRuns": 914,
+            "sameMaterial": 41,
+            "probability": 0.044857768052516414
+          },
+          "GLAS": {
+            "hintRuns": 743,
+            "sameMaterial": 33,
+            "probability": 0.04441453566621804
+          },
+          "CRYS": {
+            "hintRuns": 682,
+            "sameMaterial": 16,
+            "probability": 0.02346041055718475
+          },
+          "METL": {
+            "hintRuns": 878,
+            "sameMaterial": 42,
+            "probability": 0.04783599088838269
+          }
+        },
+        "pFinalGivenFirstManifestation": {
+          "WOOD": {
+            "manifestationRuns": 5300,
+            "sameMaterial": 150,
+            "probability": 0.02830188679245283
+          },
+          "METL": {
+            "manifestationRuns": 896,
+            "sameMaterial": 35,
+            "probability": 0.0390625
+          },
+          "CRYS": {
+            "manifestationRuns": 880,
+            "sameMaterial": 23,
+            "probability": 0.026136363636363635
+          },
+          "GLAS": {
+            "manifestationRuns": 867,
+            "sameMaterial": 35,
+            "probability": 0.040369088811995385
+          },
+          "STON": {
+            "manifestationRuns": 926,
+            "sameMaterial": 38,
+            "probability": 0.04103671706263499
+          },
+          "CERA": {
+            "manifestationRuns": 757,
+            "sameMaterial": 25,
+            "probability": 0.03302509907529723
+          },
+          "TEMP": {
+            "manifestationRuns": 372,
+            "sameMaterial": 0,
+            "probability": 0
+          }
+        },
+        "multipleManifestationBeforeCommitmentRate": 0.9918,
+        "averageHintAge": 9.44422748352453,
+        "averageFirstManifestationAge": 18.315563112622524,
+        "averageCommitmentAge": 34.90637720488467,
+        "talentActivationRate": {
+          "T1027": 1,
+          "T1008": 1,
+          "T1010": 1,
+          "T1018": 1,
+          "T1009": 0.8950495049504951,
+          "T1004": 0,
+          "T1014": 1,
+          "T1021": 1,
+          "T1017": 0.7597208374875374,
+          "T1020": 0,
+          "T1015": 0,
+          "T1025": 0,
+          "T1012": 1,
+          "T1006": 1,
+          "T1002": 0.9990147783251232,
+          "T1023": 0,
+          "T1007": 0.9018218623481782,
+          "T1024": 0,
+          "T1005": 1,
+          "T1029": 0,
+          "T1003": 1,
+          "T1028": 0,
+          "T1026": 0,
+          "T1001": 1,
+          "T1013": 0,
+          "T1030": 1,
+          "T1022": 0,
+          "T1016": 1,
+          "T1011": 0,
+          "T1019": 0
+        },
+        "talentActivationAverageAge": {
+          "T1027": 0,
+          "T1008": 0,
+          "T1010": 0,
+          "T1018": 0,
+          "T1009": 6.730088495575221,
+          "T1004": null,
+          "T1014": 0,
+          "T1021": 0,
+          "T1017": 91.70734908136482,
+          "T1020": null,
+          "T1015": null,
+          "T1025": null,
+          "T1012": 0,
+          "T1006": 0,
+          "T1002": 4.433925049309665,
+          "T1023": null,
+          "T1007": 15.103254769921437,
+          "T1024": null,
+          "T1005": 0,
+          "T1029": null,
+          "T1003": 0,
+          "T1028": null,
+          "T1026": null,
+          "T1001": 0,
+          "T1013": null,
+          "T1030": 0,
+          "T1022": null,
+          "T1016": 0,
+          "T1011": null,
+          "T1019": null
+        },
+        "endingDistribution": {
+          "END-MED-001": 57,
+          "END-FAM-001": 2,
+          "END-COR-001": 1,
+          "END-MED-002": 6,
+          "END-MUS-002": 2,
+          "END-LEG-001": 2,
+          "END-CIV-001": 1,
+          "END-ARC-001": 1,
+          "END-MUS-001": 1,
+          "END-MUS-004": 1,
+          "END-REL-001": 2,
+          "END-TMP-001": 1
+        },
+        "distinctEndingsObserved": 12,
+        "distinctEndingsInRegistry": 24,
+        "endingCoverageShare": 0.5,
+        "hiddenEndingRate": 0,
+        "rareEndingRate": 0.12987012987012986,
+        "finalStatMeans": {
+          "CHR": 2.7513,
+          "INT": 20.2911,
+          "STR": -2.4875,
+          "MNY": 3.5129,
+          "SPR": 53.3532,
+          "FIX": 28.4905
+        },
+        "finalFixPercentiles": {
+          "p50": 27,
+          "p90": 45,
+          "p99": 51,
+          "max": 61
+        },
+        "guardrails": [
+          {
+            "id": "fallback-share",
+            "severity": "warning",
+            "message": "Age-25+ fallback share 34.9% exceeds the warning threshold 5.0% (target 2.0%)."
+          },
+          {
+            "id": "ending-age-share-18-24",
+            "severity": "warning",
+            "message": "Ending age band 18-24: observed 0.0% vs target 18-22%."
+          },
+          {
+            "id": "ending-age-share-25-34",
+            "severity": "warning",
+            "message": "Ending age band 25-34: observed 11.7% vs target 35-40%."
+          },
+          {
+            "id": "ending-age-share-35-44",
+            "severity": "warning",
+            "message": "Ending age band 35-44: observed 54.5% vs target 20-25%."
+          },
+          {
+            "id": "ending-age-share-45-54",
+            "severity": "warning",
+            "message": "Ending age band 45-54: observed 33.8% vs target 8-12%."
+          },
+          {
+            "id": "ending-age-share-55-64",
+            "severity": "warning",
+            "message": "Ending age band 55-64: observed 0.0% vs target 4-7%."
+          },
+          {
+            "id": "ending-age-share-65+",
+            "severity": "warning",
+            "message": "Ending age band 65+: observed 0.0% vs target 2-5%."
+          },
+          {
+            "id": "nonterminal-rate",
+            "severity": "failure",
+            "message": "9923/10000 runs (99.2%) reached the diagnostic maximum age without an ending."
+          }
+        ]
+      }
+    },
+    {
+      "scenarioId": "TARGETED_THRESHOLD_TALENT_CASES",
+      "scenarioLabel": "threshold-talents",
+      "scenarioDescription": "All three chosen talents are threshold_once, exercising mid-life activation.",
+      "options": {
+        "runs": 10000,
+        "baseSeed": "phase1",
+        "speciesStratified": true,
+        "fixedSpecies": null,
+        "maxAge": 120,
+        "pre25CoveragePolicy": "reuse_baseline_repeatables"
+      },
+      "metrics": {
+        "runs": 10000,
+        "completed": 8,
+        "nonterminal": 9992,
+        "coverageErrors": 0,
+        "completedRate": 0.0008,
+        "nonterminalRate": 0.9992,
+        "coverageErrorRate": 0,
+        "averageRunLengthYears": 120.9386,
+        "averageEndingAge": 43.25,
+        "medianEndingAge": 43.5,
+        "endingAgeP10": 41,
+        "endingAgeP90": 46,
+        "endingAgeHistogram": {
+          "35-44": 4,
+          "45-54": 4
+        },
+        "endingAgeShareByTargetBucket": [
+          {
+            "band": "18-24",
+            "observedShare": 0,
+            "targetMin": 0.18,
+            "targetMax": 0.22,
+            "withinTarget": false
+          },
+          {
+            "band": "25-34",
+            "observedShare": 0,
+            "targetMin": 0.35,
+            "targetMax": 0.4,
+            "withinTarget": false
+          },
+          {
+            "band": "35-44",
+            "observedShare": 0.5,
+            "targetMin": 0.2,
+            "targetMax": 0.25,
+            "withinTarget": false
+          },
+          {
+            "band": "45-54",
+            "observedShare": 0.5,
+            "targetMin": 0.08,
+            "targetMax": 0.12,
+            "withinTarget": false
+          },
+          {
+            "band": "55-64",
+            "observedShare": 0,
+            "targetMin": 0.04,
+            "targetMax": 0.07,
+            "withinTarget": false
+          },
+          {
+            "band": "65+",
+            "observedShare": 0,
+            "targetMin": 0.02,
+            "targetMax": 0.05,
+            "withinTarget": false
+          }
+        ],
+        "channelCountsByAgeBand": {
+          "0-5": {
+            "ORD": 55136,
+            "INS": 4864,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "6-11": {
+            "ORD": 49270,
+            "INS": 10730,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "12-17": {
+            "ORD": 43795,
+            "INS": 11731,
+            "TRN": 4474,
+            "SPC": 0
+          },
+          "18-24": {
+            "ORD": 38679,
+            "INS": 18163,
+            "TRN": 13158,
+            "SPC": 0
+          },
+          "25-34": {
+            "ORD": 41771,
+            "INS": 30326,
+            "TRN": 27903,
+            "SPC": 0
+          },
+          "35-44": {
+            "ORD": 59148,
+            "INS": 34596,
+            "TRN": 6244,
+            "SPC": 0
+          },
+          "45-54": {
+            "ORD": 79796,
+            "INS": 19973,
+            "TRN": 157,
+            "SPC": 0
+          },
+          "55-64": {
+            "ORD": 88226,
+            "INS": 11669,
+            "TRN": 25,
+            "SPC": 0
+          },
+          "65+": {
+            "ORD": 549556,
+            "INS": 9996,
+            "TRN": 0,
+            "SPC": 0
+          }
+        },
+        "familyCountsByAgeBand": {
+          "0-5": {
+            "ORD/FAM": 55136,
+            "INS/CIV": 4864
+          },
+          "6-11": {
+            "ORD/EDU": 36240,
+            "ORD/SOC": 13030,
+            "INS/EDU": 10730
+          },
+          "12-17": {
+            "ORD/SOC": 13007,
+            "ORD/EDU": 30788,
+            "INS/EDU": 7455,
+            "INS/FIN": 4276,
+            "TRN/WOOD": 4474
+          },
+          "18-24": {
+            "ORD/CAR": 12834,
+            "ORD/HEA": 5283,
+            "INS/MED": 3787,
+            "INS/REL": 5385,
+            "INS/MUS": 1511,
+            "TRN/METL": 1931,
+            "TRN/CRYS": 1997,
+            "INS/ACA": 3486,
+            "ORD/SOC": 7400,
+            "TRN/TEMP": 983,
+            "TRN/WOOD": 2085,
+            "ORD/CIV": 3428,
+            "ORD/HOU": 5540,
+            "TRN/GLAS": 2025,
+            "TRN/CERA": 1871,
+            "ORD/EDU": 1644,
+            "ORD/FAM": 2495,
+            "INS/CIV": 1416,
+            "TRN/STON": 2266,
+            "INS/COR": 1935,
+            "INS/FIN": 541,
+            "ORD/FIN": 55,
+            "INS/LEG": 102
+          },
+          "25-34": {
+            "ORD/HOU": 6968,
+            "ORD/HEA": 6327,
+            "TRN/STON": 4117,
+            "ORD/FAM": 4357,
+            "ORD/CAR": 7143,
+            "TRN/CERA": 4016,
+            "TRN/GLAS": 3906,
+            "INS/LEG": 2403,
+            "TRN/WOOD": 3959,
+            "TRN/TEMP": 3615,
+            "INS/FIN": 4008,
+            "ORD/SOC": 13040,
+            "INS/CIV": 2546,
+            "TRN/CRYS": 4195,
+            "INS/MED": 3049,
+            "INS/MUS": 3001,
+            "TRN/METL": 4045,
+            "INS/ACA": 9465,
+            "ORD/CIV": 3633,
+            "INS/COR": 4307,
+            "INS/REL": 1541,
+            "ORD/FIN": 303,
+            "TRN/SYNT": 50,
+            "INS/ARC": 6
+          },
+          "35-44": {
+            "ORD/SOC": 27985,
+            "ORD/FAM": 11424,
+            "ORD/HOU": 7211,
+            "INS/ACA": 14885,
+            "INS/COR": 3811,
+            "INS/MUS": 1461,
+            "ORD/CIV": 1173,
+            "INS/LEG": 4259,
+            "INS/MED": 2381,
+            "ORD/GEN": 7074,
+            "TRN/MIXD": 27,
+            "ORD/CAR": 3443,
+            "INS/CIV": 5093,
+            "TRN/TEMP": 5180,
+            "TRN/CRYS": 154,
+            "INS/FIN": 1691,
+            "ORD/FIN": 838,
+            "TRN/WOOD": 134,
+            "INS/REL": 894,
+            "TRN/SYNT": 155,
+            "TRN/STON": 151,
+            "TRN/GLAS": 152,
+            "TRN/CERA": 130,
+            "INS/ARC": 121,
+            "TRN/METL": 161
+          },
+          "45-54": {
+            "ORD/CAR": 15085,
+            "ORD/FAM": 27483,
+            "ORD/HEA": 14861,
+            "ORD/SOC": 14075,
+            "INS/FIN": 8364,
+            "ORD/GEN": 8292,
+            "INS/MED": 892,
+            "INS/CIV": 5582,
+            "INS/ACA": 1730,
+            "INS/REL": 311,
+            "INS/LEG": 1242,
+            "INS/COR": 1550,
+            "INS/ARC": 141,
+            "TRN/MIXD": 157,
+            "INS/MUS": 161
+          },
+          "55-64": {
+            "ORD/CAR": 17606,
+            "ORD/SOC": 15513,
+            "INS/CIV": 9992,
+            "ORD/HEA": 13817,
+            "ORD/FAM": 17952,
+            "ORD/GEN": 23338,
+            "INS/FIN": 1627,
+            "TRN/MIXD": 25,
+            "INS/MED": 42,
+            "INS/LEG": 8
+          },
+          "65+": {
+            "ORD/SOC": 109887,
+            "INS/CIV": 9992,
+            "ORD/GEN": 438420,
+            "ORD/FAM": 1249,
+            "INS/MED": 3,
+            "INS/FIN": 1
+          }
+        },
+        "totalEventYears": 1209386,
+        "fallbackYears": 337214,
+        "fallbackUseRate": 0.27883074551880044,
+        "fallbackYearsAge25Plus": 337214,
+        "fallbackShareAge25Plus": 0.3514893900890778,
+        "pre25FallbackYears": 0,
+        "pre25CoverageDefectRate": 0,
+        "pre25CoverageDefectAges": {},
+        "pre25EmergencyReuseYears": 12973,
+        "routeEntryRate": 1,
+        "routeEntryCountsByRoute": {
+          "ROUTE_MED_SCREENED": 7528,
+          "ROUTE_REL_INTEREST": 7490,
+          "ROUTE_MUS_INTEREST": 5645,
+          "ROUTE_COR_EMPLOYEE": 6080,
+          "ROUTE_FAM_PLACEMENT": 8138,
+          "ROUTE_FAM_DIRECTIVE": 6113,
+          "ROUTE_ACA_RESEARCH": 6825,
+          "ROUTE_TEMP_STUDY": 5611,
+          "ROUTE_FIN_VALUED": 5835,
+          "ROUTE_CIV_SERVICE": 7180,
+          "ROUTE_ACA_SPECIALIZATION": 5522,
+          "ROUTE_ACA_CONTINUITY": 2788,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 2788,
+          "ROUTE_MED_PRESERVATION_CONSULT": 4239,
+          "ROUTE_MUS_APPRAISED": 280,
+          "ROUTE_MED_DIRECTIVE": 1338,
+          "ROUTE_LEG_STATUS_CASE": 928,
+          "ROUTE_LEG_STATUS_RESOLVED": 927,
+          "ROUTE_MUS_MIXED_OPTION": 209,
+          "ROUTE_CIV_MEMORIAL": 6512,
+          "ROUTE_ACA_TENURE_TRACK": 3043,
+          "ROUTE_CIV_REBRANDED": 5805,
+          "ROUTE_ACA_TENURE_REVIEW": 3043,
+          "ROUTE_COR_PRESERVATION_PLAN": 3121,
+          "ROUTE_COR_CONTRACT": 3121,
+          "ROUTE_MED_SYNTH_OPTION": 632,
+          "ROUTE_REL_CLAIM": 641,
+          "ROUTE_ACA_MATERIALS": 2734,
+          "ROUTE_ACA_MATERIALS_EXPOSED": 2734,
+          "ROUTE_ARC_STRUCTURAL": 268,
+          "ROUTE_FIN_SECURED_DEBT": 437
+        },
+        "routeClimaxRate": 0.0008,
+        "routeClimaxCountsByEvent": {
+          "EVT-INS-MED-0003": 8
+        },
+        "routeAbandonmentRate": 0.9913,
+        "expiredScheduleCount": 30944,
+        "expiredSchedulesByEvent": {
+          "EVT-ORD-FAM-0004": 6111,
+          "EVT-TRN-TEMP-0002": 5610,
+          "EVT-INS-MED-0003": 4304,
+          "EVT-INS-MUS-0003": 273,
+          "EVT-INS-MUS-0005": 201,
+          "EVT-INS-CIV-0006": 6512,
+          "EVT-INS-ACA-0005": 3042,
+          "EVT-INS-COR-0003": 3121,
+          "EVT-TRN-SYNT-0001": 427,
+          "EVT-INS-REL-0003": 640,
+          "EVT-INS-ARC-0002": 267,
+          "EVT-INS-FIN-0005": 436
+        },
+        "priorityCollisionRate": 0.0074,
+        "priorityCollisionYears": 75,
+        "scheduleDisplacementCount": 75,
+        "scheduleDisplacementPerRun": 0.0075,
+        "finalMaterialDistribution": {
+          "NONE": 8421,
+          "STON": 224,
+          "MIXD": 209,
+          "CRYS": 204,
+          "METL": 218,
+          "CERA": 174,
+          "WOOD": 171,
+          "SYNT": 176,
+          "GLAS": 203
+        },
+        "finalMaterialBySpecies": {
+          "HUMAN": {
+            "NONE": 1376,
+            "WOOD": 36,
+            "CERA": 30,
+            "CRYS": 43,
+            "METL": 35,
+            "SYNT": 36,
+            "MIXD": 44,
+            "GLAS": 29,
+            "STON": 38
+          },
+          "ELF": {
+            "STON": 25,
+            "NONE": 1410,
+            "WOOD": 37,
+            "CRYS": 35,
+            "SYNT": 38,
+            "GLAS": 33,
+            "CERA": 29,
+            "METL": 22,
+            "MIXD": 38
+          },
+          "DWARF": {
+            "MIXD": 26,
+            "CRYS": 21,
+            "NONE": 1412,
+            "SYNT": 24,
+            "STON": 58,
+            "GLAS": 22,
+            "METL": 50,
+            "CERA": 29,
+            "WOOD": 25
+          },
+          "WINGED_KIN": {
+            "NONE": 1416,
+            "SYNT": 27,
+            "GLAS": 32,
+            "MIXD": 25,
+            "STON": 41,
+            "CERA": 33,
+            "WOOD": 26,
+            "CRYS": 40,
+            "METL": 27
+          },
+          "DEMONKIN": {
+            "NONE": 1407,
+            "METL": 40,
+            "SYNT": 23,
+            "WOOD": 21,
+            "MIXD": 43,
+            "GLAS": 53,
+            "CRYS": 22,
+            "STON": 28,
+            "CERA": 29
+          },
+          "DRAGONKIN": {
+            "NONE": 1400,
+            "CERA": 24,
+            "GLAS": 34,
+            "CRYS": 43,
+            "STON": 34,
+            "MIXD": 33,
+            "METL": 44,
+            "WOOD": 26,
+            "SYNT": 28
+          }
+        },
+        "materialCommitmentRate": 0.1579,
+        "materialEntropyBitsOverall": 1.1018398750996383,
+        "materialEntropyBitsBySpecies": {
+          "HUMAN": 1.1893289732233396,
+          "ELF": 1.0789510782674878,
+          "DWARF": 1.0593511244120555,
+          "WINGED_KIN": 1.0592453575682685,
+          "DEMONKIN": 1.077538909664867,
+          "DRAGONKIN": 1.1076295389742314
+        },
+        "pFinalGivenHint": {
+          "STON": {
+            "hintRuns": 900,
+            "sameMaterial": 32,
+            "probability": 0.035555555555555556
+          },
+          "CRYS": {
+            "hintRuns": 662,
+            "sameMaterial": 15,
+            "probability": 0.022658610271903322
+          },
+          "GLAS": {
+            "hintRuns": 706,
+            "sameMaterial": 20,
+            "probability": 0.028328611898016998
+          },
+          "METL": {
+            "hintRuns": 882,
+            "sameMaterial": 27,
+            "probability": 0.030612244897959183
+          },
+          "WOOD": {
+            "hintRuns": 923,
+            "sameMaterial": 16,
+            "probability": 0.01733477789815818
+          }
+        },
+        "pFinalGivenFirstManifestation": {
+          "METL": {
+            "manifestationRuns": 834,
+            "sameMaterial": 20,
+            "probability": 0.023980815347721823
+          },
+          "WOOD": {
+            "manifestationRuns": 5216,
+            "sameMaterial": 99,
+            "probability": 0.018980061349693253
+          },
+          "CERA": {
+            "manifestationRuns": 793,
+            "sameMaterial": 11,
+            "probability": 0.013871374527112233
+          },
+          "TEMP": {
+            "manifestationRuns": 396,
+            "sameMaterial": 0,
+            "probability": 0
+          },
+          "STON": {
+            "manifestationRuns": 1012,
+            "sameMaterial": 19,
+            "probability": 0.018774703557312252
+          },
+          "GLAS": {
+            "manifestationRuns": 872,
+            "sameMaterial": 14,
+            "probability": 0.016055045871559634
+          },
+          "CRYS": {
+            "manifestationRuns": 874,
+            "sameMaterial": 13,
+            "probability": 0.014874141876430207
+          }
+        },
+        "multipleManifestationBeforeCommitmentRate": 0.9895,
+        "averageHintAge": 9.429658728210164,
+        "averageFirstManifestationAge": 18.45003501050315,
+        "averageCommitmentAge": 35.79037365421153,
+        "talentActivationRate": {
+          "T1002": 1,
+          "T1007": 0.9967,
+          "T1017": 0.8022
+        },
+        "talentActivationAverageAge": {
+          "T1002": 4.6309,
+          "T1007": 21.367813785492125,
+          "T1017": 91.760907504363
+        },
+        "endingDistribution": {
+          "END-MED-001": 8
+        },
+        "distinctEndingsObserved": 1,
+        "distinctEndingsInRegistry": 24,
+        "endingCoverageShare": 0.041666666666666664,
+        "hiddenEndingRate": 0,
+        "rareEndingRate": 0,
+        "finalStatMeans": {
+          "CHR": 4.9433,
+          "INT": 19.9173,
+          "STR": -3.0242,
+          "MNY": 6.8034,
+          "SPR": 54.4976,
+          "FIX": 26.8651
+        },
+        "finalFixPercentiles": {
+          "p50": 26,
+          "p90": 44,
+          "p99": 49,
+          "max": 52
+        },
+        "guardrails": [
+          {
+            "id": "fallback-share",
+            "severity": "warning",
+            "message": "Age-25+ fallback share 35.1% exceeds the warning threshold 5.0% (target 2.0%)."
+          },
+          {
+            "id": "ending-age-share-18-24",
+            "severity": "warning",
+            "message": "Ending age band 18-24: observed 0.0% vs target 18-22%."
+          },
+          {
+            "id": "ending-age-share-25-34",
+            "severity": "warning",
+            "message": "Ending age band 25-34: observed 0.0% vs target 35-40%."
+          },
+          {
+            "id": "ending-age-share-35-44",
+            "severity": "warning",
+            "message": "Ending age band 35-44: observed 50.0% vs target 20-25%."
+          },
+          {
+            "id": "ending-age-share-45-54",
+            "severity": "warning",
+            "message": "Ending age band 45-54: observed 50.0% vs target 8-12%."
+          },
+          {
+            "id": "ending-age-share-55-64",
+            "severity": "warning",
+            "message": "Ending age band 55-64: observed 0.0% vs target 4-7%."
+          },
+          {
+            "id": "ending-age-share-65+",
+            "severity": "warning",
+            "message": "Ending age band 65+: observed 0.0% vs target 2-5%."
+          },
+          {
+            "id": "nonterminal-rate",
+            "severity": "failure",
+            "message": "9992/10000 runs (99.9%) reached the diagnostic maximum age without an ending."
+          }
+        ]
+      }
+    },
+    {
+      "scenarioId": "TARGETED_MATERIAL_TALENT_CASES",
+      "scenarioLabel": "material-talents",
+      "scenarioDescription": "Talents carrying material/route family hooks (stone, metal, museum).",
+      "options": {
+        "runs": 10000,
+        "baseSeed": "phase1",
+        "speciesStratified": true,
+        "fixedSpecies": null,
+        "maxAge": 120,
+        "pre25CoveragePolicy": "reuse_baseline_repeatables"
+      },
+      "metrics": {
+        "runs": 10000,
+        "completed": 23,
+        "nonterminal": 9977,
+        "coverageErrors": 0,
+        "completedRate": 0.0023,
+        "nonterminalRate": 0.9977,
+        "coverageErrorRate": 0,
+        "averageRunLengthYears": 120.8312,
+        "averageEndingAge": 46.608695652173914,
+        "medianEndingAge": 46,
+        "endingAgeP10": 44,
+        "endingAgeP90": 49,
+        "endingAgeHistogram": {
+          "45-54": 20,
+          "35-44": 3
+        },
+        "endingAgeShareByTargetBucket": [
+          {
+            "band": "18-24",
+            "observedShare": 0,
+            "targetMin": 0.18,
+            "targetMax": 0.22,
+            "withinTarget": false
+          },
+          {
+            "band": "25-34",
+            "observedShare": 0,
+            "targetMin": 0.35,
+            "targetMax": 0.4,
+            "withinTarget": false
+          },
+          {
+            "band": "35-44",
+            "observedShare": 0.13043478260869565,
+            "targetMin": 0.2,
+            "targetMax": 0.25,
+            "withinTarget": false
+          },
+          {
+            "band": "45-54",
+            "observedShare": 0.8695652173913043,
+            "targetMin": 0.08,
+            "targetMax": 0.12,
+            "withinTarget": false
+          },
+          {
+            "band": "55-64",
+            "observedShare": 0,
+            "targetMin": 0.04,
+            "targetMax": 0.07,
+            "withinTarget": false
+          },
+          {
+            "band": "65+",
+            "observedShare": 0,
+            "targetMin": 0.02,
+            "targetMax": 0.05,
+            "withinTarget": false
+          }
+        ],
+        "channelCountsByAgeBand": {
+          "0-5": {
+            "ORD": 55064,
+            "INS": 4936,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "6-11": {
+            "ORD": 49347,
+            "INS": 10653,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "12-17": {
+            "ORD": 43499,
+            "INS": 11976,
+            "TRN": 4525,
+            "SPC": 0
+          },
+          "18-24": {
+            "ORD": 39251,
+            "INS": 17833,
+            "TRN": 12916,
+            "SPC": 0
+          },
+          "25-34": {
+            "ORD": 42295,
+            "INS": 29555,
+            "TRN": 28150,
+            "SPC": 0
+          },
+          "35-44": {
+            "ORD": 58978,
+            "INS": 34732,
+            "TRN": 6290,
+            "SPC": 0
+          },
+          "45-54": {
+            "ORD": 79597,
+            "INS": 19962,
+            "TRN": 271,
+            "SPC": 0
+          },
+          "55-64": {
+            "ORD": 87839,
+            "INS": 11879,
+            "TRN": 52,
+            "SPC": 0
+          },
+          "65+": {
+            "ORD": 548728,
+            "INS": 9984,
+            "TRN": 0,
+            "SPC": 0
+          }
+        },
+        "familyCountsByAgeBand": {
+          "0-5": {
+            "ORD/FAM": 55064,
+            "INS/CIV": 4936
+          },
+          "6-11": {
+            "ORD/EDU": 36286,
+            "INS/EDU": 10653,
+            "ORD/SOC": 13061
+          },
+          "12-17": {
+            "ORD/SOC": 12788,
+            "ORD/EDU": 30711,
+            "INS/EDU": 7641,
+            "TRN/WOOD": 4525,
+            "INS/FIN": 4335
+          },
+          "18-24": {
+            "ORD/HEA": 5409,
+            "INS/REL": 5260,
+            "INS/MED": 3771,
+            "ORD/CAR": 12898,
+            "TRN/STON": 2134,
+            "TRN/CRYS": 1975,
+            "TRN/METL": 1975,
+            "TRN/WOOD": 2073,
+            "ORD/SOC": 7512,
+            "INS/COR": 1706,
+            "TRN/CERA": 1826,
+            "ORD/CIV": 3343,
+            "ORD/HOU": 5567,
+            "TRN/GLAS": 1965,
+            "INS/ACA": 3377,
+            "INS/CIV": 1389,
+            "INS/MUS": 1728,
+            "TRN/TEMP": 968,
+            "INS/FIN": 488,
+            "ORD/FAM": 2510,
+            "ORD/EDU": 1686,
+            "INS/LEG": 114,
+            "ORD/FIN": 326
+          },
+          "25-34": {
+            "INS/MUS": 3383,
+            "ORD/CAR": 6981,
+            "ORD/CIV": 3679,
+            "ORD/HOU": 7059,
+            "TRN/WOOD": 4013,
+            "ORD/SOC": 12671,
+            "TRN/TEMP": 3611,
+            "INS/ACA": 9033,
+            "TRN/GLAS": 4017,
+            "INS/COR": 3866,
+            "INS/FIN": 3913,
+            "ORD/FAM": 4216,
+            "TRN/STON": 4220,
+            "TRN/CERA": 4090,
+            "TRN/METL": 3990,
+            "INS/CIV": 2468,
+            "ORD/HEA": 6161,
+            "INS/MED": 3075,
+            "TRN/CRYS": 4149,
+            "INS/REL": 1570,
+            "INS/LEG": 2243,
+            "ORD/FIN": 1528,
+            "TRN/SYNT": 60,
+            "INS/ARC": 4
+          },
+          "35-44": {
+            "ORD/SOC": 27210,
+            "INS/COR": 3520,
+            "ORD/FAM": 11168,
+            "ORD/GEN": 6804,
+            "INS/CIV": 4914,
+            "INS/ACA": 14543,
+            "TRN/TEMP": 5216,
+            "INS/MED": 2255,
+            "TRN/CERA": 129,
+            "ORD/CAR": 3309,
+            "INS/MUS": 1686,
+            "INS/FIN": 2541,
+            "INS/LEG": 4277,
+            "ORD/FIN": 2417,
+            "ORD/HOU": 6981,
+            "INS/REL": 894,
+            "ORD/CIV": 1089,
+            "TRN/GLAS": 129,
+            "TRN/METL": 152,
+            "TRN/WOOD": 139,
+            "TRN/CRYS": 175,
+            "TRN/MIXD": 47,
+            "INS/ARC": 102,
+            "TRN/SYNT": 154,
+            "TRN/STON": 149
+          },
+          "45-54": {
+            "ORD/SOC": 13940,
+            "ORD/FAM": 27394,
+            "INS/ACA": 1629,
+            "ORD/CAR": 15156,
+            "INS/FIN": 8181,
+            "ORD/HEA": 14696,
+            "ORD/GEN": 8411,
+            "INS/MED": 915,
+            "INS/REL": 314,
+            "INS/MUS": 286,
+            "INS/CIV": 5552,
+            "INS/LEG": 1181,
+            "INS/COR": 1772,
+            "TRN/MIXD": 271,
+            "INS/ARC": 132
+          },
+          "55-64": {
+            "INS/CIV": 9975,
+            "ORD/HEA": 13806,
+            "ORD/SOC": 15647,
+            "ORD/CAR": 17514,
+            "ORD/FAM": 18062,
+            "ORD/GEN": 22810,
+            "TRN/MIXD": 52,
+            "INS/FIN": 1793,
+            "INS/MED": 78,
+            "INS/LEG": 33
+          },
+          "65+": {
+            "ORD/SOC": 109692,
+            "ORD/FAM": 1357,
+            "INS/CIV": 9979,
+            "ORD/GEN": 437678,
+            "INS/FIN": 3,
+            "ORD/CAR": 1,
+            "INS/MED": 2
+          }
+        },
+        "totalEventYears": 1208312,
+        "fallbackYears": 336055,
+        "fallbackUseRate": 0.2781193930044558,
+        "fallbackYearsAge25Plus": 336055,
+        "fallbackShareAge25Plus": 0.35067389326231957,
+        "pre25FallbackYears": 0,
+        "pre25CoverageDefectRate": 0,
+        "pre25CoverageDefectAges": {},
+        "pre25EmergencyReuseYears": 12899,
+        "routeEntryRate": 1,
+        "routeEntryCountsByRoute": {
+          "ROUTE_REL_INTEREST": 7441,
+          "ROUTE_MED_SCREENED": 7477,
+          "ROUTE_COR_EMPLOYEE": 6114,
+          "ROUTE_MUS_INTEREST": 6546,
+          "ROUTE_CIV_SERVICE": 7073,
+          "ROUTE_ACA_RESEARCH": 6622,
+          "ROUTE_CIV_MEMORIAL": 6339,
+          "ROUTE_ACA_SPECIALIZATION": 5335,
+          "ROUTE_ACA_CONTINUITY": 2695,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 2695,
+          "ROUTE_ACA_TENURE_TRACK": 2875,
+          "ROUTE_CIV_REBRANDED": 5673,
+          "ROUTE_ACA_TENURE_REVIEW": 2875,
+          "ROUTE_COR_PRESERVATION_PLAN": 2786,
+          "ROUTE_FIN_VALUED": 5219,
+          "ROUTE_FAM_PLACEMENT": 7985,
+          "ROUTE_COR_CONTRACT": 2786,
+          "ROUTE_MED_PRESERVATION_CONSULT": 2364,
+          "ROUTE_MUS_APPRAISED": 436,
+          "ROUTE_MED_DIRECTIVE": 1282,
+          "ROUTE_REL_CLAIM": 597,
+          "ROUTE_MUS_MIXED_OPTION": 370,
+          "ROUTE_FAM_DIRECTIVE": 5939,
+          "ROUTE_LEG_STATUS_CASE": 877,
+          "ROUTE_LEG_STATUS_RESOLVED": 873,
+          "ROUTE_TEMP_STUDY": 5540,
+          "ROUTE_ACA_MATERIALS": 2640,
+          "ROUTE_ACA_MATERIALS_EXPOSED": 2640,
+          "ROUTE_MED_SYNTH_OPTION": 630,
+          "ROUTE_FIN_SECURED_DEBT": 1755,
+          "ROUTE_ARC_STRUCTURAL": 238
+        },
+        "routeClimaxRate": 0.0023,
+        "routeClimaxCountsByEvent": {
+          "EVT-INS-MED-0003": 23
+        },
+        "routeAbandonmentRate": 0.9873,
+        "expiredScheduleCount": 29584,
+        "expiredSchedulesByEvent": {
+          "EVT-INS-CIV-0006": 6336,
+          "EVT-INS-ACA-0005": 2875,
+          "EVT-INS-COR-0003": 2786,
+          "EVT-INS-MED-0003": 2357,
+          "EVT-INS-MUS-0003": 419,
+          "EVT-INS-REL-0003": 590,
+          "EVT-INS-MUS-0005": 348,
+          "EVT-ORD-FAM-0004": 5931,
+          "EVT-TRN-TEMP-0002": 5533,
+          "EVT-TRN-SYNT-0001": 416,
+          "EVT-INS-FIN-0005": 1755,
+          "EVT-INS-ARC-0002": 238
+        },
+        "priorityCollisionRate": 0.0088,
+        "priorityCollisionYears": 90,
+        "scheduleDisplacementCount": 90,
+        "scheduleDisplacementPerRun": 0.009,
+        "finalMaterialDistribution": {
+          "NONE": 8435,
+          "MIXD": 370,
+          "GLAS": 168,
+          "CERA": 128,
+          "METL": 197,
+          "WOOD": 155,
+          "CRYS": 159,
+          "SYNT": 176,
+          "STON": 212
+        },
+        "finalMaterialBySpecies": {
+          "HUMAN": {
+            "NONE": 1396,
+            "CRYS": 24,
+            "CERA": 19,
+            "STON": 40,
+            "GLAS": 28,
+            "METL": 40,
+            "MIXD": 56,
+            "SYNT": 31,
+            "WOOD": 33
+          },
+          "ELF": {
+            "MIXD": 80,
+            "NONE": 1409,
+            "SYNT": 33,
+            "METL": 10,
+            "WOOD": 35,
+            "CRYS": 28,
+            "GLAS": 25,
+            "CERA": 19,
+            "STON": 28
+          },
+          "DWARF": {
+            "NONE": 1397,
+            "MIXD": 54,
+            "WOOD": 35,
+            "STON": 54,
+            "METL": 54,
+            "SYNT": 28,
+            "CRYS": 14,
+            "CERA": 14,
+            "GLAS": 17
+          },
+          "WINGED_KIN": {
+            "NONE": 1412,
+            "CERA": 26,
+            "METL": 20,
+            "MIXD": 59,
+            "CRYS": 34,
+            "GLAS": 29,
+            "WOOD": 20,
+            "SYNT": 26,
+            "STON": 41
+          },
+          "DEMONKIN": {
+            "GLAS": 41,
+            "NONE": 1411,
+            "SYNT": 39,
+            "STON": 30,
+            "MIXD": 50,
+            "METL": 33,
+            "CRYS": 21,
+            "CERA": 26,
+            "WOOD": 15
+          },
+          "DRAGONKIN": {
+            "NONE": 1410,
+            "WOOD": 17,
+            "METL": 40,
+            "MIXD": 71,
+            "GLAS": 28,
+            "CRYS": 38,
+            "CERA": 24,
+            "STON": 19,
+            "SYNT": 19
+          }
+        },
+        "materialCommitmentRate": 0.1565,
+        "materialEntropyBitsOverall": 1.082860854665792,
+        "materialEntropyBitsBySpecies": {
+          "HUMAN": 1.1166586294386902,
+          "ELF": 1.0511099540091728,
+          "DWARF": 1.0938398865646666,
+          "WINGED_KIN": 1.061534392729285,
+          "DEMONKIN": 1.0639379818003134,
+          "DRAGONKIN": 1.0532113485638097
+        },
+        "pFinalGivenHint": {
+          "WOOD": {
+            "hintRuns": 906,
+            "sameMaterial": 23,
+            "probability": 0.025386313465783666
+          },
+          "STON": {
+            "hintRuns": 866,
+            "sameMaterial": 32,
+            "probability": 0.03695150115473441
+          },
+          "CRYS": {
+            "hintRuns": 656,
+            "sameMaterial": 13,
+            "probability": 0.019817073170731708
+          },
+          "METL": {
+            "hintRuns": 858,
+            "sameMaterial": 24,
+            "probability": 0.027972027972027972
+          },
+          "GLAS": {
+            "hintRuns": 752,
+            "sameMaterial": 20,
+            "probability": 0.026595744680851064
+          }
+        },
+        "pFinalGivenFirstManifestation": {
+          "STON": {
+            "manifestationRuns": 920,
+            "sameMaterial": 20,
+            "probability": 0.021739130434782608
+          },
+          "CRYS": {
+            "manifestationRuns": 845,
+            "sameMaterial": 13,
+            "probability": 0.015384615384615385
+          },
+          "WOOD": {
+            "manifestationRuns": 5349,
+            "sameMaterial": 81,
+            "probability": 0.01514301738642737
+          },
+          "TEMP": {
+            "manifestationRuns": 397,
+            "sameMaterial": 0,
+            "probability": 0
+          },
+          "METL": {
+            "manifestationRuns": 885,
+            "sameMaterial": 19,
+            "probability": 0.021468926553672316
+          },
+          "GLAS": {
+            "manifestationRuns": 836,
+            "sameMaterial": 13,
+            "probability": 0.01555023923444976
+          },
+          "CERA": {
+            "manifestationRuns": 763,
+            "sameMaterial": 3,
+            "probability": 0.003931847968545216
+          }
+        },
+        "multipleManifestationBeforeCommitmentRate": 0.99,
+        "averageHintAge": 9.45641406636949,
+        "averageFirstManifestationAge": 18.449324662331165,
+        "averageCommitmentAge": 35.86261980830671,
+        "talentActivationRate": {
+          "T1011": 0,
+          "T1021": 1,
+          "T1018": 1
+        },
+        "talentActivationAverageAge": {
+          "T1011": null,
+          "T1021": 0,
+          "T1018": 0
+        },
+        "endingDistribution": {
+          "END-MED-001": 23
+        },
+        "distinctEndingsObserved": 1,
+        "distinctEndingsInRegistry": 24,
+        "endingCoverageShare": 0.041666666666666664,
+        "hiddenEndingRate": 0,
+        "rareEndingRate": 0,
+        "finalStatMeans": {
+          "CHR": 8.7885,
+          "INT": 18.9546,
+          "STR": -3.1452,
+          "MNY": 2.5921,
+          "SPR": 54.445,
+          "FIX": 26.947
+        },
+        "finalFixPercentiles": {
+          "p50": 26,
+          "p90": 44,
+          "p99": 50,
+          "max": 53
+        },
+        "guardrails": [
+          {
+            "id": "fallback-share",
+            "severity": "warning",
+            "message": "Age-25+ fallback share 35.1% exceeds the warning threshold 5.0% (target 2.0%)."
+          },
+          {
+            "id": "ending-age-share-18-24",
+            "severity": "warning",
+            "message": "Ending age band 18-24: observed 0.0% vs target 18-22%."
+          },
+          {
+            "id": "ending-age-share-25-34",
+            "severity": "warning",
+            "message": "Ending age band 25-34: observed 0.0% vs target 35-40%."
+          },
+          {
+            "id": "ending-age-share-35-44",
+            "severity": "warning",
+            "message": "Ending age band 35-44: observed 13.0% vs target 20-25%."
+          },
+          {
+            "id": "ending-age-share-45-54",
+            "severity": "warning",
+            "message": "Ending age band 45-54: observed 87.0% vs target 8-12%."
+          },
+          {
+            "id": "ending-age-share-55-64",
+            "severity": "warning",
+            "message": "Ending age band 55-64: observed 0.0% vs target 4-7%."
+          },
+          {
+            "id": "ending-age-share-65+",
+            "severity": "warning",
+            "message": "Ending age band 65+: observed 0.0% vs target 2-5%."
+          },
+          {
+            "id": "nonterminal-rate",
+            "severity": "failure",
+            "message": "9977/10000 runs (99.8%) reached the diagnostic maximum age without an ending."
+          }
+        ]
+      }
+    },
+    {
+      "scenarioId": "TARGETED_ANOMALOUS_TALENT_CASES",
+      "scenarioLabel": "anomalous-talents",
+      "scenarioDescription": "Hidden-FIX, anomalous-continuity and registration-anomaly talents.",
+      "options": {
+        "runs": 10000,
+        "baseSeed": "phase1",
+        "speciesStratified": true,
+        "fixedSpecies": null,
+        "maxAge": 120,
+        "pre25CoveragePolicy": "reuse_baseline_repeatables"
+      },
+      "metrics": {
+        "runs": 10000,
+        "completed": 612,
+        "nonterminal": 9388,
+        "coverageErrors": 0,
+        "completedRate": 0.0612,
+        "nonterminalRate": 0.9388,
+        "coverageErrorRate": 0,
+        "averageRunLengthYears": 116.1452,
+        "averageEndingAge": 40.673202614379086,
+        "medianEndingAge": 41,
+        "endingAgeP10": 34,
+        "endingAgeP90": 46,
+        "endingAgeHistogram": {
+          "45-54": 127,
+          "35-44": 407,
+          "25-34": 70,
+          "55-64": 8
+        },
+        "endingAgeShareByTargetBucket": [
+          {
+            "band": "18-24",
+            "observedShare": 0,
+            "targetMin": 0.18,
+            "targetMax": 0.22,
+            "withinTarget": false
+          },
+          {
+            "band": "25-34",
+            "observedShare": 0.11437908496732026,
+            "targetMin": 0.35,
+            "targetMax": 0.4,
+            "withinTarget": false
+          },
+          {
+            "band": "35-44",
+            "observedShare": 0.6650326797385621,
+            "targetMin": 0.2,
+            "targetMax": 0.25,
+            "withinTarget": false
+          },
+          {
+            "band": "45-54",
+            "observedShare": 0.20751633986928106,
+            "targetMin": 0.08,
+            "targetMax": 0.12,
+            "withinTarget": false
+          },
+          {
+            "band": "55-64",
+            "observedShare": 0.013071895424836602,
+            "targetMin": 0.04,
+            "targetMax": 0.07,
+            "withinTarget": false
+          },
+          {
+            "band": "65+",
+            "observedShare": 0,
+            "targetMin": 0.02,
+            "targetMax": 0.05,
+            "withinTarget": false
+          }
+        ],
+        "channelCountsByAgeBand": {
+          "0-5": {
+            "ORD": 55233,
+            "INS": 4767,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "6-11": {
+            "ORD": 49321,
+            "INS": 10679,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "12-17": {
+            "ORD": 43577,
+            "INS": 11888,
+            "TRN": 4535,
+            "SPC": 0
+          },
+          "18-24": {
+            "ORD": 38423,
+            "INS": 17480,
+            "TRN": 14097,
+            "SPC": 0
+          },
+          "25-34": {
+            "ORD": 42521,
+            "INS": 30286,
+            "TRN": 27100,
+            "SPC": 0
+          },
+          "35-44": {
+            "ORD": 56015,
+            "INS": 35633,
+            "TRN": 5908,
+            "SPC": 0
+          },
+          "45-54": {
+            "ORD": 66462,
+            "INS": 26957,
+            "TRN": 937,
+            "SPC": 0
+          },
+          "55-64": {
+            "ORD": 81414,
+            "INS": 12343,
+            "TRN": 148,
+            "SPC": 0
+          },
+          "65+": {
+            "ORD": 516314,
+            "INS": 9414,
+            "TRN": 0,
+            "SPC": 0
+          }
+        },
+        "familyCountsByAgeBand": {
+          "0-5": {
+            "ORD/FAM": 55233,
+            "INS/CIV": 4767
+          },
+          "6-11": {
+            "ORD/EDU": 37312,
+            "ORD/SOC": 12009,
+            "INS/EDU": 10679
+          },
+          "12-17": {
+            "ORD/EDU": 31663,
+            "ORD/SOC": 11914,
+            "INS/EDU": 7676,
+            "INS/FIN": 4212,
+            "TRN/WOOD": 4535
+          },
+          "18-24": {
+            "INS/REL": 5153,
+            "ORD/HEA": 5405,
+            "TRN/METL": 2218,
+            "TRN/STON": 2370,
+            "ORD/CIV": 3387,
+            "ORD/CAR": 13207,
+            "ORD/FAM": 2500,
+            "TRN/CERA": 1944,
+            "ORD/SOC": 6299,
+            "TRN/WOOD": 2104,
+            "TRN/CRYS": 2205,
+            "ORD/HOU": 5640,
+            "INS/MED": 3789,
+            "INS/COR": 1728,
+            "INS/ACA": 3461,
+            "INS/LEG": 99,
+            "ORD/FIN": 296,
+            "TRN/TEMP": 1084,
+            "TRN/GLAS": 2168,
+            "ORD/EDU": 1689,
+            "INS/MUS": 1456,
+            "INS/CIV": 1372,
+            "INS/FIN": 422,
+            "TRN/SYNT": 4
+          },
+          "25-34": {
+            "TRN/TEMP": 2659,
+            "TRN/WOOD": 3993,
+            "ORD/HEA": 6557,
+            "TRN/GLAS": 3852,
+            "INS/LEG": 2901,
+            "ORD/CAR": 7312,
+            "INS/CIV": 2160,
+            "ORD/SOC": 11470,
+            "ORD/HOU": 7286,
+            "INS/MED": 5354,
+            "TRN/SYNT": 863,
+            "INS/ACA": 7952,
+            "TRN/METL": 3810,
+            "TRN/CRYS": 3980,
+            "ORD/FAM": 4494,
+            "INS/COR": 3781,
+            "TRN/STON": 4265,
+            "TRN/CERA": 3674,
+            "INS/MUS": 2890,
+            "ORD/CIV": 3905,
+            "INS/FIN": 3391,
+            "INS/REL": 1730,
+            "ORD/FIN": 1497,
+            "INS/ARC": 127,
+            "TRN/MIXD": 4
+          },
+          "35-44": {
+            "ORD/CAR": 3390,
+            "ORD/GEN": 6976,
+            "ORD/FAM": 11083,
+            "INS/LEG": 6773,
+            "ORD/HOU": 7008,
+            "ORD/SOC": 24207,
+            "INS/COR": 2567,
+            "INS/ACA": 8738,
+            "INS/MUS": 2654,
+            "INS/MED": 7066,
+            "ORD/CIV": 1085,
+            "TRN/WOOD": 524,
+            "INS/CIV": 3342,
+            "TRN/TEMP": 2336,
+            "INS/FIN": 1717,
+            "TRN/SYNT": 571,
+            "ORD/FIN": 2266,
+            "INS/REL": 2186,
+            "TRN/CERA": 354,
+            "INS/ARC": 590,
+            "TRN/MIXD": 232,
+            "TRN/CRYS": 468,
+            "TRN/GLAS": 419,
+            "TRN/STON": 515,
+            "TRN/METL": 489
+          },
+          "45-54": {
+            "ORD/CAR": 12718,
+            "ORD/HEA": 12603,
+            "ORD/SOC": 10773,
+            "INS/COR": 1624,
+            "ORD/FAM": 23433,
+            "INS/FIN": 6924,
+            "INS/CIV": 4785,
+            "INS/LEG": 5626,
+            "ORD/GEN": 6935,
+            "INS/MED": 4174,
+            "INS/REL": 1371,
+            "INS/ACA": 962,
+            "INS/MUS": 964,
+            "TRN/MIXD": 935,
+            "INS/ARC": 527,
+            "TRN/TEMP": 2
+          },
+          "55-64": {
+            "INS/CIV": 9376,
+            "ORD/FAM": 17628,
+            "ORD/CAR": 16185,
+            "ORD/HEA": 13623,
+            "ORD/SOC": 14906,
+            "ORD/GEN": 19072,
+            "INS/FIN": 2465,
+            "INS/LEG": 142,
+            "TRN/MIXD": 148,
+            "INS/MED": 352,
+            "INS/MUS": 6,
+            "INS/REL": 1,
+            "INS/ACA": 1
+          },
+          "65+": {
+            "ORD/SOC": 103117,
+            "INS/CIV": 9401,
+            "ORD/FAM": 1969,
+            "ORD/GEN": 411227,
+            "INS/MED": 6,
+            "ORD/CAR": 1,
+            "INS/FIN": 7
+          }
+        },
+        "totalEventYears": 1161452,
+        "fallbackYears": 312171,
+        "fallbackUseRate": 0.26877649700547246,
+        "fallbackYearsAge25Plus": 312171,
+        "fallbackShareAge25Plus": 0.3424985627328702,
+        "pre25FallbackYears": 0,
+        "pre25CoverageDefectRate": 0,
+        "pre25CoverageDefectAges": {},
+        "pre25EmergencyReuseYears": 13027,
+        "routeEntryRate": 1,
+        "routeEntryCountsByRoute": {
+          "ROUTE_REL_INTEREST": 7059,
+          "ROUTE_CIV_SERVICE": 7292,
+          "ROUTE_COR_EMPLOYEE": 6173,
+          "ROUTE_FAM_PLACEMENT": 8185,
+          "ROUTE_FAM_DIRECTIVE": 5228,
+          "ROUTE_CIV_MEMORIAL": 5417,
+          "ROUTE_LEG_STATUS_CASE": 4807,
+          "ROUTE_LEG_STATUS_RESOLVED": 4772,
+          "ROUTE_CIV_REBRANDED": 4031,
+          "ROUTE_MED_SCREENED": 7137,
+          "ROUTE_MED_SYNTH_OPTION": 1968,
+          "ROUTE_ACA_RESEARCH": 6109,
+          "ROUTE_MED_DIRECTIVE": 6550,
+          "ROUTE_MED_PRESERVATION_CONSULT": 5047,
+          "ROUTE_ACA_SPECIALIZATION": 4300,
+          "ROUTE_ACA_POLICY": 144,
+          "ROUTE_ACA_POLICY_EXPOSED": 144,
+          "ROUTE_MUS_INTEREST": 4969,
+          "ROUTE_COR_PRESERVATION_PLAN": 2754,
+          "ROUTE_COR_CONTRACT": 2754,
+          "ROUTE_ACA_CONTINUITY": 1446,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 1436,
+          "ROUTE_REL_CLAIM": 3371,
+          "ROUTE_FIN_VALUED": 4582,
+          "ROUTE_ACA_MATERIALS": 2710,
+          "ROUTE_ACA_MATERIALS_EXPOSED": 2709,
+          "ROUTE_ACA_TENURE_TRACK": 1838,
+          "ROUTE_ACA_TENURE_REVIEW": 1826,
+          "ROUTE_TEMP_STUDY": 2751,
+          "ROUTE_FIN_SECURED_DEBT": 1161,
+          "ROUTE_MUS_APPRAISED": 1650,
+          "ROUTE_MUS_MIXED_OPTION": 1322,
+          "ROUTE_ARC_STRUCTURAL": 1242
+        },
+        "routeClimaxRate": 0.0612,
+        "routeClimaxCountsByEvent": {
+          "EVT-INS-MUS-0003": 16,
+          "EVT-INS-MED-0003": 481,
+          "EVT-TRN-TEMP-0002": 30,
+          "EVT-INS-CIV-0006": 21,
+          "EVT-INS-MUS-0005": 13,
+          "EVT-INS-REL-0003": 11,
+          "EVT-ORD-FAM-0004": 24,
+          "EVT-INS-FIN-0005": 5,
+          "EVT-INS-COR-0003": 8,
+          "EVT-INS-ARC-0002": 2,
+          "EVT-INS-ACA-0005": 1
+        },
+        "routeAbandonmentRate": 0.9507,
+        "expiredScheduleCount": 31376,
+        "expiredSchedulesByEvent": {
+          "EVT-ORD-FAM-0004": 5098,
+          "EVT-INS-CIV-0006": 5322,
+          "EVT-INS-MED-0003": 4824,
+          "EVT-INS-COR-0003": 2730,
+          "EVT-INS-REL-0003": 3300,
+          "EVT-TRN-SYNT-0001": 522,
+          "EVT-INS-ACA-0005": 1798,
+          "EVT-TRN-TEMP-0002": 2664,
+          "EVT-INS-FIN-0005": 1131,
+          "EVT-INS-MUS-0003": 1562,
+          "EVT-INS-MUS-0005": 1213,
+          "EVT-INS-ARC-0002": 1212
+        },
+        "priorityCollisionRate": 0.028,
+        "priorityCollisionYears": 284,
+        "scheduleDisplacementCount": 287,
+        "scheduleDisplacementPerRun": 0.0287,
+        "finalMaterialDistribution": {
+          "GLAS": 848,
+          "SYNT": 1182,
+          "CERA": 720,
+          "WOOD": 995,
+          "NONE": 1935,
+          "MIXD": 1319,
+          "CRYS": 927,
+          "STON": 1086,
+          "METL": 958,
+          "TEMP": 30
+        },
+        "finalMaterialBySpecies": {
+          "HUMAN": {
+            "GLAS": 169,
+            "WOOD": 173,
+            "NONE": 329,
+            "MIXD": 235,
+            "SYNT": 200,
+            "CERA": 145,
+            "CRYS": 144,
+            "STON": 130,
+            "METL": 135,
+            "TEMP": 7
+          },
+          "ELF": {
+            "SYNT": 199,
+            "NONE": 327,
+            "WOOD": 282,
+            "STON": 127,
+            "MIXD": 249,
+            "GLAS": 117,
+            "CRYS": 207,
+            "CERA": 102,
+            "METL": 53,
+            "TEMP": 4
+          },
+          "DWARF": {
+            "SYNT": 170,
+            "MIXD": 192,
+            "STON": 275,
+            "METL": 261,
+            "WOOD": 180,
+            "TEMP": 5,
+            "NONE": 322,
+            "GLAS": 70,
+            "CRYS": 70,
+            "CERA": 122
+          },
+          "WINGED_KIN": {
+            "CERA": 126,
+            "SYNT": 215,
+            "NONE": 337,
+            "CRYS": 171,
+            "STON": 247,
+            "GLAS": 123,
+            "METL": 74,
+            "MIXD": 210,
+            "WOOD": 156,
+            "TEMP": 8
+          },
+          "DEMONKIN": {
+            "WOOD": 105,
+            "GLAS": 264,
+            "SYNT": 206,
+            "CERA": 105,
+            "CRYS": 130,
+            "STON": 133,
+            "METL": 184,
+            "MIXD": 226,
+            "NONE": 313
+          },
+          "DRAGONKIN": {
+            "NONE": 307,
+            "CRYS": 205,
+            "STON": 174,
+            "WOOD": 99,
+            "GLAS": 105,
+            "MIXD": 207,
+            "CERA": 120,
+            "METL": 251,
+            "SYNT": 192,
+            "TEMP": 6
+          }
+        },
+        "materialCommitmentRate": 0.8065,
+        "materialEntropyBitsOverall": 3.1297833348179647,
+        "materialEntropyBitsBySpecies": {
+          "HUMAN": 3.12699942433178,
+          "ELF": 3.0217691205556445,
+          "DWARF": 3.0330054664779773,
+          "WINGED_KIN": 3.084383818744318,
+          "DEMONKIN": 3.070202193801412,
+          "DRAGONKIN": 3.1024191020476724
+        },
+        "pFinalGivenHint": {
+          "WOOD": {
+            "hintRuns": 842,
+            "sameMaterial": 154,
+            "probability": 0.1828978622327791
+          },
+          "STON": {
+            "hintRuns": 853,
+            "sameMaterial": 153,
+            "probability": 0.17936694021101993
+          },
+          "CRYS": {
+            "hintRuns": 691,
+            "sameMaterial": 88,
+            "probability": 0.12735166425470332
+          },
+          "METL": {
+            "hintRuns": 886,
+            "sameMaterial": 163,
+            "probability": 0.18397291196388263
+          },
+          "GLAS": {
+            "hintRuns": 746,
+            "sameMaterial": 130,
+            "probability": 0.1742627345844504
+          }
+        },
+        "pFinalGivenFirstManifestation": {
+          "METL": {
+            "manifestationRuns": 850,
+            "sameMaterial": 152,
+            "probability": 0.17882352941176471
+          },
+          "CERA": {
+            "manifestationRuns": 774,
+            "sameMaterial": 113,
+            "probability": 0.14599483204134367
+          },
+          "WOOD": {
+            "manifestationRuns": 5282,
+            "sameMaterial": 698,
+            "probability": 0.1321469140477092
+          },
+          "CRYS": {
+            "manifestationRuns": 879,
+            "sameMaterial": 127,
+            "probability": 0.14448236632536973
+          },
+          "GLAS": {
+            "manifestationRuns": 836,
+            "sameMaterial": 124,
+            "probability": 0.14832535885167464
+          },
+          "STON": {
+            "manifestationRuns": 977,
+            "sameMaterial": 173,
+            "probability": 0.17707267144319344
+          },
+          "TEMP": {
+            "manifestationRuns": 400,
+            "sameMaterial": 3,
+            "probability": 0.0075
+          }
+        },
+        "multipleManifestationBeforeCommitmentRate": 0.9907,
+        "averageHintAge": 9.425335988053758,
+        "averageFirstManifestationAge": 18.42878575715143,
+        "averageCommitmentAge": 33.48332300061996,
+        "talentActivationRate": {
+          "T1027": 1,
+          "T1028": 0,
+          "T1030": 1
+        },
+        "talentActivationAverageAge": {
+          "T1027": 0,
+          "T1028": null,
+          "T1030": 0
+        },
+        "endingDistribution": {
+          "END-MUS-002": 16,
+          "END-MED-001": 481,
+          "END-TMP-001": 30,
+          "END-CIV-001": 20,
+          "END-MUS-004": 13,
+          "END-REL-001": 11,
+          "END-FAM-001": 12,
+          "END-FIN-001": 5,
+          "END-CIV-002": 1,
+          "END-FAM-002": 12,
+          "END-COR-001": 8,
+          "END-ARC-001": 2,
+          "END-ACA-001": 1
+        },
+        "distinctEndingsObserved": 13,
+        "distinctEndingsInRegistry": 24,
+        "endingCoverageShare": 0.5416666666666666,
+        "hiddenEndingRate": 0,
+        "rareEndingRate": 0.08986928104575163,
+        "finalStatMeans": {
+          "CHR": 2.0211,
+          "INT": 20.929,
+          "STR": -1.2928,
+          "MNY": 3.0321,
+          "SPR": 47.3628,
+          "FIX": 42.9816
+        },
+        "finalFixPercentiles": {
+          "p50": 44,
+          "p90": 50,
+          "p99": 55,
+          "max": 62
+        },
+        "guardrails": [
+          {
+            "id": "fallback-share",
+            "severity": "warning",
+            "message": "Age-25+ fallback share 34.2% exceeds the warning threshold 5.0% (target 2.0%)."
+          },
+          {
+            "id": "ending-age-share-18-24",
+            "severity": "warning",
+            "message": "Ending age band 18-24: observed 0.0% vs target 18-22%."
+          },
+          {
+            "id": "ending-age-share-25-34",
+            "severity": "warning",
+            "message": "Ending age band 25-34: observed 11.4% vs target 35-40%."
+          },
+          {
+            "id": "ending-age-share-35-44",
+            "severity": "warning",
+            "message": "Ending age band 35-44: observed 66.5% vs target 20-25%."
+          },
+          {
+            "id": "ending-age-share-45-54",
+            "severity": "warning",
+            "message": "Ending age band 45-54: observed 20.8% vs target 8-12%."
+          },
+          {
+            "id": "ending-age-share-55-64",
+            "severity": "warning",
+            "message": "Ending age band 55-64: observed 1.3% vs target 4-7%."
+          },
+          {
+            "id": "ending-age-share-65+",
+            "severity": "warning",
+            "message": "Ending age band 65+: observed 0.0% vs target 2-5%."
+          },
+          {
+            "id": "nonterminal-rate",
+            "severity": "failure",
+            "message": "9388/10000 runs (93.9%) reached the diagnostic maximum age without an ending."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.DS_Store
+# Generated simulation output. The two Phase-1 deliverable reports are tracked;
+# ad-hoc runs are not.
+reports/*
+!reports/.gitkeep
+!reports/monte-carlo.json
+!reports/monte-carlo.md
+!reports/monte-carlo-strict.json
+!reports/monte-carlo-strict.md
+scratch/

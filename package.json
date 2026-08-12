@@ -1,0 +1,28 @@
+{
+  "name": "solid-state-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Deterministic headless simulation engine for SOLID STATE (Phase 1 / Gate H1).",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate": "tsx src/cli/validate.ts",
+    "mirror:check": "tsx src/cli/mirror.ts check",
+    "simulate": "tsx src/cli/simulate.ts",
+    "verify": "npm run typecheck && npm run validate && npm run mirror:check && npm run test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  }
+}

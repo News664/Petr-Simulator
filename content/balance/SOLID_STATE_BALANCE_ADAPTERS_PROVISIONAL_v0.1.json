@@ -1,0 +1,166 @@
+{
+  "version": "0.1",
+  "status": "PROVISIONAL_SIMULATION_ONLY",
+  "warning": "Engine-side adapter data. This file exists because three canonical registries store qualitative prose where the engine needs codes. It invents no creative content: every entry below is a mechanical mapping of an existing registry string onto an existing taxonomy code, or a numeric simulation input that no canonical file specifies. See docs/PHASE1_CONFLICTS.md. Nothing here is frozen design.",
+  "provenance": {
+    "speciesTendencyFamilyMap": "SOLID_STATE_SPECIES_REGISTRY_v1.1.json primary/secondary/uncommon arrays contain refinement labels (e.g. METL_INDUSTRIAL, STON_FINE) that are not Event Taxonomy v0.2 family codes. See CONFLICT C-1.",
+    "talentAdapters": "SOLID_STATE_TALENT_REGISTRY_v1.0.csv stores channel_hooks/family_hooks as prose labels without polarity. Anticipated by BALANCE_CONSTANTS note 4. See CONFLICT C-2.",
+    "endingAwarenessRules": "SOLID_STATE_ENDING_REGISTRY_v1.0.csv default_awareness holds prose alternatives ('Unconscious; Suspended if temporal'). See CONFLICT C-3.",
+    "routeTagFlagPrefixes": "Route-context favor needs a link from authoring routeTags to TAG_REGISTRY route flag namespaces. See CONFLICT C-4."
+  },
+
+  "engineRules": {
+    "repeatCooldownSemantics": "at_least",
+    "repeatCooldownNote": "An event with cooldown C last resolved at age L is eligible again when AGE - L >= C. Taxonomy v0.2 says 'minimum full chronological years before the same event may recur', which admits both >= C and > C. The canonical content settles it: under >= the age 0-5 band supplies exactly 6 event-years for 6 years of life (3 once_per_run events plus 3 permitted occurrences of EVT-ORD-FAM-0002 at cooldown 2), while under > it supplies 5 and every run hits a pre-25 coverage defect. See ASSUMPTION A-7.",
+    "scheduleWindowSemantics": "earliest_plus_window",
+    "scheduleWindowNote": "earliestAge = triggerAge + offsetYears; latestAge = earliestAge + windowYears (inclusive).",
+    "scheduleValidityIsFireGate": true,
+    "scheduleValidityNote": "validityCondition is evaluated as a fire-time gate, not as a destruction test. Canonical schedules routinely carry conditions that are false at creation time (e.g. 'MAT!=NONE & FIX>=55'). A schedule is discarded only when its window closes. See ASSUMPTION A-4.",
+    "pre25CoveragePolicy": "strict",
+    "pre25CoveragePolicyNote": "strict = a pre-25 empty normal pool ends the run as a content coverage defect, exactly as Taxonomy v0.2 requires. reuse_baseline_repeatables = diagnostic-only escape hatch that re-drafts from routeTag 'baseline' repeatable events ignoring repeatCooldownYears and repeatMaxCount, so the remaining Phase-1 metrics stay measurable while CONFLICT C-5 is open. It never emits a fallback_only event before the fallback minimum age and never alters content.",
+    "pre25CoverageReuseRouteTag": "baseline",
+    "familyWeightMode": "sum_of_event_weights",
+    "familyWeightNote": "Family weight = sum of (weightClassScalar x evidenceScalar) over that family's eligible events. Event weight within the family uses the same product. See ASSUMPTION A-5.",
+    "statClamp": {
+      "visibleMin": null,
+      "visibleMax": null,
+      "fixMin": 0,
+      "fixMax": null
+    },
+    "statClampNote": "No canonical file specifies clamping. Visible stats are unclamped; FIX has a floor of 0 because fixTransformationChannelScalar starts at minFIX 0. See ASSUMPTION A-6.",
+    "speciesTendencyPrecedence": ["primary", "secondary", "uncommon"],
+    "speciesTendencyPrecedenceNote": "When collapsed refinement labels put one family in two tiers for a species (WINGED_KIN: STON_FINE primary vs CONCRETE_CRUDE uncommon), the strongest tier wins.",
+    "startingAllocationRange": { "min": 0, "max": 10 },
+    "startingAllocationNote": "Core Contract section 5: 'ordinary intended starting range is 0-10 before modifiers'.",
+    "diagnosticMaxAge": 120
+  },
+
+  "speciesTendencyFamilyMap": {
+    "STON": "STON",
+    "METL": "METL",
+    "CRYS": "CRYS",
+    "WOOD": "WOOD",
+    "GLAS": "GLAS",
+    "CERA": "CERA",
+    "SYNT": "SYNT",
+    "TEMP": "TEMP",
+    "STON_FINE": "STON",
+    "STON_VOLCANIC": "STON",
+    "CONCRETE": "STON",
+    "CONCRETE_HEAVY": "STON",
+    "CONCRETE_CRUDE": "STON",
+    "METL_INDUSTRIAL": "METL",
+    "METL_INDUSTRIAL_CRUDE": "METL",
+    "METL_PRECIOUS": "METL",
+    "BRONZE": "METL",
+    "CRYS_DELICATE": "CRYS",
+    "CRYS_GEMSTONE": "CRYS",
+    "GLAS_OBSIDIAN": "GLAS",
+    "WOOD_NATURAL": "WOOD",
+    "ARC_COMPOSITE": "SYNT",
+    "SYNT_INDUSTRIAL": "SYNT"
+  },
+  "speciesTendencyUnmapped": {
+    "MAGICAL_SEAL": "DEMONKIN secondary. No Event Taxonomy v0.2 family code corresponds. Contributes no scalar until design assigns one (ANOM is the likely candidate but is not stated anywhere canonical)."
+  },
+
+  "routeTagFlagPrefixes": {
+    "corporate": "ROUTE_COR_",
+    "museum": "ROUTE_MUS_",
+    "medical": "ROUTE_MED_",
+    "finance": "ROUTE_FIN_",
+    "legal": "ROUTE_LEG_",
+    "academic": "ROUTE_ACA_",
+    "civic": "ROUTE_CIV_",
+    "family": "ROUTE_FAM_",
+    "religious": "ROUTE_REL_",
+    "temporal": "ROUTE_TEMP_",
+    "architectural": "ROUTE_ARC_",
+    "education": "EDU_"
+  },
+  "routeTagsWithNoTransformationFavor": ["academic"],
+  "routeTagsWithNoTransformationFavorNote": "EVENT_DRAFTING_RULES v0.2: Comparative Materials 'must not favor one specific final material merely because the route is active'. Two canonical transformation events (EVT-TRN-TEMP-0001/0002) carry the `academic` routeTag, so an unrestricted route-favor scalar would bias the TEMP family for every academic run. These tags therefore grant no route-favor scalar on TRN-channel events; they still apply on ORD/INS/SPC events.",
+  "routeTagsWithoutFlagNamespace": [
+    "baseline",
+    "fallback",
+    "social",
+    "career",
+    "housing",
+    "midlife",
+    "survivor",
+    "species",
+    "debt",
+    "political",
+    "health",
+    "restoration",
+    "research",
+    "materials",
+    "continuity",
+    "industrial",
+    "hidden"
+  ],
+
+  "materialFlagPrefixes": {
+    "hint": "MAT_HINT_",
+    "manifestation": "MAT_MANIFEST_"
+  },
+
+  "talentAdapters": {
+    "_policy": "A channel/family scalar is encoded ONLY where the registry's hidden_effects sentence states a family-level or channel-level Favor / Strongly Favor / Suppress. Sentences using 'unlocks', 'enables', 'may redirect', or hedged scope ('some ... events') grant no drafting scalar; their labels are listed under unmappedHooks verbatim so design can decide later.",
+    "T1001": { "unmappedHooks": ["medical", "investigation"], "sourceText": "Unlocks selected early-detection branches." },
+    "T1002": { "favorChannels": ["ORD"], "favorFamilies": ["COR", "FIN"], "sourceText": "Favors office/corporate ordinary events." },
+    "T1003": { "unmappedHooks": ["medical", "transformation_symptom"], "sourceText": "Suppresses some early overnight symptom-detection events and enables delayed variants." },
+    "T1004": { "favorChannels": ["ORD"], "favorFamilies": ["CIV"], "unmappedHooks": ["outdoor", "memorial"], "sourceText": "Favors parks/public-square events; unlocks rare monument epilogue interactions." },
+    "T1005": {},
+    "T1006": { "unmappedHooks": ["display", "memorial"], "sourceText": "Favors seated/supported Permanent Form variants where authored." },
+    "T1007": { "favorChannels": ["INS"], "favorFamilies": ["SOC", "FIN"], "unmappedHooks": ["luxury"], "sourceText": "Favors selected social and luxury-service branches." },
+    "T1008": {},
+    "T1009": { "favorChannels": ["INS"], "favorFamilies": ["FIN", "MED"], "unmappedHooks": ["insurance"], "sourceText": "Favors lower-cost branches in insurance, treatment, and preservation." },
+    "T1010": { "suppressChannels": ["INS"], "suppressFamilies": ["CIV", "MUS"], "unmappedHooks": ["celebrity"], "sourceText": "Suppresses celebrity, political-symbol, and public-display families." },
+    "T1011": { "favorChannels": ["TRN"], "favorFamilies": ["STON"], "unmappedHooks": ["craft", "restoration"], "sourceText": "Favors stone family; unlocks craft/restoration branches." },
+    "T1012": { "favorChannels": ["INS"], "favorFamilies": ["CIV", "REL", "MUS"], "sourceText": "Favors memorial, ceremonial, modeling, and standing display variants." },
+    "T1013": { "unmappedHooks": ["legal", "finance"], "sourceText": "Unlocks legal branches involving self-ownership, liens, bankruptcy, inheritance, and attached-property disputes." },
+    "T1014": { "favorChannels": ["INS"], "favorFamilies": ["COR"], "sourceText": "Favors promotions and corporate-preservation chains." },
+    "T1015": { "unmappedHooks": ["medical"], "sourceText": "Unlocks alternative automatic branches when irreversible treatment is proposed." },
+    "T1016": { "unmappedHooks": ["symptom", "medical"], "sourceText": "Suppresses some early warning events; favors delayed severe variants." },
+    "T1017": {},
+    "T1018": { "favorChannels": ["INS"], "stronglyFavorFamilies": ["MUS"], "unmappedHooks": ["display", "art"], "sourceText": "Strongly favors museum/display routes, including acquisition and ownership disputes." },
+    "T1019": { "unmappedHooks": ["medical", "temporal", "preservation"], "sourceText": "Authored fatal events may redirect into emergency solidification, temporal suspension, or synthetic/medical preservation." },
+    "T1020": { "unmappedHooks": ["memory", "reincarnation"], "sourceText": "Unlocks stronger AEVT/reincarnation-memory events." },
+    "T1021": { "favorChannels": ["TRN"], "favorFamilies": ["METL", "SOC"], "sourceText": "Favors metal transformation family and selected public/social events." },
+    "T1022": { "unmappedHooks": ["labor", "legal", "corporate"], "sourceText": "Unlocks labor/legal branches; suppresses some unilateral employer outcomes; favors arbitration/strike chains." },
+    "T1023": { "stronglyFavorChannels": ["SPC"], "unmappedHooks": ["rare", "hidden"], "sourceText": "Strongly favors Route/Special channel; reduces uneventful outcomes." },
+    "T1024": { "unmappedHooks": ["legal", "ownership"], "sourceText": "Unlocks self-ownership/personhood branches after Permanent Form." },
+    "T1025": { "registeredSpeciesRule": "UNREGISTERED", "unmappedHooks": ["bureaucracy", "species_registration"], "sourceText": "Institutional events may treat species as unavailable while biological tendencies remain true species." },
+    "T1026": { "unmappedHooks": ["preservation", "finance", "medical"], "sourceText": "Dangerous events may redirect into low-cost permanent preservation with legal/location/maintenance tradeoffs." },
+    "T1027": { "startFIX": 15, "unmappedHooks": ["fracture", "restoration", "anomaly"], "sourceText": "Raises starting FIX; unlocks fracture/restoration/anomalous-material routes and earlier transformation eligibility.", "note": "No canonical file states the magnitude. 15 is a provisional simulation input. See ASSUMPTION A-2." },
+    "T1030": { "registeredSpeciesRule": "SEEDED_OTHER_SPECIES", "unmappedHooks": ["bureaucracy", "species_registration"], "sourceText": "Assigns a different registeredSpecies while keeping true biological species for transformation tendencies.", "note": "The registry does not say WHICH species the certificate names. A seeded uniform pick among the other five is a provisional simulation input. See ASSUMPTION A-3." },
+    "T1028": { "unmappedHooks": ["identity", "continuity"], "sourceText": "Where authored, consciousness continuity can survive carving, cracking, repair, recasting, relocation, or incorporation." },
+    "T1029": { "unmappedHooks": ["identity", "soul", "reincarnation"], "sourceText": "Where authored, consciousness need not remain permanently bound to the final object." }
+  },
+
+  "startingFIX": {
+    "base": 0,
+    "note": "No canonical file states a baseline starting FIX. 0 is the provisional simulation input; T1027 adds startFIX on top."
+  },
+
+  "endingAwarenessRules": {
+    "_policy": "Maps each distinct default_awareness string in the Ending Registry onto an ordered rule list. The first rule whose optional material guard matches supplies the awareness state. Core Contract section 23 supplies the global fallback (TEMP -> Suspended, otherwise Unconscious) when an ending has no registry default.",
+    "Unconscious": [{ "state": "Unconscious" }],
+    "Suspended": [{ "state": "Suspended" }],
+    "Uncertain": [{ "state": "Uncertain" }],
+    "Displaced": [{ "state": "Displaced", "requiresAuthorization": true }],
+    "Unconscious; Suspended if temporal": [
+      { "state": "Suspended", "ifMaterial": ["TEMP"] },
+      { "state": "Unconscious" }
+    ],
+    "Unconscious or Uncertain": [{ "state": "Unconscious" }],
+    "Continuous or Intermittent": [{ "state": "Continuous", "requiresAuthorization": true }]
+  },
+  "endingAwarenessAuthorizingTalents": {
+    "END-ANO-001": ["T1028"],
+    "END-ANO-002": ["T1029"]
+  },
+  "endingUnresolvedPlaceholder": "Unknown",
+  "endingUnresolvedNote": "Ending Registry cells reading 'route-derived' resolve to this placeholder unless the ending event supplies an explicit endingOverride. Core Contract section 25 permits Unknown/Disputed values."
+}

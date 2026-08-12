@@ -1,0 +1,205 @@
+{
+  "version": "0.1",
+  "status": "PROVISIONAL_SIMULATION_ONLY",
+  "warning": "These values exist only to run Phase-1 Monte Carlo simulations. They are not frozen design and must remain data-driven.",
+  "ageChannelWeights": [
+    {
+      "minAge": 0,
+      "maxAge": 5,
+      "ORD": 82,
+      "INS": 15,
+      "TRN": 3,
+      "SPC": 0
+    },
+    {
+      "minAge": 6,
+      "maxAge": 11,
+      "ORD": 72,
+      "INS": 22,
+      "TRN": 6,
+      "SPC": 0
+    },
+    {
+      "minAge": 12,
+      "maxAge": 17,
+      "ORD": 62,
+      "INS": 25,
+      "TRN": 11,
+      "SPC": 2
+    },
+    {
+      "minAge": 18,
+      "maxAge": 24,
+      "ORD": 49,
+      "INS": 23,
+      "TRN": 22,
+      "SPC": 6
+    },
+    {
+      "minAge": 25,
+      "maxAge": 34,
+      "ORD": 37,
+      "INS": 22,
+      "TRN": 31,
+      "SPC": 10
+    },
+    {
+      "minAge": 35,
+      "maxAge": 44,
+      "ORD": 38,
+      "INS": 21,
+      "TRN": 29,
+      "SPC": 12
+    },
+    {
+      "minAge": 45,
+      "maxAge": 54,
+      "ORD": 41,
+      "INS": 20,
+      "TRN": 27,
+      "SPC": 12
+    },
+    {
+      "minAge": 55,
+      "maxAge": 64,
+      "ORD": 39,
+      "INS": 19,
+      "TRN": 30,
+      "SPC": 12
+    },
+    {
+      "minAge": 65,
+      "maxAge": null,
+      "ORD": 35,
+      "INS": 18,
+      "TRN": 34,
+      "SPC": 13
+    }
+  ],
+  "eventWeightClassScalar": {
+    "VERY_LOW": 0.35,
+    "LOW": 0.65,
+    "NORMAL": 1.0,
+    "HIGH": 1.45,
+    "VERY_HIGH": 2.0
+  },
+  "familyEvidenceScalar": {
+    "speciesPrimary": 1.5,
+    "speciesSecondary": 1.2,
+    "speciesUncommon": 0.7,
+    "hintMatchingFamily": 1.15,
+    "manifestMatchingFamily": 1.35,
+    "routeFavor": 1.2,
+    "talentFavor": 1.25,
+    "talentStronglyFavor": 1.55,
+    "talentSuppress": 0.65
+  },
+  "fixTransformationChannelScalar": [
+    {
+      "minFIX": 0,
+      "maxFIX": 20,
+      "scalar": 0.75
+    },
+    {
+      "minFIX": 21,
+      "maxFIX": 40,
+      "scalar": 1.0
+    },
+    {
+      "minFIX": 41,
+      "maxFIX": 60,
+      "scalar": 1.25
+    },
+    {
+      "minFIX": 61,
+      "maxFIX": 80,
+      "scalar": 1.6
+    },
+    {
+      "minFIX": 81,
+      "maxFIX": null,
+      "scalar": 2.0
+    }
+  ],
+  "priorityClassRank": {
+    "ending_or_hidden_climax": 400,
+    "mandatory_route": 300,
+    "scheduled": 200,
+    "normal": 100
+  },
+  "fallback": {
+    "minimumAge": 25,
+    "participatesInNormalDraft": false
+  },
+  "diagnosticSimulation": {
+    "maxAge": 120,
+    "onMaxAgeWithoutEnding": "COUNT_AS_NONTERMINAL_DIAGNOSTIC_FAILURE",
+    "defaultRunsPerScenario": 10000
+  },
+  "diagnosticSampling": {
+    "speciesMode": "STRATIFY_EQUALLY_BY_SPECIES",
+    "talentMode": "RUN_MULTIPLE_SCENARIOS",
+    "talentScenarios": [
+      "NO_TALENTS_BASELINE",
+      "UNIFORM_RANDOM_THREE_COMPATIBLE_DIAGNOSTIC",
+      "TARGETED_THRESHOLD_TALENT_CASES",
+      "TARGETED_MATERIAL_TALENT_CASES",
+      "TARGETED_ANOMALOUS_TALENT_CASES"
+    ],
+    "note": "Uniform talent sampling is diagnostic only because final rarity/meta draw distributions are not frozen."
+  },
+  "targetEndingAgeShare": [
+    {
+      "minAge": 18,
+      "maxAge": 24,
+      "minShare": 0.18,
+      "maxShare": 0.22
+    },
+    {
+      "minAge": 25,
+      "maxAge": 34,
+      "minShare": 0.35,
+      "maxShare": 0.4
+    },
+    {
+      "minAge": 35,
+      "maxAge": 44,
+      "minShare": 0.2,
+      "maxShare": 0.25
+    },
+    {
+      "minAge": 45,
+      "maxAge": 54,
+      "minShare": 0.08,
+      "maxShare": 0.12
+    },
+    {
+      "minAge": 55,
+      "maxAge": 64,
+      "minShare": 0.04,
+      "maxShare": 0.07
+    },
+    {
+      "minAge": 65,
+      "maxAge": null,
+      "minShare": 0.02,
+      "maxShare": 0.05
+    }
+  ],
+  "materialDeterminismGuardrails": {
+    "maxSameMaterialShareGivenOnlyMatchingHint": 0.7,
+    "maxSameMaterialShareGivenFirstManifestation": 0.8,
+    "warningOnly": true
+  },
+  "fallbackGuardrails": {
+    "pre25FallbackAllowed": false,
+    "targetFallbackShareAge25Plus": 0.02,
+    "warningIfAbove": 0.05
+  },
+  "notes": [
+    "Commitment events receive no extra scalar merely for being commitment events.",
+    "Multiple manifestation families may coexist before Material Commitment.",
+    "Academic Comparative Materials must not add a single-material family scalar by itself.",
+    "Exact talent channel/family hooks may require a small adapter table because the current Talent Registry stores qualitative hook labels."
+  ]
+}

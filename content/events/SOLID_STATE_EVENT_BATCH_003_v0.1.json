@@ -1,0 +1,1351 @@
+{
+  "batchId": "EVENT_BATCH_003",
+  "version": "0.1",
+  "languageStatus": {
+    "en": "canonical_draft",
+    "zh-TW": "reserved_empty"
+  },
+  "notes": "Third content batch. Broadens ordinary life and institutions: species accommodations, Family, Legal, Finance, Religious, Civic, friendship, and associated endings. Avoids adding new material families.",
+  "events": [
+    {
+      "id": "EVT-INS-EDU-0004",
+      "channel": "INS",
+      "family": "EDU",
+      "age": {
+        "min": 8,
+        "max": 14
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "education",
+        "species"
+      ],
+      "materialTags": [],
+      "include": "SPECIES=WINGED_KIN",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your school installs new wing-compatible chairs. The backs are wider, the desks are narrower, and nobody with wings was consulted.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Winged Kin accommodation satire; Human-centered design rather than biological destiny."
+    },
+    {
+      "id": "EVT-INS-EDU-0005",
+      "channel": "INS",
+      "family": "EDU",
+      "age": {
+        "min": 10,
+        "max": 16
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "education",
+        "species"
+      ],
+      "materialTags": [],
+      "include": "SPECIES=DEMONKIN",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The school updates its uniform policy to permit horns. The helmet requirement remains unchanged.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "CHR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Demonkin accommodation joke."
+    },
+    {
+      "id": "EVT-INS-CIV-0003",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 18,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "civic",
+        "species"
+      ],
+      "materialTags": [],
+      "include": "SPECIES=DWARF",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A government biometric terminal is mounted above comfortable reach. A folding stool labeled 'reasonable accommodation' is chained to the wall.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Dwarf Human-scale infrastructure satire."
+    },
+    {
+      "id": "EVT-INS-CIV-0004",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 18,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "civic",
+        "species"
+      ],
+      "materialTags": [],
+      "include": "SPECIES=DRAGONKIN",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A public building's thermal scanner flags your normal body temperature as a safety event. Security apologizes after locating the Dragonkin checkbox.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Dragonkin thermal accommodation."
+    },
+    {
+      "id": "EVT-ORD-SOC-0005",
+      "channel": "ORD",
+      "family": "SOC",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "social",
+        "species"
+      ],
+      "materialTags": [],
+      "include": "SPECIES=ELF",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Someone compliments your 'timeless Elven look' and immediately asks whether you plan to preserve it. You had been discussing coffee.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Elf preservation stereotype without material lock."
+    },
+    {
+      "id": "EVT-ORD-CIV-0001",
+      "channel": "ORD",
+      "family": "CIV",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "civic",
+        "species"
+      ],
+      "materialTags": [],
+      "include": "SPECIES=HUMAN",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A government form lists Human as the default species and asks everyone else to specify. You briefly experience the privilege of not noticing a design choice.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Human-centered society expressed without mechanical bonus."
+    },
+    {
+      "id": "EVT-ORD-FAM-0003",
+      "channel": "ORD",
+      "family": "FAM",
+      "age": {
+        "min": 22,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "family",
+        "housing"
+      ],
+      "materialTags": [],
+      "include": "!FLAG[ROUTE_FAM_PLACEMENT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT!=NONE",
+          "text": {
+            "en": "Your family casually discusses where you would fit after Permanent Form. The conversation becomes unexpectedly specific about floor load.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_FAM_PLACEMENT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your family casually discusses future Permanent Form arrangements over dinner. Nobody remembers who started the conversation.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "ROUTE_FAM_PLACEMENT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Family placement route seed."
+    },
+    {
+      "id": "EVT-INS-LEG-0001",
+      "channel": "INS",
+      "family": "LEG",
+      "age": {
+        "min": 24,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "legal",
+        "family"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_FAM_PLACEMENT] & !FLAG[ROUTE_FAM_DIRECTIVE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1013] | TLT[T1024]",
+          "text": {
+            "en": "You formalize post-mobility placement instructions before anyone can call them 'family understandings.' The lawyer adds several pages about ownership.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "MNY": -1
+          },
+          "addFlags": [
+            "ROUTE_FAM_DIRECTIVE"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-ORD-FAM-0004",
+              "offsetYears": 4,
+              "windowYears": 8,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_FAM_DIRECTIVE] & MAT!=NONE & FIX>=55"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your family writes down a post-mobility placement plan. Nobody is certain whether the document is legally meaningful, but everyone signs it anyway.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "ROUTE_FAM_DIRECTIVE"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-ORD-FAM-0004",
+              "offsetYears": 4,
+              "windowYears": 8,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_FAM_DIRECTIVE] & MAT!=NONE & FIX>=55"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Family/legal bridge."
+    },
+    {
+      "id": "EVT-ORD-FAM-0004",
+      "channel": "ORD",
+      "family": "FAM",
+      "age": {
+        "min": 28,
+        "max": 59
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "family",
+        "legal"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "include": "FLAG[ROUTE_FAM_DIRECTIVE] & MAT!=NONE & FIX>=55",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1024] | TLT[T1013]",
+          "text": {
+            "en": "Your Permanent Form is placed with your family under the directive you prepared years ago. The certificate lists you as self-owned and the house as your approved location.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-FAM-001",
+          "endingOverrides": {
+            "ownership": "Self",
+            "autonomy": "Represented"
+          }
+        },
+        {
+          "when": "MAT=STON | MAT=CERA | MAT=WOOD | MAT=METL",
+          "text": {
+            "en": "Your Permanent Form is placed in the family garden as planned. Someone immediately argues about whether seasonal decorations violate the arrangement.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-FAM-002"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your Permanent Form returns to the family home. Future generations inherit both you and the unresolved question of where you belong.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-FAM-001"
+        }
+      ],
+      "designerNotes": "Family climax with self-ownership or garden/heirloom outcomes."
+    },
+    {
+      "id": "EVT-INS-LEG-0002",
+      "channel": "INS",
+      "family": "LEG",
+      "age": {
+        "min": 24,
+        "max": 49
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "legal"
+      ],
+      "materialTags": [],
+      "include": "MAT!=NONE & !FLAG[ROUTE_LEG_STATUS_CASE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1013]",
+          "text": {
+            "en": "A routine Material Status filing becomes a legal consultation when you notice that the form treats 'person' and 'object' as mutually exclusive.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 2,
+            "MNY": -1
+          },
+          "addFlags": [
+            "ROUTE_LEG_STATUS_CASE"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-LEG-0003",
+              "offsetYears": 3,
+              "windowYears": 6,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_LEG_STATUS_CASE] & MAT!=NONE"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A routine Material Status filing asks whether your committed material is 'primarily personal' or 'primarily property.' You request clarification and receive another form.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_LEG_STATUS_CASE"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-LEG-0003",
+              "offsetYears": 3,
+              "windowYears": 6,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_LEG_STATUS_CASE] & MAT!=NONE"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "General legal-status route seed."
+    },
+    {
+      "id": "EVT-INS-LEG-0003",
+      "channel": "INS",
+      "family": "LEG",
+      "age": {
+        "min": 27,
+        "max": 59
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "legal"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_LEG_STATUS_CASE] & MAT!=NONE",
+      "exclude": "FLAG[ROUTE_LEG_STATUS_RESOLVED]",
+      "variants": [
+        {
+          "when": "TLT[T1024]",
+          "text": {
+            "en": "The status hearing recognizes your advance directives as continuing exercises of personhood. The ruling is immediately appealed by someone with a financial interest.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "MNY": -1
+          },
+          "addFlags": [
+            "ROUTE_LEG_STATUS_RESOLVED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "INT>=9",
+          "text": {
+            "en": "The status hearing grants you limited post-mobility protections while declining to define what category you belong to. Everyone claims this is progress.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "ROUTE_LEG_STATUS_RESOLVED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The status hearing concludes that existing law is adequate. Nobody present can explain what that means for you.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_LEG_STATUS_RESOLVED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Nonterminal legal resolution can influence future ending variants."
+    },
+    {
+      "id": "EVT-ORD-FIN-0001",
+      "channel": "ORD",
+      "family": "FIN",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 4,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "finance",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "MNY<=3",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1009]",
+          "text": {
+            "en": "Money becomes tight again. Your budgeting system becomes so efficient that friends begin asking for the spreadsheet.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Money becomes tight again. You learn exactly which bills consider 'future mobility' a relevant risk category.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable financial stress without immediate route commitment."
+    },
+    {
+      "id": "EVT-INS-FIN-0004",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 24,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "finance",
+        "debt"
+      ],
+      "materialTags": [],
+      "include": "MNY<=2 & !FLAG[ROUTE_FIN_SECURED_DEBT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT!=NONE | FLAG[ROUTE_FIN_VALUED]",
+          "text": {
+            "en": "A lender offers to refinance your debts against the future value of your Permanent Form. The monthly payment improves immediately.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 3,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_FIN_SECURED_DEBT"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-FIN-0005",
+              "offsetYears": 3,
+              "windowYears": 8,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_FIN_SECURED_DEBT] & MAT!=NONE"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A lender offers a secured loan based on a future-form valuation you have not yet received. Their confidence is not reassuring.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_FIN_SECURED_DEBT"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-FIN-0005",
+              "offsetYears": 3,
+              "windowYears": 8,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_FIN_SECURED_DEBT] & MAT!=NONE"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Finance route seed; debt tied to future form."
+    },
+    {
+      "id": "EVT-INS-FIN-0005",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 27,
+        "max": 59
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "finance",
+        "debt"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "include": "FLAG[ROUTE_FIN_SECURED_DEBT] & MAT!=NONE & FIX>=55",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY>=7",
+          "text": {
+            "en": "Your Permanent Form is completed just as the secured debt becomes due. The creditor accepts repayment instead of possession and sounds disappointed.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-FIN-003"
+        },
+        {
+          "when": "TLT[T1026]",
+          "text": {
+            "en": "The debt is cleared through a low-cost preservation settlement. Your account balance reaches zero at the same moment your ownership status changes.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-FIN-002"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your Permanent Form is completed and the lender exercises its secured claim. The final valuation matches the loan documents almost exactly.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-FIN-001"
+        }
+      ],
+      "designerNotes": "Finance climax: value retained, settlement, or creditor realization."
+    },
+    {
+      "id": "EVT-INS-REL-0001",
+      "channel": "INS",
+      "family": "REL",
+      "age": {
+        "min": 18,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "religious"
+      ],
+      "materialTags": [],
+      "include": "!FLAG[ROUTE_REL_INTEREST]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPECIES=WINGED_KIN",
+          "text": {
+            "en": "A religious organization invites you to a ceremony because your wings are 'symbolically appropriate.' The invitation insists this is not species profiling.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "CHR": 1
+          },
+          "addFlags": [
+            "ROUTE_REL_INTEREST"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=DEMONKIN",
+          "text": {
+            "en": "A religious organization invites you to a panel on appearances and moral panic. The promotional poster uses your silhouette without asking.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "CHR": 1
+          },
+          "addFlags": [
+            "ROUTE_REL_INTEREST"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPR>=8",
+          "text": {
+            "en": "A religious community invites you to help with a permanence ceremony. Their theology is more nuanced than their insurance paperwork.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "ROUTE_REL_INTEREST"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A local religious group distributes a leaflet explaining the spiritual meaning of Permanent Form. The footnotes disagree with the headline.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1
+          },
+          "addFlags": [
+            "ROUTE_REL_INTEREST"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Religious route seed with species/social interpretation."
+    },
+    {
+      "id": "EVT-INS-REL-0002",
+      "channel": "INS",
+      "family": "REL",
+      "age": {
+        "min": 23,
+        "max": 49
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "religious",
+        "legal"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_REL_INTEREST] & MAT!=NONE & !FLAG[ROUTE_REL_CLAIM]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPR>=8",
+          "text": {
+            "en": "The religious community interprets your committed material as spiritually significant. A lawyer quietly asks whether 'significant' includes ownership.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 2,
+            "MNY": -1
+          },
+          "addFlags": [
+            "ROUTE_REL_CLAIM"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-REL-0003",
+              "offsetYears": 3,
+              "windowYears": 7,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_REL_CLAIM] & MAT!=NONE"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The religious community declares your committed material ceremonially important. Civil authorities request a clearer noun.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_REL_CLAIM"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-REL-0003",
+              "offsetYears": 3,
+              "windowYears": 7,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_REL_CLAIM] & MAT!=NONE"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Sets up sacred-property/legal contradiction."
+    },
+    {
+      "id": "EVT-INS-REL-0003",
+      "channel": "INS",
+      "family": "REL",
+      "age": {
+        "min": 26,
+        "max": 59
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "religious",
+        "legal"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "include": "FLAG[ROUTE_REL_CLAIM] & MAT!=NONE & FIX>=55",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1024] | FLAG[ROUTE_LEG_STATUS_RESOLVED]",
+          "text": {
+            "en": "Your Permanent Form is installed for ceremonial use while the civil court refuses to concede ownership. The religious registry and legal registry list different answers.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-REL-001",
+          "endingOverrides": {
+            "ownership": "Disputed",
+            "autonomy": "Represented"
+          }
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your Permanent Form is installed as a sacred object. Civil authorities open an appeal before the dedication ceremony has finished.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-REL-001"
+        }
+      ],
+      "designerNotes": "Religious climax."
+    },
+    {
+      "id": "EVT-ORD-CIV-0002",
+      "channel": "ORD",
+      "family": "CIV",
+      "age": {
+        "min": 20,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "civic"
+      ],
+      "materialTags": [],
+      "include": "!FLAG[ROUTE_CIV_SERVICE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "CHR>=8",
+          "text": {
+            "en": "You become unexpectedly visible in a local civic campaign. Someone describes you as 'the face of the initiative' before checking whether you wanted that job.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_CIV_SERVICE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You volunteer for a local civic program. Most of the work consists of helping residents navigate other civic programs.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "INT": 1
+          },
+          "addFlags": [
+            "ROUTE_CIV_SERVICE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Civic route entry."
+    },
+    {
+      "id": "EVT-INS-CIV-0005",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 25,
+        "max": 49
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "civic",
+        "political"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_CIV_SERVICE] & !FLAG[ROUTE_CIV_MEMORIAL]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "CHR>=9",
+          "text": {
+            "en": "Officials propose recognizing your public service through the Civic Legacy Program. The presentation renders you in bronze regardless of your actual material condition.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_CIV_MEMORIAL"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-CIV-0006",
+              "offsetYears": 4,
+              "windowYears": 8,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_CIV_MEMORIAL] & MAT!=NONE"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Officials add you to a Civic Legacy shortlist. The application asks whether your future monument should remain politically neutral.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_CIV_MEMORIAL"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-CIV-0006",
+              "offsetYears": 4,
+              "windowYears": 8,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_CIV_MEMORIAL] & MAT!=NONE"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Civic memorial route stage."
+    },
+    {
+      "id": "EVT-INS-CIV-0007",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 30,
+        "max": 54
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "civic",
+        "political"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_CIV_MEMORIAL] & !FLAG[ROUTE_CIV_REBRANDED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPR<=4",
+          "text": {
+            "en": "The civic campaign that promoted you becomes politically inconvenient. Officials assure you that the Legacy Program itself is strictly nonpartisan.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": -2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_CIV_REBRANDED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The civic campaign that promoted you quietly changes its name, colors, and stated purpose. Your Legacy paperwork remains valid.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": -1
+          },
+          "addFlags": [
+            "ROUTE_CIV_REBRANDED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Allows Politically Neutral Landmark ending before climax."
+    },
+    {
+      "id": "EVT-INS-CIV-0006",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 29,
+        "max": 64
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "civic",
+        "political",
+        "legal"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "include": "FLAG[ROUTE_CIV_MEMORIAL] & MAT!=NONE & FIX>=55",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "FLAG[ROUTE_CIV_REBRANDED]",
+          "text": {
+            "en": "Your Permanent Form is unveiled after officials remove every reference to the campaign that made you famous. The new plaque identifies you simply as 'a civic figure.'",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-CIV-002"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your Permanent Form is unveiled in a public square as an official memorial. The ceremony repeatedly refers to your continued civic presence.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-CIV-001"
+        }
+      ],
+      "designerNotes": "Civic climax."
+    },
+    {
+      "id": "EVT-ORD-SOC-0006",
+      "channel": "ORD",
+      "family": "SOC",
+      "age": {
+        "min": 25,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 4,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "social",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT!=NONE",
+          "text": {
+            "en": "You meet friends for dinner. Someone asks about your committed material, someone else changes the subject, and the evening improves immediately.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You meet friends for dinner and spend most of the evening discussing matters that will never appear on a Material Status form.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 2,
+            "MNY": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Ordinary adult friendship keeps non-institutional life present."
+    },
+    {
+      "id": "EVT-ORD-FAM-0005",
+      "channel": "ORD",
+      "family": "FAM",
+      "age": {
+        "min": 35,
+        "max": 59
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 5,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "family",
+        "baseline",
+        "midlife"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPR>=7",
+          "text": {
+            "en": "A family gathering lasts longer than planned. Nobody discusses preservation until dessert, which counts as progress.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 2,
+            "MNY": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A family gathering lasts longer than planned. Three relatives offer incompatible advice about your future Permanent Form.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable midlife family baseline."
+    },
+    {
+      "id": "EVT-INS-LEG-0004",
+      "channel": "INS",
+      "family": "LEG",
+      "age": {
+        "min": 30,
+        "max": 59
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "legal",
+        "finance"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_FIN_SECURED_DEBT] & MAT!=NONE",
+      "exclude": "EVT[EVT-INS-LEG-0004]",
+      "variants": [
+        {
+          "when": "TLT[T1013]",
+          "text": {
+            "en": "You discover that your secured loan treats display rights, sale rights, and relocation rights as three separate assets. You renegotiate two of them.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "MNY": 1
+          },
+          "addFlags": [
+            "ROUTE_FIN_LEGAL_REVIEW"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your secured lender sends an updated notice explaining which rights attach to your future Permanent Form. The diagram makes matters worse.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Legal/finance intersection; future ending variants can use ROUTE_FIN_LEGAL_REVIEW."
+    }
+  ]
+}

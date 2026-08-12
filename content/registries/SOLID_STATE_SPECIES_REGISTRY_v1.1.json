@@ -1,0 +1,157 @@
+{
+  "version": "1.1",
+  "canonical": true,
+  "species": [
+    {
+      "id": "HUMAN",
+      "name_en": "Human",
+      "name_zh_tw": "人類",
+      "colloquial_en": "",
+      "colloquial_zh_tw": "",
+      "allocation_points": 21,
+      "modifiers": {},
+      "primary": [],
+      "secondary": [],
+      "uncommon": [],
+      "notes": "Baseline morphology and institutional default. Human has one extra free allocation point rather than fixed stat modifiers."
+    },
+    {
+      "id": "ELF",
+      "name_en": "Elf",
+      "name_zh_tw": "精靈",
+      "colloquial_en": "",
+      "colloquial_zh_tw": "",
+      "allocation_points": 20,
+      "modifiers": {
+        "CHR": 1,
+        "INT": 1,
+        "STR": -1
+      },
+      "primary": [
+        "CRYS",
+        "WOOD"
+      ],
+      "secondary": [
+        "GLAS",
+        "STON",
+        "TEMP"
+      ],
+      "uncommon": [
+        "METL_INDUSTRIAL",
+        "CONCRETE_HEAVY"
+      ],
+      "notes": "Wood outcomes should be polished, arboreal, carved, lacquered, sculptural, or otherwise refined; wood is not automatically rustic or cheap."
+    },
+    {
+      "id": "DWARF",
+      "name_en": "Dwarf",
+      "name_zh_tw": "矮人",
+      "colloquial_en": "",
+      "colloquial_zh_tw": "",
+      "allocation_points": 20,
+      "modifiers": {
+        "STR": 2,
+        "CHR": -1
+      },
+      "primary": [
+        "STON",
+        "METL_INDUSTRIAL"
+      ],
+      "secondary": [
+        "BRONZE",
+        "CONCRETE",
+        "ARC_COMPOSITE",
+        "SYNT_INDUSTRIAL"
+      ],
+      "uncommon": [
+        "GLAS",
+        "CRYS_DELICATE"
+      ],
+      "notes": "Durable/industrial material associations; Human-scale infrastructure and bureaucracy are recurring social frictions."
+    },
+    {
+      "id": "WINGED_KIN",
+      "name_en": "Winged Kin",
+      "name_zh_tw": "翼族",
+      "colloquial_en": "Angel",
+      "colloquial_zh_tw": "天使",
+      "allocation_points": 20,
+      "modifiers": {
+        "CHR": 1,
+        "SPR": 1,
+        "STR": -1
+      },
+      "primary": [
+        "STON_FINE"
+      ],
+      "secondary": [
+        "CRYS",
+        "GLAS",
+        "TEMP"
+      ],
+      "uncommon": [
+        "METL_INDUSTRIAL_CRUDE",
+        "CONCRETE_CRUDE"
+      ],
+      "notes": "Angel/天使 is everyday shorthand and scientifically inaccurate. Wings vary in color/functionality; accommodation and symbolic objectification are major event hooks."
+    },
+    {
+      "id": "DEMONKIN",
+      "name_en": "Demonkin",
+      "name_zh_tw": "魔裔",
+      "colloquial_en": "Demon",
+      "colloquial_zh_tw": "惡魔",
+      "allocation_points": 20,
+      "modifiers": {
+        "CHR": 2,
+        "SPR": -1
+      },
+      "primary": [
+        "GLAS_OBSIDIAN"
+      ],
+      "secondary": [
+        "METL_PRECIOUS",
+        "MAGICAL_SEAL",
+        "TEMP"
+      ],
+      "uncommon": [
+        "WOOD_NATURAL"
+      ],
+      "notes": "Horns/tails and related traits are not moral indicators. Bureaucratic danger assumptions and ceremonial symbolism provide event hooks."
+    },
+    {
+      "id": "DRAGONKIN",
+      "name_en": "Dragonkin",
+      "name_zh_tw": "龍人族",
+      "colloquial_en": "Dragonkin",
+      "colloquial_zh_tw": "龍人",
+      "allocation_points": 20,
+      "modifiers": {
+        "STR": 1,
+        "MNY": 1,
+        "SPR": -1
+      },
+      "primary": [
+        "METL_PRECIOUS",
+        "CRYS_GEMSTONE"
+      ],
+      "secondary": [
+        "BRONZE",
+        "STON_VOLCANIC",
+        "CRYS"
+      ],
+      "uncommon": [
+        "WOOD"
+      ],
+      "notes": "Human-sized draconic humanoids. Precious-material valuation, collateral, insurance, and social expectations are recurring hooks."
+    }
+  ],
+  "tendency_vocabulary": [
+    "Primary",
+    "Secondary",
+    "Neutral",
+    "Uncommon"
+  ],
+  "authoring_rule": "Species tendencies are soft family-level influences before Material Commitment. They never hard-lock material.",
+  "institution_rule": "All starting species participate in the same Human-driven modern society; they are not separate civilizations."
+}
