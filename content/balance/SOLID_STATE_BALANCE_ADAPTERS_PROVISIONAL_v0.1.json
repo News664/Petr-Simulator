@@ -2,6 +2,7 @@
   "version": "0.1",
   "status": "PROVISIONAL_SIMULATION_ONLY",
   "warning": "Engine-side adapter data. This file exists because three canonical registries store qualitative prose where the engine needs codes. It invents no creative content: every entry below is a mechanical mapping of an existing registry string onto an existing taxonomy code, or a numeric simulation input that no canonical file specifies. See docs/PHASE1_CONFLICTS.md. Nothing here is frozen design.",
+  "reviewPointer": "Every value in this file is provisional and traceable to an open question. Resolve them in docs/OPEN_QUESTIONS.md: Q-04 species tendency map, Q-05 talent hooks, Q-06 ending awareness, Q-07 route tag namespaces, Q-08 cooldown semantics, Q-09 schedule validity, Q-10 family weight mode, Q-12 stat clamping, Q-14 T1027 start FIX, Q-15 registered species rules, Q-16 baseline FIX, Q-01 pre-25 coverage policy. This whole file should be deletable once Q-04 through Q-07 are folded back into the registries.",
   "provenance": {
     "speciesTendencyFamilyMap": "SOLID_STATE_SPECIES_REGISTRY_v1.1.json primary/secondary/uncommon arrays contain refinement labels (e.g. METL_INDUSTRIAL, STON_FINE) that are not Event Taxonomy v0.2 family codes. See CONFLICT C-1.",
     "talentAdapters": "SOLID_STATE_TALENT_REGISTRY_v1.0.csv stores channel_hooks/family_hooks as prose labels without polarity. Anticipated by BALANCE_CONSTANTS note 4. See CONFLICT C-2.",

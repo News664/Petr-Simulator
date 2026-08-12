@@ -10,13 +10,32 @@ pending design review.
 
 ## Read these first
 
+> ### ➡ [`docs/OPEN_QUESTIONS.md`](docs/OPEN_QUESTIONS.md) — the official decision list
+>
+> **26 questions the coding agent could not decide alone**, each with evidence,
+> options, trade-offs, the engine's current behaviour, and a recommendation.
+> This is the authoritative review surface: resolve a question by editing its
+> **Resolution** block in place. Anything discussed elsewhere but not written
+> there is not official.
+>
+> Blocking: [Q-01](docs/OPEN_QUESTIONS.md#q-01) pre-25 coverage ·
+> [Q-02](docs/OPEN_QUESTIONS.md#q-02) FIX economy ·
+> [Q-03](docs/OPEN_QUESTIONS.md#q-03) endings after 64.
+
 | Document | What it is |
 |---|---|
-| [`docs/PHASE1_FINDINGS.md`](docs/PHASE1_FINDINGS.md) | Executive summary of the Monte Carlo results — **start here** |
-| [`docs/PHASE1_CONFLICTS.md`](docs/PHASE1_CONFLICTS.md) | Schema/content conflicts found, with the smallest proposed change for each |
+| [`docs/OPEN_QUESTIONS.md`](docs/OPEN_QUESTIONS.md) | **The decision register — Q-01 … Q-26, resolve in place** |
+| [`docs/PHASE1_FINDINGS.md`](docs/PHASE1_FINDINGS.md) | Executive summary of the Monte Carlo results |
+| [`docs/PHASE1_CONFLICTS.md`](docs/PHASE1_CONFLICTS.md) | Schema/content conflicts, with the smallest proposed change for each |
 | [`docs/PHASE1_ASSUMPTIONS.md`](docs/PHASE1_ASSUMPTIONS.md) | Every decision made where no canonical file specified one |
+| [`docs/ENGINE_CHANGES.md`](docs/ENGINE_CHANGES.md) | Bugs found and fixed, behaviour decided, validation added, and what was deliberately left out |
 | [`reports/monte-carlo.md`](reports/monte-carlo.md) | Full Monte Carlo report, 10 000 runs × 5 scenarios |
 | [`reports/monte-carlo-strict.md`](reports/monte-carlo-strict.md) | Same, under the contract-faithful pre-25 coverage policy |
+
+The five documents are layered: **conflicts** and **assumptions** record what was
+found, **findings** records what was measured, **engine changes** records what was
+done about it, and **open questions** is the single actionable list drawn from
+all four. Every question links back to its evidence.
 
 **No creative content was changed.** Everything under `content/events/` and
 `content/registries/` is byte-identical to the snapshot, and the JSON → Markdown
@@ -122,8 +141,13 @@ UPDATE_GOLDEN=1 npm test -- tests/golden-runs.test.ts
 ## Status
 
 Gate H1 deliverables are complete: engine, tests, Monte Carlo CLI, JSON summary,
-Markdown report, conflict list, assumption list, content snapshot.
+Markdown report, conflict list, assumption list, engine-behaviour log, decision
+register, content snapshot.
 
-Two findings block a balance freeze and need design decisions — pre-25 coverage
-(C-5) and the FIX economy behind ending reachability (C-6). Both are content and
-balance questions, so the engine reports them rather than resolving them.
+Three questions block a balance freeze — [Q-01](docs/OPEN_QUESTIONS.md#q-01)
+pre-25 coverage, [Q-02](docs/OPEN_QUESTIONS.md#q-02) the FIX economy behind
+ending reachability, and [Q-03](docs/OPEN_QUESTIONS.md#q-03) the age-64 ending
+ceiling. All three are content or balance decisions, so the engine reports them
+rather than resolving them.
+
+Per acceptance §Q, Phase 1 stops here pending design review.

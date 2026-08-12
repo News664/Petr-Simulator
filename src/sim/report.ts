@@ -313,6 +313,12 @@ export function renderMarkdownReport(content: ContentBundle, report: SimulationR
   out.push('Provisional balance constants are simulation inputs, not frozen design.');
   out.push('');
   out.push(
+    'Decisions arising from this report are tracked in [`docs/OPEN_QUESTIONS.md`](../docs/OPEN_QUESTIONS.md); ' +
+      'narrative analysis is in [`docs/PHASE1_FINDINGS.md`](../docs/PHASE1_FINDINGS.md). ' +
+      'Resolve questions there, not in this generated file — it is overwritten on every run.',
+  );
+  out.push('');
+  out.push(
     table(
       ['Field', 'Value'],
       [

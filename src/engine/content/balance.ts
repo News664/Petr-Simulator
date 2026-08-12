@@ -146,6 +146,7 @@ export const balanceAdaptersSchema = z
     version: z.string(),
     status: z.string().optional(),
     warning: z.string().optional(),
+    reviewPointer: z.string().optional(),
     provenance: z.record(z.string(), z.string()).optional(),
     engineRules: z
       .object({

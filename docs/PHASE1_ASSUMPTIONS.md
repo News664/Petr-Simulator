@@ -2,6 +2,9 @@
 
 ## Version 0.1
 
+> **Decisions arising from this document are tracked in [`OPEN_QUESTIONS.md`](OPEN_QUESTIONS.md).** Resolve them there, not here.
+
+
 Decisions the engine had to make because no canonical file specified them, or
 because a canonical file admitted more than one reading.
 
@@ -42,7 +45,7 @@ talent meaningful without trivialising the gate. It is a simulation input, not a
 proposal.
 
 **Impact — large, and deliberately surfaced.** The anomalous-talent scenario is
-the only one where endings occur at a measurable rate (6.1% vs 0.08–0.77%),
+the only one where endings occur at a measurable rate (6.4% vs 0.09–0.73%),
 purely because it holds T1027. Design should read that contrast as evidence
 about the FIX economy (C-6), not as a recommendation for 15.
 

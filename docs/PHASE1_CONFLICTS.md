@@ -2,6 +2,9 @@
 
 ## Version 0.1 — reported by the coding agent, not resolved unilaterally
 
+> **Decisions arising from this document are tracked in [`OPEN_QUESTIONS.md`](OPEN_QUESTIONS.md).** Resolve them there, not here.
+
+
 Filed under the conflict protocol in `SOLID_STATE_CODING_AGENT_HANDOFF_v0.1.md` §6
 and the return-to-design triggers in `SOLID_STATE_AGENTS_v0.2.md`.
 
@@ -280,18 +283,18 @@ LOW/NORMAL weight and compete against a much larger ORD/INS pool.
 
 | Scenario | Completed | Material committed | Final FIX p99 / max |
 |---|---:|---:|---:|
-| no-talents | **0.11%** | 15.6% | 49 / 52 |
-| uniform-three | **0.77%** | 22.1% | 51 / 61 |
-| threshold-talents | **0.08%** | 15.8% | 49 / 52 |
-| material-talents | **0.23%** | 15.7% | 50 / 53 |
-| anomalous-talents (holds T1027) | **6.12%** | 80.7% | 55 / 62 |
+| no-talents | **0.10%** | 16.0% | 49 / 53 |
+| uniform-three | **0.73%** | 22.0% | 51 / 61 |
+| threshold-talents | **0.09%** | 15.5% | 49 / 52 |
+| material-talents | **0.16%** | 15.2% | 50 / 52 |
+| anomalous-talents (holds T1027) | **6.42%** | 81.7% | 55 / 62 |
 
 The anomalous scenario is the control: T1027's provisional +15 start FIX raises
-completion **56×** and commitment **5×**, confirming FIX headroom — not route
+completion **64×** and commitment **5×**, confirming FIX headroom — not route
 density, not weighting — is the single binding constraint.
 
 Consequently `targetEndingAgeShare` is missed in every band in every scenario,
-95–99% of route schedules expire unfired, and only 1–13 of 24 endings are ever
+95–99% of route schedules expire unfired, and only 1–14 of 24 endings are ever
 observed.
 
 **Why this is reported, not fixed.** The handoff forbids finalizing gameplay
