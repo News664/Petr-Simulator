@@ -33,7 +33,6 @@ describe('O. Monte Carlo CLI', () => {
       '--runs', '25',
       '--seed', '12345',
       '--scenario', 'no-talents',
-      '--pre25-coverage', 'reuse_baseline_repeatables',
       '--out', outDir,
       '--name', 'cli-basic',
       '--quiet',
@@ -54,7 +53,7 @@ describe('O. Monte Carlo CLI', () => {
   });
 
   it('accepts a balance constants path', () => {
-    const balancePath = path.join(REPO_ROOT, 'content', 'balance', 'SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.1.json');
+    const balancePath = path.join(REPO_ROOT, 'content', 'balance', 'SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.2.json');
     const adaptersPath = path.join(REPO_ROOT, 'content', 'balance', 'SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json');
     const stdout = runCli([
       '--runs', '10',
@@ -67,8 +66,8 @@ describe('O. Monte Carlo CLI', () => {
     ]);
     expect(stdout).toContain('cli-balance.json');
     const json = JSON.parse(readFileSync(path.join(outDir, 'cli-balance.json'), 'utf8')) as SimulationReport;
-    expect(json.balanceVersion).toBe('0.1');
-    expect(json.adaptersVersion).toBe('0.1');
+    expect(json.balanceVersion).toBe('0.2');
+    expect(json.adaptersVersion).toBe('0.2');
   });
 
   it('supports species-stratified mode', () => {
@@ -110,7 +109,6 @@ describe('O. Monte Carlo CLI', () => {
     const stdout = runCli([
       '--runs', '5',
       '--scenario', 'all',
-      '--pre25-coverage', 'reuse_baseline_repeatables',
       '--out', outDir,
       '--name', 'cli-all',
       '--quiet',
@@ -151,11 +149,11 @@ describe('O. Monte Carlo CLI', () => {
 });
 
 describe('P. Required Monte Carlo metrics', () => {
-  const report = runScenario(
-    { ...content, adapters: { ...content.adapters, engineRules: { ...content.adapters.engineRules, pre25CoveragePolicy: 'reuse_baseline_repeatables' } } },
-    SCENARIOS[1]!,
-    { runs: 400, baseSeed: 'metrics', speciesStratified: true },
-  );
+  const report = runScenario(content, SCENARIOS[1]!, {
+    runs: 400,
+    baseSeed: 'metrics',
+    speciesStratified: true,
+  });
   const m = report.metrics;
 
   it('reports completed vs nonterminal rate', () => {

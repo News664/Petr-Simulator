@@ -100,6 +100,8 @@ export interface ScheduleSpec {
   offsetYears: number;
   windowYears: number;
   priority: SchedulePriority;
+  /** Content Schema v0.3. Default 0; larger wins inside a priority class. */
+  priorityOrder?: number;
   validityCondition: string;
 }
 
@@ -127,6 +129,8 @@ export interface GameEvent {
   repeatMaxCount: number | null;
   routeTags: string[];
   materialTags: string[];
+  /** Content Schema v0.3. Optional local event metadata; never a drafting layer. */
+  refinementTags: string[];
   include: string;
   exclude: string;
   variants: EventVariant[];
@@ -143,6 +147,14 @@ export interface EventBatch {
   events: GameEvent[];
 }
 
+/** Species Registry v1.2 refinement hook operations. */
+export type RefinementOperation = 'favor' | 'strongly_favor' | 'suppress' | 'unlock';
+
+export interface RefinementHook {
+  tag: string;
+  operation: RefinementOperation;
+}
+
 export interface SpeciesDef {
   id: SpeciesId;
   name_en: string;
@@ -151,11 +163,33 @@ export interface SpeciesDef {
   colloquial_zh_tw: string;
   allocation_points: number;
   modifiers: Partial<Record<VisibleStat, number>>;
-  /** Raw registry tendency labels; may be refinement labels, not family codes. */
-  primary: string[];
-  secondary: string[];
-  uncommon: string[];
+  /** Broad family tendencies. Apply at the family-selection layer only. */
+  familyTendencies: { primary: string[]; secondary: string[]; uncommon: string[] };
+  /** Optional local event modifiers. Apply at the event-selection layer only. */
+  refinementHooks: RefinementHook[];
   notes: string;
+}
+
+/** Species Registry v1.2 `refinement_tags` entry. `family` is null for MAGICAL_SEAL. */
+export interface RefinementTagDef {
+  tag: string;
+  family: string | null;
+  description: string;
+}
+
+/** Route Tag Registry v1.0 entry. */
+export interface RouteTagDef {
+  tag: string;
+  kind: string;
+  flagPrefixes: string[];
+  activeEventFavor: boolean;
+  allowTransformationEventFavor: boolean;
+}
+
+/** Talent Registry v1.1 typed drafting target, e.g. `family:COR` / `channel:SPC`. */
+export interface DraftingTarget {
+  kind: 'family' | 'channel';
+  code: string;
 }
 
 export type TalentTrigger = 'start' | 'start_hidden' | 'threshold_once' | 'passive';
@@ -170,6 +204,18 @@ export interface TalentDef {
   condition: string;
   /** Structured effects parsed from the registry's prose effect column. */
   effects: Partial<Record<StatKey, number>>;
+  /** Talent Registry v1.1 typed drafting operations. Only these change weights. */
+  draftingFavor: DraftingTarget[];
+  draftingStronglyFavor: DraftingTarget[];
+  draftingSuppress: DraftingTarget[];
+  /** Structured semantics, never automatic multipliers. */
+  unlockTags: string[];
+  redirectTags: string[];
+  narrativeTags: string[];
+  /** Q-15: canonical registered-species rule. */
+  registeredSpeciesRule: 'UNREGISTERED' | 'SEEDED_OTHER_SPECIES' | null;
+  /** Q-14 remains open: blank in canonical data, supplied by diagnostics only. */
+  startFixBonus: number | null;
   /** Raw registry columns, retained verbatim for traceability. */
   raw: {
     visible_effects: string;
@@ -189,8 +235,12 @@ export interface EndingDef {
   coreRoutes: string[];
   allowedMaterials: string;
   typicalForms: string[];
-  /** Raw `default_awareness` column, verbatim. Resolution uses the adapter table. */
-  defaultAwarenessRaw: string;
+  /** Ending Registry v1.1 structured awareness fields. No prose parsing. */
+  defaultAwareness: AwarenessState;
+  awarenessIfTemporal: AwarenessState | null;
+  allowedAwarenessStates: AwarenessState[];
+  authorizationRequiredStates: AwarenessState[];
+  authorizingTalents: string[];
   legalStatus: string;
   ownership: string;
   autonomy: string;
@@ -226,6 +276,8 @@ export interface PendingSchedule {
   earliestAge: number;
   latestAge: number;
   priority: SchedulePriority;
+  /** Content Schema v0.3. Larger wins inside a priority class. */
+  priorityOrder: number;
   validityCondition: string;
   createdAtAge: number;
   createdByEventId: string;

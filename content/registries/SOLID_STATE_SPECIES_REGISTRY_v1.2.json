@@ -1,0 +1,330 @@
+{
+  "version": "1.2",
+  "canonical": true,
+  "tendency_vocabulary": [
+    "Primary",
+    "Secondary",
+    "Neutral",
+    "Uncommon"
+  ],
+  "family_tendency_rule": "Family tendency participates only at the Transformation family-selection layer before Material Commitment.",
+  "refinement_rule": "Refinement hooks are optional local event/variant modifiers. They do not create another drafting layer and do not select a family.",
+  "refinement_tags": {
+    "STON_FINE": {
+      "family": "STON",
+      "description": "Fine stone, marble, pale stone, sculptural finish"
+    },
+    "STON_VOLCANIC": {
+      "family": "STON",
+      "description": "Volcanic stone / heat-associated stone"
+    },
+    "CONCRETE": {
+      "family": "STON",
+      "description": "Concrete / structural stone-like material"
+    },
+    "CONCRETE_HEAVY": {
+      "family": "STON",
+      "description": "Heavy industrial concrete"
+    },
+    "CONCRETE_CRUDE": {
+      "family": "STON",
+      "description": "Crude concrete finish"
+    },
+    "METL_INDUSTRIAL": {
+      "family": "METL",
+      "description": "Industrial metal"
+    },
+    "METL_INDUSTRIAL_CRUDE": {
+      "family": "METL",
+      "description": "Crude industrial metal"
+    },
+    "METL_PRECIOUS": {
+      "family": "METL",
+      "description": "Precious metal"
+    },
+    "BRONZE": {
+      "family": "METL",
+      "description": "Bronze / civic or crafted metal"
+    },
+    "CRYS_DELICATE": {
+      "family": "CRYS",
+      "description": "Delicate/fine crystal"
+    },
+    "CRYS_GEMSTONE": {
+      "family": "CRYS",
+      "description": "Gemstone-like crystal"
+    },
+    "GLAS_OBSIDIAN": {
+      "family": "GLAS",
+      "description": "Obsidian / dark glass"
+    },
+    "GLAS_DELICATE": {
+      "family": "GLAS",
+      "description": "Delicate glass"
+    },
+    "WOOD_REFINED": {
+      "family": "WOOD",
+      "description": "Polished/lacquered/carved refined wood"
+    },
+    "WOOD_NATURAL": {
+      "family": "WOOD",
+      "description": "Natural/rustic wood presentation"
+    },
+    "ARC_COMPOSITE": {
+      "family": "MIXD",
+      "description": "Architectural composite; only applies to explicitly mixed/composite events"
+    },
+    "SYNT_INDUSTRIAL": {
+      "family": "SYNT",
+      "description": "Industrial synthetic material"
+    },
+    "MAGICAL_SEAL": {
+      "family": null,
+      "description": "Special seal/ritual transformation hook; not a broad material family"
+    }
+  },
+  "species": [
+    {
+      "id": "HUMAN",
+      "name_en": "Human",
+      "name_zh_tw": "人類",
+      "colloquial_en": "",
+      "colloquial_zh_tw": "",
+      "allocation_points": 21,
+      "modifiers": {},
+      "notes": "Baseline morphology and institutional default. Human has one extra free allocation point rather than fixed stat modifiers.",
+      "family_tendencies": {
+        "primary": [],
+        "secondary": [],
+        "uncommon": []
+      },
+      "refinement_hooks": []
+    },
+    {
+      "id": "ELF",
+      "name_en": "Elf",
+      "name_zh_tw": "精靈",
+      "colloquial_en": "",
+      "colloquial_zh_tw": "",
+      "allocation_points": 20,
+      "modifiers": {
+        "CHR": 1,
+        "INT": 1,
+        "STR": -1
+      },
+      "notes": "Wood outcomes should be polished, arboreal, carved, lacquered, sculptural, or otherwise refined; wood is not automatically rustic or cheap.",
+      "family_tendencies": {
+        "primary": [
+          "CRYS",
+          "WOOD"
+        ],
+        "secondary": [
+          "GLAS",
+          "STON",
+          "TEMP"
+        ],
+        "uncommon": []
+      },
+      "refinement_hooks": [
+        {
+          "tag": "WOOD_REFINED",
+          "operation": "favor"
+        },
+        {
+          "tag": "STON_FINE",
+          "operation": "favor"
+        },
+        {
+          "tag": "METL_INDUSTRIAL",
+          "operation": "suppress"
+        },
+        {
+          "tag": "CONCRETE_HEAVY",
+          "operation": "suppress"
+        }
+      ]
+    },
+    {
+      "id": "DWARF",
+      "name_en": "Dwarf",
+      "name_zh_tw": "矮人",
+      "colloquial_en": "",
+      "colloquial_zh_tw": "",
+      "allocation_points": 20,
+      "modifiers": {
+        "STR": 2,
+        "CHR": -1
+      },
+      "notes": "Durable/industrial material associations; Human-scale infrastructure and bureaucracy are recurring social frictions.",
+      "family_tendencies": {
+        "primary": [
+          "STON",
+          "METL"
+        ],
+        "secondary": [
+          "SYNT"
+        ],
+        "uncommon": []
+      },
+      "refinement_hooks": [
+        {
+          "tag": "METL_INDUSTRIAL",
+          "operation": "favor"
+        },
+        {
+          "tag": "BRONZE",
+          "operation": "favor"
+        },
+        {
+          "tag": "CONCRETE",
+          "operation": "favor"
+        },
+        {
+          "tag": "ARC_COMPOSITE",
+          "operation": "favor"
+        },
+        {
+          "tag": "CRYS_DELICATE",
+          "operation": "suppress"
+        },
+        {
+          "tag": "GLAS_DELICATE",
+          "operation": "suppress"
+        }
+      ]
+    },
+    {
+      "id": "WINGED_KIN",
+      "name_en": "Winged Kin",
+      "name_zh_tw": "翼族",
+      "colloquial_en": "Angel",
+      "colloquial_zh_tw": "天使",
+      "allocation_points": 20,
+      "modifiers": {
+        "CHR": 1,
+        "SPR": 1,
+        "STR": -1
+      },
+      "notes": "Angel/天使 is everyday shorthand and scientifically inaccurate. Wings vary in color/functionality; accommodation and symbolic objectification are major event hooks.",
+      "family_tendencies": {
+        "primary": [
+          "STON"
+        ],
+        "secondary": [
+          "CRYS",
+          "GLAS",
+          "TEMP"
+        ],
+        "uncommon": []
+      },
+      "refinement_hooks": [
+        {
+          "tag": "STON_FINE",
+          "operation": "strongly_favor"
+        },
+        {
+          "tag": "CRYS_DELICATE",
+          "operation": "favor"
+        },
+        {
+          "tag": "METL_INDUSTRIAL_CRUDE",
+          "operation": "suppress"
+        },
+        {
+          "tag": "CONCRETE_CRUDE",
+          "operation": "suppress"
+        }
+      ]
+    },
+    {
+      "id": "DEMONKIN",
+      "name_en": "Demonkin",
+      "name_zh_tw": "魔裔",
+      "colloquial_en": "Demon",
+      "colloquial_zh_tw": "惡魔",
+      "allocation_points": 20,
+      "modifiers": {
+        "CHR": 2,
+        "SPR": -1
+      },
+      "notes": "Horns/tails and related traits are not moral indicators. Bureaucratic danger assumptions and ceremonial symbolism provide event hooks.",
+      "family_tendencies": {
+        "primary": [
+          "GLAS"
+        ],
+        "secondary": [
+          "TEMP"
+        ],
+        "uncommon": []
+      },
+      "refinement_hooks": [
+        {
+          "tag": "GLAS_OBSIDIAN",
+          "operation": "strongly_favor"
+        },
+        {
+          "tag": "METL_PRECIOUS",
+          "operation": "favor"
+        },
+        {
+          "tag": "MAGICAL_SEAL",
+          "operation": "unlock"
+        },
+        {
+          "tag": "WOOD_NATURAL",
+          "operation": "suppress"
+        }
+      ]
+    },
+    {
+      "id": "DRAGONKIN",
+      "name_en": "Dragonkin",
+      "name_zh_tw": "龍人族",
+      "colloquial_en": "Dragonkin",
+      "colloquial_zh_tw": "龍人",
+      "allocation_points": 20,
+      "modifiers": {
+        "STR": 1,
+        "MNY": 1,
+        "SPR": -1
+      },
+      "notes": "Human-sized draconic humanoids. Precious-material valuation, collateral, insurance, and social expectations are recurring hooks.",
+      "family_tendencies": {
+        "primary": [
+          "CRYS"
+        ],
+        "secondary": [
+          "METL",
+          "STON"
+        ],
+        "uncommon": [
+          "WOOD"
+        ]
+      },
+      "refinement_hooks": [
+        {
+          "tag": "METL_PRECIOUS",
+          "operation": "strongly_favor"
+        },
+        {
+          "tag": "CRYS_GEMSTONE",
+          "operation": "strongly_favor"
+        },
+        {
+          "tag": "BRONZE",
+          "operation": "favor"
+        },
+        {
+          "tag": "STON_VOLCANIC",
+          "operation": "favor"
+        },
+        {
+          "tag": "WOOD_NATURAL",
+          "operation": "suppress"
+        }
+      ]
+    }
+  ],
+  "authoring_rule": "Species tendencies remain soft evidence. Only Material Commitment hard-locks ordinary material drafting.",
+  "institution_rule": "All starting species participate in the same Human-driven modern society; they are not separate civilizations."
+}

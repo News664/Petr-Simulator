@@ -5,12 +5,18 @@ import { fileURLToPath } from 'node:url';
 
 import { parseCondition } from '../conditions/parser.js';
 import {
+  AWARENESS_STATES,
+  CHANNELS,
   MATERIALS,
   TRANSFORMATION_FAMILIES,
+  type AwarenessState,
+  type DraftingTarget,
   type EndingDef,
   type EventBatch,
   type GameEvent,
   type Material,
+  type RefinementTagDef,
+  type RouteTagDef,
   type SpeciesDef,
   type SpeciesId,
   type TalentDef,
@@ -24,7 +30,7 @@ import {
   type BalanceConstants,
 } from './balance.js';
 import { parseCsvRecords } from './csv.js';
-import { eventBatchSchema, speciesRegistrySchema, TALENT_ID_RE } from './schema.js';
+import { eventBatchSchema, routeTagRegistrySchema, speciesRegistrySchema, TALENT_ID_RE } from './schema.js';
 import { normalizeTalentCondition, parseTalentEffects } from './talentEffects.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -36,17 +42,20 @@ export interface ContentPaths {
   speciesRegistry: string;
   talentRegistry: string;
   endingRegistry: string;
+  routeTagRegistry: string;
   balanceConstants: string;
   balanceAdapters: string;
 }
 
+/** Phase 1.1 canonical paths. Superseded registries live in content/superseded/. */
 export function defaultContentPaths(root: string = CONTENT_ROOT): ContentPaths {
   return {
     eventsDir: path.join(root, 'events'),
-    speciesRegistry: path.join(root, 'registries', 'SOLID_STATE_SPECIES_REGISTRY_v1.1.json'),
-    talentRegistry: path.join(root, 'registries', 'SOLID_STATE_TALENT_REGISTRY_v1.0.csv'),
-    endingRegistry: path.join(root, 'registries', 'SOLID_STATE_ENDING_REGISTRY_v1.0.csv'),
-    balanceConstants: path.join(root, 'balance', 'SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.1.json'),
+    speciesRegistry: path.join(root, 'registries', 'SOLID_STATE_SPECIES_REGISTRY_v1.2.json'),
+    talentRegistry: path.join(root, 'registries', 'SOLID_STATE_TALENT_REGISTRY_v1.1.csv'),
+    endingRegistry: path.join(root, 'registries', 'SOLID_STATE_ENDING_REGISTRY_v1.1.csv'),
+    routeTagRegistry: path.join(root, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.0.json'),
+    balanceConstants: path.join(root, 'balance', 'SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.2.json'),
     balanceAdapters: path.join(root, 'balance', 'SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json'),
   };
 }
@@ -72,8 +81,12 @@ export interface ContentBundle {
   events: GameEvent[];
   eventsById: Map<string, GameEvent>;
   species: Map<SpeciesId, SpeciesDef>;
-  /** Species tendencies collapsed onto transformation family codes. */
+  /** Broad family tendencies as sets, for the family-selection layer. */
   speciesFamilyTendencies: Map<SpeciesId, SpeciesTendencies>;
+  /** Species Registry v1.2 refinement tag catalogue. */
+  refinementTags: Map<string, RefinementTagDef>;
+  /** Route Tag Registry v1.0. */
+  routeTags: Map<string, RouteTagDef>;
   talents: Map<string, TalentDef>;
   endings: Map<string, EndingDef>;
   balance: BalanceConstants;
@@ -120,7 +133,14 @@ function loadEventBatches(dir: string, issues: string[], files: { path: string; 
       version: parsed.data.version,
       languageStatus: parsed.data.languageStatus,
       notes: parsed.data.notes,
-      events: parsed.data.events.map((event) => ({ ...event, sourceBatchId: parsed.data.batchId }) as GameEvent),
+      events: parsed.data.events.map(
+        (event) =>
+          ({
+            ...event,
+            refinementTags: event.refinementTags ?? [],
+            sourceBatchId: parsed.data.batchId,
+          }) as GameEvent,
+      ),
     };
     batches.push(batch);
   }
@@ -142,9 +162,84 @@ function loadSpecies(
     }
     return map;
   }
+  const knownRefinementTags = new Set(Object.keys(parsed.data.refinement_tags));
   for (const entry of parsed.data.species) {
     if (map.has(entry.id)) issues.push(`species registry: duplicate species id ${entry.id}`);
-    map.set(entry.id, entry as SpeciesDef);
+    // Family tendencies must be transformation family codes (Species Registry v1.2).
+    for (const [tier, families] of Object.entries(entry.family_tendencies)) {
+      for (const family of families) {
+        if (!TRANSFORMATION_FAMILY_SET.has(family)) {
+          issues.push(`species ${entry.id}: ${tier} family tendency ${family} is not a transformation family code`);
+        }
+      }
+    }
+    for (const hook of entry.refinement_hooks) {
+      if (!knownRefinementTags.has(hook.tag)) {
+        issues.push(`species ${entry.id}: refinement hook ${hook.tag} is not in refinement_tags`);
+      }
+    }
+    map.set(entry.id, {
+      id: entry.id,
+      name_en: entry.name_en,
+      name_zh_tw: entry.name_zh_tw,
+      colloquial_en: entry.colloquial_en,
+      colloquial_zh_tw: entry.colloquial_zh_tw,
+      allocation_points: entry.allocation_points,
+      modifiers: entry.modifiers,
+      familyTendencies: entry.family_tendencies,
+      refinementHooks: entry.refinement_hooks,
+      notes: entry.notes,
+    });
+  }
+  return map;
+}
+
+/** Species Registry v1.2 `refinement_tags`. */
+function loadRefinementTags(
+  file: string,
+  issues: string[],
+): Map<string, RefinementTagDef> {
+  const parsed = speciesRegistrySchema.safeParse(JSON.parse(readFileSync(file, 'utf8')));
+  const map = new Map<string, RefinementTagDef>();
+  if (!parsed.success) return map;
+  for (const [tag, def] of Object.entries(parsed.data.refinement_tags)) {
+    if (def.family !== null && !TRANSFORMATION_FAMILY_SET.has(def.family)) {
+      issues.push(`refinement tag ${tag}: family ${def.family} is not a transformation family code`);
+    }
+    map.set(tag, { tag, family: def.family, description: def.description });
+  }
+  return map;
+}
+
+/** Route Tag Registry v1.0. */
+function loadRouteTags(
+  file: string,
+  issues: string[],
+  files: { path: string; sha256: string }[],
+): Map<string, RouteTagDef> {
+  const text = readFileSync(file, 'utf8');
+  files.push({ path: path.relative(REPO_ROOT, file), sha256: sha256(text) });
+  const parsed = routeTagRegistrySchema.safeParse(JSON.parse(text));
+  const map = new Map<string, RouteTagDef>();
+  if (!parsed.success) {
+    for (const issue of parsed.error.issues) {
+      issues.push(`route tag registry: ${issue.path.join('.')} ${issue.message}`);
+    }
+    return map;
+  }
+  for (const entry of parsed.data.tags) {
+    if (map.has(entry.tag)) {
+      issues.push(`route tag registry: duplicate registered tag ${entry.tag}`);
+      continue;
+    }
+    // Shape only here; the namespace check needs the event flag set and runs in
+    // validateCrossReferences. A prefix may be a complete flag name.
+    for (const prefix of entry.flagPrefixes) {
+      if (!/^[A-Z][A-Z0-9_]*$/.test(prefix)) {
+        issues.push(`route tag ${entry.tag}: malformed flag prefix ${JSON.stringify(prefix)}`);
+      }
+    }
+    map.set(entry.tag, entry);
   }
   return map;
 }
@@ -198,7 +293,60 @@ function loadTalents(
       .split(';')
       .map((s) => s.trim())
       .filter((s) => s !== '' && s !== '-');
+
+    // Talent Registry v1.1 typed drafting operations. Only these change weights.
+    const parseTargets = (column: string): DraftingTarget[] => {
+      const raw = record[column] ?? '';
+      const targets: DraftingTarget[] = [];
+      for (const piece of raw.split(';').map((v) => v.trim()).filter((v) => v !== '')) {
+        const match = /^(family|channel):([A-Z0-9]+)$/.exec(piece);
+        if (!match) {
+          issues.push(`talent ${id}: malformed ${column} target ${JSON.stringify(piece)} (expected family:CODE or channel:CODE)`);
+          continue;
+        }
+        const kind = match[1] as 'family' | 'channel';
+        const code = match[2]!;
+        if (kind === 'channel' && !CHANNEL_SET.has(code)) {
+          issues.push(`talent ${id}: ${column} references unknown channel ${code}`);
+          continue;
+        }
+        targets.push({ kind, code });
+      }
+      return targets;
+    };
+    const splitTags = (column: string): string[] =>
+      (record[column] ?? '').split(';').map((v) => v.trim()).filter((v) => v !== '');
+
+    const rspRaw = (record['registered_species_rule'] ?? '').trim();
+    let registeredSpeciesRule: TalentDef['registeredSpeciesRule'] = null;
+    if (rspRaw !== '') {
+      if (rspRaw === 'UNREGISTERED' || rspRaw === 'SEEDED_OTHER_SPECIES') {
+        registeredSpeciesRule = rspRaw;
+      } else {
+        issues.push(`talent ${id}: unknown registered_species_rule ${JSON.stringify(rspRaw)}`);
+      }
+    }
+
+    const fixRaw = (record['start_fix_bonus'] ?? '').trim();
+    let startFixBonus: number | null = null;
+    if (fixRaw !== '') {
+      const parsedFix = Number.parseInt(fixRaw, 10);
+      if (!Number.isInteger(parsedFix)) {
+        issues.push(`talent ${id}: start_fix_bonus must be an integer, got ${JSON.stringify(fixRaw)}`);
+      } else {
+        startFixBonus = parsedFix;
+      }
+    }
+
     map.set(id, {
+      draftingFavor: parseTargets('drafting_favor'),
+      draftingStronglyFavor: parseTargets('drafting_strongly_favor'),
+      draftingSuppress: parseTargets('drafting_suppress'),
+      unlockTags: splitTags('unlock_tags'),
+      redirectTags: splitTags('redirect_tags'),
+      narrativeTags: splitTags('narrative_tags'),
+      registeredSpeciesRule,
+      startFixBonus,
       id,
       rarity: record['rarity'] ?? '',
       name_en: record['name_en'] ?? '',
@@ -258,6 +406,30 @@ function loadEndings(
     if (hiddenRaw !== 'true' && hiddenRaw !== 'false') {
       issues.push(`ending ${id}: hidden must be true/false, got ${JSON.stringify(record['hidden'])}`);
     }
+    const awareness = (column: string, required: boolean): AwarenessState | null => {
+      const value = (record[column] ?? '').trim();
+      if (value === '') {
+        if (required) issues.push(`ending ${id}: ${column} is required`);
+        return null;
+      }
+      if (!AWARENESS_SET.has(value)) {
+        issues.push(`ending ${id}: ${column} has unknown awareness state ${JSON.stringify(value)}`);
+        return null;
+      }
+      return value as AwarenessState;
+    };
+    const awarenessList = (column: string): AwarenessState[] => {
+      const out: AwarenessState[] = [];
+      for (const value of splitList(record[column] ?? '')) {
+        if (!AWARENESS_SET.has(value)) {
+          issues.push(`ending ${id}: ${column} has unknown awareness state ${JSON.stringify(value)}`);
+          continue;
+        }
+        out.push(value as AwarenessState);
+      }
+      return out;
+    };
+
     map.set(id, {
       id,
       primaryFamily: record['primary_family'] ?? '',
@@ -266,7 +438,11 @@ function loadEndings(
       coreRoutes: splitList(record['core_routes'] ?? ''),
       allowedMaterials: record['allowed_materials'] ?? '',
       typicalForms: splitList(record['typical_forms'] ?? ''),
-      defaultAwarenessRaw: record['default_awareness'] ?? '',
+      defaultAwareness: awareness('default_awareness', true) ?? 'Unconscious',
+      awarenessIfTemporal: awareness('awareness_if_temporal', false),
+      allowedAwarenessStates: awarenessList('allowed_awareness_states'),
+      authorizationRequiredStates: awarenessList('authorization_required_states'),
+      authorizingTalents: splitList(record['authorizing_talents'] ?? ''),
       legalStatus: record['legal_status'] ?? '',
       ownership: record['ownership'] ?? '',
       autonomy: record['autonomy'] ?? '',
@@ -304,12 +480,14 @@ function loadJsonWithSchema<T>(
 
 const MATERIAL_SET = new Set<string>(MATERIALS);
 const TRANSFORMATION_FAMILY_SET = new Set<string>(TRANSFORMATION_FAMILIES);
+const CHANNEL_SET = new Set<string>(CHANNELS);
+const AWARENESS_SET = new Set<string>(AWARENESS_STATES);
 
 function validateCrossReferences(
   bundle: Omit<ContentBundle, 'contentVersion' | 'sourceFiles'>,
   issues: string[],
 ): void {
-  const { events, eventsById, endings, talents, adapters } = bundle;
+  const { events, eventsById, endings, talents, adapters, routeTags, refinementTags } = bundle;
 
   const seen = new Set<string>();
   for (const event of events) {
@@ -387,66 +565,98 @@ function validateCrossReferences(
     }
   }
 
-  // Adapter references.
-  for (const talentId of Object.keys(adapters.talentAdapters)) {
-    if (!talents.has(talentId)) issues.push(`balance adapters: unknown talent ${talentId}`);
-  }
-  for (const endingId of Object.keys(adapters.endingAwarenessAuthorizingTalents)) {
-    if (!endings.has(endingId)) issues.push(`balance adapters: unknown ending ${endingId}`);
-    for (const talentId of adapters.endingAwarenessAuthorizingTalents[endingId] ?? []) {
-      if (!talents.has(talentId)) issues.push(`balance adapters: unknown authorizing talent ${talentId}`);
+  // Route Tag Registry v1.0 integrity (Acceptance Addendum section 2).
+  for (const event of events) {
+    for (const tag of event.routeTags) {
+      if (!routeTags.has(tag)) {
+        issues.push(`${event.id}: routeTag ${JSON.stringify(tag)} is not registered in the Route Tag Registry`);
+      }
+    }
+    // Species refinement integrity (Acceptance Addendum section 3).
+    for (const tag of event.refinementTags) {
+      if (!refinementTags.has(tag)) {
+        issues.push(`${event.id}: refinementTag ${JSON.stringify(tag)} is not registered in the Species Registry`);
+      }
     }
   }
-  for (const [label, family] of Object.entries(adapters.speciesTendencyFamilyMap)) {
-    if (!TRANSFORMATION_FAMILY_SET.has(family)) {
-      issues.push(`balance adapters: speciesTendencyFamilyMap[${label}] -> unknown family ${family}`);
+
+  // Route Tag Registry validationRule: every non-empty flag prefix must match a
+  // real flag namespace (route flags, or an approved non-route state prefix such
+  // as MAT_MANIFEST_TEMP for the `temporal` tag).
+  const authoredFlags = new Set<string>();
+  for (const event of events) {
+    for (const variant of event.variants) {
+      for (const flag of variant.addFlags) authoredFlags.add(flag);
+      for (const flag of variant.removeFlags) authoredFlags.add(flag);
     }
   }
-  // Every awareness string in the registry must have a resolution rule.
+  for (const def of routeTags.values()) {
+    for (const prefix of def.flagPrefixes) {
+      const matches = [...authoredFlags].some((flag) => flag.startsWith(prefix));
+      if (!matches) {
+        issues.push(
+          `route tag ${def.tag}: flag prefix ${JSON.stringify(prefix)} matches no authored flag namespace`,
+        );
+      }
+    }
+  }
+
+  // Ending Registry v1.1 awareness integrity (Acceptance Addendum section 5).
   for (const ending of endings.values()) {
-    if (ending.defaultAwarenessRaw !== '' && !adapters.endingAwarenessRules[ending.defaultAwarenessRaw]) {
+    for (const state of ending.authorizationRequiredStates) {
+      if (ending.authorizingTalents.length === 0) {
+        issues.push(`ending ${ending.id}: ${state} requires authorization but no authorizing_talents are listed`);
+      }
+    }
+    for (const talentId of ending.authorizingTalents) {
+      if (!talents.has(talentId)) {
+        issues.push(`ending ${ending.id}: unknown authorizing talent ${talentId}`);
+      }
+    }
+    if (
+      ending.allowedAwarenessStates.length > 0 &&
+      !ending.allowedAwarenessStates.includes(ending.defaultAwareness)
+    ) {
       issues.push(
-        `balance adapters: no endingAwarenessRules entry for ${JSON.stringify(ending.defaultAwarenessRaw)} (used by ${ending.id})`,
+        `ending ${ending.id}: default_awareness ${ending.defaultAwareness} is not in allowed_awareness_states`,
+      );
+    }
+    if (
+      ending.awarenessIfTemporal &&
+      ending.allowedAwarenessStates.length > 0 &&
+      !ending.allowedAwarenessStates.includes(ending.awarenessIfTemporal)
+    ) {
+      issues.push(
+        `ending ${ending.id}: awareness_if_temporal ${ending.awarenessIfTemporal} is not in allowed_awareness_states`,
       );
     }
   }
-  // Every species tendency label must be mapped or explicitly unmapped.
-  const unmapped = new Set(Object.keys(adapters.speciesTendencyUnmapped ?? {}));
-  for (const species of bundle.species.values()) {
-    for (const label of [...species.primary, ...species.secondary, ...species.uncommon]) {
-      if (!adapters.speciesTendencyFamilyMap[label] && !unmapped.has(label)) {
-        issues.push(`balance adapters: species ${species.id} tendency ${label} is neither mapped nor declared unmapped`);
+
+  // Talent Registry v1.1 typed drafting targets must name real families/channels.
+  const knownFamilies = new Set(events.map((event) => event.family));
+  for (const talent of talents.values()) {
+    for (const target of [...talent.draftingFavor, ...talent.draftingStronglyFavor, ...talent.draftingSuppress]) {
+      if (target.kind === 'family' && !knownFamilies.has(target.code)) {
+        issues.push(`talent ${talent.id}: drafting target family ${target.code} matches no authored event family`);
       }
     }
   }
+
+  // Remaining adapter references (the adapter is now diagnostics-only).
+  for (const talentId of Object.keys(adapters.talentDiagnostics)) {
+    if (!talents.has(talentId)) issues.push(`balance adapters: unknown talent ${talentId}`);
+  }
 }
 
-function collapseSpeciesTendencies(
-  species: Map<SpeciesId, SpeciesDef>,
-  adapters: BalanceAdapters,
-): Map<SpeciesId, SpeciesTendencies> {
+/** Species Registry v1.2 states family tendencies directly; no collapsing needed. */
+function speciesFamilyTendencies(species: Map<SpeciesId, SpeciesDef>): Map<SpeciesId, SpeciesTendencies> {
   const out = new Map<SpeciesId, SpeciesTendencies>();
   for (const def of species.values()) {
-    const tendencies: SpeciesTendencies = { primary: new Set(), secondary: new Set(), uncommon: new Set() };
-    const tiers: [keyof SpeciesTendencies, string[]][] = [
-      ['primary', def.primary],
-      ['secondary', def.secondary],
-      ['uncommon', def.uncommon],
-    ];
-    for (const [tier, labels] of tiers) {
-      for (const label of labels) {
-        const family = adapters.speciesTendencyFamilyMap[label];
-        if (!family) continue;
-        tendencies[tier].add(family);
-      }
-    }
-    // Strongest tier wins when refinement labels collapse onto one family.
-    for (const family of tendencies.primary) {
-      tendencies.secondary.delete(family);
-      tendencies.uncommon.delete(family);
-    }
-    for (const family of tendencies.secondary) tendencies.uncommon.delete(family);
-    out.set(def.id, tendencies);
+    out.set(def.id, {
+      primary: new Set(def.familyTendencies.primary),
+      secondary: new Set(def.familyTendencies.secondary),
+      uncommon: new Set(def.familyTendencies.uncommon),
+    });
   }
   return out;
 }
@@ -461,6 +671,8 @@ export function loadContent(paths: ContentPaths = defaultContentPaths()): Conten
 
   const batches = loadEventBatches(paths.eventsDir, issues, sourceFiles);
   const species = loadSpecies(paths.speciesRegistry, issues, sourceFiles);
+  const refinementTags = loadRefinementTags(paths.speciesRegistry, issues);
+  const routeTags = loadRouteTags(paths.routeTagRegistry, issues, sourceFiles);
   const talents = loadTalents(paths.talentRegistry, issues, sourceFiles);
   const endings = loadEndings(paths.endingRegistry, issues, sourceFiles);
   const balance = loadJsonWithSchema(paths.balanceConstants, balanceConstantsSchema, 'balance constants', issues, sourceFiles);
@@ -477,7 +689,9 @@ export function loadContent(paths: ContentPaths = defaultContentPaths()): Conten
     events,
     eventsById,
     species,
-    speciesFamilyTendencies: collapseSpeciesTendencies(species, adapters),
+    speciesFamilyTendencies: speciesFamilyTendencies(species),
+    refinementTags,
+    routeTags,
     talents,
     endings,
     balance,

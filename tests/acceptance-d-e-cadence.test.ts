@@ -20,12 +20,12 @@ const policy: SetupPolicy = {
   allocation: { kind: 'seeded_random' },
 };
 
-/** Diagnostic coverage policy so runs reach adulthood; see CONFLICT C-5. */
+/**
+ * Q-01 RESOLVED: Batch 005 supplies varied ages 0-5 content, so strict coverage
+ * is now the only policy and the diagnostic escape hatch is gone.
+ */
 function relaxedContent() {
-  return fixtureContent({
-    events: content.events,
-    adapters: { engineRules: { pre25CoveragePolicy: 'reuse_baseline_repeatables' } },
-  });
+  return content;
 }
 
 describe('D. One-event-per-year invariant', () => {
@@ -176,33 +176,19 @@ describe('E. Childhood safety', () => {
     expect(result.state.history).toHaveLength(1);
   });
 
-  it('measures pre-25 coverage headroom for representative reachable states at every age 0-24', () => {
-    // For each species, walk a fresh run's early life and confirm that at the
-    // reachable state for each age there is at least one eligible non-fallback
-    // event. Coverage-defect ages are reported rather than silently passing.
-    const relaxed = relaxedContent();
-    const defectAges = new Map<number, number>();
-    let sampled = 0;
+  it('has no pre-25 coverage defect under the strict policy', () => {
+    // Q-01 RESOLVED by Batch 005. The deep schedulability check lives in
+    // tests/phase1_1-acceptance.test.ts section 1.
     for (const species of SPECIES_IDS) {
       for (let i = 0; i < 40; i++) {
-        sampled++;
-        const result = runSimulation(`coverage-${species}-${i}`, relaxed, {
+        const result = runSimulation(`coverage-${species}-${i}`, content, {
           ...policy,
           species: { kind: 'fixed', species },
         });
-        for (const age of result.state.diagnostics.emergencyReuseAges) {
-          defectAges.set(age, (defectAges.get(age) ?? 0) + 1);
-        }
+        expect(result.outcome.kind, `run coverage-${species}-${i}`).not.toBe('coverage_error');
+        expect(result.state.diagnostics.coverageDefectAges).toEqual([]);
       }
     }
-    expect(sampled).toBe(SPECIES_IDS.length * 40);
-    // CONFLICT C-5: ages 0-5 are provisioned with zero slack, so the strict
-    // policy runs the pool dry. This test pins the shape of the defect so a
-    // content fix is detectable; it must never spread past age 24.
-    for (const age of defectAges.keys()) {
-      expect(age, 'coverage defects must be confined to the pre-25 band').toBeLessThan(25);
-    }
-    expect([...defectAges.keys()].sort((a, b) => a - b)).toEqual([4, 5]);
   });
 
   it('confirms at least one eligible non-fallback event exists at age 0 for every species', () => {

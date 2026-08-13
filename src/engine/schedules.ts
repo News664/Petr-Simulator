@@ -2,6 +2,7 @@ import { evaluateCondition } from './conditions/evaluate.js';
 import type { ContentBundle } from './content/load.js';
 import { isEligible } from './eligibility.js';
 import { conditionContext } from './state.js';
+import type { Rng } from './rng.js';
 import type { GameEvent, PendingSchedule, RunState, ScheduleSpec, SchedulePriority } from './types.js';
 
 /**
@@ -44,8 +45,8 @@ export function addSchedules(
   sourceEventId: string,
   specs: readonly ScheduleSpec[],
 ): void {
-  if (content.adapters.engineRules.scheduleWindowSemantics !== 'earliest_plus_window') {
-    throw new Error(`unsupported scheduleWindowSemantics ${content.adapters.engineRules.scheduleWindowSemantics}`);
+  if (content.balance.scheduleSemantics.window !== 'earliest_plus_window_inclusive') {
+    throw new Error(`unsupported schedule window semantics ${content.balance.scheduleSemantics.window}`);
   }
   for (const spec of specs) {
     const earliestAge = state.age + spec.offsetYears;
@@ -55,6 +56,8 @@ export function addSchedules(
       earliestAge,
       latestAge: earliestAge + spec.windowYears,
       priority: spec.priority,
+      // Content Schema v0.3: absent behaves as 0.
+      priorityOrder: spec.priorityOrder ?? 0,
       validityCondition: spec.validityCondition,
       createdAtAge: state.age,
       createdByEventId: sourceEventId,
@@ -104,17 +107,34 @@ export function scheduleCandidates(state: RunState, content: ContentBundle): Sch
 /**
  * Ranks candidates and returns the winner.
  *
- * Within a priority class, authored priority comes first: the schedule whose
- * window closes soonest is the most urgent authored intent, then creation
- * order. `seq` is unique, so the ordering is total and no RNG tiebreak is
- * reachable — which is what keeps runs reproducible.
+ * Q-11 RESOLVED (Content Schema v0.3): within a priority class, the larger
+ * `priorityOrder` wins; an actual tie is broken by seeded RNG. Creation order is
+ * NOT the permanent design tiebreak — it is used only to make the candidate list
+ * order itself deterministic before the RNG draw, so the same seed and state
+ * always yield the same tie result.
  */
-export function rankCandidates(candidates: readonly ScheduleCandidate[]): ScheduleCandidate[] {
-  return candidates.slice().sort((a, b) => {
+export function rankCandidates(
+  candidates: readonly ScheduleCandidate[],
+  rng?: Rng,
+): ScheduleCandidate[] {
+  const sorted = candidates.slice().sort((a, b) => {
     if (a.rank !== b.rank) return b.rank - a.rank;
-    if (a.schedule.latestAge !== b.schedule.latestAge) return a.schedule.latestAge - b.schedule.latestAge;
+    if (a.schedule.priorityOrder !== b.schedule.priorityOrder) {
+      return b.schedule.priorityOrder - a.schedule.priorityOrder;
+    }
+    // Stable, content-independent ordering for the tie group.
     return a.schedule.seq - b.schedule.seq;
   });
+  if (sorted.length < 2 || !rng) return sorted;
+
+  const best = sorted[0]!;
+  const tied = sorted.filter(
+    (c) => c.rank === best.rank && c.schedule.priorityOrder === best.schedule.priorityOrder,
+  );
+  if (tied.length < 2) return sorted;
+
+  const winner = rng.pick(tied);
+  return [winner, ...sorted.filter((c) => c !== winner)];
 }
 
 /** Removes a fired schedule from the pending queue. */

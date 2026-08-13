@@ -1,6 +1,6 @@
 # SOLID STATE — Engine Behaviour Log
 
-## Version 0.1 — Phase 1
+## Version 0.2 — Phase 1 + Phase 1.1
 
 Every point where the engine's behaviour was **decided, corrected, or made
 stricter** during Phase-1 implementation, with the reason and the test that pins
@@ -11,9 +11,90 @@ a particular way from the code alone. Entries marked **needs ratification** link
 to an entry in [`OPEN_QUESTIONS.md`](OPEN_QUESTIONS.md); the rest are mechanical
 and need no design input.
 
-**No creative content was changed.** All files under `content/events/` and
-`content/registries/`, plus `tools/SOLID_STATE_CONTENT_TOOL_v0.1.py`, are
-byte-identical to `SOLID_STATE_PROJECT_SNAPSHOT_v0.7` — verified by diff.
+**No creative content was changed.** All files under `content/events/`,
+`content/registries/` and `content/balance/` are byte-identical to their source
+artifact — snapshot v0.7 for Batches 001–004, and Phase 1.1 patch v0.1 for
+Batch 005, the v1.1/v1.2 registries, Balance Constants v0.2, the experiment
+matrix and `tools/SOLID_STATE_CONTENT_TOOL_v0.2.py`. Superseded files are kept
+under `content/superseded/` and are never loaded at runtime.
+
+---
+
+# 0. Phase 1.1 integration (patch v0.1)
+
+The patch retired most of section 2 below. What the engine now reads canonically:
+
+| Was (Phase 1 adapter) | Now (canonical) |
+|---|---|
+| `speciesTendencyFamilyMap`, `speciesTendencyUnmapped` | Species Registry v1.2 `family_tendencies` + `refinement_tags` |
+| `talentAdapters.*` drafting polarity | Talent Registry v1.1 `drafting_favor` / `_strongly_favor` / `_suppress` |
+| `talentAdapters.*.registeredSpeciesRule` | Talent Registry v1.1 `registered_species_rule` |
+| `endingAwarenessRules`, `endingAwarenessAuthorizingTalents` | Ending Registry v1.1 structured awareness columns |
+| `routeTagFlagPrefixes`, `routeTagsWithNoTransformationFavor` | Route Tag Registry v1.0 |
+| `engineRules.familyWeightMode` | Balance Constants v0.2 `familyWeightMode` |
+| `engineRules.statClamp`, `startingFIX` | Balance Constants v0.2 |
+| `engineRules.repeatCooldownSemantics` | Balance Constants v0.2 |
+| `engineRules.scheduleWindowSemantics`, `scheduleValidityIsFireGate` | Balance Constants v0.2 `scheduleSemantics` |
+| `engineRules.pre25CoveragePolicy` | **deleted** — Q-01 resolved, strict is the only policy |
+| `materialFlagPrefixes` | engine constants (Tag Registry namespaces) |
+| `engineRules.startingAllocationRange` | engine constant citing Core Contract §5 |
+
+**What is left in the adapter file**: the T1027 diagnostic start-FIX value
+(Q-14 is OPEN) and the Ending Record `Unknown` placeholder convention. Nothing
+else.
+
+## E-19 — Drafting is now explicitly three-layered
+
+Event Drafting Rules v0.3 moved route context to the event layer and made the
+family layer uniform. The engine now applies evidence in three named places
+(`src/engine/drafting.ts`):
+
+| Layer | Inputs |
+|---|---|
+| channel | neutral age weights × FIX scalar (TRN) × talent `channel:` ops |
+| family | **uniform base 1.0** × species family tendency (TRN, pre-commitment) × hint × manifestation × talent `family:` ops |
+| event | `weightClass` × routeFavor (at most one) × species refinement hook (only on a matching `refinementTag`) |
+
+`sum_of_event_weights` changes only the family base, and is the A/B diagnostic.
+
+**Assumption recorded**: the specs place route context at the event layer and
+species tendency at the family layer explicitly, but do not say which layer
+talent `family:`/`channel:` operations act on. The engine puts them at the layer
+matching their target kind, consistent with Drafting Rules v0.2 §3 grouping
+talent tendency with species/hint/manifestation as family evidence. See
+`PHASE1_1_FINDINGS.md`; raise it if design intended otherwise.
+
+## E-20 — Threshold override is a derived bundle, never a file edit
+
+`src/sim/experiments.ts` implements the experiment matrix by rewriting `FIX>=N`
+in a **copy** of the content bundle. It rewrites both gate sites — the target
+event's own `include` and the `validityCondition` of every schedule pointing at
+it — keyed by target event ID, so a profile cannot be half-applied. Every
+rewritten condition is re-parsed, and a test asserts the base bundle is
+untouched and that no gate-assigned event was left unrewritten.
+
+Note that `ORIGINAL_REFERENCE` is a *reference profile*, not "as authored": it
+sets `climax_anomalous`/`climax_late` to 50 where Batch 005 authors 40.
+
+## E-21 — priorityOrder replaced creation order as the tiebreak
+
+Q-11: within a priority class the engine now ranks by `priorityOrder`
+descending, then breaks an actual tie with the seeded RNG. Creation order
+survives only as a stable pre-sort so the RNG sees a deterministic candidate
+list. A test asserts the winner varies across seeds but is identical for a
+repeated seed.
+
+## E-22 — Route-tag flag-prefix validation is a whole-corpus property
+
+The Route Tag Registry requires every flag prefix to match a real namespace.
+That can only be checked against the complete event corpus, so the check lives in
+cross-reference validation rather than the registry loader, and the test harness
+that builds throwaway content roots now copies **all** batches and substitutes
+one. A single-batch root would fail for reasons unrelated to the test.
+
+Note that a prefix may legitimately be a complete flag name
+(`MAT_MANIFEST_TEMP` for the `temporal` tag) — the shape check accepts any valid
+flag identifier, not only ones ending in `_`.
 
 ---
 
@@ -250,3 +331,4 @@ Listed so their absence is not mistaken for an oversight.
 | Date | Change |
 |---|---|
 | 2026-08-12 | Created at Phase-1 handoff with E-01 … E-18 |
+| 2026-08-13 | Phase 1.1 patch integrated. Adapter shrunk to two diagnostic entries; E-19 … E-22 added. E-01, E-02, E-03, E-05 … E-13, E-17 are now canonical data rather than engine decisions. |

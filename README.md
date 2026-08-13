@@ -1,26 +1,32 @@
-# SOLID STATE — Phase-1 Headless Simulation Engine
+# SOLID STATE — Headless Simulation Engine (Phase 1.1)
 
 Deterministic, headless TypeScript simulation engine for **Solid State**, built
-against the `SOLID_STATE_PROJECT_SNAPSHOT_v0.7` contracts at handoff gate **H1**.
+against the `SOLID_STATE_PROJECT_SNAPSHOT_v0.7` contracts plus
+**Phase 1.1 patch v0.1** (Event Batch 005, Species Registry v1.2, Talent Registry
+v1.1, Ending Registry v1.1, Route Tag Registry v1.0, Content Schema v0.3,
+Event Drafting Rules v0.3, Balance Constants v0.2).
 
-This repository contains the engine, its tests, and a Monte Carlo CLI/report
-satisfying `SOLID_STATE_PHASE1_ACCEPTANCE_TESTS_v0.1.md`. There is no UI: gate
-H2 is not open, and per acceptance §Q Phase 1 **stops** at the simulation report
-pending design review.
+This repository contains the engine, its tests, and Monte Carlo CLI/reports
+satisfying `SOLID_STATE_PHASE1_ACCEPTANCE_TESTS_v0.1.md` **and**
+`SOLID_STATE_PHASE1_1_ACCEPTANCE_ADDENDUM_v0.1.md`. There is no UI: gate H2 is
+not open, and Phase 1.1 **stops** at the simulation reports pending design
+review.
 
 ## Read these first
 
 > ### ➡ [`docs/OPEN_QUESTIONS.md`](docs/OPEN_QUESTIONS.md) — the official decision list
 >
-> **26 questions the coding agent could not decide alone**, each with evidence,
-> options, trade-offs, the engine's current behaviour, and a recommendation.
-> This is the authoritative review surface: resolve a question by editing its
-> **Resolution** block in place. Anything discussed elsewhere but not written
-> there is not official.
+> **26 questions**, each with evidence, options, trade-offs, the engine's current
+> behaviour, the design decision, and the measured outcome. This is the
+> authoritative review surface: resolve a question by editing its **Resolution**
+> block in place. Anything discussed elsewhere but not written there is not
+> official.
 >
-> Blocking: [Q-01](docs/OPEN_QUESTIONS.md#q-01) pre-25 coverage ·
-> [Q-02](docs/OPEN_QUESTIONS.md#q-02) FIX economy ·
-> [Q-03](docs/OPEN_QUESTIONS.md#q-03) endings after 64.
+> **Phase 1.1:** 22 of 26 questions are now RESOLVED. Still open by design:
+> [Q-14](docs/OPEN_QUESTIONS.md#q-14) T1027 magnitude ·
+> [Q-23](docs/OPEN_QUESTIONS.md#q-23) adult fallback ·
+> [Q-24](docs/OPEN_QUESTIONS.md#q-24) Late Bloomer ·
+> [Q-25](docs/OPEN_QUESTIONS.md#q-25) achievements registry.
 
 | Document | What it is |
 |---|---|
@@ -29,17 +35,20 @@ pending design review.
 | [`docs/PHASE1_CONFLICTS.md`](docs/PHASE1_CONFLICTS.md) | Schema/content conflicts, with the smallest proposed change for each |
 | [`docs/PHASE1_ASSUMPTIONS.md`](docs/PHASE1_ASSUMPTIONS.md) | Every decision made where no canonical file specified one |
 | [`docs/ENGINE_CHANGES.md`](docs/ENGINE_CHANGES.md) | Bugs found and fixed, behaviour decided, validation added, and what was deliberately left out |
-| [`reports/monte-carlo.md`](reports/monte-carlo.md) | Full Monte Carlo report, 10 000 runs × 5 scenarios |
-| [`reports/monte-carlo-strict.md`](reports/monte-carlo-strict.md) | Same, under the contract-faithful pre-25 coverage policy |
+| [`docs/PHASE1_1_FINDINGS.md`](docs/PHASE1_1_FINDINGS.md) | **Phase 1.1 results — read this before the Phase-1 findings** |
+| [`reports/monte-carlo.md`](reports/monte-carlo.md) | Monte Carlo report, 10 000 runs × 5 scenarios, authored gates |
+| [`reports/phase1_1-experiments.md`](reports/phase1_1-experiments.md) | Experiment matrix: threshold sweep, family A/B, allocation, T1027, first-manifestation |
 
-The five documents are layered: **conflicts** and **assumptions** record what was
+The documents are layered: **conflicts** and **assumptions** record what was
 found, **findings** records what was measured, **engine changes** records what was
 done about it, and **open questions** is the single actionable list drawn from
-all four. Every question links back to its evidence.
+them all. Every question links back to its evidence.
 
-**No creative content was changed.** Everything under `content/events/` and
-`content/registries/` is byte-identical to the snapshot, and the JSON → Markdown
-mirror check passes against the canonical Python tool.
+**No creative content was changed.** Everything under `content/events/`,
+`content/registries/` and `content/balance/` is byte-identical to its source
+artifact (snapshot v0.7 or Phase 1.1 patch v0.1), and the JSON → Markdown mirror
+check passes against `tools/SOLID_STATE_CONTENT_TOOL_v0.2.py` for all five
+batches.
 
 ## Quick start
 
@@ -54,7 +63,7 @@ Individual steps:
 npm run typecheck     # tsc --noEmit
 npm run validate      # load and cross-validate all canonical content
 npm run mirror:check  # assert batch Markdown is the exact render of batch JSON
-npm test              # 196 tests across acceptance sections A-P
+npm test              # 243 tests: acceptance A-P, Phase-1.1 addendum, golden runs
 ```
 
 ## Monte Carlo simulator
@@ -62,9 +71,22 @@ npm test              # 196 tests across acceptance sections A-P
 ```bash
 npm run simulate -- --runs 10000 --scenario no-talents --seed 12345
 npm run simulate -- --runs 10000 --scenario all --species-stratified
-npm run simulate -- --runs 2000  --scenario all --pre25-coverage strict
 npm run simulate -- --help
 ```
+
+## Phase 1.1 experiment matrix
+
+```bash
+npm run experiment -- --runs 4000
+npm run experiment -- --runs 500 --only threshold_sweep
+```
+
+Runs `SOLID_STATE_PHASE1_1_EXPERIMENT_MATRIX_v0.1.json`: the LOW/MID/HIGH/
+ORIGINAL_REFERENCE threshold sweep, the family-weighting A/B, the three
+allocation policies, the T1027 sensitivity sweep, and the neutral
+first-manifestation diagnostic. Threshold profiles are applied as a **reversible
+in-memory rewrite** of `FIX>=N` gates — no content file is ever edited, and no
+profile is selected automatically.
 
 | Flag | Meaning |
 |---|---|
@@ -76,7 +98,6 @@ npm run simulate -- --help
 | `--balance <path>` | Alternative balance constants JSON |
 | `--adapters <path>` | Alternative balance adapters JSON |
 | `--max-age <n>` | Diagnostic maximum age (default 120) |
-| `--pre25-coverage <mode>` | `strict` (default) or `reuse_baseline_repeatables` — see CONFLICT C-5 |
 | `--out <dir>` / `--name <prefix>` | Output location |
 
 Writes a machine-readable `<prefix>.json` and a human-readable `<prefix>.md`.
@@ -85,10 +106,11 @@ Writes a machine-readable `<prefix>.json` and a human-readable `<prefix>.md`.
 
 ```
 content/                  canonical data — the only runtime content source
-  events/                 SOLID_STATE_EVENT_BATCH_*.json  (canonical)
+  events/                 SOLID_STATE_EVENT_BATCH_*.json  (canonical, 5 batches / 138 events)
                           SOLID_STATE_EVENT_BATCH_*.md    (generated mirror, never read at runtime)
-  registries/             species JSON, talent CSV, ending CSV
-  balance/                provisional balance constants + provisional adapters
+  registries/             species v1.2, talent v1.1, ending v1.1, route tag v1.0
+  balance/                balance constants v0.2, experiment matrix, diagnostic adapters
+  superseded/             replaced registries, kept for provenance, never loaded
 docs/spec/                the v0.7 machine-facing contracts, verbatim
 docs/design/              the Bibles, verbatim (creative context)
 tools/                    the canonical Python content tool, verbatim
@@ -103,8 +125,9 @@ src/engine/               React-free simulation engine (runs under plain Node)
   endings.ts              Ending Record construction and awareness resolution
   simulation.ts           the annual loop
 src/sim/                  Monte Carlo scenarios, metrics, report renderer
-src/cli/                  validate / mirror / simulate entry points
-tests/                    acceptance suites A-P, golden runs, setup tests
+src/sim/experiments.ts    reversible threshold / family-mode / T1027 overrides
+src/cli/                  validate / mirror / simulate / experiment entry points
+tests/                    acceptance A-P, Phase-1.1 addendum, golden runs, setup
 reports/                  generated simulation output
 ```
 
@@ -121,6 +144,11 @@ reports/                  generated simulation output
   asserts the timeline is byte-identical.
 - **Balance is data.** No balance number is hard-coded. Everything comes from
   `content/balance/*.json` and can be replaced via `--balance` / `--adapters`.
+- **Registries are the source of truth.** The Phase-1 provisional adapter is
+  down to two diagnostic entries; species tendencies, talent drafting polarity,
+  awareness and route-tag rules all come from canonical registries.
+- **No passive FIX drift.** Q-26: `fixAnnualDrift` is pinned null and a
+  behavioural test proves FIX changes only through authored effects.
 - **Canonical Markdown is never runtime content.** A test walks `src/engine/`
   and fails on any attempt to read a `.md` file.
 - **One visible event per year.** Asserted across hundreds of complete runs.
@@ -140,14 +168,17 @@ UPDATE_GOLDEN=1 npm test -- tests/golden-runs.test.ts
 
 ## Status
 
-Gate H1 deliverables are complete: engine, tests, Monte Carlo CLI, JSON summary,
-Markdown report, conflict list, assumption list, engine-behaviour log, decision
-register, content snapshot.
+Phase 1.1 integration is complete: patch data loaded, Content Schema v0.3 and
+Event Drafting Rules v0.3 implemented, the provisional adapter shrunk to two
+diagnostic entries, 243 tests passing (Phase-1 suite plus the Phase-1.1
+acceptance addendum), and both the Monte Carlo report and the full experiment
+matrix regenerated.
 
-Three questions block a balance freeze — [Q-01](docs/OPEN_QUESTIONS.md#q-01)
-pre-25 coverage, [Q-02](docs/OPEN_QUESTIONS.md#q-02) the FIX economy behind
-ending reachability, and [Q-03](docs/OPEN_QUESTIONS.md#q-03) the age-64 ending
-ceiling. All three are content or balance decisions, so the engine reports them
-rather than resolving them.
+The Phase-1 blockers are closed: pre-25 coverage defects are at 0%, endings are
+reachable, and both anomalous endings now occur. One new blocking finding
+replaces them — **endings arrive far too late** (74–92% at age 65+ against a 2–5%
+target, and no threshold profile reaches any target band). See
+[`docs/PHASE1_1_FINDINGS.md`](docs/PHASE1_1_FINDINGS.md) finding 2. That is a
+content-shape decision, so the engine reports it rather than resolving it.
 
-Per acceptance §Q, Phase 1 stops here pending design review.
+**H2 remains CLOSED.** Phase 1.1 stops here pending design review.

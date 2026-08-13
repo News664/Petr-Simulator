@@ -43,7 +43,7 @@ export function ineligibleReason(
   const age = state.age;
   if (age < event.age.min) return 'age';
   if (event.age.max !== null && age > event.age.max) return 'age';
-  if (!repeatAllows(state, content.adapters, event.id, event.repeatMaxCount, event.repeatCooldownYears, age)) {
+  if (!repeatAllows(state, content.balance, event.id, event.repeatMaxCount, event.repeatCooldownYears, age)) {
     return 'repeat';
   }
   if (!materialLockAllows(event, state.material)) return 'material_lock';

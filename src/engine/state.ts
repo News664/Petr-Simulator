@@ -1,5 +1,5 @@
 import type { ConditionContext } from './conditions/evaluate.js';
-import type { BalanceAdapters } from './content/balance.js';
+import type { BalanceConstants } from './content/balance.js';
 import { ALL_STATS, type RunState, type StatKey } from './types.js';
 
 /** Snapshot of everything conditions may read. Cheap enough to rebuild per query. */
@@ -25,8 +25,8 @@ export function conditionContext(state: RunState): ConditionContext {
 }
 
 /** Applies the configured clamp. Balance data, never a magic number in code. */
-export function clampStat(adapters: BalanceAdapters, key: StatKey, value: number): number {
-  const clamp = adapters.engineRules.statClamp;
+export function clampStat(balance: BalanceConstants, key: StatKey, value: number): number {
+  const clamp = balance.statClamp;
   const min = key === 'FIX' ? clamp.fixMin : clamp.visibleMin;
   const max = key === 'FIX' ? clamp.fixMax : clamp.visibleMax;
   let out = value;
@@ -37,26 +37,26 @@ export function clampStat(adapters: BalanceAdapters, key: StatKey, value: number
 
 export function applyStatEffects(
   state: RunState,
-  adapters: BalanceAdapters,
+  balance: BalanceConstants,
   effects: Partial<Record<StatKey, number>>,
 ): void {
   for (const key of ALL_STATS) {
     const delta = effects[key];
     if (delta === undefined || delta === 0) continue;
-    state.stats[key] = clampStat(adapters, key, state.stats[key] + delta);
+    state.stats[key] = clampStat(balance, key, state.stats[key] + delta);
   }
 }
 
 /**
  * Repeat eligibility.
  *
- * `at_least` (the canonical reading, see ASSUMPTION A-7): an event with
- * cooldown C last resolved at age L may recur once AGE - L >= C.
- * `strictly_greater` keeps the alternative reading available for comparison.
+ * Q-08 RESOLVED: `AGE - lastOccurrenceAge >= repeatCooldownYears`. The setting
+ * lives in Balance Constants v0.2; `strictly_greater` remains selectable only as
+ * a comparison.
  */
 export function repeatAllows(
   state: RunState,
-  adapters: BalanceAdapters,
+  balance: BalanceConstants,
   eventId: string,
   repeatMaxCount: number | null,
   repeatCooldownYears: number,
@@ -69,7 +69,7 @@ export function repeatAllows(
   // A repeat always needs at least one chronological year, since one visible
   // event per year is the cadence.
   if (elapsed < 1) return false;
-  return adapters.engineRules.repeatCooldownSemantics === 'at_least'
+  return balance.repeatCooldownSemantics === 'at_least'
     ? elapsed >= repeatCooldownYears
     : elapsed > repeatCooldownYears;
 }

@@ -1,0 +1,272 @@
+{
+  "version": "1.0",
+  "canonical": true,
+  "stackingRule": "At most one route-context favor scalar may be applied to a single event from routeTags, even if multiple tags match active state.",
+  "familyRule": "Route-tag matching is an event-level modifier under the Phase 1.1 uniform-family baseline. It does not alter family selection unless a future registry field explicitly declares a family tendency.",
+  "validationRule": "Every event routeTag must exist in this registry. Every non-empty flag prefix must match at least one registered flag namespace or explicitly approved non-route state prefix.",
+  "tags": [
+    {
+      "tag": "academic",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ACA_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "architectural",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ARC_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": true
+    },
+    {
+      "tag": "career",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_CAR_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "civic",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_CIV_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "corporate",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_COR_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "debt",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_FIN_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "education",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "EDU_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "family",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_FAM_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "finance",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_FIN_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "industrial",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ARC_",
+        "ROUTE_CAR_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": true
+    },
+    {
+      "tag": "legal",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_LEG_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "materials",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ACA_MATERIALS"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "medical",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_MED_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "museum",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_MUS_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "political",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_CIV_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "religious",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_REL_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "research",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ACA_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "restoration",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_MUS_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "temporal",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_TEMP_",
+        "MAT_MANIFEST_TEMP"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": true
+    },
+    {
+      "tag": "continuity",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ACA_CONTINUITY"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "anomalous",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ANO_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "baseline",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "fallback",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "health",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "housing",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "midlife",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "social",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "species",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "survivor",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "reincarnation",
+      "kind": "metadata",
+      "flagPrefixes": [
+        "SPC_REIN_"
+      ],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "talent",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    }
+  ]
+}

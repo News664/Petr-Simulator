@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-12T15:48:20.492Z",
-  "contentVersion": "b0a126a4ebcab8e3f0fb61943401cf73702dc3b6d4eb56d0930c4131d2af8044",
-  "balanceVersion": "0.1",
-  "adaptersVersion": "0.1",
+  "generatedAt": "2026-08-13T02:11:38.821Z",
+  "contentVersion": "63ac31e8d496ec3688f75b52752c5b79378e3baeb1c9843df95589b32739b20e",
+  "balanceVersion": "0.2",
+  "adaptersVersion": "0.2",
   "sourceFiles": [
     {
       "path": "content/events/SOLID_STATE_EVENT_BATCH_001_v0.3.json",
@@ -21,24 +21,32 @@
       "sha256": "0470486bf5a6ec031c579761c88f97ed58b705c5fa5d7e82cacb358d214a3016"
     },
     {
-      "path": "content/registries/SOLID_STATE_SPECIES_REGISTRY_v1.1.json",
-      "sha256": "d3fa7bfbeae436a7af9fc06f60aaf1f9986fede1d367e03c5d3527cda7f85cab"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_005_v0.1.json",
+      "sha256": "ff6c5015e1977395e5ecba2cc7948ea9bee8d283d3e6100979214d6bdba94137"
     },
     {
-      "path": "content/registries/SOLID_STATE_TALENT_REGISTRY_v1.0.csv",
-      "sha256": "cd8895941565b5a5e5a446e16f32b33c65b2142d9aa29126ebac419057acb3bf"
+      "path": "content/registries/SOLID_STATE_SPECIES_REGISTRY_v1.2.json",
+      "sha256": "87b6277adc92751696ca37c88abe8290195ea7675aa983425632e9e401e8c57d"
     },
     {
-      "path": "content/registries/SOLID_STATE_ENDING_REGISTRY_v1.0.csv",
-      "sha256": "b4f0d57af8cd2cfa20b9fb298315f3f9be2e7b2f3598324d5266d551ed3f06ec"
+      "path": "content/registries/SOLID_STATE_ROUTE_TAG_REGISTRY_v1.0.json",
+      "sha256": "fc70af3ba593e1faed1a289dfbf3792eed7b7228d0cf5d33635a0b83d24dacb3"
     },
     {
-      "path": "content/balance/SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.1.json",
-      "sha256": "4125c2f3482035d3ba986a0b92d005087ae9bcb2fc00b10dae29ff010e9e4991"
+      "path": "content/registries/SOLID_STATE_TALENT_REGISTRY_v1.1.csv",
+      "sha256": "caceac50387239ee3fb89d6b3bbeea2ea2855aa240398c042e662f6358c416ab"
+    },
+    {
+      "path": "content/registries/SOLID_STATE_ENDING_REGISTRY_v1.1.csv",
+      "sha256": "00b508e0df8850ea76cae5888e3de071c19ef2d07a24954a30b9fcc3eeb60f79"
+    },
+    {
+      "path": "content/balance/SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.2.json",
+      "sha256": "1de7d4ecff50fefbd10e0d374c16abc54668c0a06dfaaac7e5d024cbffd5c0de"
     },
     {
       "path": "content/balance/SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json",
-      "sha256": "56857eb073f821ce2065238cf76faef37cf8150592f4ebee7b461613db750c75"
+      "sha256": "ffe872e5dbe0661b7250cb0d36d7b8afb746210c3ccdca97fea3b3fb34b9d861"
     }
   ],
   "scenarios": [
@@ -48,28 +56,31 @@
       "scenarioDescription": "No talents selected. Isolates content and balance from talent effects.",
       "options": {
         "runs": 10000,
-        "baseSeed": "phase1",
+        "baseSeed": "phase1_1",
         "speciesStratified": true,
         "fixedSpecies": null,
         "maxAge": 120,
-        "pre25CoveragePolicy": "reuse_baseline_repeatables"
+        "familyWeightMode": "uniform"
       },
       "metrics": {
         "runs": 10000,
-        "completed": 10,
-        "nonterminal": 9990,
+        "completed": 4290,
+        "nonterminal": 5710,
         "coverageErrors": 0,
-        "completedRate": 0.001,
-        "nonterminalRate": 0.999,
+        "completedRate": 0.429,
+        "nonterminalRate": 0.571,
         "coverageErrorRate": 0,
-        "averageRunLengthYears": 120.9254,
-        "averageEndingAge": 45.4,
-        "medianEndingAge": 45,
-        "endingAgeP10": 43,
-        "endingAgeP90": 48,
+        "averageRunLengthYears": 97.7048,
+        "averageEndingAge": 65.6988344988345,
+        "medianEndingAge": 67,
+        "endingAgeP10": 67,
+        "endingAgeP90": 69,
         "endingAgeHistogram": {
-          "35-44": 5,
-          "45-54": 5
+          "65+": 3967,
+          "35-44": 232,
+          "45-54": 80,
+          "25-34": 7,
+          "55-64": 4
         },
         "endingAgeShareByTargetBucket": [
           {
@@ -81,35 +92,35 @@
           },
           {
             "band": "25-34",
-            "observedShare": 0,
+            "observedShare": 0.0016317016317016317,
             "targetMin": 0.35,
             "targetMax": 0.4,
             "withinTarget": false
           },
           {
             "band": "35-44",
-            "observedShare": 0.5,
+            "observedShare": 0.05407925407925408,
             "targetMin": 0.2,
             "targetMax": 0.25,
             "withinTarget": false
           },
           {
             "band": "45-54",
-            "observedShare": 0.5,
+            "observedShare": 0.018648018648018648,
             "targetMin": 0.08,
             "targetMax": 0.12,
             "withinTarget": false
           },
           {
             "band": "55-64",
-            "observedShare": 0,
+            "observedShare": 0.0009324009324009324,
             "targetMin": 0.04,
             "targetMax": 0.07,
             "withinTarget": false
           },
           {
             "band": "65+",
-            "observedShare": 0,
+            "observedShare": 0.9247086247086247,
             "targetMin": 0.02,
             "targetMax": 0.05,
             "withinTarget": false
@@ -117,446 +128,555 @@
         ],
         "channelCountsByAgeBand": {
           "0-5": {
-            "ORD": 55141,
-            "INS": 4859,
+            "ORD": 55123,
+            "INS": 4877,
             "TRN": 0,
             "SPC": 0
           },
           "6-11": {
-            "ORD": 49361,
-            "INS": 10639,
+            "ORD": 49216,
+            "INS": 10784,
             "TRN": 0,
             "SPC": 0
           },
           "12-17": {
-            "ORD": 43656,
-            "INS": 11769,
-            "TRN": 4575,
+            "ORD": 42879,
+            "INS": 11569,
+            "TRN": 5552,
             "SPC": 0
           },
           "18-24": {
-            "ORD": 39095,
-            "INS": 17979,
-            "TRN": 12926,
+            "ORD": 39816,
+            "INS": 17303,
+            "TRN": 12881,
             "SPC": 0
           },
           "25-34": {
-            "ORD": 41702,
-            "INS": 30068,
-            "TRN": 28230,
+            "ORD": 45833,
+            "INS": 27592,
+            "TRN": 26571,
             "SPC": 0
           },
           "35-44": {
-            "ORD": 58903,
-            "INS": 34845,
-            "TRN": 6249,
+            "ORD": 54204,
+            "INS": 37651,
+            "TRN": 7222,
             "SPC": 0
           },
           "45-54": {
-            "ORD": 79301,
-            "INS": 20459,
-            "TRN": 157,
+            "ORD": 73254,
+            "INS": 23387,
+            "TRN": 330,
             "SPC": 0
           },
           "55-64": {
-            "ORD": 88145,
-            "INS": 11725,
-            "TRN": 30,
+            "ORD": 84819,
+            "INS": 11906,
+            "TRN": 56,
             "SPC": 0
           },
           "65+": {
-            "ORD": 549448,
-            "INS": 9992,
+            "ORD": 319166,
+            "INS": 15057,
             "TRN": 0,
             "SPC": 0
           }
         },
         "familyCountsByAgeBand": {
           "0-5": {
-            "ORD/FAM": 55141,
-            "INS/CIV": 4859
+            "ORD/HOU": 8825,
+            "ORD/HEA": 7139,
+            "ORD/GEN": 10624,
+            "ORD/SOC": 7667,
+            "ORD/FAM": 20868,
+            "INS/CIV": 4877
           },
           "6-11": {
-            "ORD/SOC": 12074,
-            "ORD/EDU": 37287,
-            "INS/EDU": 10639
+            "ORD/EDU": 33709,
+            "INS/EDU": 10784,
+            "ORD/SOC": 15507
           },
           "12-17": {
-            "ORD/EDU": 31610,
-            "INS/EDU": 7497,
-            "ORD/SOC": 12046,
-            "TRN/WOOD": 4575,
-            "INS/FIN": 4272
+            "ORD/EDU": 28407,
+            "INS/EDU": 7413,
+            "ORD/SOC": 14472,
+            "TRN/CERA": 557,
+            "INS/FIN": 4156,
+            "TRN/TEMP": 638,
+            "TRN/STON": 671,
+            "TRN/WOOD": 1625,
+            "TRN/GLAS": 667,
+            "TRN/METL": 691,
+            "TRN/CRYS": 703
           },
           "18-24": {
-            "TRN/WOOD": 1987,
-            "ORD/HEA": 5595,
-            "ORD/HOU": 5834,
-            "ORD/CAR": 13350,
-            "TRN/GLAS": 2039,
-            "INS/MUS": 1542,
-            "TRN/STON": 2178,
-            "INS/REL": 5302,
-            "ORD/SOC": 6337,
-            "TRN/CERA": 1796,
-            "TRN/METL": 1933,
-            "INS/ACA": 3565,
-            "TRN/CRYS": 1996,
-            "ORD/EDU": 1688,
-            "INS/MED": 3766,
-            "ORD/CIV": 3470,
-            "TRN/TEMP": 997,
-            "INS/COR": 1726,
-            "INS/CIV": 1424,
-            "ORD/FAM": 2562,
-            "INS/FIN": 528,
-            "ORD/FIN": 259,
-            "INS/LEG": 126
+            "INS/REL": 5597,
+            "TRN/CERA": 1667,
+            "INS/ACA": 3861,
+            "ORD/CAR": 10217,
+            "ORD/HOU": 6663,
+            "TRN/STON": 2082,
+            "ORD/HEA": 6252,
+            "INS/COR": 669,
+            "ORD/FAM": 2625,
+            "ORD/CIV": 4921,
+            "INS/MED": 3187,
+            "ORD/SOC": 6867,
+            "TRN/CRYS": 2037,
+            "TRN/GLAS": 1978,
+            "INS/CIV": 1460,
+            "ORD/FIN": 641,
+            "TRN/METL": 1930,
+            "TRN/WOOD": 1897,
+            "ORD/EDU": 1630,
+            "TRN/TEMP": 1290,
+            "INS/MUS": 1898,
+            "INS/LEG": 99,
+            "INS/FIN": 532
           },
           "25-34": {
-            "ORD/HEA": 6272,
-            "INS/COR": 4044,
-            "ORD/SOC": 11518,
-            "ORD/CIV": 3663,
-            "TRN/METL": 4096,
-            "TRN/CERA": 4110,
-            "INS/MED": 3000,
-            "INS/REL": 1581,
-            "INS/ACA": 9373,
-            "ORD/FAM": 4348,
-            "ORD/HOU": 7321,
-            "INS/MUS": 3072,
-            "ORD/CAR": 7258,
-            "TRN/GLAS": 4038,
-            "TRN/TEMP": 3592,
-            "INS/FIN": 3961,
-            "TRN/CRYS": 4186,
-            "INS/LEG": 2416,
-            "TRN/WOOD": 4040,
-            "INS/CIV": 2614,
-            "TRN/STON": 4124,
-            "ORD/FIN": 1322,
-            "INS/ARC": 7,
-            "TRN/SYNT": 44
+            "ORD/SOC": 8060,
+            "INS/ACA": 7432,
+            "ORD/CAR": 15419,
+            "INS/MED": 4759,
+            "INS/COR": 1630,
+            "TRN/WOOD": 3618,
+            "TRN/STON": 3909,
+            "ORD/CIV": 3536,
+            "ORD/HOU": 6872,
+            "TRN/CRYS": 3969,
+            "INS/CIV": 2938,
+            "ORD/FAM": 4243,
+            "INS/FIN": 4102,
+            "ORD/FIN": 1865,
+            "INS/MUS": 3150,
+            "ORD/HEA": 5838,
+            "TRN/METL": 3780,
+            "TRN/CERA": 3661,
+            "TRN/GLAS": 3686,
+            "TRN/TEMP": 3911,
+            "INS/LEG": 1907,
+            "INS/REL": 1656,
+            "TRN/SYNT": 37,
+            "INS/ARC": 18
           },
           "35-44": {
-            "ORD/SOC": 25537,
-            "INS/COR": 3507,
-            "ORD/FAM": 11791,
-            "TRN/TEMP": 5170,
-            "INS/ACA": 15117,
-            "ORD/GEN": 7290,
-            "INS/LEG": 4296,
-            "INS/CIV": 4891,
-            "ORD/FIN": 2316,
-            "ORD/HOU": 7323,
-            "ORD/CAR": 3463,
-            "INS/FIN": 2291,
-            "TRN/METL": 141,
-            "INS/ARC": 120,
-            "INS/REL": 880,
-            "INS/MUS": 1358,
-            "INS/MED": 2385,
-            "ORD/CIV": 1183,
-            "TRN/CERA": 128,
-            "TRN/GLAS": 148,
-            "TRN/STON": 164,
-            "TRN/CRYS": 180,
-            "TRN/MIXD": 21,
-            "TRN/WOOD": 139,
-            "TRN/SYNT": 158
+            "ORD/CIV": 1071,
+            "TRN/TEMP": 4194,
+            "ORD/SOC": 17098,
+            "ORD/FAM": 10552,
+            "ORD/HOU": 7810,
+            "INS/COR": 1731,
+            "ORD/GEN": 10033,
+            "INS/ACA": 9436,
+            "INS/MED": 11294,
+            "INS/CIV": 5265,
+            "INS/REL": 1411,
+            "INS/LEG": 3872,
+            "TRN/CRYS": 470,
+            "ORD/CAR": 5065,
+            "INS/FIN": 2386,
+            "ORD/FIN": 2575,
+            "TRN/WOOD": 470,
+            "TRN/STON": 510,
+            "INS/MUS": 1867,
+            "TRN/GLAS": 458,
+            "TRN/CERA": 390,
+            "INS/ARC": 389,
+            "TRN/SYNT": 218,
+            "TRN/METL": 441,
+            "TRN/MIXD": 71
           },
           "45-54": {
-            "ORD/CAR": 15284,
-            "ORD/HEA": 14969,
-            "ORD/GEN": 8362,
-            "ORD/FAM": 27697,
-            "INS/FIN": 8335,
-            "ORD/SOC": 12989,
-            "INS/CIV": 5781,
-            "INS/MED": 931,
-            "INS/LEG": 1311,
-            "INS/COR": 1805,
-            "INS/ACA": 1697,
-            "INS/REL": 314,
-            "TRN/MIXD": 157,
-            "INS/MUS": 170,
-            "INS/ARC": 115
+            "INS/CIV": 6156,
+            "ORD/FAM": 23005,
+            "ORD/HEA": 13945,
+            "ORD/SOC": 13337,
+            "INS/FIN": 7660,
+            "ORD/CAR": 15305,
+            "ORD/GEN": 7662,
+            "INS/MED": 3323,
+            "INS/LEG": 2957,
+            "INS/REL": 766,
+            "INS/COR": 932,
+            "INS/ACA": 943,
+            "TRN/MIXD": 322,
+            "INS/MUS": 341,
+            "INS/ARC": 309,
+            "TRN/TEMP": 8
           },
           "55-64": {
-            "INS/CIV": 9990,
-            "ORD/CAR": 17506,
-            "ORD/HEA": 13731,
-            "ORD/FAM": 17653,
-            "ORD/SOC": 15724,
-            "ORD/GEN": 23531,
-            "INS/FIN": 1654,
-            "INS/MED": 50,
-            "INS/LEG": 31,
-            "TRN/MIXD": 30
+            "ORD/HEA": 13597,
+            "ORD/CAR": 16516,
+            "INS/CIV": 9677,
+            "ORD/FAM": 18521,
+            "ORD/SOC": 15729,
+            "ORD/GEN": 20456,
+            "INS/FIN": 2019,
+            "INS/LEG": 71,
+            "INS/MED": 136,
+            "TRN/MIXD": 56,
+            "INS/MUS": 2,
+            "INS/REL": 1
           },
           "65+": {
-            "INS/CIV": 9990,
-            "ORD/SOC": 109825,
-            "ORD/GEN": 438411,
-            "ORD/FAM": 1212,
-            "INS/FIN": 1,
-            "INS/MED": 1
+            "ORD/SOC": 64680,
+            "ORD/FAM": 13044,
+            "INS/CIV": 7606,
+            "INS/MED": 7450,
+            "ORD/GEN": 241442,
+            "INS/FIN": 1
           }
         },
-        "totalEventYears": 1209254,
-        "fallbackYears": 336108,
-        "fallbackUseRate": 0.27794656871095735,
-        "fallbackYearsAge25Plus": 336108,
-        "fallbackShareAge25Plus": 0.35038477817137065,
+        "totalEventYears": 977048,
+        "spcEventYears": 0,
+        "spcShare": 0,
+        "mandatoryEventYears": 8014,
+        "mandatoryUsageRate": 0.4007,
+        "endingShare65Plus": 0.9247086247086247,
+        "fallbackYears": 189903,
+        "fallbackUseRate": 0.19436404352703246,
+        "fallbackYearsAge25Plus": 189903,
+        "fallbackShareAge25Plus": 0.26119733497650777,
         "pre25FallbackYears": 0,
         "pre25CoverageDefectRate": 0,
         "pre25CoverageDefectAges": {},
-        "pre25EmergencyReuseYears": 13007,
+        "pre25EmergencyReuseYears": 0,
         "routeEntryRate": 1,
         "routeEntryCountsByRoute": {
-          "ROUTE_MUS_INTEREST": 5676,
-          "ROUTE_COR_EMPLOYEE": 6198,
-          "ROUTE_COR_PRESERVATION_PLAN": 2885,
-          "ROUTE_COR_CONTRACT": 2885,
-          "ROUTE_MED_SCREENED": 7458,
-          "ROUTE_REL_INTEREST": 7482,
-          "ROUTE_MED_PRESERVATION_CONSULT": 2572,
-          "ROUTE_TEMP_STUDY": 5642,
-          "ROUTE_ACA_RESEARCH": 6864,
-          "ROUTE_FAM_PLACEMENT": 8203,
-          "ROUTE_ACA_SPECIALIZATION": 5620,
-          "ROUTE_ACA_MATERIALS": 2789,
-          "ROUTE_ACA_MATERIALS_EXPOSED": 2789,
-          "ROUTE_CIV_SERVICE": 7223,
-          "ROUTE_FAM_DIRECTIVE": 6092,
-          "ROUTE_CIV_MEMORIAL": 6521,
-          "ROUTE_CIV_REBRANDED": 5877,
-          "ROUTE_ACA_TENURE_TRACK": 3003,
-          "ROUTE_ACA_TENURE_REVIEW": 3003,
-          "ROUTE_FIN_SECURED_DEBT": 1487,
-          "ROUTE_FIN_VALUED": 5337,
-          "ROUTE_ARC_STRUCTURAL": 242,
-          "ROUTE_MED_DIRECTIVE": 1349,
-          "ROUTE_LEG_STATUS_CASE": 968,
-          "ROUTE_LEG_STATUS_RESOLVED": 966,
-          "ROUTE_ACA_CONTINUITY": 2831,
-          "ROUTE_ACA_CONTINUITY_EXPOSED": 2831,
-          "ROUTE_MED_SYNTH_OPTION": 625,
-          "ROUTE_REL_CLAIM": 595,
-          "ROUTE_MUS_APPRAISED": 258,
-          "ROUTE_MUS_MIXED_OPTION": 208
+          "ROUTE_REL_INTEREST": 7871,
+          "ROUTE_ACA_RESEARCH": 6372,
+          "ROUTE_COR_EMPLOYEE": 3448,
+          "ROUTE_ACA_SPECIALIZATION": 4012,
+          "ROUTE_ACA_MATERIALS": 2091,
+          "ROUTE_ACA_MATERIALS_EXPOSED": 2089,
+          "ROUTE_CAR_MATERIAL_EXPOSURE": 4787,
+          "ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY": 4785,
+          "ROUTE_ACA_TENURE_TRACK": 1364,
+          "ROUTE_MED_SCREENED": 6182,
+          "ROUTE_ACA_TENURE_REVIEW": 1362,
+          "ROUTE_CIV_SERVICE": 8431,
+          "ROUTE_FAM_PLACEMENT": 7796,
+          "ROUTE_MED_PRESERVATION_CONSULT": 5305,
+          "ROUTE_CIV_MEMORIAL": 7210,
+          "ROUTE_CIV_REBRANDED": 6449,
+          "ROUTE_FAM_LATE_LEGACY": 9003,
+          "ROUTE_MED_LATE_CONTINUITY": 5943,
+          "ROUTE_COR_PRESERVATION_PLAN": 1151,
+          "ROUTE_COR_CONTRACT": 1151,
+          "ROUTE_TEMP_STUDY": 3722,
+          "ROUTE_MED_CONTROLLED_HARDENING": 4007,
+          "ROUTE_MED_CONTROLLED_HARDENING_STAGE2": 4007,
+          "ROUTE_MED_SYNTH_OPTION": 555,
+          "ROUTE_FIN_VALUED": 5427,
+          "ROUTE_MUS_INTEREST": 6210,
+          "ROUTE_FAM_DIRECTIVE": 4552,
+          "ROUTE_MED_DIRECTIVE": 2881,
+          "ROUTE_LEG_STATUS_CASE": 1981,
+          "ROUTE_LEG_STATUS_RESOLVED": 1977,
+          "ROUTE_ACA_CONTINUITY": 1914,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 1907,
+          "ROUTE_REL_CLAIM": 1557,
+          "ROUTE_FIN_SECURED_DEBT": 1668,
+          "ROUTE_MUS_APPRAISED": 590,
+          "ROUTE_MUS_MIXED_OPTION": 449,
+          "ROUTE_ARC_STRUCTURAL": 648,
+          "ROUTE_ACA_POLICY": 7,
+          "ROUTE_ACA_POLICY_EXPOSED": 7
         },
-        "routeClimaxRate": 0.001,
+        "routeClimaxRate": 0.429,
         "routeClimaxCountsByEvent": {
-          "EVT-INS-MED-0003": 10
+          "EVT-ORD-FAM-0011": 2460,
+          "EVT-INS-MED-0012": 1507,
+          "EVT-INS-MED-0003": 278,
+          "EVT-TRN-TEMP-0002": 25,
+          "EVT-INS-MUS-0003": 5,
+          "EVT-INS-REL-0003": 3,
+          "EVT-INS-ARC-0002": 2,
+          "EVT-INS-MUS-0005": 4,
+          "EVT-INS-CIV-0006": 4,
+          "EVT-ORD-FAM-0004": 2
         },
-        "routeAbandonmentRate": 0.9881,
-        "expiredScheduleCount": 29921,
+        "routeAbandonmentRate": 0.9728,
+        "expiredScheduleCount": 37761,
         "expiredSchedulesByEvent": {
-          "EVT-INS-COR-0003": 2885,
-          "EVT-INS-MED-0003": 2592,
-          "EVT-TRN-TEMP-0002": 5640,
-          "EVT-ORD-FAM-0004": 6091,
-          "EVT-INS-CIV-0006": 6519,
-          "EVT-INS-ACA-0005": 3003,
-          "EVT-INS-FIN-0005": 1486,
-          "EVT-INS-ARC-0002": 241,
-          "EVT-TRN-SYNT-0001": 423,
-          "EVT-INS-REL-0003": 593,
-          "EVT-INS-MUS-0003": 250,
-          "EVT-INS-MUS-0005": 198
+          "EVT-INS-ACA-0005": 1356,
+          "EVT-INS-MED-0003": 5420,
+          "EVT-INS-CIV-0006": 7144,
+          "EVT-ORD-FAM-0011": 5710,
+          "EVT-INS-MED-0012": 3686,
+          "EVT-INS-COR-0003": 1150,
+          "EVT-TRN-TEMP-0002": 3668,
+          "EVT-TRN-SYNT-0001": 296,
+          "EVT-ORD-FAM-0004": 4507,
+          "EVT-INS-REL-0003": 1535,
+          "EVT-INS-FIN-0005": 1656,
+          "EVT-INS-MUS-0003": 570,
+          "EVT-INS-MUS-0005": 422,
+          "EVT-INS-ARC-0002": 641
         },
-        "priorityCollisionRate": 0.0072,
-        "priorityCollisionYears": 73,
-        "scheduleDisplacementCount": 73,
-        "scheduleDisplacementPerRun": 0.0073,
+        "priorityCollisionRate": 0.0499,
+        "priorityCollisionYears": 792,
+        "scheduleDisplacementCount": 804,
+        "scheduleDisplacementPerRun": 0.0804,
         "finalMaterialDistribution": {
-          "NONE": 8405,
-          "METL": 192,
-          "CERA": 177,
-          "MIXD": 208,
-          "GLAS": 221,
-          "CRYS": 229,
-          "STON": 210,
-          "WOOD": 179,
-          "SYNT": 179
+          "NONE": 5710,
+          "CRYS": 541,
+          "CERA": 432,
+          "WOOD": 525,
+          "STON": 585,
+          "GLAS": 497,
+          "MIXD": 449,
+          "SYNT": 709,
+          "METL": 527,
+          "TEMP": 25
         },
         "finalMaterialBySpecies": {
           "HUMAN": {
-            "NONE": 1400,
-            "CERA": 37,
-            "MIXD": 38,
-            "CRYS": 41,
-            "STON": 34,
-            "WOOD": 25,
-            "METL": 24,
-            "GLAS": 45,
-            "SYNT": 23
+            "NONE": 960,
+            "STON": 86,
+            "CERA": 83,
+            "CRYS": 77,
+            "GLAS": 77,
+            "MIXD": 66,
+            "WOOD": 90,
+            "METL": 95,
+            "SYNT": 131,
+            "TEMP": 2
           },
           "ELF": {
-            "NONE": 1397,
-            "CERA": 25,
-            "MIXD": 43,
-            "WOOD": 50,
-            "CRYS": 52,
-            "STON": 25,
-            "GLAS": 33,
-            "SYNT": 28,
-            "METL": 14
+            "NONE": 934,
+            "CERA": 67,
+            "MIXD": 100,
+            "SYNT": 115,
+            "CRYS": 114,
+            "WOOD": 126,
+            "GLAS": 80,
+            "METL": 53,
+            "STON": 73,
+            "TEMP": 5
           },
           "DWARF": {
-            "NONE": 1398,
-            "CRYS": 19,
-            "STON": 48,
-            "METL": 36,
-            "WOOD": 26,
-            "GLAS": 24,
-            "CERA": 41,
-            "MIXD": 36,
-            "SYNT": 39
+            "NONE": 934,
+            "CERA": 70,
+            "STON": 136,
+            "GLAS": 61,
+            "SYNT": 127,
+            "MIXD": 71,
+            "CRYS": 61,
+            "METL": 123,
+            "WOOD": 82,
+            "TEMP": 2
           },
           "WINGED_KIN": {
-            "NONE": 1395,
-            "MIXD": 34,
-            "METL": 18,
-            "CERA": 22,
-            "STON": 43,
-            "WOOD": 38,
-            "SYNT": 35,
-            "CRYS": 41,
-            "GLAS": 41
+            "NONE": 967,
+            "SYNT": 127,
+            "CERA": 75,
+            "METL": 68,
+            "STON": 127,
+            "GLAS": 61,
+            "MIXD": 65,
+            "TEMP": 7,
+            "CRYS": 92,
+            "WOOD": 78
           },
           "DEMONKIN": {
-            "NONE": 1414,
-            "MIXD": 29,
-            "GLAS": 57,
-            "WOOD": 24,
-            "STON": 29,
-            "METL": 35,
-            "CERA": 22,
-            "CRYS": 34,
-            "SYNT": 22
+            "CRYS": 71,
+            "WOOD": 85,
+            "NONE": 938,
+            "MIXD": 77,
+            "SYNT": 108,
+            "CERA": 76,
+            "GLAS": 146,
+            "METL": 81,
+            "STON": 81,
+            "TEMP": 3
           },
           "DRAGONKIN": {
-            "METL": 65,
-            "NONE": 1401,
-            "MIXD": 28,
-            "SYNT": 32,
-            "CRYS": 42,
-            "CERA": 30,
-            "STON": 31,
-            "WOOD": 16,
-            "GLAS": 21
+            "NONE": 977,
+            "CRYS": 126,
+            "METL": 107,
+            "SYNT": 101,
+            "STON": 82,
+            "MIXD": 70,
+            "GLAS": 72,
+            "TEMP": 6,
+            "WOOD": 64,
+            "CERA": 61
           }
         },
-        "materialCommitmentRate": 0.1595,
-        "materialEntropyBitsOverall": 1.110559677638953,
+        "materialCommitmentRate": 0.429,
+        "materialEntropyBitsOverall": 2.280221505598969,
         "materialEntropyBitsBySpecies": {
-          "HUMAN": 1.1086708038142132,
-          "ELF": 1.1082391927684996,
-          "DWARF": 1.1127719939398089,
-          "WINGED_KIN": 1.1229702398905055,
-          "DEMONKIN": 1.0555332745863077,
-          "DRAGONKIN": 1.090436416077823
+          "HUMAN": 2.251809458394009,
+          "ELF": 2.3017361151910616,
+          "DWARF": 2.2843361664861184,
+          "WINGED_KIN": 2.2389453900616783,
+          "DEMONKIN": 2.2921134230301394,
+          "DRAGONKIN": 2.2192099971294756
         },
         "pFinalGivenHint": {
           "WOOD": {
-            "hintRuns": 884,
-            "sameMaterial": 31,
-            "probability": 0.03506787330316742
-          },
-          "GLAS": {
-            "hintRuns": 762,
-            "sameMaterial": 23,
-            "probability": 0.030183727034120734
-          },
-          "METL": {
-            "hintRuns": 871,
-            "sameMaterial": 37,
-            "probability": 0.04247990815154994
+            "hintRuns": 915,
+            "sameMaterial": 75,
+            "probability": 0.08196721311475409
           },
           "STON": {
-            "hintRuns": 892,
-            "sameMaterial": 26,
-            "probability": 0.02914798206278027
+            "hintRuns": 932,
+            "sameMaterial": 81,
+            "probability": 0.08690987124463519
+          },
+          "METL": {
+            "hintRuns": 899,
+            "sameMaterial": 69,
+            "probability": 0.07675194660734148
+          },
+          "GLAS": {
+            "hintRuns": 757,
+            "sameMaterial": 79,
+            "probability": 0.10435931307793923
           },
           "CRYS": {
-            "hintRuns": 665,
-            "sameMaterial": 17,
-            "probability": 0.02556390977443609
+            "hintRuns": 658,
+            "sameMaterial": 43,
+            "probability": 0.06534954407294832
           }
         },
         "pFinalGivenFirstManifestation": {
+          "CERA": {
+            "manifestationRuns": 1159,
+            "sameMaterial": 78,
+            "probability": 0.06729939603106126
+          },
           "WOOD": {
-            "manifestationRuns": 5294,
-            "sameMaterial": 116,
-            "probability": 0.0219115980355119
-          },
-          "METL": {
-            "manifestationRuns": 873,
-            "sameMaterial": 14,
-            "probability": 0.016036655211912942
-          },
-          "STON": {
-            "manifestationRuns": 907,
-            "sameMaterial": 10,
-            "probability": 0.011025358324145534
+            "manifestationRuns": 2319,
+            "sameMaterial": 174,
+            "probability": 0.07503234152652005
           },
           "CRYS": {
-            "manifestationRuns": 901,
-            "sameMaterial": 25,
-            "probability": 0.02774694783573807
-          },
-          "TEMP": {
-            "manifestationRuns": 416,
-            "sameMaterial": 0,
-            "probability": 0
+            "manifestationRuns": 1392,
+            "sameMaterial": 118,
+            "probability": 0.08477011494252873
           },
           "GLAS": {
-            "manifestationRuns": 845,
-            "sameMaterial": 14,
-            "probability": 0.016568047337278107
+            "manifestationRuns": 1329,
+            "sameMaterial": 103,
+            "probability": 0.07750188111361926
           },
-          "CERA": {
-            "manifestationRuns": 761,
-            "sameMaterial": 9,
-            "probability": 0.011826544021024968
+          "TEMP": {
+            "manifestationRuns": 1043,
+            "sameMaterial": 7,
+            "probability": 0.006711409395973154
+          },
+          "STON": {
+            "manifestationRuns": 1421,
+            "sameMaterial": 101,
+            "probability": 0.07107670654468684
+          },
+          "METL": {
+            "manifestationRuns": 1332,
+            "sameMaterial": 99,
+            "probability": 0.07432432432432433
           }
         },
-        "multipleManifestationBeforeCommitmentRate": 0.9874,
-        "averageHintAge": 9.45974472263132,
-        "averageFirstManifestationAge": 18.41402420726218,
-        "averageCommitmentAge": 35.82194357366771,
+        "firstManifestationFamilyCounts": {
+          "CERA": 1159,
+          "WOOD": 2319,
+          "CRYS": 1392,
+          "GLAS": 1329,
+          "TEMP": 1043,
+          "STON": 1421,
+          "METL": 1332
+        },
+        "firstManifestationFamilyShare": {
+          "CERA": 0.11595797898949475,
+          "WOOD": 0.232016008004002,
+          "CRYS": 0.1392696348174087,
+          "GLAS": 0.1329664832416208,
+          "TEMP": 0.10435217608804402,
+          "STON": 0.14217108554277139,
+          "METL": 0.13326663331665833
+        },
+        "firstManifestationAgeByFamily": {
+          "CERA": {
+            "mean": 19.158757549611735,
+            "median": 19,
+            "runs": 1159
+          },
+          "WOOD": {
+            "mean": 15.82492453643812,
+            "median": 14,
+            "runs": 2319
+          },
+          "CRYS": {
+            "mean": 19.154454022988507,
+            "median": 19,
+            "runs": 1392
+          },
+          "GLAS": {
+            "mean": 19.00150489089541,
+            "median": 18,
+            "runs": 1329
+          },
+          "TEMP": {
+            "mean": 20.859060402684563,
+            "median": 20,
+            "runs": 1043
+          },
+          "STON": {
+            "mean": 19.38564391273751,
+            "median": 19,
+            "runs": 1421
+          },
+          "METL": {
+            "mean": 19.11261261261261,
+            "median": 19,
+            "runs": 1332
+          }
+        },
+        "noManifestationRate": 0.0005,
+        "multipleManifestationBeforeCommitmentRate": 0.9842,
+        "averageHintAge": 9.423455900024033,
+        "averageFirstManifestationAge": 18.56728364182091,
+        "averageCommitmentAge": 41.08741258741259,
         "talentActivationRate": {},
         "talentActivationAverageAge": {},
         "endingDistribution": {
-          "END-MED-001": 10
+          "END-FAM-001": 1125,
+          "END-MED-001": 1785,
+          "END-FAM-002": 1337,
+          "END-TMP-001": 25,
+          "END-MUS-002": 5,
+          "END-REL-001": 3,
+          "END-ARC-001": 2,
+          "END-MUS-004": 4,
+          "END-CIV-002": 1,
+          "END-CIV-001": 3
         },
-        "distinctEndingsObserved": 1,
+        "distinctEndingsObserved": 10,
         "distinctEndingsInRegistry": 24,
-        "endingCoverageShare": 0.041666666666666664,
+        "endingCoverageShare": 0.4166666666666667,
         "hiddenEndingRate": 0,
-        "rareEndingRate": 0,
+        "rareEndingRate": 0.007692307692307693,
         "finalStatMeans": {
-          "CHR": 1.0878,
-          "INT": 20.5658,
-          "STR": -3.333,
-          "MNY": 3.2288,
-          "SPR": 53.5011,
-          "FIX": 26.9505
+          "CHR": 7.4923,
+          "INT": 20.0078,
+          "STR": 1.1311,
+          "MNY": 1.8172,
+          "SPR": 46.0915,
+          "FIX": 34.8306
         },
         "finalFixPercentiles": {
-          "p50": 26,
-          "p90": 44,
-          "p99": 49,
-          "max": 53
+          "p50": 35,
+          "p90": 48,
+          "p99": 54,
+          "max": 59
         },
         "guardrails": [
           {
             "id": "fallback-share",
             "severity": "warning",
-            "message": "Age-25+ fallback share 35.0% exceeds the warning threshold 5.0% (target 2.0%)."
+            "message": "Age-25+ fallback share 26.1% exceeds the warning threshold 5.0% (target 2.0%)."
           },
           {
             "id": "ending-age-share-18-24",
@@ -566,32 +686,32 @@
           {
             "id": "ending-age-share-25-34",
             "severity": "warning",
-            "message": "Ending age band 25-34: observed 0.0% vs target 35-40%."
+            "message": "Ending age band 25-34: observed 0.2% vs target 35-40%."
           },
           {
             "id": "ending-age-share-35-44",
             "severity": "warning",
-            "message": "Ending age band 35-44: observed 50.0% vs target 20-25%."
+            "message": "Ending age band 35-44: observed 5.4% vs target 20-25%."
           },
           {
             "id": "ending-age-share-45-54",
             "severity": "warning",
-            "message": "Ending age band 45-54: observed 50.0% vs target 8-12%."
+            "message": "Ending age band 45-54: observed 1.9% vs target 8-12%."
           },
           {
             "id": "ending-age-share-55-64",
             "severity": "warning",
-            "message": "Ending age band 55-64: observed 0.0% vs target 4-7%."
+            "message": "Ending age band 55-64: observed 0.1% vs target 4-7%."
           },
           {
             "id": "ending-age-share-65+",
             "severity": "warning",
-            "message": "Ending age band 65+: observed 0.0% vs target 2-5%."
+            "message": "Ending age band 65+: observed 92.5% vs target 2-5%."
           },
           {
             "id": "nonterminal-rate",
             "severity": "failure",
-            "message": "9990/10000 runs (99.9%) reached the diagnostic maximum age without an ending."
+            "message": "5710/10000 runs (57.1%) reached the diagnostic maximum age without an ending."
           }
         ]
       }
@@ -602,29 +722,31 @@
       "scenarioDescription": "Three mutually compatible talents drawn uniformly from a 10-talent draft.",
       "options": {
         "runs": 10000,
-        "baseSeed": "phase1",
+        "baseSeed": "phase1_1",
         "speciesStratified": true,
         "fixedSpecies": null,
         "maxAge": 120,
-        "pre25CoveragePolicy": "reuse_baseline_repeatables"
+        "familyWeightMode": "uniform"
       },
       "metrics": {
         "runs": 10000,
-        "completed": 73,
-        "nonterminal": 9927,
+        "completed": 4694,
+        "nonterminal": 5306,
         "coverageErrors": 0,
-        "completedRate": 0.0073,
-        "nonterminalRate": 0.9927,
+        "completedRate": 0.4694,
+        "nonterminalRate": 0.5306,
         "coverageErrorRate": 0,
-        "averageRunLengthYears": 120.4304,
-        "averageEndingAge": 41.97260273972603,
-        "medianEndingAge": 43,
-        "endingAgeP10": 34,
-        "endingAgeP90": 48,
+        "averageRunLengthYears": 93.5358,
+        "averageEndingAge": 61.49083936940775,
+        "medianEndingAge": 67,
+        "endingAgeP10": 41,
+        "endingAgeP90": 69,
         "endingAgeHistogram": {
-          "35-44": 42,
-          "45-54": 23,
-          "25-34": 8
+          "65+": 3506,
+          "45-54": 391,
+          "35-44": 680,
+          "55-64": 54,
+          "25-34": 63
         },
         "endingAgeShareByTargetBucket": [
           {
@@ -636,35 +758,35 @@
           },
           {
             "band": "25-34",
-            "observedShare": 0.1095890410958904,
+            "observedShare": 0.01342138900724329,
             "targetMin": 0.35,
             "targetMax": 0.4,
             "withinTarget": false
           },
           {
             "band": "35-44",
-            "observedShare": 0.5753424657534246,
+            "observedShare": 0.14486578610992756,
             "targetMin": 0.2,
             "targetMax": 0.25,
             "withinTarget": false
           },
           {
             "band": "45-54",
-            "observedShare": 0.3150684931506849,
+            "observedShare": 0.08329782701320836,
             "targetMin": 0.08,
             "targetMax": 0.12,
-            "withinTarget": false
+            "withinTarget": true
           },
           {
             "band": "55-64",
-            "observedShare": 0,
+            "observedShare": 0.011504047720494247,
             "targetMin": 0.04,
             "targetMax": 0.07,
             "withinTarget": false
           },
           {
             "band": "65+",
-            "observedShare": 0,
+            "observedShare": 0.7469109501491266,
             "targetMin": 0.02,
             "targetMax": 0.05,
             "withinTarget": false
@@ -672,533 +794,649 @@
         ],
         "channelCountsByAgeBand": {
           "0-5": {
-            "ORD": 55096,
-            "INS": 4904,
+            "ORD": 55094,
+            "INS": 4906,
             "TRN": 0,
             "SPC": 0
           },
           "6-11": {
-            "ORD": 49306,
-            "INS": 10694,
+            "ORD": 49305,
+            "INS": 10695,
             "TRN": 0,
             "SPC": 0
           },
           "12-17": {
-            "ORD": 43722,
-            "INS": 11771,
-            "TRN": 4507,
+            "ORD": 42768,
+            "INS": 11643,
+            "TRN": 5589,
             "SPC": 0
           },
           "18-24": {
-            "ORD": 38711,
-            "INS": 18124,
-            "TRN": 13165,
-            "SPC": 0
+            "ORD": 39260,
+            "INS": 17302,
+            "TRN": 12602,
+            "SPC": 836
           },
           "25-34": {
-            "ORD": 41864,
-            "INS": 30096,
-            "TRN": 28027,
-            "SPC": 0
+            "ORD": 45613,
+            "INS": 27094,
+            "TRN": 26285,
+            "SPC": 922
           },
           "35-44": {
-            "ORD": 58925,
-            "INS": 34780,
-            "TRN": 6088,
-            "SPC": 0
+            "ORD": 52107,
+            "INS": 36249,
+            "TRN": 7075,
+            "SPC": 1377
           },
           "45-54": {
-            "ORD": 78201,
-            "INS": 20892,
-            "TRN": 249,
-            "SPC": 0
+            "ORD": 67575,
+            "INS": 21503,
+            "TRN": 344,
+            "SPC": 796
           },
           "55-64": {
-            "ORD": 87454,
-            "INS": 11782,
-            "TRN": 34,
-            "SPC": 0
+            "ORD": 77204,
+            "INS": 10934,
+            "TRN": 51,
+            "SPC": 113
           },
           "65+": {
-            "ORD": 545981,
-            "INS": 9931,
+            "ORD": 296232,
+            "INS": 13884,
             "TRN": 0,
             "SPC": 0
           }
         },
         "familyCountsByAgeBand": {
           "0-5": {
-            "ORD/FAM": 55096,
-            "INS/CIV": 4904
+            "ORD/FAM": 21213,
+            "ORD/HOU": 8765,
+            "ORD/SOC": 7760,
+            "ORD/GEN": 10300,
+            "INS/CIV": 4906,
+            "ORD/HEA": 7056
           },
           "6-11": {
-            "ORD/EDU": 37054,
-            "ORD/SOC": 12252,
-            "INS/EDU": 10694
+            "ORD/EDU": 33638,
+            "ORD/SOC": 15667,
+            "INS/EDU": 10695
           },
           "12-17": {
-            "ORD/EDU": 31500,
-            "TRN/WOOD": 4507,
-            "INS/EDU": 7511,
-            "INS/FIN": 4260,
-            "ORD/SOC": 12222
+            "ORD/EDU": 28201,
+            "ORD/SOC": 14567,
+            "INS/EDU": 7429,
+            "INS/FIN": 4214,
+            "TRN/CRYS": 729,
+            "TRN/WOOD": 1600,
+            "TRN/METL": 661,
+            "TRN/STON": 745,
+            "TRN/TEMP": 624,
+            "TRN/GLAS": 636,
+            "TRN/CERA": 594
           },
           "18-24": {
-            "INS/REL": 5435,
-            "ORD/SOC": 6493,
-            "ORD/CAR": 13299,
-            "TRN/WOOD": 2098,
-            "ORD/HOU": 5692,
-            "TRN/GLAS": 1934,
-            "ORD/FAM": 2523,
-            "TRN/CERA": 1835,
-            "TRN/STON": 2169,
-            "INS/CIV": 1463,
-            "INS/ACA": 3647,
-            "INS/MUS": 1547,
-            "INS/COR": 1746,
-            "ORD/CIV": 3429,
-            "ORD/HEA": 5440,
-            "TRN/CRYS": 2125,
-            "TRN/METL": 2001,
-            "ORD/EDU": 1624,
-            "INS/FIN": 450,
-            "INS/MED": 3730,
-            "TRN/TEMP": 1003,
-            "ORD/FIN": 211,
-            "INS/LEG": 106
+            "ORD/CAR": 10238,
+            "INS/REL": 5463,
+            "ORD/SOC": 6909,
+            "INS/ACA": 3846,
+            "TRN/GLAS": 1866,
+            "INS/MUS": 1873,
+            "ORD/FAM": 2601,
+            "TRN/CRYS": 1978,
+            "ORD/HOU": 6473,
+            "INS/FIN": 539,
+            "TRN/METL": 1872,
+            "INS/CIV": 1480,
+            "ORD/HEA": 6116,
+            "ORD/CIV": 4818,
+            "ORD/EDU": 1586,
+            "TRN/CERA": 1677,
+            "TRN/STON": 2091,
+            "INS/MED": 3278,
+            "TRN/WOOD": 1859,
+            "TRN/TEMP": 1259,
+            "INS/COR": 728,
+            "ORD/FIN": 519,
+            "SPC/REIN": 382,
+            "SPC/TLNT": 454,
+            "INS/LEG": 95
           },
           "25-34": {
-            "TRN/STON": 4201,
-            "ORD/SOC": 11748,
-            "INS/MUS": 3099,
-            "INS/LEG": 2416,
-            "TRN/TEMP": 3576,
-            "TRN/METL": 4040,
-            "INS/ACA": 9303,
-            "TRN/CRYS": 4042,
-            "ORD/CAR": 7263,
-            "TRN/WOOD": 4001,
-            "INS/COR": 4026,
-            "ORD/CIV": 3674,
-            "ORD/FAM": 4272,
-            "ORD/HOU": 7317,
-            "ORD/HEA": 6322,
-            "INS/MED": 3360,
-            "TRN/GLAS": 4004,
-            "INS/FIN": 3823,
-            "TRN/CERA": 4013,
-            "INS/CIV": 2500,
-            "ORD/FIN": 1268,
-            "INS/REL": 1551,
-            "TRN/SYNT": 149,
-            "INS/ARC": 18,
-            "TRN/MIXD": 1
+            "ORD/CAR": 15307,
+            "TRN/METL": 3754,
+            "ORD/SOC": 8178,
+            "ORD/HOU": 6880,
+            "ORD/HEA": 5853,
+            "TRN/STON": 3878,
+            "TRN/CERA": 3618,
+            "ORD/CIV": 3600,
+            "INS/CIV": 2871,
+            "ORD/FIN": 1623,
+            "INS/MED": 4793,
+            "TRN/WOOD": 3570,
+            "INS/ACA": 7110,
+            "TRN/TEMP": 3792,
+            "TRN/GLAS": 3743,
+            "INS/LEG": 1830,
+            "SPC/TLNT": 401,
+            "INS/MUS": 3158,
+            "TRN/CRYS": 3844,
+            "INS/FIN": 3922,
+            "ORD/FAM": 4172,
+            "INS/REL": 1680,
+            "INS/COR": 1693,
+            "SPC/REIN": 426,
+            "INS/ARC": 37,
+            "SPC/ANO": 95,
+            "TRN/SYNT": 84,
+            "TRN/MIXD": 2
           },
           "35-44": {
-            "ORD/GEN": 7269,
-            "ORD/CIV": 1129,
-            "ORD/SOC": 25946,
-            "ORD/FIN": 2189,
-            "ORD/HOU": 7229,
-            "INS/CIV": 4806,
-            "INS/MUS": 1607,
-            "TRN/TEMP": 4804,
-            "INS/ACA": 14299,
-            "ORD/CAR": 3524,
-            "INS/LEG": 4450,
-            "INS/COR": 3501,
-            "ORD/FAM": 11639,
-            "INS/FIN": 2169,
-            "TRN/METL": 177,
-            "INS/MED": 2764,
-            "INS/ARC": 161,
-            "TRN/SYNT": 157,
-            "INS/REL": 1023,
-            "TRN/CRYS": 188,
-            "TRN/WOOD": 166,
-            "TRN/STON": 200,
-            "TRN/MIXD": 53,
-            "TRN/GLAS": 180,
-            "TRN/CERA": 163
+            "TRN/TEMP": 4010,
+            "ORD/GEN": 9402,
+            "ORD/SOC": 16967,
+            "INS/ACA": 8916,
+            "ORD/HOU": 7344,
+            "ORD/CAR": 5087,
+            "INS/COR": 1700,
+            "ORD/FAM": 10064,
+            "INS/LEG": 3877,
+            "INS/CIV": 5022,
+            "TRN/METL": 443,
+            "INS/FIN": 2185,
+            "INS/MUS": 1981,
+            "INS/MED": 10773,
+            "TRN/CRYS": 530,
+            "INS/REL": 1423,
+            "ORD/FIN": 2173,
+            "TRN/STON": 527,
+            "SPC/ANO": 1098,
+            "ORD/CIV": 1070,
+            "TRN/SYNT": 234,
+            "TRN/WOOD": 417,
+            "TRN/GLAS": 448,
+            "TRN/CERA": 388,
+            "TRN/MIXD": 78,
+            "INS/ARC": 372,
+            "SPC/REIN": 176,
+            "SPC/TLNT": 103
           },
           "45-54": {
-            "ORD/SOC": 12939,
-            "ORD/HEA": 14723,
-            "ORD/FAM": 27199,
-            "ORD/CAR": 15094,
-            "INS/FIN": 8169,
-            "INS/COR": 1707,
-            "INS/CIV": 5614,
-            "ORD/GEN": 8246,
-            "INS/ACA": 1663,
-            "INS/MED": 1219,
-            "INS/REL": 412,
-            "INS/LEG": 1687,
-            "TRN/MIXD": 249,
-            "INS/MUS": 248,
-            "INS/ARC": 173
+            "ORD/HEA": 12878,
+            "INS/CIV": 5817,
+            "ORD/FAM": 21178,
+            "INS/COR": 883,
+            "ORD/SOC": 12204,
+            "INS/FIN": 6970,
+            "ORD/CAR": 14217,
+            "INS/ACA": 909,
+            "ORD/GEN": 7098,
+            "INS/LEG": 2604,
+            "INS/ARC": 255,
+            "INS/MED": 3083,
+            "INS/MUS": 347,
+            "TRN/MIXD": 338,
+            "INS/REL": 635,
+            "SPC/REIN": 39,
+            "TRN/TEMP": 6,
+            "SPC/ANO": 750,
+            "SPC/TLNT": 7
           },
           "55-64": {
-            "INS/CIV": 9924,
-            "ORD/CAR": 17337,
-            "ORD/FAM": 17696,
-            "ORD/HEA": 13776,
-            "ORD/SOC": 15692,
-            "ORD/GEN": 22953,
-            "INS/FIN": 1757,
-            "TRN/MIXD": 34,
-            "INS/MED": 66,
-            "INS/LEG": 35
+            "ORD/CAR": 15137,
+            "ORD/HEA": 12355,
+            "ORD/SOC": 14351,
+            "ORD/FAM": 16832,
+            "INS/CIV": 8819,
+            "ORD/GEN": 18529,
+            "TRN/MIXD": 51,
+            "INS/MED": 171,
+            "INS/FIN": 1881,
+            "SPC/ANO": 113,
+            "INS/MUS": 5,
+            "INS/LEG": 57,
+            "INS/REL": 1
           },
           "65+": {
-            "ORD/SOC": 109127,
-            "INS/CIV": 9930,
-            "ORD/GEN": 435505,
-            "ORD/FAM": 1349,
-            "INS/FIN": 1
+            "ORD/SOC": 60069,
+            "INS/MED": 6856,
+            "INS/CIV": 7026,
+            "ORD/FAM": 11747,
+            "ORD/GEN": 224414,
+            "ORD/CAR": 2,
+            "INS/FIN": 2
           }
         },
-        "totalEventYears": 1204304,
-        "fallbackYears": 333630,
-        "fallbackUseRate": 0.27703138078093237,
-        "fallbackYearsAge25Plus": 333630,
-        "fallbackShareAge25Plus": 0.34960557642009255,
+        "totalEventYears": 935358,
+        "spcEventYears": 4044,
+        "spcShare": 0.004323478283181413,
+        "mandatoryEventYears": 8396,
+        "mandatoryUsageRate": 0.4289,
+        "endingShare65Plus": 0.7469109501491266,
+        "fallbackYears": 176204,
+        "fallbackUseRate": 0.188381347035039,
+        "fallbackYearsAge25Plus": 176204,
+        "fallbackShareAge25Plus": 0.25709775037279786,
         "pre25FallbackYears": 0,
         "pre25CoverageDefectRate": 0,
         "pre25CoverageDefectAges": {},
-        "pre25EmergencyReuseYears": 12913,
+        "pre25EmergencyReuseYears": 0,
         "routeEntryRate": 1,
         "routeEntryCountsByRoute": {
-          "ROUTE_REL_INTEREST": 7524,
-          "ROUTE_FAM_PLACEMENT": 8111,
-          "ROUTE_MUS_INTEREST": 5757,
-          "ROUTE_FAM_DIRECTIVE": 5996,
-          "ROUTE_TEMP_STUDY": 5250,
-          "ROUTE_CIV_SERVICE": 7158,
-          "ROUTE_CIV_MEMORIAL": 6368,
-          "ROUTE_COR_EMPLOYEE": 6149,
-          "ROUTE_COR_PRESERVATION_PLAN": 2885,
-          "ROUTE_ACA_RESEARCH": 6838,
-          "ROUTE_COR_CONTRACT": 2884,
-          "ROUTE_CIV_REBRANDED": 5685,
-          "ROUTE_ACA_SPECIALIZATION": 5461,
-          "ROUTE_ACA_CONTINUITY": 2964,
-          "ROUTE_ACA_CONTINUITY_EXPOSED": 2964,
-          "ROUTE_ACA_MATERIALS": 1980,
-          "ROUTE_MED_SCREENED": 7452,
-          "ROUTE_ACA_MATERIALS_EXPOSED": 1980,
-          "ROUTE_ACA_TENURE_TRACK": 2952,
-          "ROUTE_FIN_VALUED": 5208,
-          "ROUTE_ACA_TENURE_REVIEW": 2950,
-          "ROUTE_MED_PRESERVATION_CONSULT": 3009,
-          "ROUTE_LEG_STATUS_CASE": 1266,
-          "ROUTE_LEG_STATUS_RESOLVED": 1263,
-          "ROUTE_MED_DIRECTIVE": 1827,
-          "ROUTE_REL_CLAIM": 896,
-          "ROUTE_FIN_SECURED_DEBT": 1281,
-          "ROUTE_ARC_STRUCTURAL": 351,
-          "ROUTE_COR_LEGAL_REVIEW": 591,
-          "ROUTE_MED_SYNTH_OPTION": 736,
-          "ROUTE_ACA_POLICY": 517,
-          "ROUTE_ACA_POLICY_EXPOSED": 517,
-          "ROUTE_MUS_APPRAISED": 440,
-          "ROUTE_MUS_MIXED_OPTION": 338,
-          "ROUTE_FIN_LEGAL_REVIEW": 17
+          "ROUTE_COR_EMPLOYEE": 3480,
+          "ROUTE_REL_INTEREST": 7716,
+          "ROUTE_ACA_RESEARCH": 6208,
+          "ROUTE_MUS_INTEREST": 6249,
+          "ROUTE_FAM_PLACEMENT": 7662,
+          "ROUTE_CIV_SERVICE": 8406,
+          "ROUTE_TEMP_STUDY": 3688,
+          "ROUTE_ACA_SPECIALIZATION": 3814,
+          "ROUTE_ACA_CONTINUITY": 1904,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 1898,
+          "ROUTE_CIV_MEMORIAL": 6956,
+          "ROUTE_CIV_REBRANDED": 6049,
+          "ROUTE_MED_LATE_CONTINUITY": 5409,
+          "ROUTE_FAM_LATE_LEGACY": 8229,
+          "ROUTE_FIN_VALUED": 5294,
+          "ROUTE_MED_SCREENED": 6062,
+          "ROUTE_MED_PRESERVATION_CONSULT": 5255,
+          "ROUTE_ACA_TENURE_TRACK": 1347,
+          "ROUTE_FAM_DIRECTIVE": 4376,
+          "ROUTE_ACA_TENURE_REVIEW": 1335,
+          "ROUTE_CAR_MATERIAL_EXPOSURE": 4777,
+          "ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY": 4772,
+          "ROUTE_MUS_APPRAISED": 664,
+          "ROUTE_LEG_STATUS_CASE": 1917,
+          "ROUTE_ARC_STRUCTURAL": 595,
+          "ROUTE_LEG_STATUS_RESOLVED": 1858,
+          "ROUTE_MED_DIRECTIVE": 2586,
+          "ROUTE_MUS_MIXED_OPTION": 473,
+          "ROUTE_FIN_SECURED_DEBT": 1427,
+          "ROUTE_MED_CONTROLLED_HARDENING": 3859,
+          "ROUTE_MED_CONTROLLED_HARDENING_STAGE2": 3859,
+          "ROUTE_REL_CLAIM": 1464,
+          "ROUTE_ANO_SOUL_ESCAPE": 360,
+          "ROUTE_COR_PRESERVATION_PLAN": 1214,
+          "ROUTE_COR_CONTRACT": 1214,
+          "ROUTE_ACA_MATERIALS": 1539,
+          "ROUTE_ACA_MATERIALS_EXPOSED": 1537,
+          "ROUTE_MED_SYNTH_OPTION": 564,
+          "ROUTE_COR_LEGAL_REVIEW": 233,
+          "ROUTE_ACA_POLICY": 371,
+          "ROUTE_ACA_POLICY_EXPOSED": 370,
+          "ROUTE_ANO_OBJECT_CONTINUITY": 334,
+          "ROUTE_FIN_LEGAL_REVIEW": 38
         },
-        "routeClimaxRate": 0.0073,
+        "routeClimaxRate": 0.4694,
         "routeClimaxCountsByEvent": {
-          "EVT-INS-MED-0003": 58,
-          "EVT-INS-MUS-0003": 6,
-          "EVT-INS-CIV-0006": 1,
-          "EVT-INS-REL-0003": 1,
-          "EVT-INS-COR-0003": 3,
-          "EVT-ORD-FAM-0004": 2,
-          "EVT-TRN-TEMP-0002": 1,
-          "EVT-INS-ARC-0002": 1
+          "EVT-INS-MED-0012": 1447,
+          "EVT-ORD-FAM-0011": 2059,
+          "EVT-ORD-FAM-0004": 12,
+          "EVT-SPC-ANO-0006": 355,
+          "EVT-INS-MED-0003": 383,
+          "EVT-TRN-TEMP-0002": 29,
+          "EVT-INS-MUS-0003": 18,
+          "EVT-SPC-ANO-0003": 326,
+          "EVT-INS-MUS-0005": 15,
+          "EVT-INS-ARC-0002": 3,
+          "EVT-INS-REL-0003": 22,
+          "EVT-INS-CIV-0006": 19,
+          "EVT-INS-FIN-0005": 4,
+          "EVT-INS-ACA-0005": 2
         },
-        "routeAbandonmentRate": 0.9845,
-        "expiredScheduleCount": 30100,
+        "routeAbandonmentRate": 0.9344,
+        "expiredScheduleCount": 35341,
         "expiredSchedulesByEvent": {
-          "EVT-TRN-TEMP-0002": 5243,
-          "EVT-ORD-FAM-0004": 5979,
-          "EVT-INS-CIV-0006": 6357,
-          "EVT-INS-COR-0003": 2880,
-          "EVT-INS-MED-0003": 3015,
-          "EVT-INS-ACA-0005": 2947,
-          "EVT-INS-REL-0003": 887,
-          "EVT-INS-FIN-0005": 1277,
-          "EVT-INS-ARC-0002": 348,
-          "EVT-TRN-SYNT-0001": 429,
-          "EVT-INS-MUS-0003": 419,
-          "EVT-INS-MUS-0005": 319
+          "EVT-TRN-TEMP-0002": 3559,
+          "EVT-INS-CIV-0006": 6735,
+          "EVT-INS-MED-0012": 3335,
+          "EVT-ORD-FAM-0011": 5306,
+          "EVT-INS-MED-0003": 5206,
+          "EVT-ORD-FAM-0004": 4208,
+          "EVT-INS-ACA-0005": 1313,
+          "EVT-INS-MUS-0003": 580,
+          "EVT-INS-ARC-0002": 547,
+          "EVT-INS-MUS-0005": 406,
+          "EVT-INS-FIN-0005": 1382,
+          "EVT-INS-REL-0003": 1326,
+          "EVT-INS-COR-0003": 1202,
+          "EVT-TRN-SYNT-0001": 236
         },
-        "priorityCollisionRate": 0.0116,
-        "priorityCollisionYears": 116,
-        "scheduleDisplacementCount": 116,
-        "scheduleDisplacementPerRun": 0.0116,
+        "priorityCollisionRate": 0.0572,
+        "priorityCollisionYears": 869,
+        "scheduleDisplacementCount": 887,
+        "scheduleDisplacementPerRun": 0.0887,
         "finalMaterialDistribution": {
-          "NONE": 7804,
-          "GLAS": 257,
-          "METL": 275,
-          "SYNT": 245,
-          "CRYS": 271,
-          "WOOD": 275,
-          "MIXD": 337,
-          "STON": 298,
-          "CERA": 237,
-          "TEMP": 1
+          "NONE": 5306,
+          "MIXD": 469,
+          "SYNT": 811,
+          "CRYS": 620,
+          "WOOD": 514,
+          "METL": 569,
+          "GLAS": 548,
+          "STON": 664,
+          "CERA": 470,
+          "TEMP": 29
         },
         "finalMaterialBySpecies": {
           "HUMAN": {
-            "NONE": 1307,
-            "GLAS": 34,
-            "WOOD": 55,
-            "MIXD": 71,
-            "CERA": 39,
-            "SYNT": 40,
-            "STON": 41,
-            "CRYS": 37,
-            "METL": 43
+            "NONE": 901,
+            "STON": 95,
+            "MIXD": 64,
+            "METL": 95,
+            "CRYS": 96,
+            "WOOD": 87,
+            "SYNT": 149,
+            "GLAS": 88,
+            "CERA": 89,
+            "TEMP": 3
           },
           "ELF": {
-            "NONE": 1308,
-            "GLAS": 39,
-            "METL": 32,
-            "CRYS": 55,
-            "MIXD": 62,
-            "SYNT": 34,
-            "STON": 41,
-            "CERA": 30,
-            "WOOD": 66
+            "NONE": 873,
+            "WOOD": 136,
+            "GLAS": 78,
+            "MIXD": 97,
+            "CERA": 66,
+            "SYNT": 136,
+            "CRYS": 113,
+            "STON": 97,
+            "METL": 65,
+            "TEMP": 6
           },
           "DWARF": {
-            "NONE": 1319,
-            "METL": 56,
-            "WOOD": 40,
-            "STON": 70,
-            "CERA": 48,
-            "GLAS": 24,
-            "CRYS": 26,
-            "MIXD": 40,
-            "SYNT": 44
+            "MIXD": 86,
+            "NONE": 869,
+            "SYNT": 128,
+            "CRYS": 69,
+            "METL": 142,
+            "STON": 134,
+            "GLAS": 81,
+            "WOOD": 78,
+            "TEMP": 4,
+            "CERA": 76
           },
           "WINGED_KIN": {
-            "NONE": 1282,
-            "GLAS": 46,
-            "METL": 30,
-            "CRYS": 54,
-            "STON": 70,
-            "CERA": 41,
-            "WOOD": 51,
-            "SYNT": 41,
-            "MIXD": 52
+            "NONE": 859,
+            "METL": 86,
+            "SYNT": 152,
+            "STON": 149,
+            "CRYS": 106,
+            "WOOD": 79,
+            "CERA": 71,
+            "MIXD": 79,
+            "GLAS": 80,
+            "TEMP": 6
           },
           "DEMONKIN": {
-            "NONE": 1302,
-            "SYNT": 42,
-            "METL": 42,
-            "MIXD": 65,
-            "GLAS": 69,
-            "STON": 35,
-            "CERA": 42,
-            "CRYS": 37,
-            "WOOD": 31,
-            "TEMP": 1
+            "SYNT": 123,
+            "GLAS": 145,
+            "NONE": 933,
+            "CRYS": 78,
+            "TEMP": 5,
+            "CERA": 73,
+            "WOOD": 81,
+            "STON": 82,
+            "MIXD": 72,
+            "METL": 74
           },
           "DRAGONKIN": {
-            "NONE": 1286,
-            "CRYS": 62,
-            "STON": 41,
-            "MIXD": 47,
-            "WOOD": 32,
-            "CERA": 37,
-            "SYNT": 44,
-            "METL": 72,
-            "GLAS": 45
+            "CRYS": 158,
+            "NONE": 871,
+            "GLAS": 76,
+            "STON": 107,
+            "MIXD": 71,
+            "CERA": 95,
+            "METL": 107,
+            "SYNT": 123,
+            "TEMP": 5,
+            "WOOD": 53
           }
         },
-        "materialCommitmentRate": 0.2196,
-        "materialEntropyBitsOverall": 1.4173826245516787,
+        "materialCommitmentRate": 0.4694,
+        "materialEntropyBitsOverall": 2.4113694538782013,
         "materialEntropyBitsBySpecies": {
-          "HUMAN": 1.3914319550651473,
-          "ELF": 1.3845310174730823,
-          "DWARF": 1.3495311841161215,
-          "WINGED_KIN": 1.4638424759224424,
-          "DEMONKIN": 1.4048199020764345,
-          "DRAGONKIN": 1.4483346354298268
+          "HUMAN": 2.3684213199005946,
+          "ELF": 2.42224851961275,
+          "DWARF": 2.4228162774078825,
+          "WINGED_KIN": 2.443105181529645,
+          "DEMONKIN": 2.303580420041272,
+          "DRAGONKIN": 2.414028927434914
         },
         "pFinalGivenHint": {
-          "WOOD": {
-            "hintRuns": 878,
-            "sameMaterial": 32,
-            "probability": 0.03644646924829157
-          },
           "STON": {
-            "hintRuns": 905,
-            "sameMaterial": 43,
-            "probability": 0.04751381215469613
-          },
-          "GLAS": {
-            "hintRuns": 809,
-            "sameMaterial": 35,
-            "probability": 0.04326328800988875
-          },
-          "METL": {
-            "hintRuns": 900,
-            "sameMaterial": 45,
-            "probability": 0.05
+            "hintRuns": 872,
+            "sameMaterial": 86,
+            "probability": 0.09862385321100918
           },
           "CRYS": {
-            "hintRuns": 652,
-            "sameMaterial": 23,
-            "probability": 0.0352760736196319
+            "hintRuns": 678,
+            "sameMaterial": 46,
+            "probability": 0.06784660766961652
+          },
+          "GLAS": {
+            "hintRuns": 743,
+            "sameMaterial": 71,
+            "probability": 0.0955585464333782
+          },
+          "WOOD": {
+            "hintRuns": 918,
+            "sameMaterial": 79,
+            "probability": 0.0860566448801743
+          },
+          "METL": {
+            "hintRuns": 891,
+            "sameMaterial": 59,
+            "probability": 0.06621773288439955
           }
         },
         "pFinalGivenFirstManifestation": {
-          "WOOD": {
-            "manifestationRuns": 5249,
-            "sameMaterial": 179,
-            "probability": 0.03410173366355496
-          },
           "GLAS": {
-            "manifestationRuns": 819,
-            "sameMaterial": 22,
-            "probability": 0.026862026862026864
+            "manifestationRuns": 1338,
+            "sameMaterial": 112,
+            "probability": 0.08370702541106129
           },
           "CRYS": {
-            "manifestationRuns": 957,
-            "sameMaterial": 24,
-            "probability": 0.025078369905956112
-          },
-          "STON": {
-            "manifestationRuns": 935,
-            "sameMaterial": 37,
-            "probability": 0.039572192513368985
+            "manifestationRuns": 1360,
+            "sameMaterial": 132,
+            "probability": 0.09705882352941177
           },
           "METL": {
-            "manifestationRuns": 902,
-            "sameMaterial": 31,
-            "probability": 0.03436807095343681
+            "manifestationRuns": 1337,
+            "sameMaterial": 113,
+            "probability": 0.08451757666417352
+          },
+          "WOOD": {
+            "manifestationRuns": 2333,
+            "sameMaterial": 191,
+            "probability": 0.0818688384054865
+          },
+          "STON": {
+            "manifestationRuns": 1476,
+            "sameMaterial": 150,
+            "probability": 0.1016260162601626
           },
           "CERA": {
-            "manifestationRuns": 767,
-            "sameMaterial": 23,
-            "probability": 0.02998696219035202
+            "manifestationRuns": 1163,
+            "sameMaterial": 103,
+            "probability": 0.0885640584694755
           },
           "TEMP": {
-            "manifestationRuns": 368,
-            "sameMaterial": 0,
-            "probability": 0
+            "manifestationRuns": 990,
+            "sameMaterial": 1,
+            "probability": 0.00101010101010101
           }
         },
-        "multipleManifestationBeforeCommitmentRate": 0.9901,
-        "averageHintAge": 9.473938223938225,
-        "averageFirstManifestationAge": 18.412823847154147,
-        "averageCommitmentAge": 34.877049180327866,
+        "firstManifestationFamilyCounts": {
+          "GLAS": 1338,
+          "CRYS": 1360,
+          "METL": 1337,
+          "WOOD": 2333,
+          "STON": 1476,
+          "CERA": 1163,
+          "TEMP": 990
+        },
+        "firstManifestationFamilyShare": {
+          "GLAS": 0.1338401520456137,
+          "CRYS": 0.1360408122436731,
+          "METL": 0.13374012203661098,
+          "WOOD": 0.233370011003301,
+          "STON": 0.1476442932879864,
+          "CERA": 0.11633490047014104,
+          "TEMP": 0.0990297089126738
+        },
+        "firstManifestationAgeByFamily": {
+          "GLAS": {
+            "mean": 19.27877428998505,
+            "median": 19,
+            "runs": 1338
+          },
+          "CRYS": {
+            "mean": 19.0125,
+            "median": 18,
+            "runs": 1360
+          },
+          "METL": {
+            "mean": 19.06507105459985,
+            "median": 19,
+            "runs": 1337
+          },
+          "WOOD": {
+            "mean": 15.948992713244749,
+            "median": 14,
+            "runs": 2333
+          },
+          "STON": {
+            "mean": 19.128048780487806,
+            "median": 18,
+            "runs": 1476
+          },
+          "CERA": {
+            "mean": 19.030094582975064,
+            "median": 18,
+            "runs": 1163
+          },
+          "TEMP": {
+            "mean": 20.908080808080808,
+            "median": 20,
+            "runs": 990
+          }
+        },
+        "noManifestationRate": 0.0003,
+        "multipleManifestationBeforeCommitmentRate": 0.9827,
+        "averageHintAge": 9.465138956606534,
+        "averageFirstManifestationAge": 18.54706411923577,
+        "averageCommitmentAge": 40.35236472092032,
         "talentActivationRate": {
-          "T1023": 0,
-          "T1011": 0,
-          "T1006": 1,
-          "T1007": 0.8907815631262525,
-          "T1001": 1,
-          "T1029": 0,
-          "T1028": 0,
-          "T1015": 0,
-          "T1012": 1,
-          "T1025": 0,
-          "T1021": 1,
-          "T1002": 1,
-          "T1027": 1,
-          "T1030": 1,
-          "T1008": 1,
-          "T1026": 0,
-          "T1014": 1,
-          "T1004": 0,
-          "T1018": 1,
           "T1016": 1,
-          "T1005": 1,
-          "T1022": 0,
-          "T1020": 0,
-          "T1013": 0,
-          "T1009": 0.9021406727828746,
+          "T1021": 1,
+          "T1011": 0,
+          "T1015": 0,
+          "T1030": 1,
           "T1024": 0,
+          "T1026": 0,
+          "T1009": 0.8843873517786561,
+          "T1017": 0.3793466807165437,
+          "T1023": 0,
+          "T1001": 1,
+          "T1025": 0,
+          "T1007": 0.9545454545454546,
+          "T1022": 0,
+          "T1012": 1,
+          "T1005": 1,
+          "T1027": 1,
           "T1003": 1,
-          "T1010": 1,
+          "T1008": 1,
+          "T1004": 0,
+          "T1002": 1,
+          "T1006": 1,
+          "T1029": 0,
+          "T1018": 1,
+          "T1028": 0,
+          "T1014": 1,
           "T1019": 0,
-          "T1017": 0.7874743326488707
+          "T1010": 1,
+          "T1020": 0,
+          "T1013": 0
         },
         "talentActivationAverageAge": {
-          "T1023": null,
-          "T1011": null,
-          "T1006": 0,
-          "T1007": 14.958380202474691,
-          "T1001": 0,
-          "T1029": null,
-          "T1028": null,
-          "T1015": null,
-          "T1012": 0,
-          "T1025": null,
-          "T1021": 0,
-          "T1002": 4.444223107569721,
-          "T1027": 0,
-          "T1030": 0,
-          "T1008": 0,
-          "T1026": null,
-          "T1014": 0,
-          "T1004": null,
-          "T1018": 0,
           "T1016": 0,
-          "T1005": 0,
-          "T1022": null,
-          "T1020": null,
-          "T1013": null,
-          "T1009": 6.489265536723164,
+          "T1021": 0,
+          "T1011": null,
+          "T1015": null,
+          "T1030": 0,
           "T1024": null,
+          "T1026": null,
+          "T1009": 7.382122905027933,
+          "T1017": 95.39722222222223,
+          "T1023": null,
+          "T1001": 0,
+          "T1025": null,
+          "T1007": 11.193581780538302,
+          "T1022": null,
+          "T1012": 0,
+          "T1005": 0,
+          "T1027": 0,
           "T1003": 0,
-          "T1010": 0,
+          "T1008": 0,
+          "T1004": null,
+          "T1002": 3.361784675072745,
+          "T1006": 0,
+          "T1029": null,
+          "T1018": 0,
+          "T1028": null,
+          "T1014": 0,
           "T1019": null,
-          "T1017": 91.22294654498045
+          "T1010": 0,
+          "T1020": null,
+          "T1013": null
         },
         "endingDistribution": {
-          "END-MED-001": 51,
-          "END-MED-002": 7,
-          "END-MUS-001": 3,
-          "END-CIV-001": 1,
-          "END-REL-001": 1,
-          "END-COR-001": 3,
-          "END-MUS-003": 1,
-          "END-FAM-001": 1,
-          "END-LEG-001": 1,
-          "END-TMP-001": 1,
-          "END-MUS-002": 1,
-          "END-ARC-001": 1,
-          "END-FAM-002": 1
+          "END-MED-002": 176,
+          "END-MED-001": 1654,
+          "END-FAM-001": 1009,
+          "END-FAM-002": 1062,
+          "END-ANO-002": 355,
+          "END-TMP-001": 29,
+          "END-LEG-001": 3,
+          "END-ANO-001": 326,
+          "END-MUS-004": 15,
+          "END-LEG-002": 1,
+          "END-REL-001": 22,
+          "END-CIV-001": 15,
+          "END-MUS-002": 8,
+          "END-MUS-003": 3,
+          "END-CIV-002": 4,
+          "END-MUS-001": 4,
+          "END-ARC-001": 2,
+          "END-FIN-001": 3,
+          "END-FIN-003": 1,
+          "END-ACA-001": 2
         },
-        "distinctEndingsObserved": 13,
+        "distinctEndingsObserved": 20,
         "distinctEndingsInRegistry": 24,
-        "endingCoverageShare": 0.5416666666666666,
-        "hiddenEndingRate": 0,
-        "rareEndingRate": 0.136986301369863,
+        "endingCoverageShare": 0.8333333333333334,
+        "hiddenEndingRate": 0.14507882403067746,
+        "rareEndingRate": 0.19833830421815082,
         "finalStatMeans": {
-          "CHR": 2.6688,
-          "INT": 20.3333,
-          "STR": -2.5204,
-          "MNY": 3.5593,
-          "SPR": 53.461,
-          "FIX": 28.4004
+          "CHR": 9.3393,
+          "INT": 19.7167,
+          "STR": 2.3791,
+          "MNY": 2.7109,
+          "SPR": 43.4541,
+          "FIX": 35.897
         },
         "finalFixPercentiles": {
-          "p50": 27,
-          "p90": 45,
-          "p99": 51,
-          "max": 61
+          "p50": 37,
+          "p90": 49,
+          "p99": 56,
+          "max": 67
         },
         "guardrails": [
           {
             "id": "fallback-share",
             "severity": "warning",
-            "message": "Age-25+ fallback share 35.0% exceeds the warning threshold 5.0% (target 2.0%)."
+            "message": "Age-25+ fallback share 25.7% exceeds the warning threshold 5.0% (target 2.0%)."
           },
           {
             "id": "ending-age-share-18-24",
@@ -1208,32 +1446,27 @@
           {
             "id": "ending-age-share-25-34",
             "severity": "warning",
-            "message": "Ending age band 25-34: observed 11.0% vs target 35-40%."
+            "message": "Ending age band 25-34: observed 1.3% vs target 35-40%."
           },
           {
             "id": "ending-age-share-35-44",
             "severity": "warning",
-            "message": "Ending age band 35-44: observed 57.5% vs target 20-25%."
-          },
-          {
-            "id": "ending-age-share-45-54",
-            "severity": "warning",
-            "message": "Ending age band 45-54: observed 31.5% vs target 8-12%."
+            "message": "Ending age band 35-44: observed 14.5% vs target 20-25%."
           },
           {
             "id": "ending-age-share-55-64",
             "severity": "warning",
-            "message": "Ending age band 55-64: observed 0.0% vs target 4-7%."
+            "message": "Ending age band 55-64: observed 1.2% vs target 4-7%."
           },
           {
             "id": "ending-age-share-65+",
             "severity": "warning",
-            "message": "Ending age band 65+: observed 0.0% vs target 2-5%."
+            "message": "Ending age band 65+: observed 74.7% vs target 2-5%."
           },
           {
             "id": "nonterminal-rate",
             "severity": "failure",
-            "message": "9927/10000 runs (99.3%) reached the diagnostic maximum age without an ending."
+            "message": "5306/10000 runs (53.1%) reached the diagnostic maximum age without an ending."
           }
         ]
       }
@@ -1244,28 +1477,31 @@
       "scenarioDescription": "All three chosen talents are threshold_once, exercising mid-life activation.",
       "options": {
         "runs": 10000,
-        "baseSeed": "phase1",
+        "baseSeed": "phase1_1",
         "speciesStratified": true,
         "fixedSpecies": null,
         "maxAge": 120,
-        "pre25CoveragePolicy": "reuse_baseline_repeatables"
+        "familyWeightMode": "uniform"
       },
       "metrics": {
         "runs": 10000,
-        "completed": 9,
-        "nonterminal": 9991,
+        "completed": 4482,
+        "nonterminal": 5518,
         "coverageErrors": 0,
-        "completedRate": 0.0009,
-        "nonterminalRate": 0.9991,
+        "completedRate": 0.4482,
+        "nonterminalRate": 0.5518,
         "coverageErrorRate": 0,
-        "averageRunLengthYears": 120.9332,
-        "averageEndingAge": 45.77777777777778,
-        "medianEndingAge": 46,
-        "endingAgeP10": 44,
-        "endingAgeP90": 48,
+        "averageRunLengthYears": 96.726,
+        "averageEndingAge": 65.84114234716644,
+        "medianEndingAge": 67,
+        "endingAgeP10": 67,
+        "endingAgeP90": 69,
         "endingAgeHistogram": {
-          "45-54": 7,
-          "35-44": 2
+          "65+": 4156,
+          "25-34": 9,
+          "35-44": 236,
+          "45-54": 77,
+          "55-64": 4
         },
         "endingAgeShareByTargetBucket": [
           {
@@ -1277,35 +1513,35 @@
           },
           {
             "band": "25-34",
-            "observedShare": 0,
+            "observedShare": 0.002008032128514056,
             "targetMin": 0.35,
             "targetMax": 0.4,
             "withinTarget": false
           },
           {
             "band": "35-44",
-            "observedShare": 0.2222222222222222,
+            "observedShare": 0.052655064703257475,
             "targetMin": 0.2,
             "targetMax": 0.25,
-            "withinTarget": true
+            "withinTarget": false
           },
           {
             "band": "45-54",
-            "observedShare": 0.7777777777777778,
+            "observedShare": 0.01717983043284248,
             "targetMin": 0.08,
             "targetMax": 0.12,
             "withinTarget": false
           },
           {
             "band": "55-64",
-            "observedShare": 0,
+            "observedShare": 0.000892458723784025,
             "targetMin": 0.04,
             "targetMax": 0.07,
             "withinTarget": false
           },
           {
             "band": "65+",
-            "observedShare": 0,
+            "observedShare": 0.927264614011602,
             "targetMin": 0.02,
             "targetMax": 0.05,
             "withinTarget": false
@@ -1313,452 +1549,566 @@
         ],
         "channelCountsByAgeBand": {
           "0-5": {
-            "ORD": 55093,
-            "INS": 4907,
+            "ORD": 55183,
+            "INS": 4817,
             "TRN": 0,
             "SPC": 0
           },
           "6-11": {
-            "ORD": 49286,
-            "INS": 10714,
+            "ORD": 49280,
+            "INS": 10720,
             "TRN": 0,
             "SPC": 0
           },
           "12-17": {
-            "ORD": 43647,
-            "INS": 11771,
-            "TRN": 4582,
+            "ORD": 42729,
+            "INS": 11565,
+            "TRN": 5706,
             "SPC": 0
           },
           "18-24": {
-            "ORD": 39120,
-            "INS": 17877,
-            "TRN": 13003,
+            "ORD": 39929,
+            "INS": 17503,
+            "TRN": 12568,
             "SPC": 0
           },
           "25-34": {
-            "ORD": 42030,
-            "INS": 30034,
-            "TRN": 27936,
+            "ORD": 46212,
+            "INS": 27440,
+            "TRN": 26342,
             "SPC": 0
           },
           "35-44": {
-            "ORD": 59037,
-            "INS": 34654,
-            "TRN": 6308,
+            "ORD": 53667,
+            "INS": 38070,
+            "TRN": 7340,
             "SPC": 0
           },
           "45-54": {
-            "ORD": 79764,
-            "INS": 20014,
-            "TRN": 149,
+            "ORD": 73178,
+            "INS": 23412,
+            "TRN": 360,
             "SPC": 0
           },
           "55-64": {
-            "ORD": 88138,
-            "INS": 11742,
-            "TRN": 30,
+            "ORD": 84892,
+            "INS": 11813,
+            "TRN": 48,
             "SPC": 0
           },
           "65+": {
-            "ORD": 549504,
-            "INS": 9992,
+            "ORD": 309225,
+            "INS": 15261,
             "TRN": 0,
             "SPC": 0
           }
         },
         "familyCountsByAgeBand": {
           "0-5": {
-            "ORD/FAM": 55093,
-            "INS/CIV": 4907
+            "ORD/FAM": 20743,
+            "INS/CIV": 4817,
+            "ORD/GEN": 10427,
+            "ORD/HOU": 8791,
+            "ORD/SOC": 8209,
+            "ORD/HEA": 7013
           },
           "6-11": {
-            "ORD/EDU": 36311,
-            "ORD/SOC": 12975,
-            "INS/EDU": 10714
+            "ORD/EDU": 32870,
+            "ORD/SOC": 16410,
+            "INS/EDU": 10720
           },
           "12-17": {
-            "ORD/SOC": 12896,
-            "ORD/EDU": 30751,
-            "INS/EDU": 7520,
-            "INS/FIN": 4251,
-            "TRN/WOOD": 4582
+            "ORD/EDU": 27320,
+            "ORD/SOC": 15409,
+            "TRN/CRYS": 729,
+            "TRN/WOOD": 1630,
+            "TRN/GLAS": 708,
+            "INS/EDU": 7469,
+            "INS/FIN": 4096,
+            "TRN/METL": 699,
+            "TRN/TEMP": 648,
+            "TRN/CERA": 579,
+            "TRN/STON": 713
           },
           "18-24": {
-            "INS/REL": 5298,
-            "TRN/CERA": 1771,
-            "TRN/STON": 2203,
-            "ORD/CAR": 13036,
-            "INS/COR": 1894,
-            "TRN/GLAS": 2004,
-            "INS/FIN": 521,
-            "ORD/HOU": 5787,
-            "ORD/SOC": 7372,
-            "INS/MED": 3675,
-            "ORD/FAM": 2537,
-            "INS/ACA": 3490,
-            "INS/LEG": 117,
-            "TRN/METL": 1997,
-            "ORD/EDU": 1653,
-            "INS/MUS": 1536,
-            "ORD/HEA": 5370,
-            "TRN/CRYS": 2033,
-            "INS/CIV": 1346,
-            "TRN/WOOD": 2062,
-            "ORD/CIV": 3314,
-            "TRN/TEMP": 933,
-            "ORD/FIN": 51
+            "INS/REL": 5600,
+            "ORD/EDU": 1448,
+            "ORD/HOU": 6137,
+            "INS/MED": 3143,
+            "ORD/CIV": 4573,
+            "INS/MUS": 1724,
+            "INS/FIN": 545,
+            "ORD/CAR": 11814,
+            "ORD/HEA": 5804,
+            "TRN/CERA": 1710,
+            "ORD/SOC": 7601,
+            "TRN/WOOD": 1815,
+            "INS/ACA": 3905,
+            "TRN/CRYS": 1993,
+            "TRN/METL": 1825,
+            "TRN/GLAS": 1878,
+            "INS/CIV": 1550,
+            "TRN/STON": 2038,
+            "TRN/TEMP": 1309,
+            "INS/COR": 958,
+            "ORD/FAM": 2514,
+            "INS/LEG": 78,
+            "ORD/FIN": 38
           },
           "25-34": {
-            "TRN/METL": 3996,
-            "INS/COR": 4196,
-            "TRN/WOOD": 3928,
-            "TRN/TEMP": 3606,
-            "TRN/CRYS": 4107,
-            "INS/REL": 1502,
-            "ORD/HEA": 6371,
-            "INS/MED": 3063,
-            "ORD/CAR": 7290,
-            "INS/MUS": 2976,
-            "ORD/SOC": 12958,
-            "INS/ACA": 9313,
-            "INS/FIN": 4070,
-            "ORD/CIV": 3781,
-            "ORD/FAM": 4321,
-            "ORD/HOU": 7021,
-            "TRN/GLAS": 4059,
-            "INS/CIV": 2464,
-            "TRN/CERA": 4033,
-            "TRN/STON": 4164,
-            "INS/LEG": 2447,
-            "ORD/FIN": 288,
-            "TRN/SYNT": 43,
-            "INS/ARC": 3
+            "ORD/SOC": 9023,
+            "ORD/HEA": 5666,
+            "TRN/CRYS": 3807,
+            "TRN/GLAS": 3813,
+            "INS/CIV": 2854,
+            "ORD/CAR": 17339,
+            "INS/FIN": 3802,
+            "TRN/METL": 3799,
+            "ORD/HOU": 6362,
+            "INS/REL": 1678,
+            "ORD/FAM": 4059,
+            "INS/LEG": 1793,
+            "TRN/STON": 3857,
+            "TRN/CERA": 3533,
+            "INS/ACA": 7274,
+            "ORD/CIV": 3538,
+            "TRN/WOOD": 3628,
+            "TRN/TEMP": 3860,
+            "INS/MED": 4737,
+            "INS/MUS": 3219,
+            "INS/COR": 2065,
+            "ORD/FIN": 225,
+            "TRN/SYNT": 45,
+            "INS/ARC": 18
           },
           "35-44": {
-            "INS/ACA": 15041,
-            "ORD/SOC": 28078,
-            "ORD/CIV": 1161,
-            "INS/COR": 3796,
-            "INS/LEG": 4228,
-            "TRN/TEMP": 5256,
-            "ORD/FAM": 11431,
-            "ORD/GEN": 6924,
-            "ORD/CAR": 3399,
-            "INS/CIV": 5050,
-            "INS/FIN": 1693,
-            "ORD/HOU": 7232,
-            "INS/MED": 2386,
-            "TRN/WOOD": 114,
-            "TRN/GLAS": 153,
-            "INS/MUS": 1408,
-            "TRN/CERA": 127,
-            "ORD/FIN": 812,
-            "INS/REL": 920,
-            "TRN/STON": 165,
-            "INS/ARC": 132,
-            "TRN/SYNT": 150,
-            "TRN/MIXD": 29,
-            "TRN/METL": 163,
-            "TRN/CRYS": 151
+            "ORD/HOU": 7613,
+            "TRN/TEMP": 4230,
+            "INS/MED": 11880,
+            "INS/ACA": 9606,
+            "TRN/WOOD": 455,
+            "INS/MUS": 1954,
+            "ORD/CAR": 5320,
+            "TRN/GLAS": 482,
+            "INS/COR": 2159,
+            "INS/REL": 1433,
+            "INS/FIN": 1610,
+            "ORD/GEN": 9596,
+            "ORD/SOC": 19467,
+            "ORD/FAM": 9880,
+            "ORD/CIV": 1102,
+            "INS/CIV": 5017,
+            "TRN/STON": 509,
+            "INS/LEG": 3982,
+            "ORD/FIN": 689,
+            "INS/ARC": 429,
+            "TRN/CRYS": 512,
+            "TRN/CERA": 387,
+            "TRN/METL": 479,
+            "TRN/SYNT": 236,
+            "TRN/MIXD": 50
           },
           "45-54": {
-            "INS/LEG": 1146,
-            "ORD/CAR": 15193,
-            "ORD/FAM": 27492,
-            "ORD/GEN": 8380,
-            "ORD/SOC": 13964,
-            "INS/MED": 900,
-            "INS/FIN": 8302,
-            "ORD/HEA": 14735,
-            "INS/ACA": 1743,
-            "INS/CIV": 5758,
-            "INS/COR": 1580,
-            "INS/REL": 292,
-            "INS/MUS": 159,
-            "TRN/MIXD": 149,
-            "INS/ARC": 134
+            "ORD/FAM": 22119,
+            "TRN/MIXD": 356,
+            "ORD/SOC": 13762,
+            "ORD/HEA": 13333,
+            "ORD/GEN": 7847,
+            "INS/MED": 3433,
+            "ORD/CAR": 16117,
+            "INS/CIV": 5909,
+            "INS/LEG": 2939,
+            "INS/FIN": 7670,
+            "INS/ARC": 315,
+            "INS/REL": 788,
+            "INS/ACA": 979,
+            "INS/MUS": 348,
+            "INS/COR": 1031,
+            "TRN/TEMP": 4
           },
           "55-64": {
-            "ORD/CAR": 17499,
-            "ORD/SOC": 15522,
-            "ORD/FAM": 17908,
-            "INS/CIV": 9990,
-            "ORD/HEA": 13904,
-            "ORD/GEN": 23305,
-            "INS/FIN": 1689,
-            "TRN/MIXD": 30,
-            "INS/MED": 51,
-            "INS/LEG": 12
+            "ORD/CAR": 16726,
+            "ORD/FAM": 18665,
+            "ORD/SOC": 15617,
+            "ORD/HEA": 13846,
+            "INS/CIV": 9671,
+            "INS/FIN": 2007,
+            "ORD/GEN": 20038,
+            "TRN/MIXD": 48,
+            "INS/MED": 123,
+            "INS/LEG": 9,
+            "INS/MUS": 3
           },
           "65+": {
-            "INS/CIV": 9992,
-            "ORD/SOC": 109850,
-            "ORD/GEN": 438366,
-            "ORD/FAM": 1288
+            "ORD/SOC": 63007,
+            "INS/CIV": 7517,
+            "ORD/FAM": 13227,
+            "INS/MED": 7742,
+            "ORD/GEN": 232990,
+            "INS/FIN": 2,
+            "ORD/CAR": 1
           }
         },
-        "totalEventYears": 1209332,
-        "fallbackYears": 337013,
-        "fallbackUseRate": 0.27867698861851004,
-        "fallbackYearsAge25Plus": 337013,
-        "fallbackShareAge25Plus": 0.3512996543428135,
+        "totalEventYears": 967260,
+        "spcEventYears": 0,
+        "spcShare": 0,
+        "mandatoryEventYears": 8364,
+        "mandatoryUsageRate": 0.4183,
+        "endingShare65Plus": 0.927264614011602,
+        "fallbackYears": 184057,
+        "fallbackUseRate": 0.19028699625746956,
+        "fallbackYearsAge25Plus": 184057,
+        "fallbackShareAge25Plus": 0.2566112706689346,
         "pre25FallbackYears": 0,
         "pre25CoverageDefectRate": 0,
         "pre25CoverageDefectAges": {},
-        "pre25EmergencyReuseYears": 13004,
+        "pre25EmergencyReuseYears": 0,
         "routeEntryRate": 1,
         "routeEntryCountsByRoute": {
-          "ROUTE_REL_INTEREST": 7417,
-          "ROUTE_COR_EMPLOYEE": 6123,
-          "ROUTE_COR_PRESERVATION_PLAN": 3045,
-          "ROUTE_FIN_VALUED": 5908,
-          "ROUTE_COR_CONTRACT": 3045,
-          "ROUTE_REL_CLAIM": 595,
-          "ROUTE_MED_SCREENED": 7444,
-          "ROUTE_ACA_RESEARCH": 6838,
-          "ROUTE_TEMP_STUDY": 5527,
-          "ROUTE_CIV_SERVICE": 7186,
-          "ROUTE_MED_PRESERVATION_CONSULT": 4254,
-          "ROUTE_LEG_STATUS_CASE": 900,
-          "ROUTE_LEG_STATUS_RESOLVED": 899,
-          "ROUTE_MED_DIRECTIVE": 1336,
-          "ROUTE_FAM_PLACEMENT": 8139,
-          "ROUTE_FAM_DIRECTIVE": 6108,
-          "ROUTE_MUS_INTEREST": 5612,
-          "ROUTE_ACA_SPECIALIZATION": 5540,
-          "ROUTE_ACA_MATERIALS": 2716,
-          "ROUTE_ACA_MATERIALS_EXPOSED": 2716,
-          "ROUTE_ACA_TENURE_TRACK": 3071,
-          "ROUTE_ACA_TENURE_REVIEW": 3071,
-          "ROUTE_CIV_MEMORIAL": 6511,
-          "ROUTE_ACA_CONTINUITY": 2824,
-          "ROUTE_ACA_CONTINUITY_EXPOSED": 2824,
-          "ROUTE_CIV_REBRANDED": 5834,
-          "ROUTE_MUS_APPRAISED": 259,
-          "ROUTE_MUS_MIXED_OPTION": 208,
-          "ROUTE_ARC_STRUCTURAL": 269,
-          "ROUTE_FIN_SECURED_DEBT": 426,
-          "ROUTE_MED_SYNTH_OPTION": 600
+          "ROUTE_REL_INTEREST": 7887,
+          "ROUTE_MED_SCREENED": 6140,
+          "ROUTE_CIV_SERVICE": 8179,
+          "ROUTE_MUS_INTEREST": 6198,
+          "ROUTE_FIN_VALUED": 5712,
+          "ROUTE_CIV_MEMORIAL": 6924,
+          "ROUTE_CAR_MATERIAL_EXPOSURE": 5381,
+          "ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY": 5379,
+          "ROUTE_MED_CONTROLLED_HARDENING": 4184,
+          "ROUTE_MED_PRESERVATION_CONSULT": 6288,
+          "ROUTE_MED_CONTROLLED_HARDENING_STAGE2": 4183,
+          "ROUTE_TEMP_STUDY": 3752,
+          "ROUTE_MUS_APPRAISED": 587,
+          "ROUTE_MUS_MIXED_OPTION": 454,
+          "ROUTE_MED_DIRECTIVE": 2991,
+          "ROUTE_CIV_REBRANDED": 6151,
+          "ROUTE_FAM_LATE_LEGACY": 8915,
+          "ROUTE_MED_LATE_CONTINUITY": 6083,
+          "ROUTE_COR_EMPLOYEE": 3919,
+          "ROUTE_FAM_PLACEMENT": 7503,
+          "ROUTE_FAM_DIRECTIVE": 4416,
+          "ROUTE_REL_CLAIM": 1610,
+          "ROUTE_LEG_STATUS_CASE": 2167,
+          "ROUTE_LEG_STATUS_RESOLVED": 2162,
+          "ROUTE_ACA_RESEARCH": 6399,
+          "ROUTE_ACA_SPECIALIZATION": 3978,
+          "ROUTE_ACA_MATERIALS": 2089,
+          "ROUTE_ACA_MATERIALS_EXPOSED": 2088,
+          "ROUTE_ARC_STRUCTURAL": 674,
+          "ROUTE_ACA_TENURE_TRACK": 1400,
+          "ROUTE_ACA_TENURE_REVIEW": 1397,
+          "ROUTE_FIN_SECURED_DEBT": 318,
+          "ROUTE_COR_PRESERVATION_PLAN": 1514,
+          "ROUTE_COR_CONTRACT": 1513,
+          "ROUTE_MED_SYNTH_OPTION": 532,
+          "ROUTE_ACA_CONTINUITY": 1877,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 1876,
+          "ROUTE_ACA_POLICY": 12,
+          "ROUTE_ACA_POLICY_EXPOSED": 12
         },
-        "routeClimaxRate": 0.0009,
+        "routeClimaxRate": 0.4482,
         "routeClimaxCountsByEvent": {
-          "EVT-INS-MED-0003": 9
+          "EVT-ORD-FAM-0011": 2498,
+          "EVT-INS-MED-0012": 1658,
+          "EVT-TRN-TEMP-0002": 23,
+          "EVT-INS-MED-0003": 282,
+          "EVT-INS-ARC-0002": 4,
+          "EVT-INS-ACA-0005": 1,
+          "EVT-INS-REL-0003": 2,
+          "EVT-INS-CIV-0006": 3,
+          "EVT-INS-MUS-0005": 5,
+          "EVT-INS-MUS-0003": 4,
+          "EVT-ORD-FAM-0004": 2
         },
-        "routeAbandonmentRate": 0.9921,
-        "expiredScheduleCount": 30741,
+        "routeAbandonmentRate": 0.9726,
+        "expiredScheduleCount": 37741,
         "expiredSchedulesByEvent": {
-          "EVT-INS-COR-0003": 3045,
-          "EVT-INS-REL-0003": 594,
-          "EVT-TRN-TEMP-0002": 5526,
-          "EVT-INS-MED-0003": 4334,
-          "EVT-ORD-FAM-0004": 6108,
-          "EVT-INS-ACA-0005": 3071,
-          "EVT-INS-CIV-0006": 6510,
-          "EVT-INS-MUS-0003": 253,
-          "EVT-INS-MUS-0005": 200,
-          "EVT-INS-ARC-0002": 267,
-          "EVT-INS-FIN-0005": 426,
-          "EVT-TRN-SYNT-0001": 407
+          "EVT-INS-CIV-0006": 6875,
+          "EVT-INS-MED-0003": 6946,
+          "EVT-TRN-TEMP-0002": 3685,
+          "EVT-INS-MUS-0003": 566,
+          "EVT-INS-MUS-0005": 429,
+          "EVT-ORD-FAM-0004": 4364,
+          "EVT-INS-REL-0003": 1597,
+          "EVT-INS-ARC-0002": 662,
+          "EVT-INS-ACA-0005": 1390,
+          "EVT-ORD-FAM-0011": 5518,
+          "EVT-INS-MED-0012": 3627,
+          "EVT-INS-FIN-0005": 318,
+          "EVT-INS-COR-0003": 1512,
+          "EVT-TRN-SYNT-0001": 251,
+          "EVT-INS-COR-0002": 1
         },
-        "priorityCollisionRate": 0.0075,
-        "priorityCollisionYears": 75,
-        "scheduleDisplacementCount": 75,
-        "scheduleDisplacementPerRun": 0.0075,
+        "priorityCollisionRate": 0.0566,
+        "priorityCollisionYears": 878,
+        "scheduleDisplacementCount": 888,
+        "scheduleDisplacementPerRun": 0.0888,
         "finalMaterialDistribution": {
-          "CRYS": 199,
-          "NONE": 8450,
-          "WOOD": 159,
-          "MIXD": 208,
-          "CERA": 171,
-          "STON": 224,
-          "METL": 219,
-          "SYNT": 165,
-          "GLAS": 205
+          "MIXD": 454,
+          "GLAS": 536,
+          "SYNT": 795,
+          "STON": 593,
+          "NONE": 5518,
+          "TEMP": 23,
+          "WOOD": 508,
+          "CRYS": 589,
+          "METL": 558,
+          "CERA": 426
         },
         "finalMaterialBySpecies": {
           "HUMAN": {
-            "CRYS": 24,
-            "NONE": 1432,
-            "CERA": 28,
-            "MIXD": 32,
-            "METL": 30,
-            "STON": 37,
-            "GLAS": 28,
-            "SYNT": 22,
-            "WOOD": 34
+            "MIXD": 73,
+            "NONE": 927,
+            "SYNT": 120,
+            "STON": 91,
+            "GLAS": 83,
+            "METL": 101,
+            "CRYS": 91,
+            "WOOD": 87,
+            "CERA": 90,
+            "TEMP": 4
           },
           "ELF": {
-            "NONE": 1412,
-            "STON": 33,
-            "SYNT": 19,
-            "WOOD": 33,
-            "MIXD": 29,
-            "GLAS": 41,
-            "CRYS": 53,
-            "METL": 24,
-            "CERA": 23
+            "GLAS": 95,
+            "MIXD": 72,
+            "CRYS": 113,
+            "STON": 81,
+            "NONE": 887,
+            "SYNT": 134,
+            "METL": 73,
+            "WOOD": 146,
+            "CERA": 62,
+            "TEMP": 4
           },
           "DWARF": {
-            "NONE": 1409,
-            "METL": 50,
-            "STON": 52,
-            "MIXD": 32,
-            "CERA": 39,
-            "GLAS": 19,
-            "WOOD": 23,
-            "CRYS": 16,
-            "SYNT": 27
+            "SYNT": 136,
+            "GLAS": 75,
+            "NONE": 896,
+            "METL": 134,
+            "CERA": 72,
+            "CRYS": 76,
+            "MIXD": 64,
+            "STON": 124,
+            "WOOD": 87,
+            "TEMP": 3
           },
           "WINGED_KIN": {
-            "NONE": 1389,
-            "WOOD": 28,
-            "MIXD": 46,
-            "STON": 47,
-            "SYNT": 38,
-            "GLAS": 30,
-            "CERA": 35,
-            "METL": 16,
-            "CRYS": 38
+            "STON": 109,
+            "NONE": 947,
+            "WOOD": 72,
+            "METL": 70,
+            "MIXD": 89,
+            "CERA": 63,
+            "CRYS": 101,
+            "GLAS": 83,
+            "SYNT": 130,
+            "TEMP": 3
           },
           "DEMONKIN": {
-            "NONE": 1406,
-            "MIXD": 30,
-            "WOOD": 19,
-            "METL": 39,
-            "SYNT": 32,
-            "CERA": 23,
-            "STON": 23,
-            "GLAS": 61,
-            "CRYS": 33
+            "NONE": 931,
+            "GLAS": 132,
+            "CERA": 74,
+            "WOOD": 89,
+            "SYNT": 136,
+            "METL": 76,
+            "MIXD": 75,
+            "CRYS": 67,
+            "STON": 81,
+            "TEMP": 5
           },
           "DRAGONKIN": {
-            "NONE": 1402,
-            "STON": 32,
-            "CERA": 23,
-            "METL": 60,
-            "CRYS": 35,
-            "MIXD": 39,
-            "GLAS": 26,
-            "WOOD": 22,
-            "SYNT": 27
+            "TEMP": 4,
+            "STON": 107,
+            "WOOD": 27,
+            "GLAS": 68,
+            "NONE": 930,
+            "METL": 104,
+            "MIXD": 81,
+            "CERA": 65,
+            "CRYS": 141,
+            "SYNT": 139
           }
         },
-        "materialCommitmentRate": 0.155,
-        "materialEntropyBitsOverall": 1.085526437017364,
+        "materialCommitmentRate": 0.4482,
+        "materialEntropyBitsOverall": 2.339717945151679,
         "materialEntropyBitsBySpecies": {
-          "HUMAN": 1.0071098387140667,
-          "ELF": 1.0651626002410646,
-          "DWARF": 1.0685673454524445,
-          "WINGED_KIN": 1.140798031362973,
-          "DEMONKIN": 1.078253491701632,
-          "DRAGONKIN": 1.093350793062114
+          "HUMAN": 2.330861034942308,
+          "ELF": 2.386078792053632,
+          "DWARF": 2.3671111453531073,
+          "WINGED_KIN": 2.2768874160821984,
+          "DEMONKIN": 2.3076471549076745,
+          "DRAGONKIN": 2.2744930548445086
         },
         "pFinalGivenHint": {
-          "STON": {
-            "hintRuns": 865,
-            "sameMaterial": 26,
-            "probability": 0.03005780346820809
-          },
-          "GLAS": {
-            "hintRuns": 754,
-            "sameMaterial": 25,
-            "probability": 0.033156498673740056
+          "WOOD": {
+            "hintRuns": 887,
+            "sameMaterial": 83,
+            "probability": 0.0935738444193912
           },
           "METL": {
-            "hintRuns": 916,
-            "sameMaterial": 35,
-            "probability": 0.03820960698689956
+            "hintRuns": 883,
+            "sameMaterial": 59,
+            "probability": 0.06681766704416761
           },
-          "WOOD": {
-            "hintRuns": 903,
-            "sameMaterial": 15,
-            "probability": 0.016611295681063124
+          "STON": {
+            "hintRuns": 904,
+            "sameMaterial": 81,
+            "probability": 0.08960176991150443
+          },
+          "GLAS": {
+            "hintRuns": 745,
+            "sameMaterial": 58,
+            "probability": 0.07785234899328859
           },
           "CRYS": {
-            "hintRuns": 653,
-            "sameMaterial": 16,
-            "probability": 0.02450229709035222
+            "hintRuns": 685,
+            "sameMaterial": 46,
+            "probability": 0.06715328467153285
           }
         },
         "pFinalGivenFirstManifestation": {
-          "CERA": {
-            "manifestationRuns": 725,
-            "sameMaterial": 17,
-            "probability": 0.023448275862068966
-          },
           "CRYS": {
-            "manifestationRuns": 828,
-            "sameMaterial": 13,
-            "probability": 0.01570048309178744
-          },
-          "STON": {
-            "manifestationRuns": 958,
-            "sameMaterial": 20,
-            "probability": 0.020876826722338204
-          },
-          "WOOD": {
-            "manifestationRuns": 5357,
-            "sameMaterial": 89,
-            "probability": 0.016613776367369798
-          },
-          "METL": {
-            "manifestationRuns": 818,
-            "sameMaterial": 15,
-            "probability": 0.018337408312958436
+            "manifestationRuns": 1392,
+            "sameMaterial": 114,
+            "probability": 0.08189655172413793
           },
           "GLAS": {
-            "manifestationRuns": 899,
-            "sameMaterial": 25,
-            "probability": 0.027808676307007785
+            "manifestationRuns": 1319,
+            "sameMaterial": 102,
+            "probability": 0.07733131159969674
+          },
+          "CERA": {
+            "manifestationRuns": 1164,
+            "sameMaterial": 86,
+            "probability": 0.07388316151202749
+          },
+          "WOOD": {
+            "manifestationRuns": 2290,
+            "sameMaterial": 155,
+            "probability": 0.06768558951965066
+          },
+          "METL": {
+            "manifestationRuns": 1345,
+            "sameMaterial": 127,
+            "probability": 0.09442379182156134
           },
           "TEMP": {
-            "manifestationRuns": 411,
-            "sameMaterial": 0,
-            "probability": 0
+            "manifestationRuns": 1054,
+            "sameMaterial": 1,
+            "probability": 0.0009487666034155598
+          },
+          "STON": {
+            "manifestationRuns": 1433,
+            "sameMaterial": 122,
+            "probability": 0.0851360781577111
           }
         },
-        "multipleManifestationBeforeCommitmentRate": 0.989,
-        "averageHintAge": 9.439256905402102,
-        "averageFirstManifestationAge": 18.406762705082034,
-        "averageCommitmentAge": 35.86451612903226,
+        "firstManifestationFamilyCounts": {
+          "CRYS": 1392,
+          "GLAS": 1319,
+          "CERA": 1164,
+          "WOOD": 2290,
+          "METL": 1345,
+          "TEMP": 1054,
+          "STON": 1433
+        },
+        "firstManifestationFamilyShare": {
+          "CRYS": 0.13924177253175954,
+          "GLAS": 0.13193958187456237,
+          "CERA": 0.11643493047914374,
+          "WOOD": 0.22906872061618486,
+          "METL": 0.1345403621086326,
+          "TEMP": 0.10543162948884666,
+          "STON": 0.14334300290087026
+        },
+        "firstManifestationAgeByFamily": {
+          "CRYS": {
+            "mean": 19.02227011494253,
+            "median": 18,
+            "runs": 1392
+          },
+          "GLAS": {
+            "mean": 19.100833965125094,
+            "median": 18,
+            "runs": 1319
+          },
+          "CERA": {
+            "mean": 19.128006872852232,
+            "median": 19,
+            "runs": 1164
+          },
+          "WOOD": {
+            "mean": 15.63231441048035,
+            "median": 13,
+            "runs": 2290
+          },
+          "METL": {
+            "mean": 19.099628252788104,
+            "median": 18,
+            "runs": 1345
+          },
+          "TEMP": {
+            "mean": 20.865275142314992,
+            "median": 20,
+            "runs": 1054
+          },
+          "STON": {
+            "mean": 19.170272156315423,
+            "median": 18,
+            "runs": 1433
+          }
+        },
+        "noManifestationRate": 0.0003,
+        "multipleManifestationBeforeCommitmentRate": 0.982,
+        "averageHintAge": 9.457602339181287,
+        "averageFirstManifestationAge": 18.494348304491346,
+        "averageCommitmentAge": 41.54194556001785,
         "talentActivationRate": {
-          "T1002": 0.9998,
-          "T1007": 0.9958,
-          "T1017": 0.8016
+          "T1002": 1,
+          "T1007": 0.9973,
+          "T1017": 0.4162
         },
         "talentActivationAverageAge": {
-          "T1002": 4.615223044608922,
-          "T1007": 21.517774653544887,
-          "T1017": 91.48715069860279
+          "T1002": 3.2281,
+          "T1007": 15.023864433971724,
+          "T1017": 96.21600192215281
         },
         "endingDistribution": {
-          "END-MED-001": 9
+          "END-FAM-001": 1172,
+          "END-MED-001": 1940,
+          "END-FAM-002": 1328,
+          "END-TMP-001": 23,
+          "END-ARC-001": 4,
+          "END-ACA-001": 1,
+          "END-REL-001": 2,
+          "END-CIV-002": 2,
+          "END-MUS-004": 5,
+          "END-MUS-001": 4,
+          "END-CIV-001": 1
         },
-        "distinctEndingsObserved": 1,
+        "distinctEndingsObserved": 11,
         "distinctEndingsInRegistry": 24,
-        "endingCoverageShare": 0.041666666666666664,
+        "endingCoverageShare": 0.4583333333333333,
         "hiddenEndingRate": 0,
-        "rareEndingRate": 0,
+        "rareEndingRate": 0.0071396697902722,
         "finalStatMeans": {
-          "CHR": 4.8969,
-          "INT": 19.954,
-          "STR": -3.0134,
-          "MNY": 6.861,
-          "SPR": 54.4677,
-          "FIX": 26.8517
+          "CHR": 9.8842,
+          "INT": 19.4292,
+          "STR": 1.4815,
+          "MNY": 6.6782,
+          "SPR": 46.6482,
+          "FIX": 35.3198
         },
         "finalFixPercentiles": {
-          "p50": 26,
-          "p90": 44,
-          "p99": 49,
-          "max": 52
+          "p50": 36,
+          "p90": 48,
+          "p99": 53,
+          "max": 59
         },
         "guardrails": [
           {
             "id": "fallback-share",
             "severity": "warning",
-            "message": "Age-25+ fallback share 35.1% exceeds the warning threshold 5.0% (target 2.0%)."
+            "message": "Age-25+ fallback share 25.7% exceeds the warning threshold 5.0% (target 2.0%)."
           },
           {
             "id": "ending-age-share-18-24",
@@ -1768,27 +2118,32 @@
           {
             "id": "ending-age-share-25-34",
             "severity": "warning",
-            "message": "Ending age band 25-34: observed 0.0% vs target 35-40%."
+            "message": "Ending age band 25-34: observed 0.2% vs target 35-40%."
+          },
+          {
+            "id": "ending-age-share-35-44",
+            "severity": "warning",
+            "message": "Ending age band 35-44: observed 5.3% vs target 20-25%."
           },
           {
             "id": "ending-age-share-45-54",
             "severity": "warning",
-            "message": "Ending age band 45-54: observed 77.8% vs target 8-12%."
+            "message": "Ending age band 45-54: observed 1.7% vs target 8-12%."
           },
           {
             "id": "ending-age-share-55-64",
             "severity": "warning",
-            "message": "Ending age band 55-64: observed 0.0% vs target 4-7%."
+            "message": "Ending age band 55-64: observed 0.1% vs target 4-7%."
           },
           {
             "id": "ending-age-share-65+",
             "severity": "warning",
-            "message": "Ending age band 65+: observed 0.0% vs target 2-5%."
+            "message": "Ending age band 65+: observed 92.7% vs target 2-5%."
           },
           {
             "id": "nonterminal-rate",
             "severity": "failure",
-            "message": "9991/10000 runs (99.9%) reached the diagnostic maximum age without an ending."
+            "message": "5518/10000 runs (55.2%) reached the diagnostic maximum age without an ending."
           }
         ]
       }
@@ -1799,28 +2154,31 @@
       "scenarioDescription": "Talents carrying material/route family hooks (stone, metal, museum).",
       "options": {
         "runs": 10000,
-        "baseSeed": "phase1",
+        "baseSeed": "phase1_1",
         "speciesStratified": true,
         "fixedSpecies": null,
         "maxAge": 120,
-        "pre25CoveragePolicy": "reuse_baseline_repeatables"
+        "familyWeightMode": "uniform"
       },
       "metrics": {
         "runs": 10000,
-        "completed": 16,
-        "nonterminal": 9984,
+        "completed": 4251,
+        "nonterminal": 5749,
         "coverageErrors": 0,
-        "completedRate": 0.0016,
-        "nonterminalRate": 0.9984,
+        "completedRate": 0.4251,
+        "nonterminalRate": 0.5749,
         "coverageErrorRate": 0,
-        "averageRunLengthYears": 120.8827,
-        "averageEndingAge": 46.6875,
-        "medianEndingAge": 47,
-        "endingAgeP10": 45,
-        "endingAgeP90": 49,
+        "averageRunLengthYears": 97.9022,
+        "averageEndingAge": 65.66501999529522,
+        "medianEndingAge": 67,
+        "endingAgeP10": 67,
+        "endingAgeP90": 69,
         "endingAgeHistogram": {
-          "45-54": 14,
-          "35-44": 2
+          "65+": 3911,
+          "35-44": 223,
+          "45-54": 103,
+          "25-34": 11,
+          "55-64": 3
         },
         "endingAgeShareByTargetBucket": [
           {
@@ -1832,35 +2190,35 @@
           },
           {
             "band": "25-34",
-            "observedShare": 0,
+            "observedShare": 0.00258762644083745,
             "targetMin": 0.35,
             "targetMax": 0.4,
             "withinTarget": false
           },
           {
             "band": "35-44",
-            "observedShare": 0.125,
+            "observedShare": 0.05245824511879558,
             "targetMin": 0.2,
             "targetMax": 0.25,
             "withinTarget": false
           },
           {
             "band": "45-54",
-            "observedShare": 0.875,
+            "observedShare": 0.024229593036932486,
             "targetMin": 0.08,
             "targetMax": 0.12,
             "withinTarget": false
           },
           {
             "band": "55-64",
-            "observedShare": 0,
+            "observedShare": 0.0007057163020465773,
             "targetMin": 0.04,
             "targetMax": 0.07,
             "withinTarget": false
           },
           {
             "band": "65+",
-            "observedShare": 0,
+            "observedShare": 0.9200188191013879,
             "targetMin": 0.02,
             "targetMax": 0.05,
             "withinTarget": false
@@ -1868,418 +2226,518 @@
         ],
         "channelCountsByAgeBand": {
           "0-5": {
-            "ORD": 55078,
-            "INS": 4922,
+            "ORD": 55088,
+            "INS": 4912,
             "TRN": 0,
             "SPC": 0
           },
           "6-11": {
-            "ORD": 49219,
-            "INS": 10781,
+            "ORD": 49128,
+            "INS": 10872,
             "TRN": 0,
             "SPC": 0
           },
           "12-17": {
-            "ORD": 43703,
-            "INS": 11830,
-            "TRN": 4467,
+            "ORD": 42849,
+            "INS": 11546,
+            "TRN": 5605,
             "SPC": 0
           },
           "18-24": {
-            "ORD": 39010,
-            "INS": 17945,
-            "TRN": 13045,
+            "ORD": 39931,
+            "INS": 17306,
+            "TRN": 12763,
             "SPC": 0
           },
           "25-34": {
-            "ORD": 42057,
-            "INS": 29762,
-            "TRN": 28181,
+            "ORD": 45904,
+            "INS": 27600,
+            "TRN": 26494,
             "SPC": 0
           },
           "35-44": {
-            "ORD": 59031,
-            "INS": 34703,
-            "TRN": 6266,
+            "ORD": 54057,
+            "INS": 37742,
+            "TRN": 7400,
             "SPC": 0
           },
           "45-54": {
-            "ORD": 79587,
-            "INS": 20034,
-            "TRN": 262,
+            "ORD": 72751,
+            "INS": 23469,
+            "TRN": 619,
             "SPC": 0
           },
           "55-64": {
-            "ORD": 87939,
-            "INS": 11856,
-            "TRN": 45,
+            "ORD": 84547,
+            "INS": 11977,
+            "TRN": 87,
             "SPC": 0
           },
           "65+": {
-            "ORD": 549107,
-            "INS": 9997,
+            "ORD": 321318,
+            "INS": 15057,
             "TRN": 0,
             "SPC": 0
           }
         },
         "familyCountsByAgeBand": {
           "0-5": {
-            "INS/CIV": 4922,
-            "ORD/FAM": 55078
+            "ORD/FAM": 20928,
+            "ORD/HEA": 7128,
+            "ORD/GEN": 10577,
+            "ORD/HOU": 8774,
+            "ORD/SOC": 7681,
+            "INS/CIV": 4912
           },
           "6-11": {
-            "ORD/SOC": 13003,
-            "ORD/EDU": 36216,
-            "INS/EDU": 10781
+            "ORD/SOC": 15417,
+            "ORD/EDU": 33711,
+            "INS/EDU": 10872
           },
           "12-17": {
-            "ORD/SOC": 12911,
-            "INS/EDU": 7593,
-            "ORD/EDU": 30792,
-            "TRN/WOOD": 4467,
-            "INS/FIN": 4237
+            "ORD/SOC": 14516,
+            "ORD/EDU": 28333,
+            "INS/EDU": 7453,
+            "INS/FIN": 4093,
+            "TRN/GLAS": 641,
+            "TRN/CRYS": 690,
+            "TRN/STON": 851,
+            "TRN/METL": 803,
+            "TRN/WOOD": 1528,
+            "TRN/TEMP": 598,
+            "TRN/CERA": 494
           },
           "18-24": {
-            "INS/REL": 5385,
-            "ORD/SOC": 7461,
-            "ORD/HOU": 5707,
-            "TRN/METL": 1963,
-            "INS/MUS": 1788,
-            "ORD/HEA": 5335,
-            "ORD/CAR": 12795,
-            "INS/MED": 3736,
-            "ORD/EDU": 1636,
-            "TRN/GLAS": 2000,
-            "TRN/CRYS": 2044,
-            "INS/COR": 1651,
-            "TRN/WOOD": 2034,
-            "TRN/CERA": 1857,
-            "ORD/FAM": 2443,
-            "TRN/TEMP": 979,
-            "ORD/FIN": 337,
-            "ORD/CIV": 3296,
-            "INS/CIV": 1407,
-            "TRN/STON": 2168,
-            "INS/ACA": 3400,
-            "INS/FIN": 471,
-            "INS/LEG": 107
+            "TRN/GLAS": 1891,
+            "INS/REL": 5575,
+            "TRN/TEMP": 1233,
+            "ORD/SOC": 6700,
+            "ORD/CIV": 4888,
+            "ORD/FIN": 602,
+            "TRN/STON": 2356,
+            "ORD/CAR": 10551,
+            "ORD/HOU": 6661,
+            "TRN/METL": 2136,
+            "INS/MUS": 2388,
+            "ORD/FAM": 2632,
+            "INS/MED": 3110,
+            "INS/FIN": 521,
+            "TRN/CERA": 1588,
+            "ORD/HEA": 6264,
+            "INS/CIV": 1461,
+            "INS/ACA": 3483,
+            "ORD/EDU": 1633,
+            "TRN/CRYS": 1844,
+            "TRN/WOOD": 1715,
+            "INS/COR": 691,
+            "INS/LEG": 77
           },
           "25-34": {
-            "ORD/FAM": 4259,
-            "INS/ACA": 9124,
-            "ORD/HOU": 6864,
-            "TRN/GLAS": 4071,
-            "TRN/CERA": 4005,
-            "TRN/WOOD": 4019,
-            "INS/FIN": 3975,
-            "ORD/CIV": 3695,
-            "INS/LEG": 2291,
-            "TRN/CRYS": 4082,
-            "INS/COR": 3945,
-            "ORD/SOC": 12681,
-            "INS/CIV": 2461,
-            "ORD/CAR": 6845,
-            "ORD/HEA": 6192,
-            "TRN/STON": 4287,
-            "INS/MUS": 3443,
-            "TRN/TEMP": 3618,
-            "ORD/FIN": 1521,
-            "TRN/METL": 4050,
-            "INS/MED": 3048,
-            "INS/REL": 1471,
-            "TRN/SYNT": 48,
-            "INS/ARC": 4,
-            "TRN/MIXD": 1
+            "INS/MED": 4547,
+            "ORD/HEA": 5834,
+            "INS/FIN": 3934,
+            "ORD/HOU": 6860,
+            "INS/MUS": 3765,
+            "ORD/SOC": 8266,
+            "INS/ACA": 7270,
+            "TRN/METL": 4036,
+            "ORD/FIN": 1971,
+            "TRN/WOOD": 3580,
+            "ORD/CIV": 3624,
+            "TRN/STON": 4087,
+            "ORD/CAR": 15171,
+            "TRN/TEMP": 3817,
+            "TRN/GLAS": 3668,
+            "INS/CIV": 2964,
+            "ORD/FAM": 4178,
+            "TRN/CRYS": 3757,
+            "TRN/CERA": 3505,
+            "INS/REL": 1599,
+            "INS/LEG": 1860,
+            "INS/COR": 1640,
+            "TRN/SYNT": 44,
+            "INS/ARC": 21
           },
           "35-44": {
-            "INS/CIV": 4941,
-            "TRN/TEMP": 5200,
-            "ORD/GEN": 6657,
-            "ORD/FAM": 11190,
-            "INS/ACA": 14631,
-            "ORD/SOC": 27196,
-            "ORD/HOU": 7105,
-            "INS/FIN": 2459,
-            "INS/LEG": 4167,
-            "ORD/CIV": 1148,
-            "ORD/FIN": 2404,
-            "ORD/CAR": 3331,
-            "INS/COR": 3569,
-            "INS/MUS": 1670,
-            "INS/MED": 2255,
-            "TRN/STON": 145,
-            "TRN/WOOD": 126,
-            "INS/ARC": 100,
-            "TRN/SYNT": 136,
-            "INS/REL": 911,
-            "TRN/GLAS": 120,
-            "TRN/METL": 141,
-            "TRN/CERA": 153,
-            "TRN/CRYS": 183,
-            "TRN/MIXD": 62
+            "ORD/HOU": 7736,
+            "INS/ACA": 9338,
+            "ORD/SOC": 17222,
+            "ORD/GEN": 10029,
+            "ORD/FAM": 10476,
+            "INS/MED": 11206,
+            "INS/CIV": 5190,
+            "ORD/CAR": 5031,
+            "INS/LEG": 3819,
+            "TRN/METL": 513,
+            "INS/ARC": 391,
+            "INS/REL": 1307,
+            "INS/MUS": 2446,
+            "INS/FIN": 2357,
+            "TRN/CERA": 333,
+            "ORD/CIV": 1085,
+            "INS/COR": 1688,
+            "TRN/SYNT": 228,
+            "ORD/FIN": 2478,
+            "TRN/TEMP": 4326,
+            "TRN/STON": 557,
+            "TRN/CRYS": 467,
+            "TRN/WOOD": 372,
+            "TRN/GLAS": 447,
+            "TRN/MIXD": 157
           },
           "45-54": {
-            "ORD/GEN": 8398,
-            "ORD/SOC": 13879,
-            "ORD/CAR": 15140,
-            "ORD/HEA": 14769,
-            "ORD/FAM": 27401,
-            "INS/FIN": 8229,
-            "INS/ACA": 1619,
-            "INS/CIV": 5753,
-            "INS/COR": 1691,
-            "INS/MED": 888,
-            "INS/LEG": 1172,
-            "INS/ARC": 126,
-            "INS/MUS": 266,
-            "TRN/MIXD": 262,
-            "INS/REL": 290
+            "INS/MED": 3477,
+            "ORD/FAM": 22874,
+            "ORD/HEA": 13880,
+            "ORD/SOC": 13076,
+            "ORD/CAR": 15204,
+            "INS/FIN": 7639,
+            "ORD/GEN": 7717,
+            "INS/CIV": 6073,
+            "INS/LEG": 2707,
+            "INS/MUS": 584,
+            "INS/REL": 717,
+            "TRN/MIXD": 611,
+            "INS/ARC": 318,
+            "INS/COR": 1037,
+            "INS/ACA": 917,
+            "TRN/TEMP": 8
           },
           "55-64": {
-            "INS/CIV": 9981,
-            "ORD/CAR": 17507,
-            "ORD/FAM": 18075,
-            "ORD/HEA": 13786,
-            "ORD/SOC": 15712,
-            "ORD/GEN": 22859,
-            "INS/FIN": 1749,
-            "INS/MED": 87,
-            "TRN/MIXD": 45,
-            "INS/LEG": 39
+            "ORD/CAR": 16492,
+            "ORD/HEA": 13552,
+            "INS/CIV": 9659,
+            "ORD/SOC": 15716,
+            "ORD/FAM": 18506,
+            "ORD/GEN": 20281,
+            "INS/FIN": 2020,
+            "INS/MED": 219,
+            "INS/LEG": 76,
+            "TRN/MIXD": 87,
+            "INS/MUS": 3
           },
           "65+": {
-            "ORD/SOC": 109779,
-            "INS/CIV": 9987,
-            "ORD/GEN": 438057,
-            "ORD/FAM": 1271,
-            "INS/FIN": 6,
-            "INS/MED": 4
+            "ORD/FAM": 13103,
+            "ORD/SOC": 65066,
+            "INS/CIV": 7598,
+            "INS/MED": 7457,
+            "ORD/GEN": 243148,
+            "INS/FIN": 2,
+            "ORD/CAR": 1
           }
         },
-        "totalEventYears": 1208827,
-        "fallbackYears": 336392,
-        "fallbackUseRate": 0.27827968766415706,
-        "fallbackYearsAge25Plus": 336392,
-        "fallbackShareAge25Plus": 0.3508370123077469,
+        "totalEventYears": 979022,
+        "spcEventYears": 0,
+        "spcShare": 0,
+        "mandatoryEventYears": 7984,
+        "mandatoryUsageRate": 0.3992,
+        "endingShare65Plus": 0.9200188191013879,
+        "fallbackYears": 190856,
+        "fallbackUseRate": 0.19494556812819325,
+        "fallbackYearsAge25Plus": 190856,
+        "fallbackShareAge25Plus": 0.2617973120152753,
         "pre25FallbackYears": 0,
         "pre25CoverageDefectRate": 0,
         "pre25CoverageDefectAges": {},
-        "pre25EmergencyReuseYears": 12941,
+        "pre25EmergencyReuseYears": 0,
         "routeEntryRate": 1,
         "routeEntryCountsByRoute": {
-          "ROUTE_REL_INTEREST": 7480,
-          "ROUTE_MUS_INTEREST": 6634,
-          "ROUTE_FAM_PLACEMENT": 7976,
-          "ROUTE_ACA_RESEARCH": 6620,
-          "ROUTE_FIN_VALUED": 5224,
-          "ROUTE_CIV_SERVICE": 7081,
-          "ROUTE_FAM_DIRECTIVE": 5935,
-          "ROUTE_CIV_MEMORIAL": 6444,
-          "ROUTE_CIV_REBRANDED": 5801,
-          "ROUTE_ACA_SPECIALIZATION": 5372,
-          "ROUTE_ACA_CONTINUITY": 2684,
-          "ROUTE_ACA_CONTINUITY_EXPOSED": 2684,
-          "ROUTE_MED_SCREENED": 7473,
-          "ROUTE_COR_EMPLOYEE": 6091,
-          "ROUTE_COR_PRESERVATION_PLAN": 2798,
-          "ROUTE_COR_CONTRACT": 2798,
-          "ROUTE_TEMP_STUDY": 5522,
-          "ROUTE_FIN_SECURED_DEBT": 1719,
-          "ROUTE_ACA_TENURE_TRACK": 2944,
-          "ROUTE_ACA_TENURE_REVIEW": 2944,
-          "ROUTE_MED_PRESERVATION_CONSULT": 2416,
-          "ROUTE_ACA_MATERIALS": 2688,
-          "ROUTE_ACA_MATERIALS_EXPOSED": 2688,
-          "ROUTE_MED_SYNTH_OPTION": 599,
-          "ROUTE_MED_DIRECTIVE": 1244,
-          "ROUTE_LEG_STATUS_CASE": 849,
-          "ROUTE_LEG_STATUS_RESOLVED": 848,
-          "ROUTE_ARC_STRUCTURAL": 230,
-          "ROUTE_REL_CLAIM": 577,
-          "ROUTE_MUS_APPRAISED": 443,
-          "ROUTE_MUS_MIXED_OPTION": 370
+          "ROUTE_REL_INTEREST": 7805,
+          "ROUTE_CIV_SERVICE": 8458,
+          "ROUTE_MED_SCREENED": 6141,
+          "ROUTE_FIN_SECURED_DEBT": 1597,
+          "ROUTE_MUS_INTEREST": 7696,
+          "ROUTE_ACA_RESEARCH": 6183,
+          "ROUTE_ACA_SPECIALIZATION": 3852,
+          "ROUTE_ACA_CONTINUITY": 1840,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 1834,
+          "ROUTE_TEMP_STUDY": 3668,
+          "ROUTE_MED_CONTROLLED_HARDENING": 3992,
+          "ROUTE_MED_PRESERVATION_CONSULT": 5186,
+          "ROUTE_MED_CONTROLLED_HARDENING_STAGE2": 3992,
+          "ROUTE_FAM_LATE_LEGACY": 9047,
+          "ROUTE_MED_LATE_CONTINUITY": 5966,
+          "ROUTE_FAM_PLACEMENT": 7727,
+          "ROUTE_FIN_VALUED": 5304,
+          "ROUTE_CIV_MEMORIAL": 7167,
+          "ROUTE_FAM_DIRECTIVE": 4532,
+          "ROUTE_CIV_REBRANDED": 6354,
+          "ROUTE_CAR_MATERIAL_EXPOSURE": 4727,
+          "ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY": 4727,
+          "ROUTE_ARC_STRUCTURAL": 663,
+          "ROUTE_LEG_STATUS_CASE": 1844,
+          "ROUTE_LEG_STATUS_RESOLVED": 1839,
+          "ROUTE_MUS_APPRAISED": 1018,
+          "ROUTE_MUS_MIXED_OPTION": 855,
+          "ROUTE_REL_CLAIM": 1387,
+          "ROUTE_MED_DIRECTIVE": 2731,
+          "ROUTE_ACA_MATERIALS": 2005,
+          "ROUTE_COR_EMPLOYEE": 3538,
+          "ROUTE_MED_SYNTH_OPTION": 535,
+          "ROUTE_ACA_TENURE_TRACK": 1328,
+          "ROUTE_ACA_TENURE_REVIEW": 1324,
+          "ROUTE_ACA_MATERIALS_EXPOSED": 2003,
+          "ROUTE_COR_PRESERVATION_PLAN": 1166,
+          "ROUTE_COR_CONTRACT": 1166,
+          "ROUTE_ACA_POLICY": 7,
+          "ROUTE_ACA_POLICY_EXPOSED": 7
         },
-        "routeClimaxRate": 0.0016,
+        "routeClimaxRate": 0.4251,
         "routeClimaxCountsByEvent": {
-          "EVT-INS-MED-0003": 16
+          "EVT-ORD-FAM-0011": 2420,
+          "EVT-INS-MED-0003": 295,
+          "EVT-INS-MED-0012": 1491,
+          "EVT-INS-MUS-0003": 9,
+          "EVT-TRN-TEMP-0002": 17,
+          "EVT-INS-REL-0003": 6,
+          "EVT-INS-ACA-0005": 1,
+          "EVT-INS-MUS-0005": 8,
+          "EVT-ORD-FAM-0004": 1,
+          "EVT-INS-CIV-0006": 1,
+          "EVT-INS-ARC-0002": 2
         },
-        "routeAbandonmentRate": 0.9902,
-        "expiredScheduleCount": 29783,
+        "routeAbandonmentRate": 0.9735,
+        "expiredScheduleCount": 38071,
         "expiredSchedulesByEvent": {
-          "EVT-ORD-FAM-0004": 5935,
-          "EVT-INS-CIV-0006": 6443,
-          "EVT-INS-COR-0003": 2798,
-          "EVT-TRN-TEMP-0002": 5519,
-          "EVT-INS-FIN-0005": 1719,
-          "EVT-INS-ACA-0005": 2944,
-          "EVT-INS-MED-0003": 2418,
-          "EVT-TRN-SYNT-0001": 415,
-          "EVT-INS-ARC-0002": 230,
-          "EVT-INS-REL-0003": 575,
-          "EVT-INS-MUS-0003": 433,
-          "EVT-INS-MUS-0005": 354
+          "EVT-INS-FIN-0005": 1590,
+          "EVT-TRN-TEMP-0002": 3619,
+          "EVT-INS-MED-0003": 5287,
+          "EVT-ORD-FAM-0011": 5749,
+          "EVT-INS-MED-0012": 3674,
+          "EVT-INS-CIV-0006": 7111,
+          "EVT-ORD-FAM-0004": 4480,
+          "EVT-INS-ARC-0002": 653,
+          "EVT-INS-MUS-0003": 989,
+          "EVT-INS-MUS-0005": 813,
+          "EVT-INS-REL-0003": 1370,
+          "EVT-INS-ACA-0005": 1312,
+          "EVT-TRN-SYNT-0001": 259,
+          "EVT-INS-COR-0003": 1165
         },
-        "priorityCollisionRate": 0.0057,
-        "priorityCollisionYears": 59,
-        "scheduleDisplacementCount": 60,
-        "scheduleDisplacementPerRun": 0.006,
+        "priorityCollisionRate": 0.0471,
+        "priorityCollisionYears": 738,
+        "scheduleDisplacementCount": 751,
+        "scheduleDisplacementPerRun": 0.0751,
         "finalMaterialDistribution": {
-          "NONE": 8482,
-          "STON": 188,
-          "WOOD": 153,
-          "METL": 191,
-          "SYNT": 143,
-          "GLAS": 169,
-          "MIXD": 370,
-          "CERA": 142,
-          "CRYS": 162
+          "NONE": 5749,
+          "METL": 552,
+          "MIXD": 855,
+          "CERA": 284,
+          "SYNT": 721,
+          "STON": 589,
+          "GLAS": 449,
+          "CRYS": 416,
+          "WOOD": 368,
+          "TEMP": 17
         },
         "finalMaterialBySpecies": {
           "HUMAN": {
-            "NONE": 1418,
-            "WOOD": 28,
-            "SYNT": 30,
-            "MIXD": 59,
-            "GLAS": 25,
-            "METL": 26,
-            "CERA": 27,
-            "STON": 23,
-            "CRYS": 31
+            "NONE": 956,
+            "MIXD": 147,
+            "SYNT": 119,
+            "STON": 85,
+            "CERA": 55,
+            "GLAS": 58,
+            "CRYS": 79,
+            "METL": 94,
+            "WOOD": 72,
+            "TEMP": 2
           },
           "ELF": {
-            "NONE": 1394,
-            "SYNT": 26,
-            "STON": 28,
-            "GLAS": 24,
-            "MIXD": 77,
-            "CERA": 22,
-            "CRYS": 34,
-            "WOOD": 46,
-            "METL": 16
+            "NONE": 994,
+            "SYNT": 105,
+            "MIXD": 129,
+            "METL": 66,
+            "WOOD": 92,
+            "GLAS": 70,
+            "STON": 87,
+            "CRYS": 78,
+            "CERA": 43,
+            "TEMP": 3
           },
           "DWARF": {
-            "NONE": 1412,
-            "STON": 47,
-            "METL": 48,
-            "CERA": 25,
-            "WOOD": 23,
-            "SYNT": 23,
-            "GLAS": 21,
-            "MIXD": 48,
-            "CRYS": 20
+            "NONE": 927,
+            "METL": 139,
+            "STON": 126,
+            "WOOD": 46,
+            "GLAS": 56,
+            "MIXD": 150,
+            "SYNT": 137,
+            "CRYS": 53,
+            "CERA": 32,
+            "TEMP": 1
           },
           "WINGED_KIN": {
-            "NONE": 1427,
-            "STON": 35,
-            "GLAS": 25,
-            "CERA": 25,
-            "WOOD": 24,
-            "MIXD": 75,
-            "CRYS": 17,
-            "METL": 23,
-            "SYNT": 16
+            "METL": 72,
+            "NONE": 965,
+            "MIXD": 141,
+            "SYNT": 120,
+            "CRYS": 63,
+            "STON": 114,
+            "GLAS": 91,
+            "CERA": 40,
+            "WOOD": 58,
+            "TEMP": 3
           },
           "DEMONKIN": {
-            "NONE": 1423,
-            "WOOD": 21,
-            "SYNT": 23,
-            "GLAS": 43,
-            "CERA": 25,
-            "METL": 33,
-            "MIXD": 46,
-            "CRYS": 27,
-            "STON": 25
+            "MIXD": 155,
+            "CERA": 57,
+            "SYNT": 120,
+            "NONE": 948,
+            "GLAS": 115,
+            "STON": 78,
+            "METL": 71,
+            "CRYS": 55,
+            "WOOD": 65,
+            "TEMP": 2
           },
           "DRAGONKIN": {
-            "NONE": 1408,
-            "METL": 45,
-            "SYNT": 25,
-            "CRYS": 33,
-            "WOOD": 11,
-            "MIXD": 65,
-            "GLAS": 31,
-            "STON": 30,
-            "CERA": 18
+            "CERA": 57,
+            "NONE": 959,
+            "STON": 99,
+            "METL": 110,
+            "SYNT": 120,
+            "CRYS": 88,
+            "WOOD": 35,
+            "GLAS": 59,
+            "MIXD": 133,
+            "TEMP": 6
           }
         },
-        "materialCommitmentRate": 0.1518,
-        "materialEntropyBitsOverall": 1.0571949560820326,
+        "materialCommitmentRate": 0.4251,
+        "materialEntropyBitsOverall": 2.2360760757730764,
         "materialEntropyBitsBySpecies": {
-          "HUMAN": 1.0454783991666174,
-          "ELF": 1.1056089879835176,
-          "DWARF": 1.0602213681969277,
-          "WINGED_KIN": 0.9971888046020195,
-          "DEMONKIN": 1.0285471828495565,
-          "DRAGONKIN": 1.0611597032362454
+          "HUMAN": 2.2405522703573335,
+          "ELF": 2.170445241534135,
+          "DWARF": 2.2416075232689026,
+          "WINGED_KIN": 2.2133910087443565,
+          "DEMONKIN": 2.245280157419049,
+          "DRAGONKIN": 2.231754449567298
         },
         "pFinalGivenHint": {
           "WOOD": {
-            "hintRuns": 892,
-            "sameMaterial": 25,
-            "probability": 0.028026905829596414
+            "hintRuns": 923,
+            "sameMaterial": 57,
+            "probability": 0.06175514626218852
           },
           "STON": {
-            "hintRuns": 878,
-            "sameMaterial": 23,
-            "probability": 0.02619589977220957
-          },
-          "GLAS": {
-            "hintRuns": 752,
-            "sameMaterial": 19,
-            "probability": 0.02526595744680851
-          },
-          "METL": {
-            "hintRuns": 942,
-            "sameMaterial": 28,
-            "probability": 0.029723991507430998
+            "hintRuns": 893,
+            "sameMaterial": 73,
+            "probability": 0.08174692049272117
           },
           "CRYS": {
-            "hintRuns": 665,
-            "sameMaterial": 8,
-            "probability": 0.012030075187969926
+            "hintRuns": 708,
+            "sameMaterial": 25,
+            "probability": 0.03531073446327684
+          },
+          "GLAS": {
+            "hintRuns": 763,
+            "sameMaterial": 60,
+            "probability": 0.07863695937090433
+          },
+          "METL": {
+            "hintRuns": 875,
+            "sameMaterial": 63,
+            "probability": 0.072
           }
         },
         "pFinalGivenFirstManifestation": {
-          "METL": {
-            "manifestationRuns": 853,
-            "sameMaterial": 13,
-            "probability": 0.015240328253223915
-          },
-          "WOOD": {
-            "manifestationRuns": 5230,
-            "sameMaterial": 84,
-            "probability": 0.01606118546845124
-          },
-          "TEMP": {
-            "manifestationRuns": 377,
-            "sameMaterial": 0,
-            "probability": 0
-          },
-          "CRYS": {
-            "manifestationRuns": 891,
-            "sameMaterial": 9,
-            "probability": 0.010101010101010102
-          },
-          "CERA": {
-            "manifestationRuns": 781,
-            "sameMaterial": 6,
-            "probability": 0.0076824583866837385
-          },
           "GLAS": {
-            "manifestationRuns": 918,
-            "sameMaterial": 16,
-            "probability": 0.017429193899782137
+            "manifestationRuns": 1291,
+            "sameMaterial": 91,
+            "probability": 0.0704879938032533
+          },
+          "METL": {
+            "manifestationRuns": 1536,
+            "sameMaterial": 119,
+            "probability": 0.07747395833333333
           },
           "STON": {
-            "manifestationRuns": 945,
-            "sameMaterial": 14,
-            "probability": 0.014814814814814815
+            "manifestationRuns": 1691,
+            "sameMaterial": 121,
+            "probability": 0.07155529272619751
+          },
+          "CERA": {
+            "manifestationRuns": 1026,
+            "sameMaterial": 42,
+            "probability": 0.04093567251461988
+          },
+          "CRYS": {
+            "manifestationRuns": 1337,
+            "sameMaterial": 81,
+            "probability": 0.0605833956619297
+          },
+          "WOOD": {
+            "manifestationRuns": 2147,
+            "sameMaterial": 134,
+            "probability": 0.0624126688402422
+          },
+          "TEMP": {
+            "manifestationRuns": 966,
+            "sameMaterial": 2,
+            "probability": 0.002070393374741201
           }
         },
-        "multipleManifestationBeforeCommitmentRate": 0.9892,
-        "averageHintAge": 9.437394042140955,
-        "averageFirstManifestationAge": 18.501550775387695,
-        "averageCommitmentAge": 35.825428194993414,
+        "firstManifestationFamilyCounts": {
+          "GLAS": 1291,
+          "METL": 1536,
+          "STON": 1691,
+          "CERA": 1026,
+          "CRYS": 1337,
+          "WOOD": 2147,
+          "TEMP": 966
+        },
+        "firstManifestationFamilyShare": {
+          "GLAS": 0.12917750650390233,
+          "METL": 0.15369221532919752,
+          "STON": 0.16920152091254753,
+          "CERA": 0.10266159695817491,
+          "CRYS": 0.13378026816089653,
+          "WOOD": 0.21482889733840305,
+          "TEMP": 0.09665799479687813
+        },
+        "firstManifestationAgeByFamily": {
+          "GLAS": {
+            "mean": 19.350116189000776,
+            "median": 19,
+            "runs": 1291
+          },
+          "METL": {
+            "mean": 18.912760416666668,
+            "median": 18,
+            "runs": 1536
+          },
+          "STON": {
+            "mean": 19.087522176227086,
+            "median": 18,
+            "runs": 1691
+          },
+          "CERA": {
+            "mean": 19.374269005847953,
+            "median": 19,
+            "runs": 1026
+          },
+          "CRYS": {
+            "mean": 19.106207928197456,
+            "median": 19,
+            "runs": 1337
+          },
+          "WOOD": {
+            "mean": 15.721471821145785,
+            "median": 13,
+            "runs": 2147
+          },
+          "TEMP": {
+            "mean": 20.522774327122153,
+            "median": 20,
+            "runs": 966
+          }
+        },
+        "noManifestationRate": 0.0006,
+        "multipleManifestationBeforeCommitmentRate": 0.9854,
+        "averageHintAge": 9.456511292647766,
+        "averageFirstManifestationAge": 18.5421252751651,
+        "averageCommitmentAge": 41.36885438720301,
         "talentActivationRate": {
           "T1011": 0,
           "T1021": 1,
@@ -2291,32 +2749,41 @@
           "T1018": 0
         },
         "endingDistribution": {
-          "END-MED-001": 16
+          "END-FAM-002": 1139,
+          "END-FAM-001": 1282,
+          "END-MED-001": 1786,
+          "END-MUS-001": 9,
+          "END-TMP-001": 17,
+          "END-REL-001": 6,
+          "END-ACA-001": 1,
+          "END-MUS-004": 8,
+          "END-CIV-001": 1,
+          "END-ARC-001": 2
         },
-        "distinctEndingsObserved": 1,
+        "distinctEndingsObserved": 10,
         "distinctEndingsInRegistry": 24,
-        "endingCoverageShare": 0.041666666666666664,
+        "endingCoverageShare": 0.4166666666666667,
         "hiddenEndingRate": 0,
-        "rareEndingRate": 0,
+        "rareEndingRate": 0.007292401787814632,
         "finalStatMeans": {
-          "CHR": 8.8624,
-          "INT": 18.9293,
-          "STR": -3.2049,
-          "MNY": 2.6061,
-          "SPR": 54.4657,
-          "FIX": 27.0081
+          "CHR": 14.2148,
+          "INT": 19.1093,
+          "STR": 1.3417,
+          "MNY": 1.7324,
+          "SPR": 46.6114,
+          "FIX": 34.8928
         },
         "finalFixPercentiles": {
-          "p50": 26,
-          "p90": 44,
-          "p99": 50,
-          "max": 52
+          "p50": 34,
+          "p90": 48,
+          "p99": 54,
+          "max": 59
         },
         "guardrails": [
           {
             "id": "fallback-share",
             "severity": "warning",
-            "message": "Age-25+ fallback share 35.1% exceeds the warning threshold 5.0% (target 2.0%)."
+            "message": "Age-25+ fallback share 26.2% exceeds the warning threshold 5.0% (target 2.0%)."
           },
           {
             "id": "ending-age-share-18-24",
@@ -2326,32 +2793,32 @@
           {
             "id": "ending-age-share-25-34",
             "severity": "warning",
-            "message": "Ending age band 25-34: observed 0.0% vs target 35-40%."
+            "message": "Ending age band 25-34: observed 0.3% vs target 35-40%."
           },
           {
             "id": "ending-age-share-35-44",
             "severity": "warning",
-            "message": "Ending age band 35-44: observed 12.5% vs target 20-25%."
+            "message": "Ending age band 35-44: observed 5.2% vs target 20-25%."
           },
           {
             "id": "ending-age-share-45-54",
             "severity": "warning",
-            "message": "Ending age band 45-54: observed 87.5% vs target 8-12%."
+            "message": "Ending age band 45-54: observed 2.4% vs target 8-12%."
           },
           {
             "id": "ending-age-share-55-64",
             "severity": "warning",
-            "message": "Ending age band 55-64: observed 0.0% vs target 4-7%."
+            "message": "Ending age band 55-64: observed 0.1% vs target 4-7%."
           },
           {
             "id": "ending-age-share-65+",
             "severity": "warning",
-            "message": "Ending age band 65+: observed 0.0% vs target 2-5%."
+            "message": "Ending age band 65+: observed 92.0% vs target 2-5%."
           },
           {
             "id": "nonterminal-rate",
             "severity": "failure",
-            "message": "9984/10000 runs (99.8%) reached the diagnostic maximum age without an ending."
+            "message": "5749/10000 runs (57.5%) reached the diagnostic maximum age without an ending."
           }
         ]
       }
@@ -2362,30 +2829,31 @@
       "scenarioDescription": "Hidden-FIX, anomalous-continuity and registration-anomaly talents.",
       "options": {
         "runs": 10000,
-        "baseSeed": "phase1",
+        "baseSeed": "phase1_1",
         "speciesStratified": true,
         "fixedSpecies": null,
         "maxAge": 120,
-        "pre25CoveragePolicy": "reuse_baseline_repeatables"
+        "familyWeightMode": "uniform"
       },
       "metrics": {
         "runs": 10000,
-        "completed": 642,
-        "nonterminal": 9358,
+        "completed": 9551,
+        "nonterminal": 449,
         "coverageErrors": 0,
-        "completedRate": 0.0642,
-        "nonterminalRate": 0.9358,
+        "completedRate": 0.9551,
+        "nonterminalRate": 0.0449,
         "coverageErrorRate": 0,
-        "averageRunLengthYears": 115.9309,
-        "averageEndingAge": 41.04205607476636,
-        "medianEndingAge": 41,
-        "endingAgeP10": 35,
-        "endingAgeP90": 47,
+        "averageRunLengthYears": 46.0473,
+        "averageEndingAge": 41.52371479426238,
+        "medianEndingAge": 40,
+        "endingAgeP10": 33,
+        "endingAgeP90": 51,
         "endingAgeHistogram": {
-          "45-54": 132,
-          "35-44": 448,
-          "25-34": 49,
-          "55-64": 13
+          "35-44": 5800,
+          "25-34": 1337,
+          "45-54": 1852,
+          "65+": 293,
+          "55-64": 269
         },
         "endingAgeShareByTargetBucket": [
           {
@@ -2397,475 +2865,564 @@
           },
           {
             "band": "25-34",
-            "observedShare": 0.0763239875389408,
+            "observedShare": 0.13998534184902103,
             "targetMin": 0.35,
             "targetMax": 0.4,
             "withinTarget": false
           },
           {
             "band": "35-44",
-            "observedShare": 0.6978193146417445,
+            "observedShare": 0.6072662548424249,
             "targetMin": 0.2,
             "targetMax": 0.25,
             "withinTarget": false
           },
           {
             "band": "45-54",
-            "observedShare": 0.205607476635514,
+            "observedShare": 0.19390639723589154,
             "targetMin": 0.08,
             "targetMax": 0.12,
             "withinTarget": false
           },
           {
             "band": "55-64",
-            "observedShare": 0.020249221183800622,
+            "observedShare": 0.02816459009527798,
             "targetMin": 0.04,
             "targetMax": 0.07,
             "withinTarget": false
           },
           {
             "band": "65+",
-            "observedShare": 0,
+            "observedShare": 0.03067741597738457,
             "targetMin": 0.02,
             "targetMax": 0.05,
-            "withinTarget": false
+            "withinTarget": true
           }
         ],
         "channelCountsByAgeBand": {
           "0-5": {
-            "ORD": 54955,
-            "INS": 5045,
+            "ORD": 55182,
+            "INS": 4818,
             "TRN": 0,
             "SPC": 0
           },
           "6-11": {
-            "ORD": 49235,
-            "INS": 10765,
+            "ORD": 49238,
+            "INS": 10762,
             "TRN": 0,
             "SPC": 0
           },
           "12-17": {
-            "ORD": 43594,
-            "INS": 11881,
-            "TRN": 4525,
+            "ORD": 42957,
+            "INS": 11450,
+            "TRN": 5593,
             "SPC": 0
           },
           "18-24": {
-            "ORD": 38305,
-            "INS": 17611,
-            "TRN": 14084,
+            "ORD": 38960,
+            "INS": 17373,
+            "TRN": 13667,
             "SPC": 0
           },
           "25-34": {
-            "ORD": 42210,
-            "INS": 30171,
-            "TRN": 27520,
-            "SPC": 0
+            "ORD": 41397,
+            "INS": 27211,
+            "TRN": 25027,
+            "SPC": 3925
           },
           "35-44": {
-            "ORD": 55999,
-            "INS": 35776,
-            "TRN": 5846,
-            "SPC": 0
+            "ORD": 24168,
+            "INS": 16810,
+            "TRN": 5380,
+            "SPC": 14178
           },
           "45-54": {
-            "ORD": 66195,
-            "INS": 26956,
-            "TRN": 975,
-            "SPC": 0
+            "ORD": 9509,
+            "INS": 3669,
+            "TRN": 87,
+            "SPC": 4326
           },
           "55-64": {
-            "ORD": 81154,
-            "INS": 12307,
-            "TRN": 152,
-            "SPC": 0
+            "ORD": 6706,
+            "INS": 972,
+            "TRN": 1,
+            "SPC": 630
           },
           "65+": {
-            "ORD": 514676,
-            "INS": 9372,
+            "ORD": 24869,
+            "INS": 1608,
             "TRN": 0,
             "SPC": 0
           }
         },
         "familyCountsByAgeBand": {
           "0-5": {
-            "ORD/FAM": 54955,
-            "INS/CIV": 5045
+            "INS/CIV": 4818,
+            "ORD/GEN": 10588,
+            "ORD/SOC": 7755,
+            "ORD/HEA": 6999,
+            "ORD/FAM": 21054,
+            "ORD/HOU": 8786
           },
           "6-11": {
-            "ORD/EDU": 37178,
-            "ORD/SOC": 12057,
-            "INS/EDU": 10765
+            "ORD/SOC": 15564,
+            "ORD/EDU": 33674,
+            "INS/EDU": 10762
           },
           "12-17": {
-            "ORD/SOC": 11895,
-            "ORD/EDU": 31699,
-            "INS/EDU": 7635,
-            "INS/FIN": 4246,
-            "TRN/WOOD": 4525
+            "ORD/EDU": 28543,
+            "INS/EDU": 7440,
+            "TRN/CERA": 602,
+            "INS/FIN": 4010,
+            "ORD/SOC": 14414,
+            "TRN/WOOD": 1601,
+            "TRN/GLAS": 668,
+            "TRN/TEMP": 658,
+            "TRN/METL": 636,
+            "TRN/STON": 686,
+            "TRN/CRYS": 742
           },
           "18-24": {
-            "ORD/EDU": 1631,
-            "INS/REL": 5295,
-            "ORD/CAR": 13069,
-            "INS/ACA": 3426,
-            "ORD/FAM": 2459,
-            "TRN/GLAS": 2122,
-            "ORD/HEA": 5437,
-            "INS/MED": 3732,
-            "TRN/WOOD": 2185,
-            "INS/COR": 1687,
-            "ORD/SOC": 6269,
-            "TRN/STON": 2348,
-            "TRN/METL": 2186,
-            "ORD/HOU": 5813,
-            "ORD/FIN": 274,
-            "INS/FIN": 455,
-            "INS/MUS": 1509,
-            "ORD/CIV": 3353,
-            "TRN/CRYS": 2197,
-            "TRN/TEMP": 1117,
-            "TRN/CERA": 1921,
-            "INS/CIV": 1401,
-            "TRN/SYNT": 8,
-            "INS/LEG": 106
+            "ORD/HOU": 6496,
+            "TRN/STON": 2241,
+            "INS/MED": 3791,
+            "ORD/CAR": 10000,
+            "INS/REL": 5540,
+            "INS/ACA": 3681,
+            "INS/MUS": 1639,
+            "ORD/CIV": 4806,
+            "TRN/METL": 2070,
+            "ORD/FAM": 2558,
+            "ORD/EDU": 1572,
+            "TRN/CRYS": 2162,
+            "TRN/WOOD": 1924,
+            "TRN/GLAS": 2012,
+            "INS/FIN": 491,
+            "ORD/HEA": 6172,
+            "ORD/SOC": 6724,
+            "TRN/TEMP": 1413,
+            "TRN/CERA": 1840,
+            "INS/CIV": 1459,
+            "INS/COR": 684,
+            "ORD/FIN": 632,
+            "INS/LEG": 88,
+            "TRN/SYNT": 5
           },
           "25-34": {
-            "TRN/CRYS": 4044,
-            "TRN/CERA": 3816,
-            "ORD/HOU": 7309,
-            "INS/LEG": 2819,
-            "ORD/HEA": 6516,
-            "ORD/CAR": 7332,
-            "TRN/METL": 3834,
-            "TRN/WOOD": 3995,
-            "ORD/SOC": 11292,
-            "INS/COR": 3734,
-            "INS/FIN": 3447,
-            "INS/REL": 1731,
-            "ORD/FAM": 4541,
-            "INS/ACA": 7894,
-            "TRN/TEMP": 2733,
-            "INS/MED": 5377,
-            "TRN/STON": 4296,
-            "TRN/GLAS": 3982,
-            "ORD/FIN": 1425,
-            "INS/CIV": 2166,
-            "TRN/SYNT": 815,
-            "INS/ARC": 156,
-            "ORD/CIV": 3795,
-            "INS/MUS": 2847,
+            "TRN/METL": 3540,
+            "TRN/CERA": 3273,
+            "ORD/CIV": 3184,
+            "INS/ACA": 5644,
+            "TRN/GLAS": 3605,
+            "TRN/CRYS": 3787,
+            "INS/FIN": 3397,
+            "ORD/SOC": 7169,
+            "INS/MED": 7465,
+            "TRN/STON": 3893,
+            "INS/LEG": 1961,
+            "ORD/FIN": 1902,
+            "TRN/WOOD": 3398,
+            "SPC/ANO": 3925,
+            "ORD/CAR": 13711,
+            "ORD/HOU": 6188,
+            "INS/MUS": 3008,
+            "ORD/FAM": 3845,
+            "TRN/TEMP": 2995,
+            "ORD/HEA": 5398,
+            "TRN/SYNT": 531,
+            "INS/REL": 1718,
+            "INS/CIV": 2391,
+            "INS/COR": 1470,
+            "INS/ARC": 157,
             "TRN/MIXD": 5
           },
           "35-44": {
-            "TRN/METL": 457,
-            "INS/MED": 7020,
-            "ORD/SOC": 24160,
-            "INS/MUS": 2787,
-            "INS/FIN": 1752,
-            "INS/REL": 2163,
-            "ORD/FAM": 11183,
-            "ORD/GEN": 6906,
-            "ORD/HOU": 6916,
-            "ORD/CIV": 1177,
-            "ORD/CAR": 3316,
-            "INS/CIV": 3254,
-            "INS/ARC": 585,
-            "TRN/TEMP": 2233,
-            "TRN/GLAS": 458,
-            "INS/ACA": 8850,
-            "INS/LEG": 6895,
-            "TRN/WOOD": 510,
-            "INS/COR": 2470,
-            "TRN/CRYS": 463,
-            "TRN/CERA": 375,
-            "ORD/FIN": 2341,
-            "TRN/STON": 492,
-            "TRN/SYNT": 615,
-            "TRN/MIXD": 243
+            "INS/ACA": 3313,
+            "ORD/HOU": 3294,
+            "SPC/ANO": 14178,
+            "INS/FIN": 1067,
+            "TRN/TEMP": 1402,
+            "TRN/METL": 600,
+            "ORD/FAM": 4722,
+            "INS/COR": 715,
+            "TRN/GLAS": 613,
+            "ORD/CAR": 3174,
+            "ORD/SOC": 6816,
+            "ORD/GEN": 4500,
+            "INS/REL": 1224,
+            "INS/CIV": 1946,
+            "ORD/FIN": 1066,
+            "INS/LEG": 2286,
+            "TRN/CRYS": 655,
+            "INS/MED": 4434,
+            "TRN/CERA": 465,
+            "INS/MUS": 1463,
+            "TRN/STON": 638,
+            "ORD/CIV": 596,
+            "TRN/WOOD": 567,
+            "TRN/SYNT": 371,
+            "INS/ARC": 362,
+            "TRN/MIXD": 69
           },
           "45-54": {
-            "ORD/GEN": 6923,
-            "ORD/FAM": 23396,
-            "ORD/HEA": 12566,
-            "ORD/CAR": 12619,
-            "INS/MED": 4231,
-            "INS/FIN": 6917,
-            "ORD/SOC": 10691,
-            "INS/LEG": 5578,
-            "INS/COR": 1593,
-            "INS/CIV": 4673,
-            "INS/REL": 1430,
-            "INS/MUS": 997,
-            "TRN/MIXD": 975,
-            "INS/ACA": 995,
-            "INS/ARC": 542
+            "SPC/ANO": 4326,
+            "ORD/FAM": 2939,
+            "INS/REL": 212,
+            "INS/LEG": 641,
+            "ORD/HEA": 1837,
+            "INS/CIV": 876,
+            "ORD/GEN": 1017,
+            "ORD/SOC": 1693,
+            "INS/FIN": 810,
+            "ORD/CAR": 2023,
+            "INS/MED": 638,
+            "INS/ACA": 179,
+            "INS/ARC": 70,
+            "INS/COR": 166,
+            "TRN/MIXD": 76,
+            "TRN/TEMP": 11,
+            "INS/MUS": 77
           },
           "55-64": {
-            "ORD/FAM": 17580,
-            "INS/CIV": 9361,
-            "ORD/HEA": 13592,
-            "ORD/CAR": 16174,
-            "ORD/SOC": 14879,
-            "ORD/GEN": 18929,
-            "INS/FIN": 2446,
-            "INS/MED": 335,
-            "TRN/MIXD": 152,
-            "INS/LEG": 155,
-            "INS/MUS": 10
+            "INS/CIV": 801,
+            "ORD/CAR": 1330,
+            "ORD/FAM": 1457,
+            "ORD/SOC": 1240,
+            "ORD/HEA": 1046,
+            "ORD/GEN": 1633,
+            "SPC/ANO": 630,
+            "INS/FIN": 153,
+            "INS/MED": 15,
+            "INS/MUS": 1,
+            "INS/LEG": 1,
+            "INS/REL": 1,
+            "TRN/MIXD": 1
           },
           "65+": {
-            "INS/CIV": 9362,
-            "ORD/SOC": 102810,
-            "ORD/GEN": 409902,
-            "ORD/FAM": 1964,
-            "INS/FIN": 7,
-            "INS/MED": 3
+            "INS/CIV": 666,
+            "INS/MED": 942,
+            "ORD/SOC": 5111,
+            "ORD/FAM": 848,
+            "ORD/GEN": 18909,
+            "ORD/CAR": 1
           }
         },
-        "totalEventYears": 1159309,
-        "fallbackYears": 310939,
-        "fallbackUseRate": 0.2682106323680744,
-        "fallbackYearsAge25Plus": 310939,
-        "fallbackShareAge25Plus": 0.34195086598724966,
+        "totalEventYears": 460473,
+        "spcEventYears": 23059,
+        "spcShare": 0.05007676888764379,
+        "mandatoryEventYears": 12602,
+        "mandatoryUsageRate": 0.8797,
+        "endingShare65Plus": 0.03067741597738457,
+        "fallbackYears": 14880,
+        "fallbackUseRate": 0.032314598250060264,
+        "fallbackYearsAge25Plus": 14880,
+        "fallbackShareAge25Plus": 0.07069790424424986,
         "pre25FallbackYears": 0,
         "pre25CoverageDefectRate": 0,
         "pre25CoverageDefectAges": {},
-        "pre25EmergencyReuseYears": 12856,
+        "pre25EmergencyReuseYears": 0,
         "routeEntryRate": 1,
         "routeEntryCountsByRoute": {
-          "ROUTE_REL_INTEREST": 7169,
-          "ROUTE_ACA_RESEARCH": 6155,
-          "ROUTE_FAM_PLACEMENT": 8212,
-          "ROUTE_FAM_DIRECTIVE": 5126,
-          "ROUTE_MED_SCREENED": 7052,
-          "ROUTE_MUS_INTEREST": 5002,
-          "ROUTE_FIN_VALUED": 4613,
-          "ROUTE_REL_CLAIM": 3440,
-          "ROUTE_MED_DIRECTIVE": 6562,
-          "ROUTE_COR_EMPLOYEE": 6113,
-          "ROUTE_COR_PRESERVATION_PLAN": 2710,
-          "ROUTE_COR_CONTRACT": 2709,
-          "ROUTE_CIV_SERVICE": 7244,
-          "ROUTE_CIV_MEMORIAL": 5345,
-          "ROUTE_FIN_SECURED_DEBT": 1245,
-          "ROUTE_ARC_STRUCTURAL": 1278,
-          "ROUTE_TEMP_STUDY": 2768,
-          "ROUTE_ACA_SPECIALIZATION": 4356,
-          "ROUTE_ACA_MATERIALS": 2738,
-          "ROUTE_ACA_MATERIALS_EXPOSED": 2736,
-          "ROUTE_LEG_STATUS_CASE": 4815,
-          "ROUTE_LEG_STATUS_RESOLVED": 4787,
-          "ROUTE_MED_SYNTH_OPTION": 2001,
-          "ROUTE_ACA_TENURE_TRACK": 1771,
-          "ROUTE_ACA_TENURE_REVIEW": 1761,
-          "ROUTE_MED_PRESERVATION_CONSULT": 5027,
-          "ROUTE_CIV_REBRANDED": 3935,
-          "ROUTE_ACA_CONTINUITY": 1460,
-          "ROUTE_ACA_CONTINUITY_EXPOSED": 1457,
-          "ROUTE_MUS_APPRAISED": 1730,
-          "ROUTE_MUS_MIXED_OPTION": 1377,
-          "ROUTE_ACA_POLICY": 158,
-          "ROUTE_ACA_POLICY_EXPOSED": 158
+          "ROUTE_MED_SCREENED": 4426,
+          "ROUTE_REL_INTEREST": 7263,
+          "ROUTE_ACA_RESEARCH": 5468,
+          "ROUTE_MUS_INTEREST": 5161,
+          "ROUTE_ACA_SPECIALIZATION": 2350,
+          "ROUTE_ACA_MATERIALS": 1648,
+          "ROUTE_ACA_MATERIALS_EXPOSED": 1598,
+          "ROUTE_FIN_VALUED": 4240,
+          "ROUTE_CIV_SERVICE": 7542,
+          "ROUTE_ANO_OBJECT_CONTINUITY": 7825,
+          "ROUTE_FAM_PLACEMENT": 6889,
+          "ROUTE_MED_CONTROLLED_HARDENING": 2497,
+          "ROUTE_MED_PRESERVATION_CONSULT": 3737,
+          "ROUTE_MED_CONTROLLED_HARDENING_STAGE2": 2496,
+          "ROUTE_FAM_DIRECTIVE": 2440,
+          "ROUTE_FIN_SECURED_DEBT": 887,
+          "ROUTE_COR_EMPLOYEE": 3382,
+          "ROUTE_CAR_MATERIAL_EXPOSURE": 4354,
+          "ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY": 4308,
+          "ROUTE_REL_CLAIM": 1361,
+          "ROUTE_TEMP_STUDY": 1398,
+          "ROUTE_MED_SYNTH_OPTION": 1143,
+          "ROUTE_CIV_MEMORIAL": 3168,
+          "ROUTE_CIV_REBRANDED": 1379,
+          "ROUTE_LEG_STATUS_CASE": 1433,
+          "ROUTE_LEG_STATUS_RESOLVED": 997,
+          "ROUTE_MED_LATE_CONTINUITY": 698,
+          "ROUTE_MED_DIRECTIVE": 1155,
+          "ROUTE_ACA_CONTINUITY": 661,
+          "ROUTE_COR_PRESERVATION_PLAN": 1086,
+          "ROUTE_COR_CONTRACT": 1070,
+          "ROUTE_FAM_LATE_LEGACY": 692,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 624,
+          "ROUTE_ACA_TENURE_TRACK": 511,
+          "ROUTE_ACA_TENURE_REVIEW": 413,
+          "ROUTE_ARC_STRUCTURAL": 507,
+          "ROUTE_MUS_APPRAISED": 790,
+          "ROUTE_MUS_MIXED_OPTION": 189,
+          "ROUTE_ACA_POLICY": 41,
+          "ROUTE_ACA_POLICY_EXPOSED": 36
         },
-        "routeClimaxRate": 0.0642,
+        "routeClimaxRate": 0.9551,
         "routeClimaxCountsByEvent": {
-          "EVT-INS-MED-0003": 505,
-          "EVT-ORD-FAM-0004": 23,
-          "EVT-INS-COR-0003": 12,
-          "EVT-INS-CIV-0006": 20,
-          "EVT-INS-MUS-0003": 23,
-          "EVT-TRN-TEMP-0002": 20,
-          "EVT-INS-MUS-0005": 18,
-          "EVT-INS-ARC-0002": 5,
-          "EVT-INS-REL-0003": 10,
-          "EVT-INS-ACA-0005": 3,
-          "EVT-INS-FIN-0005": 3
+          "EVT-SPC-ANO-0003": 7617,
+          "EVT-TRN-TEMP-0002": 121,
+          "EVT-INS-MED-0012": 244,
+          "EVT-INS-MED-0003": 1099,
+          "EVT-INS-REL-0003": 71,
+          "EVT-INS-CIV-0006": 125,
+          "EVT-ORD-FAM-0004": 104,
+          "EVT-INS-FIN-0005": 28,
+          "EVT-INS-MUS-0003": 38,
+          "EVT-INS-MUS-0005": 10,
+          "EVT-INS-ARC-0002": 15,
+          "EVT-ORD-FAM-0011": 49,
+          "EVT-INS-COR-0003": 19,
+          "EVT-INS-ACA-0005": 11
         },
-        "routeAbandonmentRate": 0.951,
-        "expiredScheduleCount": 31353,
+        "routeAbandonmentRate": 0.4476,
+        "expiredScheduleCount": 8795,
         "expiredSchedulesByEvent": {
-          "EVT-ORD-FAM-0004": 4987,
-          "EVT-INS-REL-0003": 3364,
-          "EVT-INS-COR-0003": 2675,
-          "EVT-INS-CIV-0006": 5242,
-          "EVT-INS-FIN-0005": 1223,
-          "EVT-INS-ARC-0002": 1244,
-          "EVT-TRN-TEMP-0002": 2686,
-          "EVT-INS-ACA-0005": 1737,
-          "EVT-INS-MED-0003": 4760,
-          "EVT-INS-MUS-0003": 1630,
-          "EVT-INS-MUS-0005": 1252,
-          "EVT-TRN-SYNT-0001": 553
+          "EVT-INS-MED-0003": 2131,
+          "EVT-INS-CIV-0006": 1456,
+          "EVT-ORD-FAM-0004": 1137,
+          "EVT-TRN-TEMP-0002": 784,
+          "EVT-INS-COR-0003": 893,
+          "EVT-INS-ACA-0005": 217,
+          "EVT-INS-ARC-0002": 125,
+          "EVT-INS-FIN-0005": 457,
+          "EVT-INS-REL-0003": 301,
+          "EVT-TRN-SYNT-0001": 133,
+          "EVT-INS-MED-0012": 440,
+          "EVT-ORD-FAM-0011": 449,
+          "EVT-INS-MUS-0003": 238,
+          "EVT-INS-MUS-0005": 34
         },
-        "priorityCollisionRate": 0.0265,
-        "priorityCollisionYears": 270,
-        "scheduleDisplacementCount": 271,
-        "scheduleDisplacementPerRun": 0.0271,
+        "priorityCollisionRate": 0.1623,
+        "priorityCollisionYears": 2222,
+        "scheduleDisplacementCount": 2407,
+        "scheduleDisplacementPerRun": 0.2407,
         "finalMaterialDistribution": {
-          "METL": 942,
-          "NONE": 1827,
-          "STON": 1066,
-          "GLAS": 914,
-          "SYNT": 1148,
-          "WOOD": 1014,
-          "CRYS": 938,
-          "CERA": 756,
-          "MIXD": 1375,
-          "TEMP": 20
+          "GLAS": 1359,
+          "STON": 1455,
+          "WOOD": 1278,
+          "METL": 1297,
+          "TEMP": 121,
+          "SYNT": 1317,
+          "CERA": 1104,
+          "CRYS": 1469,
+          "NONE": 449,
+          "MIXD": 151
         },
         "finalMaterialBySpecies": {
           "HUMAN": {
-            "METL": 156,
-            "WOOD": 189,
-            "CERA": 150,
-            "GLAS": 152,
-            "MIXD": 230,
-            "CRYS": 140,
-            "NONE": 298,
-            "SYNT": 202,
-            "STON": 148,
-            "TEMP": 2
+            "GLAS": 213,
+            "SYNT": 214,
+            "WOOD": 229,
+            "CERA": 235,
+            "CRYS": 226,
+            "STON": 198,
+            "METL": 229,
+            "NONE": 77,
+            "MIXD": 29,
+            "TEMP": 17
           },
           "ELF": {
-            "NONE": 307,
-            "WOOD": 277,
-            "MIXD": 229,
-            "CRYS": 184,
-            "GLAS": 138,
-            "STON": 160,
-            "CERA": 107,
-            "METL": 58,
-            "SYNT": 203,
-            "TEMP": 4
+            "STON": 187,
+            "SYNT": 199,
+            "CRYS": 296,
+            "WOOD": 349,
+            "METL": 162,
+            "CERA": 163,
+            "NONE": 72,
+            "TEMP": 23,
+            "GLAS": 192,
+            "MIXD": 24
           },
           "DWARF": {
-            "STON": 254,
-            "MIXD": 215,
-            "METL": 252,
-            "CRYS": 67,
-            "SYNT": 165,
-            "WOOD": 185,
-            "GLAS": 83,
-            "NONE": 321,
-            "CERA": 121,
-            "TEMP": 4
+            "WOOD": 182,
+            "CERA": 166,
+            "GLAS": 176,
+            "CRYS": 157,
+            "STON": 350,
+            "SYNT": 220,
+            "METL": 299,
+            "NONE": 78,
+            "MIXD": 26,
+            "TEMP": 13
           },
           "WINGED_KIN": {
-            "NONE": 307,
-            "CRYS": 194,
-            "GLAS": 168,
-            "METL": 70,
-            "SYNT": 187,
-            "WOOD": 159,
-            "CERA": 118,
-            "MIXD": 244,
-            "STON": 216,
-            "TEMP": 4
+            "METL": 158,
+            "CRYS": 275,
+            "SYNT": 215,
+            "GLAS": 241,
+            "CERA": 170,
+            "STON": 287,
+            "NONE": 74,
+            "WOOD": 202,
+            "TEMP": 17,
+            "MIXD": 28
           },
           "DEMONKIN": {
-            "GLAS": 246,
-            "NONE": 294,
-            "CERA": 129,
-            "SYNT": 213,
-            "WOOD": 98,
-            "MIXD": 226,
-            "METL": 173,
-            "CRYS": 142,
-            "STON": 140,
-            "TEMP": 5
+            "GLAS": 380,
+            "CERA": 178,
+            "SYNT": 251,
+            "METL": 167,
+            "CRYS": 192,
+            "MIXD": 21,
+            "STON": 190,
+            "NONE": 79,
+            "WOOD": 179,
+            "TEMP": 29
           },
           "DRAGONKIN": {
-            "SYNT": 178,
-            "NONE": 300,
-            "GLAS": 127,
-            "CERA": 131,
-            "METL": 233,
-            "STON": 148,
-            "MIXD": 231,
-            "WOOD": 106,
-            "CRYS": 211,
-            "TEMP": 1
+            "TEMP": 22,
+            "CERA": 192,
+            "SYNT": 218,
+            "METL": 282,
+            "STON": 243,
+            "CRYS": 323,
+            "WOOD": 137,
+            "GLAS": 157,
+            "NONE": 69,
+            "MIXD": 23
           }
         },
-        "materialCommitmentRate": 0.8173,
-        "materialEntropyBitsOverall": 3.135615231991244,
+        "materialCommitmentRate": 0.9551,
+        "materialEntropyBitsOverall": 3.0695183733579037,
         "materialEntropyBitsBySpecies": {
-          "HUMAN": 3.132776408929864,
-          "ELF": 3.059888603994672,
-          "DWARF": 3.04405025760737,
-          "WINGED_KIN": 3.09288212523568,
-          "DEMONKIN": 3.1131752362780802,
-          "DRAGONKIN": 3.1009196711591787
+          "HUMAN": 3.074731347196266,
+          "ELF": 3.018266571040158,
+          "DWARF": 3.0016774763549625,
+          "WINGED_KIN": 3.043323260006783,
+          "DEMONKIN": 3.027221356159498,
+          "DRAGONKIN": 3.016389703182331
         },
         "pFinalGivenHint": {
           "STON": {
-            "hintRuns": 886,
-            "sameMaterial": 148,
-            "probability": 0.1670428893905192
-          },
-          "GLAS": {
-            "hintRuns": 745,
-            "sameMaterial": 116,
-            "probability": 0.15570469798657718
-          },
-          "METL": {
-            "hintRuns": 917,
-            "sameMaterial": 139,
-            "probability": 0.1515812431842966
+            "hintRuns": 918,
+            "sameMaterial": 224,
+            "probability": 0.2440087145969499
           },
           "CRYS": {
-            "hintRuns": 659,
-            "sameMaterial": 80,
-            "probability": 0.12139605462822459
+            "hintRuns": 667,
+            "sameMaterial": 123,
+            "probability": 0.18440779610194902
+          },
+          "GLAS": {
+            "hintRuns": 727,
+            "sameMaterial": 181,
+            "probability": 0.24896836313617607
+          },
+          "METL": {
+            "hintRuns": 857,
+            "sameMaterial": 162,
+            "probability": 0.18903150525087514
           },
           "WOOD": {
-            "hintRuns": 858,
-            "sameMaterial": 148,
-            "probability": 0.17249417249417248
+            "hintRuns": 917,
+            "sameMaterial": 207,
+            "probability": 0.2257360959651036
           }
         },
         "pFinalGivenFirstManifestation": {
-          "GLAS": {
-            "manifestationRuns": 881,
-            "sameMaterial": 144,
-            "probability": 0.16345062429057888
-          },
-          "WOOD": {
-            "manifestationRuns": 5246,
-            "sameMaterial": 694,
-            "probability": 0.13229126953869616
+          "CERA": {
+            "manifestationRuns": 1125,
+            "sameMaterial": 290,
+            "probability": 0.2577777777777778
           },
           "METL": {
-            "manifestationRuns": 854,
-            "sameMaterial": 143,
-            "probability": 0.16744730679156908
+            "manifestationRuns": 1309,
+            "sameMaterial": 381,
+            "probability": 0.2910618792971734
           },
-          "STON": {
-            "manifestationRuns": 962,
-            "sameMaterial": 138,
-            "probability": 0.14345114345114346
+          "WOOD": {
+            "manifestationRuns": 2285,
+            "sameMaterial": 563,
+            "probability": 0.24638949671772428
           },
-          "TEMP": {
-            "manifestationRuns": 391,
-            "sameMaterial": 0,
-            "probability": 0
+          "GLAS": {
+            "manifestationRuns": 1359,
+            "sameMaterial": 399,
+            "probability": 0.293598233995585
           },
           "CRYS": {
-            "manifestationRuns": 893,
-            "sameMaterial": 140,
-            "probability": 0.15677491601343785
+            "manifestationRuns": 1418,
+            "sameMaterial": 422,
+            "probability": 0.29760225669957685
           },
-          "CERA": {
-            "manifestationRuns": 771,
-            "sameMaterial": 99,
-            "probability": 0.12840466926070038
+          "STON": {
+            "manifestationRuns": 1449,
+            "sameMaterial": 420,
+            "probability": 0.2898550724637681
+          },
+          "TEMP": {
+            "manifestationRuns": 1055,
+            "sameMaterial": 31,
+            "probability": 0.029383886255924172
           }
         },
-        "multipleManifestationBeforeCommitmentRate": 0.9913,
-        "averageHintAge": 9.451168511685117,
-        "averageFirstManifestationAge": 18.3999799959992,
-        "averageCommitmentAge": 33.45858313960602,
+        "firstManifestationFamilyCounts": {
+          "CERA": 1125,
+          "METL": 1309,
+          "WOOD": 2285,
+          "GLAS": 1359,
+          "CRYS": 1418,
+          "STON": 1449,
+          "TEMP": 1055
+        },
+        "firstManifestationFamilyShare": {
+          "CERA": 0.1125,
+          "METL": 0.1309,
+          "WOOD": 0.2285,
+          "GLAS": 0.1359,
+          "CRYS": 0.1418,
+          "STON": 0.1449,
+          "TEMP": 0.1055
+        },
+        "firstManifestationAgeByFamily": {
+          "CERA": {
+            "mean": 19.15822222222222,
+            "median": 19,
+            "runs": 1125
+          },
+          "METL": {
+            "mean": 19.155844155844157,
+            "median": 19,
+            "runs": 1309
+          },
+          "WOOD": {
+            "mean": 15.781619256017505,
+            "median": 13,
+            "runs": 2285
+          },
+          "GLAS": {
+            "mean": 19.189845474613687,
+            "median": 18,
+            "runs": 1359
+          },
+          "CRYS": {
+            "mean": 19.15867418899859,
+            "median": 18,
+            "runs": 1418
+          },
+          "STON": {
+            "mean": 19.2512077294686,
+            "median": 19,
+            "runs": 1449
+          },
+          "TEMP": {
+            "mean": 20.434123222748816,
+            "median": 20,
+            "runs": 1055
+          }
+        },
+        "noManifestationRate": 0,
+        "multipleManifestationBeforeCommitmentRate": 0.9829,
+        "averageHintAge": 9.461331375428292,
+        "averageFirstManifestationAge": 18.5388,
+        "averageCommitmentAge": 34.440791540152865,
         "talentActivationRate": {
           "T1027": 1,
           "T1028": 0,
@@ -2877,45 +3434,47 @@
           "T1030": 0
         },
         "endingDistribution": {
-          "END-MED-001": 505,
-          "END-FAM-002": 8,
-          "END-COR-001": 12,
-          "END-CIV-001": 16,
-          "END-MUS-002": 22,
-          "END-TMP-001": 20,
-          "END-MUS-004": 18,
-          "END-FAM-001": 15,
-          "END-CIV-002": 4,
-          "END-ARC-001": 5,
-          "END-REL-001": 10,
-          "END-ACA-001": 3,
-          "END-FIN-001": 3,
-          "END-MUS-003": 1
+          "END-ANO-001": 7617,
+          "END-TMP-001": 121,
+          "END-MED-001": 1343,
+          "END-REL-001": 71,
+          "END-CIV-001": 100,
+          "END-FAM-002": 96,
+          "END-FIN-003": 9,
+          "END-FAM-001": 57,
+          "END-MUS-002": 35,
+          "END-CIV-002": 25,
+          "END-MUS-004": 10,
+          "END-ARC-001": 15,
+          "END-COR-001": 19,
+          "END-FIN-001": 19,
+          "END-ACA-001": 11,
+          "END-MUS-003": 3
         },
-        "distinctEndingsObserved": 14,
+        "distinctEndingsObserved": 16,
         "distinctEndingsInRegistry": 24,
-        "endingCoverageShare": 0.5833333333333334,
-        "hiddenEndingRate": 0,
-        "rareEndingRate": 0.08255451713395638,
+        "endingCoverageShare": 0.6666666666666666,
+        "hiddenEndingRate": 0.7975081143335776,
+        "rareEndingRate": 0.8225316720762224,
         "finalStatMeans": {
-          "CHR": 2.0903,
-          "INT": 20.9425,
-          "STR": -1.286,
-          "MNY": 2.9994,
-          "SPR": 47.2363,
-          "FIX": 43.1937
+          "CHR": 13.9305,
+          "INT": 18.1583,
+          "STR": 10.35,
+          "MNY": 4.9652,
+          "SPR": 9.519,
+          "FIX": 49.382
         },
         "finalFixPercentiles": {
-          "p50": 44,
-          "p90": 50,
-          "p99": 55,
-          "max": 62
+          "p50": 49,
+          "p90": 55,
+          "p99": 62,
+          "max": 73
         },
         "guardrails": [
           {
             "id": "fallback-share",
             "severity": "warning",
-            "message": "Age-25+ fallback share 34.2% exceeds the warning threshold 5.0% (target 2.0%)."
+            "message": "Age-25+ fallback share 7.1% exceeds the warning threshold 5.0% (target 2.0%)."
           },
           {
             "id": "ending-age-share-18-24",
@@ -2925,32 +3484,27 @@
           {
             "id": "ending-age-share-25-34",
             "severity": "warning",
-            "message": "Ending age band 25-34: observed 7.6% vs target 35-40%."
+            "message": "Ending age band 25-34: observed 14.0% vs target 35-40%."
           },
           {
             "id": "ending-age-share-35-44",
             "severity": "warning",
-            "message": "Ending age band 35-44: observed 69.8% vs target 20-25%."
+            "message": "Ending age band 35-44: observed 60.7% vs target 20-25%."
           },
           {
             "id": "ending-age-share-45-54",
             "severity": "warning",
-            "message": "Ending age band 45-54: observed 20.6% vs target 8-12%."
+            "message": "Ending age band 45-54: observed 19.4% vs target 8-12%."
           },
           {
             "id": "ending-age-share-55-64",
             "severity": "warning",
-            "message": "Ending age band 55-64: observed 2.0% vs target 4-7%."
-          },
-          {
-            "id": "ending-age-share-65+",
-            "severity": "warning",
-            "message": "Ending age band 65+: observed 0.0% vs target 2-5%."
+            "message": "Ending age band 55-64: observed 2.8% vs target 4-7%."
           },
           {
             "id": "nonterminal-rate",
-            "severity": "failure",
-            "message": "9358/10000 runs (93.6%) reached the diagnostic maximum age without an ending."
+            "severity": "warning",
+            "message": "449/10000 runs (4.5%) reached the diagnostic maximum age without an ending."
           }
         ]
       }

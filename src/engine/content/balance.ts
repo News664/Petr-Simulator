@@ -85,6 +85,7 @@ export const balanceConstantsSchema = z
         talentMode: z.string(),
         talentScenarios: z.array(z.string()),
         note: z.string().optional(),
+        allocationPolicies: z.array(z.string()).optional(),
       })
       .strict(),
     targetEndingAgeShare: z.array(
@@ -112,32 +113,51 @@ export const balanceConstantsSchema = z
       })
       .strict(),
     notes: z.array(z.string()).optional(),
+    // --- Phase 1.1 (Balance Constants v0.2) ---
+    familyWeightMode: z.enum(['uniform', 'sum_of_event_weights']),
+    familyWeightDiagnosticComparisonModes: z.array(z.enum(['uniform', 'sum_of_event_weights'])).optional(),
+    speciesRefinementScalar: z
+      .object({ favor: z.number().min(0), stronglyFavor: z.number().min(0), suppress: z.number().min(0) })
+      .strict(),
+    /** Q-26: must stay null. No passive annual FIX drift is authorized. */
+    fixAnnualDrift: z.null(),
+    startingFIX: z.object({ base: z.number().int() }).strict(),
+    statClamp: z
+      .object({
+        visibleMin: z.number().int().nullable(),
+        visibleMax: z.number().int().nullable(),
+        fixMin: z.number().int().nullable(),
+        fixMax: z.number().int().nullable(),
+      })
+      .strict(),
+    repeatCooldownSemantics: z.enum(['at_least', 'strictly_greater']),
+    scheduleSemantics: z
+      .object({
+        validityCondition: z.literal('fire_gate'),
+        window: z.literal('earliest_plus_window_inclusive'),
+      })
+      .strict(),
   })
   .strict();
 
 export type BalanceConstants = z.infer<typeof balanceConstantsSchema>;
 
-const talentAdapterSchema = z
+/**
+ * Phase 1.1 diagnostic adapters.
+ *
+ * Everything that Phase 1 kept here has moved into canonical registries:
+ * species tendencies/refinements -> Species Registry v1.2, talent drafting
+ * polarity and registered-species rules -> Talent Registry v1.1, awareness ->
+ * Ending Registry v1.1, route tag namespaces -> Route Tag Registry v1.0, and
+ * every engine rule -> Balance Constants v0.2.
+ *
+ * What remains is only what design has explicitly left unresolved.
+ */
+const talentDiagnosticSchema = z
   .object({
-    favorChannels: z.array(z.enum(CHANNELS)).optional(),
-    stronglyFavorChannels: z.array(z.enum(CHANNELS)).optional(),
-    suppressChannels: z.array(z.enum(CHANNELS)).optional(),
-    favorFamilies: z.array(z.string()).optional(),
-    stronglyFavorFamilies: z.array(z.string()).optional(),
-    suppressFamilies: z.array(z.string()).optional(),
+    /** Q-14 is OPEN. Canonical `start_fix_bonus` is blank; this drives sweeps. */
     startFIX: z.number().int().optional(),
-    registeredSpeciesRule: z.enum(['UNREGISTERED', 'SEEDED_OTHER_SPECIES']).optional(),
-    unmappedHooks: z.array(z.string()).optional(),
-    sourceText: z.string().optional(),
     note: z.string().optional(),
-  })
-  .strict();
-
-const awarenessRuleSchema = z
-  .object({
-    state: z.enum(AWARENESS_STATES),
-    ifMaterial: z.array(z.enum(MATERIALS)).optional(),
-    requiresAuthorization: z.boolean().optional(),
   })
   .strict();
 
@@ -147,74 +167,28 @@ export const balanceAdaptersSchema = z
     status: z.string().optional(),
     warning: z.string().optional(),
     reviewPointer: z.string().optional(),
-    provenance: z.record(z.string(), z.string()).optional(),
-    engineRules: z
-      .object({
-        repeatCooldownSemantics: z.enum(['at_least', 'strictly_greater']),
-        repeatCooldownNote: z.string().optional(),
-        scheduleWindowSemantics: z.literal('earliest_plus_window'),
-        scheduleWindowNote: z.string().optional(),
-        scheduleValidityIsFireGate: z.boolean(),
-        scheduleValidityNote: z.string().optional(),
-        pre25CoveragePolicy: z.enum(['strict', 'reuse_baseline_repeatables']),
-        pre25CoveragePolicyNote: z.string().optional(),
-        pre25CoverageReuseRouteTag: z.string(),
-        familyWeightMode: z.enum(['sum_of_event_weights', 'uniform']),
-        familyWeightNote: z.string().optional(),
-        statClamp: z
-          .object({
-            visibleMin: z.number().int().nullable(),
-            visibleMax: z.number().int().nullable(),
-            fixMin: z.number().int().nullable(),
-            fixMax: z.number().int().nullable(),
-          })
-          .strict(),
-        statClampNote: z.string().optional(),
-        speciesTendencyPrecedence: z.array(z.enum(['primary', 'secondary', 'uncommon'])),
-        speciesTendencyPrecedenceNote: z.string().optional(),
-        startingAllocationRange: z.object({ min: z.number().int(), max: z.number().int() }).strict(),
-        startingAllocationNote: z.string().optional(),
-        diagnosticMaxAge: z.number().int().min(1),
-      })
-      .strict(),
-    speciesTendencyFamilyMap: z.record(z.string(), z.string()),
-    speciesTendencyUnmapped: z.record(z.string(), z.string()).optional(),
-    routeTagFlagPrefixes: z.record(z.string(), z.string()),
-    routeTagsWithNoTransformationFavor: z.array(z.string()).default([]),
-    routeTagsWithNoTransformationFavorNote: z.string().optional(),
-    routeTagsWithoutFlagNamespace: z.array(z.string()).optional(),
-    materialFlagPrefixes: z.object({ hint: z.string(), manifestation: z.string() }).strict(),
-    talentAdapters: z.record(z.string(), z.union([talentAdapterSchema, z.string()])),
-    startingFIX: z.object({ base: z.number().int(), note: z.string().optional() }).strict(),
-    endingAwarenessRules: z.record(z.string(), z.union([z.array(awarenessRuleSchema), z.string()])),
-    endingAwarenessAuthorizingTalents: z.record(z.string(), z.array(z.string())),
+    /** Diagnostic talent overrides for unresolved questions. */
+    talentDiagnostics: z.record(z.string(), z.union([talentDiagnosticSchema, z.string()])),
+    /** Placeholder resolution for Ending Record prose fields. */
     endingUnresolvedPlaceholder: z.string(),
     endingUnresolvedNote: z.string().optional(),
   })
   .strict();
 
 export type BalanceAdaptersRaw = z.infer<typeof balanceAdaptersSchema>;
-export type TalentAdapter = z.infer<typeof talentAdapterSchema>;
-export type AwarenessRule = z.infer<typeof awarenessRuleSchema>;
+export type TalentDiagnostic = z.infer<typeof talentDiagnosticSchema>;
 
-/** Adapters with the `_policy` documentation strings stripped out. */
-export interface BalanceAdapters extends Omit<BalanceAdaptersRaw, 'talentAdapters' | 'endingAwarenessRules'> {
-  talentAdapters: Record<string, TalentAdapter>;
-  endingAwarenessRules: Record<string, AwarenessRule[]>;
+export interface BalanceAdapters extends Omit<BalanceAdaptersRaw, 'talentDiagnostics'> {
+  talentDiagnostics: Record<string, TalentDiagnostic>;
 }
 
 export function normalizeAdapters(raw: BalanceAdaptersRaw): BalanceAdapters {
-  const talentAdapters: Record<string, TalentAdapter> = {};
-  for (const [key, value] of Object.entries(raw.talentAdapters)) {
+  const talentDiagnostics: Record<string, TalentDiagnostic> = {};
+  for (const [key, value] of Object.entries(raw.talentDiagnostics)) {
     if (typeof value === 'string') continue; // documentation entries such as `_policy`
-    talentAdapters[key] = value;
+    talentDiagnostics[key] = value;
   }
-  const endingAwarenessRules: Record<string, AwarenessRule[]> = {};
-  for (const [key, value] of Object.entries(raw.endingAwarenessRules)) {
-    if (typeof value === 'string') continue;
-    endingAwarenessRules[key] = value;
-  }
-  return { ...raw, talentAdapters, endingAwarenessRules };
+  return { ...raw, talentDiagnostics };
 }
 
 /** Channel weight lookup for an age. */

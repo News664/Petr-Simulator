@@ -378,7 +378,10 @@ describe('G. Scheduling and priority', () => {
     const ages = result.state.history.map((h) => h.age);
     expect(new Set(ages).size).toBe(ages.length);
     // All three fire, one per year, in consecutive years from the window start.
-    expect(targets.map((t) => occurrences(result.state.history, t.id)[0])).toEqual([12, 13, 14]);
+    // Their relative order is a seeded RNG tiebreak (equal priorityOrder), so
+    // only the set of years is fixed.
+    const firedAges = targets.map((t) => occurrences(result.state.history, t.id)[0]!).sort((a, b) => a - b);
+    expect(firedAges).toEqual([12, 13, 14]);
   });
 
   it('ranks priority classes by the balance-configured ranks', () => {

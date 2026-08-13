@@ -4,6 +4,21 @@
 
 > **Decisions arising from this document are tracked in [`OPEN_QUESTIONS.md`](OPEN_QUESTIONS.md).** Resolve them there, not here.
 
+> ### Phase 1.1 status (2026-08-13)
+>
+> | Conflict | Status after patch v0.1 |
+> |---|---|
+> | C-1 species tendency labels | **CLOSED** — Species Registry v1.2 separates `family_tendencies` from `refinement_tags`; `MAGICAL_SEAL` is a registered hook with `family: null` |
+> | C-2 talent hook polarity | **CLOSED** — Talent Registry v1.1 typed drafting columns |
+> | C-3 awareness prose | **CLOSED** — Ending Registry v1.1 structured columns |
+> | C-4 / C-4a route tag namespaces | **CLOSED** — Route Tag Registry v1.0, including the `academic` TRN rule as a per-tag field |
+> | C-5 ages 0–5 coverage | **CLOSED** — Batch 005; 0% defect rate under strict policy |
+> | C-6 endings unreachable | **CLOSED as stated**, but replaced by a new ending-age-shape problem — see [`PHASE1_1_FINDINGS.md`](PHASE1_1_FINDINGS.md) finding 2 |
+> | C-7 unreachable content | **PARTIALLY CLOSED** — SPC, `mandatory_only`, END-ANO-001/002 and 65+ endings all now exist and occur; SPC remains near-unreachable without anomalous talents, and `AEVT`/`ACH`/`TMS` are still unused by content |
+>
+> This document is retained as the Phase-1 record. New conflicts are recorded in
+> `PHASE1_1_FINDINGS.md`.
+
 
 Filed under the conflict protocol in `SOLID_STATE_CODING_AGENT_HANDOFF_v0.1.md` §6
 and the return-to-design triggers in `SOLID_STATE_AGENTS_v0.2.md`.

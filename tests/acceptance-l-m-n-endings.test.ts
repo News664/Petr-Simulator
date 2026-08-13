@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { loadDefaultContent } from '../src/engine/content/load.js';
-import { evidenceScalar } from '../src/engine/drafting.js';
+import { eventContextScalar, familyEvidenceScalar } from '../src/engine/drafting.js';
 import { buildEndingRecord, EndingResolutionError, resolveAwareness } from '../src/engine/endings.js';
 import { createRun, type SetupPolicy } from '../src/engine/setup.js';
 import { runSimulation } from '../src/engine/simulation.js';
@@ -47,10 +47,7 @@ describe('L. Academic research', () => {
       }
     }
     // And no run ends up holding two of them.
-    const relaxed = fixtureContent({
-      events: content.events,
-      adapters: { engineRules: { pre25CoveragePolicy: 'reuse_baseline_repeatables' } },
-    });
+    const relaxed = content;
     let sawSpecialization = false;
     for (let i = 0; i < 400; i++) {
       const result = runSimulation(`aca-${i}`, relaxed, {
@@ -74,12 +71,12 @@ describe('L. Academic research', () => {
         expect(v.setMaterialCommitment, `${gameEvent.id}`).toBeUndefined();
       }
     }
-    expect(content.adapters.routeTagFlagPrefixes['academic']).toBe('ROUTE_ACA_');
+    // Q-07a is now canonical data: Route Tag Registry v1.0 marks `academic` as
+    // allowTransformationEventFavor=false, replacing the Phase-1 adapter rule.
+    const academic = content.routeTags.get('academic')!;
+    expect(academic.flagPrefixes).toContain('ROUTE_ACA_');
+    expect(academic.allowTransformationEventFavor).toBe(false);
 
-    // Two canonical transformation events carry the `academic` routeTag, so an
-    // unrestricted route-favor scalar would bias TEMP for every academic run.
-    // The adapter bars academic from favouring transformation families.
-    expect(content.adapters.routeTagsWithNoTransformationFavor).toContain('academic');
     const academicTransformation = content.events.filter(
       (e) => e.channel === 'TRN' && e.routeTags.includes('academic'),
     );
@@ -88,31 +85,35 @@ describe('L. Academic research', () => {
     const { state } = createRun('comparative', content, base);
     state.age = 30;
     for (const gameEvent of academicTransformation) {
-      const neutral = evidenceScalar(gameEvent, state, content);
+      const neutral = eventContextScalar(gameEvent, state, content);
       state.flags.add('ROUTE_ACA_RESEARCH');
       state.flags.add('ROUTE_ACA_MATERIALS');
-      const withRoute = evidenceScalar(gameEvent, state, content);
+      const withRoute = eventContextScalar(gameEvent, state, content);
       state.flags.delete('ROUTE_ACA_RESEARCH');
       state.flags.delete('ROUTE_ACA_MATERIALS');
-      expect(withRoute, `${gameEvent.id} must not gain family weight from the academic route`).toBe(neutral);
+      expect(withRoute, `${gameEvent.id} must not gain weight from the academic route`).toBe(neutral);
     }
+
+    // Route tags never touch the family layer under the uniform-family baseline.
+    const familyBefore = familyEvidenceScalar('TRN', 'TEMP', state, content);
+    state.flags.add('ROUTE_ACA_MATERIALS');
+    const familyAfter = familyEvidenceScalar('TRN', 'TEMP', state, content);
+    state.flags.delete('ROUTE_ACA_MATERIALS');
+    expect(familyAfter).toBe(familyBefore);
 
     // The same tag still counts for non-transformation channels.
     const academicInstitutional = content.events.find(
       (e) => e.channel === 'INS' && e.routeTags.includes('academic'),
     )!;
-    const before = evidenceScalar(academicInstitutional, state, content);
+    const before = eventContextScalar(academicInstitutional, state, content);
     state.flags.add('ROUTE_ACA_RESEARCH');
-    const after = evidenceScalar(academicInstitutional, state, content);
+    const after = eventContextScalar(academicInstitutional, state, content);
     state.flags.delete('ROUTE_ACA_RESEARCH');
     expect(after).toBeGreaterThan(before);
   });
 
   it('does not let Continuity research change ordinary awareness defaults', () => {
-    const relaxed = fixtureContent({
-      events: content.events,
-      adapters: { engineRules: { pre25CoveragePolicy: 'reuse_baseline_repeatables' } },
-    });
+    const relaxed = content;
     const { state } = createRun('continuity', relaxed, base);
     state.flags.add('ROUTE_ACA_CONTINUITY');
     state.flags.add('ROUTE_ACA_CONTINUITY_EXPOSED');
@@ -155,7 +156,7 @@ describe('M. Ending resolution', () => {
         expect(content.endings.has(v.endingId), `${gameEvent.id} -> ${v.endingId}`).toBe(true);
       }
     }
-    expect(endingVariants).toBe(34);
+    expect(endingVariants).toBe(42);
   });
 
   it('preserves the current material in the Ending Record', () => {
@@ -287,7 +288,7 @@ describe('M. Ending resolution', () => {
     // unless its registry entry authorises otherwise.
     const { state } = createRun('immobile', content, base);
     for (const ending of content.endings.values()) {
-      const authorizers = content.adapters.endingAwarenessAuthorizingTalents[ending.id] ?? [];
+      const authorizers = ending.authorizingTalents;
       if (authorizers.length > 0) continue;
       const resolved = resolveAwareness(content, ending.id, 'STON', state, undefined);
       expect(AUTHORIZATION_REQUIRED_AWARENESS, `${ending.id}`).not.toContain(resolved.awareness);

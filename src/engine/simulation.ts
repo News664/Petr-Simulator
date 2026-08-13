@@ -1,8 +1,7 @@
-import { evaluateCondition } from './conditions/evaluate.js';
 import type { ContentBundle } from './content/load.js';
 import { draftNormalEvent, EmptyPoolError } from './drafting.js';
 import { buildEndingRecord } from './endings.js';
-import { eligibleFallbackEvents, materialLockAllows, selectVariantIndex } from './eligibility.js';
+import { eligibleFallbackEvents, selectVariantIndex } from './eligibility.js';
 import type { Rng } from './rng.js';
 import {
   addSchedules,
@@ -12,7 +11,7 @@ import {
   scheduleCandidates,
 } from './schedules.js';
 import { createRun, type SetupPolicy } from './setup.js';
-import { applyStatEffects, conditionContext, recordOccurrence } from './state.js';
+import { applyStatEffects, recordOccurrence } from './state.js';
 import { evaluateThresholdTalents } from './talents.js';
 import type {
   EventOccurrence,
@@ -85,7 +84,7 @@ function selectYearEvent(state: RunState, content: ContentBundle, rng: Rng): Yea
       // Every candidate but the winner is displaced and stays pending.
       state.diagnostics.displacementCount += candidates.length - 1;
     }
-    const winner = rankCandidates(candidates)[0]!;
+    const winner = rankCandidates(candidates, rng)[0]!;
     consumeSchedule(state, winner.schedule);
     return {
       event: winner.event,
@@ -104,12 +103,11 @@ function selectYearEvent(state: RunState, content: ContentBundle, rng: Rng): Yea
 
   // Taxonomy v0.2 fallback rule: below the fallback minimum age an empty pool is
   // a content coverage defect, not a quiet year.
+  // Q-01 RESOLVED: Batch 005 supplies varied ages 0-5 content, so the Phase-1
+  // `reuse_baseline_repeatables` escape hatch is retired. A pre-25 empty pool is
+  // now always a genuine content coverage defect.
   const minimumAge = content.balance.fallback.minimumAge;
-  if (state.age < minimumAge) {
-    const rescued = pre25EmergencyEvent(state, content, rng);
-    if (rescued) return rescued;
-    throw new ContentCoverageError(state.age);
-  }
+  if (state.age < minimumAge) throw new ContentCoverageError(state.age);
 
   const fallbacks = eligibleFallbackEvents(state, content);
   if (fallbacks.length === 0) throw new ContentCoverageError(state.age);
@@ -118,46 +116,13 @@ function selectYearEvent(state: RunState, content: ContentBundle, rng: Rng): Yea
   return { event: chosen, source: 'fallback' };
 }
 
-/**
- * Diagnostic-only pre-25 rescue. Off unless the adapter selects
- * `reuse_baseline_repeatables`.
- *
- * Ages 0-5 of the current content slice provide exactly six event-years for six
- * years of life, so ordinary weighted drafting runs the band dry whenever the
- * one repeatable baseline event lands on the wrong parity (CONFLICT C-5). This
- * policy re-drafts from `baseline`-tagged repeatable events while ignoring
- * repeatCooldownYears and repeatMaxCount, purely so the remaining Phase-1
- * metrics stay measurable. It never emits a fallback_only event before the
- * fallback minimum age, and it never modifies content.
- */
-function pre25EmergencyEvent(state: RunState, content: ContentBundle, rng: Rng): YearSelection | null {
-  if (content.adapters.engineRules.pre25CoveragePolicy !== 'reuse_baseline_repeatables') return null;
-  const routeTag = content.adapters.engineRules.pre25CoverageReuseRouteTag;
-  const ctx = conditionContext(state);
-  const pool = content.events.filter((event) => {
-    if (event.selectionMode !== 'random') return false;
-    if (event.repeatPolicy !== 'repeatable') return false;
-    if (!event.routeTags.includes(routeTag)) return false;
-    if (state.age < event.age.min) return false;
-    if (event.age.max !== null && state.age > event.age.max) return false;
-    // Reuse ignores cooldown/max count but nothing else: the event must still be
-    // age-legal, condition-legal and material-legal.
-    const record = state.repeats.get(event.id);
-    if (record && state.age - record.lastAge < 1) return false;
-    if (!materialLockAllows(event, state.material)) return false;
-    if (!evaluateCondition(event.include, ctx)) return false;
-    if (evaluateCondition(event.exclude, ctx)) return false;
-    return true;
-  });
-  if (pool.length === 0) return null;
-  const sorted = pool.slice().sort((a, b) => a.id.localeCompare(b.id));
-  const chosen = sorted.length === 1 ? sorted[0]! : rng.pick(sorted);
-  state.diagnostics.emergencyReuseAges.push(state.age);
-  return { event: chosen, source: 'normal' };
-}
+/** Tag Registry flag namespaces for material evidence. */
+const MAT_HINT_PREFIX = 'MAT_HINT_';
+const MAT_MANIFEST_PREFIX = 'MAT_MANIFEST_';
 
-function trackMaterialFlag(state: RunState, content: ContentBundle, flag: string): void {
-  const { hint, manifestation } = content.adapters.materialFlagPrefixes;
+function trackMaterialFlag(state: RunState, flag: string): void {
+  const hint = MAT_HINT_PREFIX;
+  const manifestation = MAT_MANIFEST_PREFIX;
   if (flag.startsWith(hint)) {
     const family = flag.slice(hint.length);
     if (!state.diagnostics.hintFamilies.includes(family)) state.diagnostics.hintFamilies.push(family);
@@ -205,14 +170,14 @@ function resolveYear(state: RunState, content: ContentBundle, rng: Rng, options:
   recordOccurrence(state, event.id, state.age);
 
   // Step 9: effects.
-  applyStatEffects(state, content.adapters, variant.effects);
+  applyStatEffects(state, content.balance, variant.effects);
 
   // Step 10: flags, material, schedules.
   for (const flag of variant.removeFlags) state.flags.delete(flag);
   for (const flag of variant.addFlags) {
     if (!state.flags.has(flag)) {
       state.flags.add(flag);
-      trackMaterialFlag(state, content, flag);
+      trackMaterialFlag(state, flag);
       if (flag.startsWith('ROUTE_') && !state.diagnostics.routeEntries.includes(flag)) {
         state.diagnostics.routeEntries.push(flag);
       }

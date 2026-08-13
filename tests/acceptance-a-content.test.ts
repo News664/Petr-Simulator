@@ -23,10 +23,25 @@ describe('A. Content loading', () => {
   const content = loadDefaultContent();
 
   it('loads all current event JSON batches', () => {
-    expect(content.batches.length).toBe(4);
-    expect(content.events.length).toBe(106);
+    expect(content.batches.length).toBe(5);
+    expect(content.events.length).toBe(138);
     const ids = content.batches.map((b) => b.batchId).sort();
-    expect(ids).toEqual(['EVENT_BATCH_001', 'EVENT_BATCH_002', 'EVENT_BATCH_003', 'EVENT_BATCH_004']);
+    expect(ids).toEqual([
+      'EVENT_BATCH_001',
+      'EVENT_BATCH_002',
+      'EVENT_BATCH_003',
+      'EVENT_BATCH_004',
+      'EVENT_BATCH_005',
+    ]);
+  });
+
+  it('loads the Phase 1.1 registries', () => {
+    expect(content.routeTags.size).toBe(31);
+    expect(content.refinementTags.size).toBeGreaterThan(0);
+    expect(content.balance.version).toBe('0.2');
+    // Q-26: no passive FIX drift is authorized.
+    expect(content.balance.fixAnnualDrift).toBeNull();
+    expect(content.balance.familyWeightMode).toBe('uniform');
   });
 
   it('loads the Species Registry', () => {
@@ -52,15 +67,24 @@ describe('A. Content loading', () => {
     expect(content.endings.get('END-COR-001')?.hidden).toBe(false);
   });
 
-  /** Builds a throwaway content root whose event batches are `batches`. */
-  function contentRootWith(batches: RawBatch[]): ContentPaths {
+  /**
+   * Builds a throwaway content root containing the full canonical corpus with
+   * `replacements` substituted by batchId. The corpus must stay complete:
+   * route-tag flag-namespace validation is a whole-corpus property, so a
+   * single-batch root would fail for reasons unrelated to the test.
+   */
+  function contentRootWith(replacements: RawBatch[]): ContentPaths {
     const root = mkdtempSync(path.join(tmpdir(), 'solid-state-content-'));
     mkdirSync(path.join(root, 'events'));
     mkdirSync(path.join(root, 'registries'));
     mkdirSync(path.join(root, 'balance'));
-    batches.forEach((batch, index) => {
-      writeFileSync(path.join(root, 'events', `BATCH_${index}.json`), JSON.stringify(batch), 'utf8');
-    });
+    const replaced = new Map(replacements.map((b) => [b.batchId, b]));
+    for (const name of readdirSync(path.join(CONTENT_ROOT, 'events'))) {
+      if (!name.endsWith('.json')) continue;
+      const original = JSON.parse(readFileSync(path.join(CONTENT_ROOT, 'events', name), 'utf8')) as RawBatch;
+      const batch = replaced.get(original.batchId) ?? original;
+      writeFileSync(path.join(root, 'events', name), JSON.stringify(batch), 'utf8');
+    }
     for (const sub of ['registries', 'balance'] as const) {
       for (const name of readdirSync(path.join(CONTENT_ROOT, sub))) {
         copyFileSync(path.join(CONTENT_ROOT, sub, name), path.join(root, sub, name));
@@ -73,6 +97,10 @@ describe('A. Content loading', () => {
     JSON.parse(
       readFileSync(path.join(CONTENT_ROOT, 'events', 'SOLID_STATE_EVENT_BATCH_001_v0.3.json'), 'utf8'),
     ) as RawBatch;
+
+  it('loads the full corpus through the throwaway-root harness unchanged', () => {
+    expect(() => loadContent(contentRootWith([]))).not.toThrow();
+  });
 
   it('accepts an unmodified canonical batch through the throwaway-root harness', () => {
     expect(() => loadContent(contentRootWith([canonicalBatch()]))).not.toThrow();
@@ -170,7 +198,7 @@ describe('A. Content loading', () => {
   it('keeps generated Markdown byte-for-byte identical to a fresh render', () => {
     const dir = path.join(CONTENT_ROOT, 'events');
     const batches = readdirSync(dir).filter((n) => n.endsWith('.json')).sort();
-    expect(batches.length).toBe(4);
+    expect(batches.length).toBe(5);
     for (const name of batches) {
       const json = JSON.parse(readFileSync(path.join(dir, name), 'utf8')) as RawBatch;
       const expected = readFileSync(path.join(dir, name.replace(/\.json$/, '.md')), 'utf8');
@@ -180,7 +208,7 @@ describe('A. Content loading', () => {
 
   it('agrees with the canonical Python content tool', () => {
     const dir = path.join(CONTENT_ROOT, 'events');
-    const tool = path.join(REPO_ROOT, 'tools', 'SOLID_STATE_CONTENT_TOOL_v0.1.py');
+    const tool = path.join(REPO_ROOT, 'tools', 'SOLID_STATE_CONTENT_TOOL_v0.2.py');
     for (const name of readdirSync(dir).filter((n) => n.endsWith('.json')).sort()) {
       const json = path.join(dir, name);
       const md = path.join(dir, name.replace(/\.json$/, '.md'));

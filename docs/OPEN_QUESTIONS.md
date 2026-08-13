@@ -1,10 +1,17 @@
 # SOLID STATE — Open Questions Register
 
-## Version 0.1 — the official Phase-1 decision list
+## Version 0.2 — the official decision list (Phase 1 + Phase 1.1)
 
 This file is the **single authoritative list of everything the coding agent could
 not decide alone**. Anything discussed in a chat log but not written here is not
 official.
+
+**Phase 1.1 update (decisions dated 2026-08-13).** The design resolutions in
+[`PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md) have
+been merged into the Resolution blocks below; that file is the input record, not
+a second register. Four questions remain deliberately open: **Q-14, Q-23, Q-24,
+Q-25**. Measured outcomes are in
+[`PHASE1_1_FINDINGS.md`](PHASE1_1_FINDINGS.md).
 
 Every open question has a stable ID (`Q-nn`). Resolve one by editing its
 **Resolution** block in place — set `Status`, write the decision, and note which
@@ -36,32 +43,32 @@ or rewrite registries without a decision here.**
 
 | ID | Question | Owner | Blocking | Status |
 |---|---|---|---|---|
-| [Q-01](#q-01) | How should ages 0–5 be given coverage slack? | Content | **yes** | `OPEN` |
-| [Q-02](#q-02) | How should the FIX economy reach the climax gates? | Balance | **yes** | `OPEN` |
-| [Q-03](#q-03) | Should any ending be reachable after age 64? | Content | **yes** | `OPEN` |
-| [Q-04](#q-04) | How do species tendency labels map to family codes? | Design | no | `OPEN` |
-| [Q-05](#q-05) | What polarity do talent channel/family hooks carry? | Design | no | `OPEN` |
-| [Q-06](#q-06) | How should `default_awareness` prose be structured? | Design | no | `OPEN` |
-| [Q-07](#q-07) | How do route tags map to route flag namespaces? | Design | no | `OPEN` |
-| [Q-08](#q-08) | Is `repeatCooldownYears` "at least C" or "more than C"? | Design | no | `RATIFY` |
-| [Q-09](#q-09) | Is `validityCondition` a fire gate or a destruction test? | Design | no | `RATIFY` |
-| [Q-10](#q-10) | Should family weight follow content density? | Balance | no | `RATIFY` |
-| [Q-11](#q-11) | How should same-class priority ties break? | Design | no | `RATIFY` |
-| [Q-12](#q-12) | Should visible stats be clamped? | Design | no | `RATIFY` |
-| [Q-13](#q-13) | What does `TMS` mean? | Design | no | `RATIFY` |
-| [Q-14](#q-14) | How much starting FIX does T1027 grant? | Balance | no | `OPEN` |
-| [Q-15](#q-15) | What registered species do T1025 and T1030 assign? | Design | no | `OPEN` |
-| [Q-16](#q-16) | What is the baseline starting FIX? | Balance | no | `RATIFY` |
-| [Q-17](#q-17) | Is the diagnostic allocation policy player-realistic? | Design | no | `OPEN` |
-| [Q-18](#q-18) | Does `Uncertain` awareness require authorization? | Design | no | `RATIFY` |
-| [Q-19](#q-19) | Should `SPC` channel content exist? | Content | no | `OPEN` |
-| [Q-20](#q-20) | Should any route use `mandatory_only`? | Content | no | `OPEN` |
-| [Q-21](#q-21) | How are `END-ANO-001` / `END-ANO-002` reached? | Content | no | `OPEN` |
-| [Q-22](#q-22) | Should first manifestation be 52% WOOD and pinned to 18? | Content | no | `OPEN` |
-| [Q-23](#q-23) | Is a 35% adult fallback share acceptable? | Content | no | `OPEN` |
-| [Q-24](#q-24) | Is T1017's activation profile intended? | Balance | no | `OPEN` |
-| [Q-25](#q-25) | What is the achievements registry, for `ACH[id]`? | Design | no | `OPEN` |
-| [Q-26](#q-26) | Should FIX drift passively with age? | Balance | no | `OPEN` |
+| [Q-01](#q-01) | How should ages 0–5 be given coverage slack? | Content | **yes** | `RESOLVED` |
+| [Q-02](#q-02) | How should the FIX economy reach the climax gates? | Balance | **yes** | `RESOLVED` (numbers experimental) |
+| [Q-03](#q-03) | Should any ending be reachable after age 64? | Content | **yes** | `RESOLVED` |
+| [Q-04](#q-04) | How do species tendency labels map to family codes? | Design | no | `RESOLVED` |
+| [Q-05](#q-05) | What polarity do talent channel/family hooks carry? | Design | no | `RESOLVED` |
+| [Q-06](#q-06) | How should `default_awareness` prose be structured? | Design | no | `RESOLVED` |
+| [Q-07](#q-07) | How do route tags map to route flag namespaces? | Design | no | `RESOLVED` |
+| [Q-08](#q-08) | Is `repeatCooldownYears` "at least C" or "more than C"? | Design | no | `RESOLVED` |
+| [Q-09](#q-09) | Is `validityCondition` a fire gate or a destruction test? | Design | no | `RESOLVED` |
+| [Q-10](#q-10) | Should family weight follow content density? | Balance | no | `RESOLVED` (Phase 1.1) |
+| [Q-11](#q-11) | How should same-class priority ties break? | Design | no | `RESOLVED` |
+| [Q-12](#q-12) | Should visible stats be clamped? | Design | no | `RESOLVED` |
+| [Q-13](#q-13) | What does `TMS` mean? | Design | no | `RESOLVED` |
+| [Q-14](#q-14) | How much starting FIX does T1027 grant? | Balance | no | **`OPEN`** / deferred |
+| [Q-15](#q-15) | What registered species do T1025 and T1030 assign? | Design | no | `RESOLVED` |
+| [Q-16](#q-16) | What is the baseline starting FIX? | Balance | no | `RESOLVED` |
+| [Q-17](#q-17) | Is the diagnostic allocation policy player-realistic? | Design | no | `RESOLVED` |
+| [Q-18](#q-18) | Does `Uncertain` awareness require authorization? | Design | no | `RESOLVED` |
+| [Q-19](#q-19) | Should `SPC` channel content exist? | Content | no | `RESOLVED` |
+| [Q-20](#q-20) | Should any route use `mandatory_only`? | Content | no | `RESOLVED` |
+| [Q-21](#q-21) | How are `END-ANO-001` / `END-ANO-002` reached? | Content | no | `RESOLVED` |
+| [Q-22](#q-22) | Should first manifestation be 52% WOOD and pinned to 18? | Content | no | `RESOLVED` |
+| [Q-23](#q-23) | Is a 35% adult fallback share acceptable? | Content | no | **`OPEN`** / monitor |
+| [Q-24](#q-24) | Is T1017's activation profile intended? | Balance | no | **`OPEN`** / monitor |
+| [Q-25](#q-25) | What is the achievements registry, for `ACH[id]`? | Design | no | **`OPEN`** / deferred |
+| [Q-26](#q-26) | Should FIX drift passively with age? | Balance | no | `RESOLVED` |
 
 ---
 
@@ -113,10 +120,11 @@ this is closed.
 **Recommendation** Option A. It is the only option that leaves margin for future
 `include` conditions on childhood events.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Files changed_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Solve the defect with a **broader childhood event pool**, not by increasing reuse of one repeatable. Batch 005 adds six varied ages 0–5 events (five once-per-run, one lightly repeatable). Validation replaces capacity-only reasoning with schedulability checking that models once-per-run consumption, cooldown, max count, age windows and reachable selection history.
+> _Files changed_: Event Batch 005; Content Schema v0.3; `src/engine/simulation.ts` (escape hatch removed); `tests/phase1_1-acceptance.test.ts` §1.
+> _Outcome_: **Verified.** 0 coverage defects in 720 strict runs across all six species; minimum eligible non-fallback events at ages 0–5 is now ≥2 at every reachable state. The `reuse_baseline_repeatables` diagnostic policy has been deleted.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -182,10 +190,11 @@ engine hard-codes no FIX behaviour. B/C/D/E are content or balance edits.
 that accumulates with age (A), or something a life's events cause (C/D/E)? The
 answer determines whether B is a fix or a patch.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Files changed_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED (design) / numbers experimental**
+> _Decision_: FIX stays **event-driven**; no passive drift. Batch 005 adds visible FIX sources and multi-year chains. Commitment/climax gates should be lower than the original provisional values, but exact numbers are not frozen — run LOW/MID/HIGH plus ORIGINAL_REFERENCE from the experiment matrix.
+> _Files changed_: Batch 005; `SOLID_STATE_PHASE1_1_EXPERIMENT_MATRIX_v0.1.json`; `src/sim/experiments.ts`.
+> _Outcome_: **Swept, not frozen.** Completion: LOW 64.0%, MID 47.7%, HIGH 35.8%, ORIGINAL_REFERENCE 9.9% (4 000 runs each). A new problem is now visible: endings arrive far too late in every profile — see [`PHASE1_1_FINDINGS.md`](PHASE1_1_FINDINGS.md) finding 2 and the follow-up question raised there. Design still picks the profile.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -214,10 +223,11 @@ balance change. No amount of FIX tuning can produce an ending there.
 **Engine change required** None. The engine reports the band as out-of-target and
 will keep doing so until content or the target changes.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Files changed_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Keep the 65+ target band. Late-life Permanent Forms are a distinct second-wave narrative rather than mid-life climaxes remaining eligible forever. Batch 005 adds dedicated 65+ Medical and Family route entries/climaxes.
+> _Files changed_: Batch 005 (`EVT-INS-MED-0012`, `EVT-ORD-FAM-0011`).
+> _Outcome_: **Reachable — and now over-reached.** Endings at 65+ occur, satisfying the addendum. But under the *authored* v0.2 gates the late climaxes gate at `FIX>=40` while mid-life ones gate at `FIX>=55`, making late-life the easiest ending path: 74–92% of endings land at 65+ against a 2–5% target. See findings finding 2.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -261,10 +271,11 @@ registry-level `tendency_family_map`.
 **Engine change required** `src/engine/content/load.ts::collapseSpeciesTendencies`
 would read the registry directly instead of the adapter.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Files changed_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Do not collapse refinement labels into broad-family tiers. Use two layers: (1) broad family tendency at family selection; (2) optional refinement hook at local event selection. No extra refinement drafting stage. `MAGICAL_SEAL` is a registered special hook with no broad material family.
+> _Files changed_: Species Registry v1.2; `src/engine/drafting.ts` (`familyEvidenceScalar` / `eventContextScalar`).
+> _Outcome_: Implemented and tested. The drafting pipeline still has exactly three weighted stages (asserted in `tests/phase1_1-acceptance.test.ts` §3). `MAGICAL_SEAL` carries `family: null` and contributes no family scalar anywhere.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -299,10 +310,11 @@ preserved verbatim under `unmappedHooks` beside its source sentence.
 **Proposed schema change** Add typed columns beside the prose ones:
 `drafting_favor`, `drafting_strongly_favor`, `drafting_suppress`.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Files changed_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Add typed talent machine semantics. `drafting_favor` / `drafting_strongly_favor` / `drafting_suppress` change weighted drafting; `unlock_tags` / `redirect_tags` / `narrative_tags` are structured metadata and never become multipliers automatically.
+> _Files changed_: Talent Registry v1.1; `src/engine/content/load.ts`; `src/engine/drafting.ts`.
+> _Outcome_: Implemented. 10 of 30 talents now carry a typed drafting operation. A test asserts that talents holding only unlock/redirect/narrative tags produce a scalar of exactly 1 on every channel and family.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -334,10 +346,11 @@ string, so this cannot drift silently.
 **Also confirm** the authorizing-talent table, currently read from the endings'
 designer notes: `END-ANO-001 → T1028`, `END-ANO-002 → T1029`.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Files changed_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Awareness must be machine-structured, not interpreted from prose. Ordinary solid → Unconscious; temporal → Suspended; `Uncertain` allowed with no special authorization; Continuous/Intermittent/Displaced require authored authorization; END-ANO-001 authorizes via T1028, END-ANO-002 via T1029.
+> _Files changed_: Ending Registry v1.1; `src/engine/endings.ts` (prose parsing deleted).
+> _Outcome_: Implemented. The adapter's `endingAwarenessRules` table is gone; awareness now comes from `default_awareness`, `awareness_if_temporal`, `allowed_awareness_states`, `authorization_required_states` and `authorizing_talents`.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -361,10 +374,11 @@ however many tags match.
 **Proposed schema change** Declare it in the Tag Registry, one row per tag:
 `| Tag | Flag namespace | Favors transformation families |`
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Files changed_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Route-tag mapping is canonical data and must be validator-checked. Every event `routeTag` must exist in Route Tag Registry v1.0. Under the uniform-family baseline a matching active route grants at most one event-level favor scalar and never alters family probability. `academic` stays valid metadata on Temporal research events but cannot grant a Transformation-event favor.
+> _Files changed_: Route Tag Registry v1.0; `src/engine/drafting.ts`; `src/engine/content/load.ts` validation.
+> _Outcome_: Implemented; the Phase-1 adapter rule is retired. E-01 is ratified as canonical data (`allowTransformationEventFavor: false` on `academic`). Tests assert the one-scalar stacking rule and that route tags leave the family layer untouched.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ### Q-07a — academic route bias (fixed, needs ratification)
 
@@ -384,10 +398,11 @@ routeTag be removed from the two TEMP events instead? The engine fix is
 behaviour-preserving for every other route; the content fix would be cleaner if
 those events are not really "academic".
 
-> **Resolution** — _status_: RATIFY
-> _Decision_:
-> _Files changed_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify the behavioural intent of E-01 and move the rule out of the provisional adapter into canonical Route Tag Registry data. `academic` remains valid metadata on Temporal research events but grants no Transformation-event favor.
+> _Files changed_: Route Tag Registry v1.0 (`allowTransformationEventFavor: false`); `src/engine/drafting.ts`.
+> _Outcome_: The engine no longer carries a hard-coded tag exception; the rule is a per-tag registry field that any future tag can set.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -415,9 +430,11 @@ Q-01.
 minimum of one year (the cadence is one event per year). `"strictly_greater"`
 remains selectable for comparison.
 
-> **Resolution** — _status_: RATIFY
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify `AGE - lastOccurrenceAge >= repeatCooldownYears`.
+> _Files changed_: Balance Constants v0.2 `repeatCooldownSemantics`; `src/engine/state.ts`.
+> _Outcome_: Moved out of the provisional adapter into canonical balance data.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -444,9 +461,11 @@ expiry, the only expiry the engine can observe. If design wants a distinct
 notion of *abandonment* (route explicitly given up) versus *expiry* (window ran
 out), that needs an authored mechanism — currently there is none.
 
-> **Resolution** — _status_: RATIFY
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify `validityCondition` as a yearly fire gate. A false condition means "not ready this year", not "destroy the schedule". A future explicit `cancelCondition` may be introduced if authored route abandonment needs it.
+> _Files changed_: Balance Constants v0.2 `scheduleSemantics.validityCondition`; Content Schema v0.3.
+> _Outcome_: Ratified. Note the open consequence: "route abandonment" is still measured only as window expiry, because no cancellation mechanism exists yet.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -469,9 +488,11 @@ event's share within a fixed family share. **These are meaningfully different
 authoring contracts** and the choice should be explicit before more events are
 written.
 
-> **Resolution** — _status_: RATIFY
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED for Phase 1.1**
+> _Decision_: Reject content-density family weighting as the design baseline. Phase 1.1 baseline is `channel -> uniform eligible family -> weighted event inside family`. Retain `sum_of_event_weights` only as one A/B comparison. If uniform performs badly, the next option is explicit family base weights, not accidental density weighting.
+> _Files changed_: Balance Constants v0.2 `familyWeightMode: uniform`; `src/engine/drafting.ts`.
+> _Outcome_: **A/B measured, baseline unchanged.** At MID: uniform 49.1% completion / 2.78 bits material entropy; `sum_of_event_weights` 51.2% / 2.86 bits. The two are close, so nothing forces a change. Family mix differs mildly (density weighting lifts INS/MED and TRN/STON). The baseline was not switched.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -494,9 +515,11 @@ authors control the tiebreak directly.
 **Currently low-stakes** — collisions occur in only 1.2% of runs — but that is
 partly because so few climaxes fire (Q-02). Re-check after Q-02 is resolved.
 
-> **Resolution** — _status_: RATIFY
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Add `priorityOrder: integer = 0` to schedules. Within the same priority class: higher `priorityOrder` first, then seeded RNG on an actual tie. Creation order is not the permanent design tiebreak.
+> _Files changed_: Content Schema v0.3; `src/engine/schedules.ts::rankCandidates`.
+> _Outcome_: Implemented. Creation order now only stabilises the candidate list before the RNG draw; a test asserts the tie winner varies across seeds yet is identical for the same seed.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -516,9 +539,11 @@ fixMax: null }` — visible stats unclamped; FIX floored at 0 because
 **Not behaviour-neutral** — clamping at 0 would change the outcome of conditions
 such as `MNY<=2` and `STR<=4`, and therefore change which variants fire.
 
-> **Resolution** — _status_: RATIFY
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify visible stats unclamped and FIX minimum 0.
+> _Files changed_: Balance Constants v0.2 `statClamp`.
+> _Outcome_: Moved out of the provisional adapter.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -534,9 +559,11 @@ Schema but never defined, and no canonical event uses it.
 count), consistent with `AEVT` meaning completed prior runs only. A first life
 has `TMS = 0`.
 
-> **Resolution** — _status_: RATIFY
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify `TMS` as the number of completed prior runs. First life = 0.
+> _Files changed_: Content Schema v0.3 condition references.
+> _Outcome_: Now stated in canonical schema rather than only in an assumption note.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -558,9 +585,11 @@ economy (Q-02), **not** as a recommendation for 15.
 This should probably be decided *after* Q-02, since the right value depends on
 the total FIX budget.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **OPEN / DEFERRED**
+> _Decision_: Do **not** freeze T1027 at +15. Run sensitivity values 5 / 8 / 10 / 12 / 15 after the revised FIX economy is in place, and report separately.
+> _Files changed_: Talent Registry v1.1 leaves `start_fix_bonus` blank; `content/balance/SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json` keeps the diagnostic value; `src/sim/experiments.ts::withT1027StartFix`.
+> _Outcome_: **Swept, still open.** Completion in the anomalous scenario at MID: 76.4% (5), 86.0% (8), 91.4% (10), 94.2% (12), 98.2% (15). Even +5 makes the talent close to an auto-completion; mean commitment age falls 36.0 → 32.7 across the range. Design picks a value — the engine does not.
+> _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -581,9 +610,11 @@ untouched so material tendencies stay biological, as both registry rows require.
 only affects the Ending Record's `registeredSpecies` field. It becomes
 consequential as soon as institutional classification events are authored.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify T1025 → `RSPECIES = UNREGISTERED`, and T1030 → one seeded uniformly-selected species different from the true `SPECIES`, assigned once and fixed for the run.
+> _Files changed_: Talent Registry v1.1 `registered_species_rule`; `src/engine/setup.ts`.
+> _Outcome_: Canonical. The engine reads the registry column; the adapter rule is retired. A test asserts the T1030 pick is stable across repeated runs of the same seed.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -595,9 +626,11 @@ consequential as soon as institutional classification events are authored.
 No canonical file states one. **Engine today** `startingFIX.base = 0`; T1027 adds
 on top. Tied to Q-02 and Q-26.
 
-> **Resolution** — _status_: RATIFY
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Baseline starting FIX = 0.
+> _Files changed_: Balance Constants v0.2 `startingFIX.base`.
+> _Outcome_: Moved out of the provisional adapter.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -624,9 +657,11 @@ each separately.
 
 **Recommendation** (c) — the contrast is itself the useful measurement.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Diagnostic allocation must not pretend one player style is representative. Report balanced/random fill, min-max primary/secondary, and a seeded archetype set **separately**; do not mix them into one headline statistic.
+> _Files changed_: `src/engine/setup.ts` (three policies); `src/cli/experiment.ts`; Balance Constants v0.2 `diagnosticSampling.allocationPolicies`.
+> _Outcome_: **Implemented and reported separately.** Outcome rates barely move (47.9–49.3% completion), but threshold-talent activation does: T1007 94% → 76%, T1009 86% → 69%, T1017 mean activation age 96.2 → 67.1 across balanced → archetype. This is exactly the distortion Q-17 warned about.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -644,9 +679,11 @@ as its plain registry default, which only works if it is unrestricted.
 `Uncertain` needs no authorization, the other three do. Please confirm the
 omission is intentional.
 
-> **Resolution** — _status_: RATIFY
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: `Uncertain` Awareness requires no special authorization.
+> _Files changed_: Ending Registry v1.1 `authorization_required_states`.
+> _Outcome_: Canonical: `Uncertain` never appears in any ending's `authorization_required_states`.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -668,9 +705,11 @@ mechanical consequence.
 **Options** (a) author `ANO`/`REIN`/`TLNT`/`SECR` events; (b) zero the SPC
 column until content exists, so the budget is explicit rather than absorbed.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: SPC remains part of the v1 architecture. Batch 005 adds initial ANO/REIN/TLNT content. Do not zero the SPC channel.
+> _Files changed_: Batch 005 (8 SPC events).
+> _Outcome_: **Present but very thin.** SPC share of event-years: 0.00% (no-talents), 0.43% (uniform-three), 5.01% (anomalous-talents). Almost all SPC content gates on anomalous route flags, so a run without those talents effectively never sees the channel despite SPC carrying up to 13% of the neutral channel budget. Flagged in findings as a follow-up.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -687,9 +726,11 @@ unexercised.
 
 Is this content not yet written, or is the priority class not actually needed?
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Mandatory committed routes are intentional. Batch 005 provides the controlled-hardening Medical sequence and the two anomalous sequences. Each remains one visible event per year.
+> _Files changed_: Batch 005 (4 `mandatory_only` events).
+> _Outcome_: **Exercised.** 40–88% of runs now use at least one `mandatory_only` event, and the one-event-per-year invariant holds through the sequences.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -705,9 +746,11 @@ cannot occur. Ending coverage is capped at **22/24 by content**, not by balance.
 Needs a climax event (or an authored redirect on an existing climax) gated on the
 relevant talent.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: END-ANO-001 and END-ANO-002 receive dedicated hidden SPC routes, not generic redirects attached to every ordinary ending.
+> _Files changed_: Batch 005 (`EVT-SPC-ANO-0002/0003/0005/0006`).
+> _Outcome_: **Both endings now occur.** Previously unreachable; both appear in ordinary diagnostic runs, and ending coverage rises from 13/24 to as much as 23/24.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -729,9 +772,11 @@ but early-life material identity is disproportionately wooden.
 (b) stagger the age floors of the existing `*-0001` events; (c) accept it as
 authored intent.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: The ~52% Wood first-manifestation share is an availability artifact and is not intended. Batch 005 adds reversible adolescent STON/METL/CRYS/GLAS/CERA/TEMP events. Wood may keep a small age-window advantage but must not dominate a neutral Human.
+> _Files changed_: Batch 005 (6 adolescent manifestation events).
+> _Outcome_: **Fixed.** Neutral HUMAN / no talents / no material evidence (4 000 runs): WOOD 24.8%, CERA 13.8%, STON 13.4%, METL 13.0%, GLAS 12.7%, CRYS 12.7%, TEMP 9.7%. Well under the 50% failure line. WOOD keeps an earlier mean age (15.5 vs 18.7–20.6), which matches the intended small age-window advantage.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -752,9 +797,11 @@ carries about a third of all adult years. Channel mix decays to 98% ORD by 65+.
 continue to 120 through a nearly empty pool. **Re-measure after Q-02 is resolved
 before authoring more late-life content.**
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **OPEN / MONITOR**
+> _Decision_: ~35% adult fallback is unquestionably unintended, but do **not** respond by bulk-authoring late-life filler before the revised ending economy is measured. Target remains near 2%; >5% is a warning.
+> _Files changed_: No content change in this patch.
+> _Outcome_: **Re-measured, still high.** Age-25+ fallback share is 24.0–29.5% across threshold profiles and 25.7–26.2% in the base scenarios (7.1% in the anomalous scenario, where runs end early). Improved from ~35% but far above the 5% warning line. Above the addendum's ">10% → return to design" threshold, so this stays with design rather than being patched here.
+> _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -771,9 +818,11 @@ rarely fire at all. Its 78.7% activation rate is an artefact of runs continuing 
 
 Also downstream of Q-02; re-measure after that resolves.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **OPEN / MONITOR**
+> _Decision_: Do not change T1017 yet. Re-measure activation age/rate under the revised ending economy and multiple allocation policies.
+> _Files changed_: No content change in this patch.
+> _Outcome_: **Re-measured.** T1017 activation is now 37% (balanced), 37% (min-max), 51% (archetype), with mean activation ages 96.2 / 70.4 / 67.1. Still far past a plausible life span under balanced fill, but markedly better under player-like builds — which is itself evidence that the Phase-1 reading was an allocation artifact. Stays open pending the frozen ending economy.
+> _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -791,9 +840,11 @@ a registry but means a typo in a future event condition would fail silently.
 Once a registry exists, content validation should reject unknown `ACH` IDs the
 same way it already rejects unknown `TLT`, `EVT` and ending IDs.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **OPEN / DEFERRED**
+> _Decision_: Achievement Registry belongs to the meta-progression phase. Until it exists, unknown `ACH` behaviour remains a documented provisional limitation.
+> _Files changed_: None.
+> _Outcome_: Unchanged. `ACH[id]` is implemented and tested; unknown IDs evaluate to false rather than failing validation, because no registry exists to validate against.
+> _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -819,9 +870,11 @@ and adding it is the smallest change that reconciles the gates with the content.
 
 Closely coupled to Q-02; decide together.
 
-> **Resolution** — _status_: OPEN
-> _Decision_:
-> _Decided by / date_:
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: **No passive annual FIX drift.** Age already changes transformation pressure through `ageChannelWeights`; a hidden yearly increment would duplicate that signal and be hard to explain to the player. FIX rises only through authored causes. Do not add `fixAnnualDrift`.
+> _Files changed_: Balance Constants v0.2 pins `fixAnnualDrift: null`; the engine reads no such field.
+> _Outcome_: Implemented. A behavioural test replays every run and asserts final FIX equals the sum of authored variant effects plus the start bonus — no year contributes FIX merely by passing.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 
 ---
 
@@ -830,3 +883,4 @@ Closely coupled to Q-02; decide together.
 | Date | Change |
 |---|---|
 | 2026-08-12 | Created at Phase-1 handoff with Q-01 … Q-26 |
+| 2026-08-13 | Phase 1.1: merged `PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md`. 22 questions RESOLVED; Q-14, Q-23, Q-24, Q-25 deliberately remain open. Outcomes measured against the Phase 1.1 content and reported in `PHASE1_1_FINDINGS.md`. |

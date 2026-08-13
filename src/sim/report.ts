@@ -55,7 +55,7 @@ function scenarioSection(content: ContentBundle, report: ScenarioReport): string
         ['Base seed', `\`${report.options.baseSeed}\``],
         ['Species sampling', report.options.fixedSpecies ?? (report.options.speciesStratified ? 'stratified equally' : 'seeded uniform')],
         ['Diagnostic max age', String(report.options.maxAge)],
-        ['Pre-25 coverage policy', `\`${report.options.pre25CoveragePolicy}\``],
+        ['Family weighting', `\`${report.options.familyWeightMode}\``],
       ],
     ),
   );
@@ -139,7 +139,9 @@ function scenarioSection(content: ContentBundle, report: ScenarioReport): string
         ['Target age-25+ fallback share', pct(content.balance.fallbackGuardrails.targetFallbackShareAge25Plus, 0)],
         ['Pre-25 fallback events (must be 0)', String(m.pre25FallbackYears)],
         ['Pre-25 coverage-defect runs', `${m.coverageErrors} (${pct(m.pre25CoverageDefectRate)})`],
-        ['Pre-25 diagnostic reuse years', String(m.pre25EmergencyReuseYears)],
+        ['SPC channel share of event-years', pct(m.spcShare, 2)],
+        ['Runs using a mandatory_only event', pct(m.mandatoryUsageRate)],
+        ['Endings at age 65+', pct(m.endingShare65Plus)],
       ],
     ),
   );
@@ -220,6 +222,23 @@ function scenarioSection(content: ContentBundle, report: ScenarioReport): string
       ],
     ),
   );
+  out.push('');
+  out.push('First manifestation family distribution (Q-22):');
+  out.push('');
+  out.push(
+    table(
+      ['Family', 'Runs', 'Share of runs with a manifestation', 'Mean age', 'Median age'],
+      sortedEntries(m.firstManifestationFamilyCounts).map(([family, count]) => [
+        family,
+        String(count),
+        pct(m.firstManifestationFamilyShare[family]),
+        num(m.firstManifestationAgeByFamily[family]?.mean, 1),
+        num(m.firstManifestationAgeByFamily[family]?.median, 1),
+      ]),
+    ),
+  );
+  out.push('');
+  out.push(`Runs with no manifestation at all: **${pct(m.noManifestationRate)}**.`);
   out.push('');
   out.push(
     table(
@@ -383,6 +402,238 @@ export function renderMarkdownReport(content: ContentBundle, report: SimulationR
     'Per `SOLID_STATE_PHASE1_ACCEPTANCE_TESTS_v0.1.md` section Q, Phase 1 stops here. ' +
       'Do not tune creative content or proceed into UI implementation without design review of this report.',
   );
+  out.push('');
+  return out.join('\n');
+}
+
+// ---------------------------------------------------------------------------
+// Phase 1.1 experiment report
+// ---------------------------------------------------------------------------
+
+export interface ExperimentArm {
+  label: string;
+  settings: Record<string, string>;
+  metrics: MetricsSummary;
+}
+
+export interface ExperimentReport {
+  name: string;
+  description: string;
+  arms: ExperimentArm[];
+}
+
+export interface ExperimentPayload {
+  generatedAt: string;
+  contentVersion: string;
+  balanceVersion: string;
+  matrixVersion: string;
+  runsPerArm: number;
+  baseSeed: string;
+  experiments: ExperimentReport[];
+}
+
+/**
+ * Renders the experiment-matrix comparison.
+ *
+ * Deliberately presents arms side by side without ranking them: the Phase 1.1
+ * instructions forbid selecting a winning threshold profile or switching the
+ * family-weighting baseline automatically.
+ */
+export function renderExperimentReport(content: ContentBundle, payload: ExperimentPayload): string {
+  const out: string[] = [];
+  out.push('# SOLID STATE — Phase 1.1 Experiment Matrix Results');
+  out.push('');
+  out.push('**Measurements only.** No threshold profile is selected, no baseline is switched,');
+  out.push('and no creative content was tuned to produce these numbers.');
+  out.push('');
+  out.push(
+    table(
+      ['Field', 'Value'],
+      [
+        ['Generated at', payload.generatedAt],
+        ['Content fingerprint', `\`${payload.contentVersion.slice(0, 32)}…\``],
+        ['Balance constants', `v${payload.balanceVersion}`],
+        ['Experiment matrix', `v${payload.matrixVersion}`],
+        ['Runs per arm', String(payload.runsPerArm)],
+        ['Base seed', `\`${payload.baseSeed}\``],
+      ],
+    ),
+  );
+  out.push('');
+
+  for (const experiment of payload.experiments) {
+    out.push(`## ${experiment.name}`);
+    out.push('');
+    out.push(experiment.description);
+    out.push('');
+
+    const settingKeys = [...new Set(experiment.arms.flatMap((a) => Object.keys(a.settings)))];
+    out.push(
+      table(
+        ['Arm', ...settingKeys],
+        experiment.arms.map((arm) => [arm.label, ...settingKeys.map((k) => arm.settings[k] ?? '—')]),
+      ),
+    );
+    out.push('');
+
+    out.push(
+      table(
+        [
+          'Arm',
+          'Completed',
+          'Nonterminal',
+          'Coverage defect',
+          'Committed',
+          'Commit age',
+          'Median end age',
+          '65+ endings',
+          'Fallback 25+',
+          'Route climax',
+          'Endings seen',
+        ],
+        experiment.arms.map((arm) => {
+          const m = arm.metrics;
+          return [
+            arm.label,
+            pct(m.completedRate),
+            pct(m.nonterminalRate),
+            pct(m.coverageErrorRate),
+            pct(m.materialCommitmentRate),
+            num(m.averageCommitmentAge),
+            num(m.medianEndingAge),
+            pct(m.endingShare65Plus),
+            pct(m.fallbackShareAge25Plus),
+            pct(m.routeClimaxRate),
+            `${m.distinctEndingsObserved}/${m.distinctEndingsInRegistry}`,
+          ];
+        }),
+      ),
+    );
+    out.push('');
+
+    out.push('Ending-age bands against target:');
+    out.push('');
+    const bandLabels = experiment.arms[0]!.metrics.endingAgeShareByTargetBucket.map((b) => b.band);
+    out.push(
+      table(
+        ['Arm', ...bandLabels],
+        experiment.arms.map((arm) => [
+          arm.label,
+          ...arm.metrics.endingAgeShareByTargetBucket.map(
+            (b) => `${pct(b.observedShare)}${b.withinTarget ? ' ✓' : ''}`,
+          ),
+        ]),
+      ),
+    );
+    out.push('');
+    out.push(
+      `Targets: ${experiment.arms[0]!.metrics.endingAgeShareByTargetBucket
+        .map((b) => `${b.band} ${pct(b.targetMin, 0)}–${pct(b.targetMax, 0)}`)
+        .join(' · ')}`,
+    );
+    out.push('');
+
+    out.push('Final FIX distribution:');
+    out.push('');
+    out.push(
+      table(
+        ['Arm', 'p50', 'p90', 'p99', 'max'],
+        experiment.arms.map((arm) => [
+          arm.label,
+          num(arm.metrics.finalFixPercentiles.p50, 0),
+          num(arm.metrics.finalFixPercentiles.p90, 0),
+          num(arm.metrics.finalFixPercentiles.p99, 0),
+          num(arm.metrics.finalFixPercentiles.max, 0),
+        ]),
+      ),
+    );
+    out.push('');
+
+    if (experiment.name === 'family_weight_ab') {
+      out.push('Family distribution by channel (age 25–34 band):');
+      out.push('');
+      for (const arm of experiment.arms) {
+        const counts = arm.metrics.familyCountsByAgeBand['25-34'] ?? {};
+        out.push(`**${arm.label}** — ${sortedEntries(counts).map(([f, c]) => `${f} ${c}`).join(', ')}`);
+        out.push('');
+      }
+      out.push('Material distribution and entropy:');
+      out.push('');
+      out.push(
+        table(
+          ['Arm', 'Entropy (bits)', 'Committed', 'Top materials'],
+          experiment.arms.map((arm) => [
+            arm.label,
+            num(arm.metrics.materialEntropyBitsOverall, 2),
+            pct(arm.metrics.materialCommitmentRate),
+            sortedEntries(arm.metrics.finalMaterialDistribution)
+              .filter(([mat]) => mat !== 'NONE')
+              .slice(0, 5)
+              .map(([mat, c]) => `${mat} ${c}`)
+              .join(', '),
+          ]),
+        ),
+      );
+      out.push('');
+    }
+
+    if (experiment.name === 'allocation_policy_compare') {
+      out.push('Threshold-talent activation by allocation policy:');
+      out.push('');
+      const thresholdTalents = [...content.talents.values()]
+        .filter((t) => t.trigger_type === 'threshold_once')
+        .map((t) => t.id)
+        .sort();
+      out.push(
+        table(
+          ['Arm', ...thresholdTalents.map((id) => `${id} rate / age`)],
+          experiment.arms.map((arm) => [
+            arm.label,
+            ...thresholdTalents.map((id) => {
+              const rate = arm.metrics.talentActivationRate[id];
+              const age = arm.metrics.talentActivationAverageAge[id];
+              return rate === undefined ? '—' : `${pct(rate, 0)} / ${num(age, 1)}`;
+            }),
+          ]),
+        ),
+      );
+      out.push('');
+    }
+
+    if (experiment.name === 'first_manifestation') {
+      for (const arm of experiment.arms) {
+        out.push(
+          table(
+            ['Family', 'Runs', 'Share', 'Mean age', 'Median age'],
+            sortedEntries(arm.metrics.firstManifestationFamilyCounts).map(([family, count]) => [
+              family,
+              String(count),
+              pct(arm.metrics.firstManifestationFamilyShare[family]),
+              num(arm.metrics.firstManifestationAgeByFamily[family]?.mean, 1),
+              num(arm.metrics.firstManifestationAgeByFamily[family]?.median, 1),
+            ]),
+          ),
+        );
+        out.push('');
+        out.push(`Runs with no manifestation: **${pct(arm.metrics.noManifestationRate)}**.`);
+        out.push('');
+      }
+    }
+
+    const findings = experiment.arms.flatMap((arm) =>
+      arm.metrics.guardrails.map((f) => `- \`${arm.label}\` — **${f.severity}** ${f.id}: ${f.message}`),
+    );
+    if (findings.length > 0) {
+      out.push('Guardrail findings:');
+      out.push('');
+      out.push(...findings);
+      out.push('');
+    }
+  }
+
+  out.push('---');
+  out.push('');
+  out.push('Per the Phase 1.1 instructions, H2 remains CLOSED and no profile is frozen here.');
   out.push('');
   return out.join('\n');
 }

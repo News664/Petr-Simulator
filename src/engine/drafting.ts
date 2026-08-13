@@ -5,15 +5,28 @@ import type { Rng } from './rng.js';
 import { CHANNELS, type Channel, type GameEvent, type RunState } from './types.js';
 
 /**
- * Normal hierarchical drafting. Contract sections 9-10:
+ * Normal hierarchical drafting. Event Drafting Rules v0.3.
  *
- *   age/state profile -> channel -> family -> event
+ *   channel -> uniform eligible family -> locally weighted eligible event
  *
  * Empty families and channels are removed and the remaining weights are
- * renormalized. Weighted selection over the surviving entries IS the
- * renormalization: proportions among survivors are unchanged.
+ * renormalized. Weighted selection over the survivors IS the renormalization.
  *
- * All numbers come from the balance/adapter data. This module contains none.
+ * Evidence is applied in three distinct layers, and each layer's inputs are
+ * fixed by canonical data rather than by code:
+ *
+ *   channel layer  neutral age weights x FIX scalar (TRN) x talent channel ops
+ *   family layer   uniform base x species family tendency x hint x manifestation
+ *                  x talent family ops
+ *   event layer    weightClass x routeFavor (at most one) x species refinement
+ *                  hook (only when the event carries a matching refinementTag)
+ *
+ * "Event count must not silently become family probability" (Drafting Rules
+ * v0.3): under the `uniform` baseline a family's base weight is 1 regardless of
+ * how many events it holds. `sum_of_event_weights` is retained ONLY as the A/B
+ * diagnostic comparison and is not the design baseline.
+ *
+ * All numbers come from Balance Constants v0.2. This module contains none.
  */
 
 export interface DraftTrace {
@@ -36,82 +49,128 @@ export class EmptyPoolError extends Error {
 }
 
 /**
- * Multiplicative soft-evidence scalar for one candidate event.
- *
- * Evidence is directional, never deterministic (Drafting Rules section 2). Each
- * source contributes at most one multiplier from `familyEvidenceScalar`.
+ * Channel-layer talent multiplier. Talent Registry v1.1 `channel:` targets only.
  */
-export function evidenceScalar(event: GameEvent, state: RunState, content: ContentBundle): number {
+export function talentChannelScalar(channel: Channel, state: RunState, content: ContentBundle): number {
   const scalars = content.balance.familyEvidenceScalar;
-  const adapters = content.adapters;
+  let scalar = 1;
+  for (const talentId of [...state.talents].sort()) {
+    const talent = content.talents.get(talentId);
+    if (!talent) continue;
+    const matches = (targets: { kind: string; code: string }[]): boolean =>
+      targets.some((t) => t.kind === 'channel' && t.code === channel);
+    if (matches(talent.draftingStronglyFavor)) scalar *= scalars.talentStronglyFavor;
+    else if (matches(talent.draftingFavor)) scalar *= scalars.talentFavor;
+    if (matches(talent.draftingSuppress)) scalar *= scalars.talentSuppress;
+  }
+  return scalar;
+}
+
+/**
+ * Family-layer evidence multiplier.
+ *
+ * Species family tendencies apply only to Transformation families and only
+ * before Material Commitment (Species Registry v1.2 `family_tendency_rule`).
+ */
+export function familyEvidenceScalar(
+  channel: Channel,
+  family: string,
+  state: RunState,
+  content: ContentBundle,
+): number {
+  const scalars = content.balance.familyEvidenceScalar;
   let scalar = 1;
 
-  // Species material tendency, only meaningful for transformation families.
-  if (event.channel === 'TRN') {
+  if (channel === 'TRN' && state.material === 'NONE') {
     const tendencies = content.speciesFamilyTendencies.get(state.species);
     if (tendencies) {
-      if (tendencies.primary.has(event.family)) scalar *= scalars.speciesPrimary;
-      else if (tendencies.secondary.has(event.family)) scalar *= scalars.speciesSecondary;
-      else if (tendencies.uncommon.has(event.family)) scalar *= scalars.speciesUncommon;
+      if (tendencies.primary.has(family)) scalar *= scalars.speciesPrimary;
+      else if (tendencies.secondary.has(family)) scalar *= scalars.speciesSecondary;
+      else if (tendencies.uncommon.has(family)) scalar *= scalars.speciesUncommon;
     }
   }
 
   // Childhood hint / reversible manifestation flags for this family.
-  if (state.flags.has(`${adapters.materialFlagPrefixes.hint}${event.family}`)) {
-    scalar *= scalars.hintMatchingFamily;
-  }
-  if (state.flags.has(`${adapters.materialFlagPrefixes.manifestation}${event.family}`)) {
-    scalar *= scalars.manifestMatchingFamily;
+  if (state.flags.has(`MAT_HINT_${family}`)) scalar *= scalars.hintMatchingFamily;
+  if (state.flags.has(`MAT_MANIFEST_${family}`)) scalar *= scalars.manifestMatchingFamily;
+
+  // Talent family operations (Talent Registry v1.1 `family:` targets).
+  for (const talentId of [...state.talents].sort()) {
+    const talent = content.talents.get(talentId);
+    if (!talent) continue;
+    const matches = (targets: { kind: string; code: string }[]): boolean =>
+      targets.some((t) => t.kind === 'family' && t.code === family);
+    if (matches(talent.draftingStronglyFavor)) scalar *= scalars.talentStronglyFavor;
+    else if (matches(talent.draftingFavor)) scalar *= scalars.talentFavor;
+    if (matches(talent.draftingSuppress)) scalar *= scalars.talentSuppress;
   }
 
-  // Active route context: any flag in the route tag's namespace.
-  // Some tags are barred from favouring transformation families, so that a
-  // social/research route cannot bias one material merely by being active
-  // (EVENT_DRAFTING_RULES v0.2, Comparative Materials).
-  const noTransformationFavor = adapters.routeTagsWithNoTransformationFavor ?? [];
+  return scalar;
+}
+
+/**
+ * Event-layer multiplier: route context and species refinement hooks.
+ *
+ * Route rules (Route Tag Registry v1.0 + Drafting Rules v0.3):
+ *  - at most ONE route-favor scalar per event however many tags match;
+ *  - a tag with `activeEventFavor: false` never grants one;
+ *  - a tag with `allowTransformationEventFavor: false` grants none on a TRN
+ *    event, which is what keeps `academic` from biasing TEMP.
+ *
+ * Refinement hooks apply only when the event carries the matching
+ * `refinementTag`. They never select a family and never add a drafting stage.
+ * `MAGICAL_SEAL` has `family: null` and so contributes no family scalar
+ * anywhere; it can only ever act here, on an explicitly tagged event.
+ */
+export function eventContextScalar(event: GameEvent, state: RunState, content: ContentBundle): number {
+  const scalars = content.balance.familyEvidenceScalar;
+  let scalar = 1;
+
   for (const tag of event.routeTags) {
-    const prefix = adapters.routeTagFlagPrefixes[tag];
-    if (!prefix) continue;
-    if (event.channel === 'TRN' && noTransformationFavor.includes(tag)) continue;
+    const def = content.routeTags.get(tag);
+    if (!def || !def.activeEventFavor) continue;
+    if (event.channel === 'TRN' && !def.allowTransformationEventFavor) continue;
     let active = false;
-    for (const flag of state.flags) {
-      if (flag.startsWith(prefix)) {
-        active = true;
-        break;
+    for (const prefix of def.flagPrefixes) {
+      for (const flag of state.flags) {
+        if (flag.startsWith(prefix)) {
+          active = true;
+          break;
+        }
       }
+      if (active) break;
     }
     if (active) {
       scalar *= scalars.routeFavor;
-      break; // One route-context multiplier per event, not one per matching tag.
+      break; // Stacking rule: at most one route-context scalar per event.
     }
   }
 
-  // Talent channel/family hooks from the provisional adapter table.
-  for (const talentId of state.talents) {
-    const adapter = adapters.talentAdapters[talentId];
-    if (!adapter) continue;
-    if (adapter.stronglyFavorFamilies?.includes(event.family) || adapter.stronglyFavorChannels?.includes(event.channel)) {
-      scalar *= scalars.talentStronglyFavor;
-    } else if (adapter.favorFamilies?.includes(event.family) || adapter.favorChannels?.includes(event.channel)) {
-      scalar *= scalars.talentFavor;
-    }
-    if (adapter.suppressFamilies?.includes(event.family) || adapter.suppressChannels?.includes(event.channel)) {
-      scalar *= scalars.talentSuppress;
+  if (event.refinementTags.length > 0) {
+    const species = content.species.get(state.species);
+    const refinement = content.balance.speciesRefinementScalar;
+    if (species) {
+      for (const hook of species.refinementHooks) {
+        if (!event.refinementTags.includes(hook.tag)) continue;
+        if (hook.operation === 'favor') scalar *= refinement.favor;
+        else if (hook.operation === 'strongly_favor') scalar *= refinement.stronglyFavor;
+        else if (hook.operation === 'suppress') scalar *= refinement.suppress;
+        // `unlock` is eligibility semantics, not a weight. See ASSUMPTION A-16.
+      }
     }
   }
 
   return scalar;
 }
 
+/** Local event weight inside an already-selected family. */
 export function eventWeight(event: GameEvent, state: RunState, content: ContentBundle): number {
-  const base = content.balance.eventWeightClassScalar[event.weightClass];
-  return base * evidenceScalar(event, state, content);
+  return content.balance.eventWeightClassScalar[event.weightClass] * eventContextScalar(event, state, content);
 }
 
 /**
  * Runs the full normal draft for the current year.
- * Throws EmptyPoolError when nothing is eligible, which the caller turns into a
- * pre-25 content coverage error or an age-25+ fallback.
+ * Throws EmptyPoolError when nothing is eligible.
  */
 export function draftNormalEvent(state: RunState, content: ContentBundle, rng: Rng): DraftTrace {
   const pool = eligibleNormalEvents(state, content);
@@ -127,20 +186,20 @@ export function draftNormalEvent(state: RunState, content: ContentBundle, rng: R
   const neutral = channelWeightsForAge(content.balance, state.age);
   const trnScalar = fixChannelScalar(content.balance, state.stats.FIX);
 
-  // Channel step: drop empty channels, keep authored order for reproducibility.
+  // Channel step: drop empty channels, keep taxonomy order for reproducibility.
   const channelCandidates: { channel: Channel; weight: number }[] = [];
   for (const channel of CHANNELS) {
     const events = byChannel.get(channel);
     if (!events || events.length === 0) continue;
     let weight = neutral[channel];
     if (channel === 'TRN') weight *= trnScalar;
+    weight *= talentChannelScalar(channel, state, content);
     if (weight <= 0) continue;
     channelCandidates.push({ channel, weight });
   }
   if (channelCandidates.length === 0) {
-    // Every surviving channel has zero neutral weight (e.g. SPC before age 12).
-    // Fall back to uniform over the non-empty channels rather than dropping the
-    // year: an eligible event exists, so this is not an empty pool.
+    // Every surviving channel has zero neutral weight (e.g. SPC below age 12).
+    // Eligible events exist, so this is not an empty pool: fall back to uniform.
     for (const channel of CHANNELS) {
       const events = byChannel.get(channel);
       if (events && events.length > 0) channelCandidates.push({ channel, weight: 1 });
@@ -151,7 +210,7 @@ export function draftNormalEvent(state: RunState, content: ContentBundle, rng: R
     channelCandidates.map((c) => c.weight),
   );
 
-  // Family step within the chosen channel.
+  // Family step inside the chosen channel. Uniform base under the v0.3 baseline.
   const channelEvents = byChannel.get(chosenChannel)!;
   const byFamily = new Map<string, GameEvent[]>();
   for (const event of channelEvents) {
@@ -163,11 +222,15 @@ export function draftNormalEvent(state: RunState, content: ContentBundle, rng: R
   const weightsByEvent = new Map<string, number>();
   for (const event of channelEvents) weightsByEvent.set(event.id, eventWeight(event, state, content));
 
-  const mode = content.adapters.engineRules.familyWeightMode;
+  const mode = content.balance.familyWeightMode;
   const familyCandidates: { family: string; weight: number }[] = [];
   for (const [family, events] of [...byFamily.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
-    const weight =
-      mode === 'uniform' ? 1 : events.reduce((sum, event) => sum + weightsByEvent.get(event.id)!, 0);
+    const base =
+      mode === 'uniform'
+        ? 1
+        : // Diagnostic comparison mode only: content density becomes probability.
+          events.reduce((sum, event) => sum + weightsByEvent.get(event.id)!, 0);
+    const weight = base * familyEvidenceScalar(chosenChannel, family, state, content);
     if (weight <= 0) continue;
     familyCandidates.push({ family, weight });
   }
@@ -179,7 +242,7 @@ export function draftNormalEvent(state: RunState, content: ContentBundle, rng: R
     familyCandidates.map((f) => f.weight),
   );
 
-  // Event step within the chosen family.
+  // Event step inside the chosen family.
   const familyEvents = byFamily.get(chosenFamily)!.slice().sort((a, b) => a.id.localeCompare(b.id));
   const eventCandidates = familyEvents.map((event) => ({
     eventId: event.id,

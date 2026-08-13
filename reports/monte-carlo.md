@@ -7,29 +7,28 @@ Decisions arising from this report are tracked in [`docs/OPEN_QUESTIONS.md`](../
 
 | Field | Value |
 |---|---|
-| Generated at | 2026-08-12T15:48:20.492Z |
-| Content fingerprint | `b0a126a4ebcab8e3f0fb61943401cf73702dc3b6d4eb56d0930c4131d2af8044` |
-| Balance constants version | 0.1 |
-| Balance adapters version | 0.1 |
+| Generated at | 2026-08-13T02:11:38.821Z |
+| Content fingerprint | `63ac31e8d496ec3688f75b52752c5b79378e3baeb1c9843df95589b32739b20e` |
+| Balance constants version | 0.2 |
+| Balance adapters version | 0.2 |
 | Scenarios | 5 |
 
 ## Cross-scenario summary
 
 | Scenario | Runs | Completed | Nonterminal | Coverage defect | Avg run length | Median ending age | Fallback share |
 |---|---|---|---|---|---|---|---|
-| `no-talents` | 10000 | 0.1% | 99.9% | 0.0% | 120.9 | 45.0 | 27.8% |
-| `uniform-three` | 10000 | 0.7% | 99.3% | 0.0% | 120.4 | 43.0 | 27.7% |
-| `threshold-talents` | 10000 | 0.1% | 99.9% | 0.0% | 120.9 | 46.0 | 27.9% |
-| `material-talents` | 10000 | 0.2% | 99.8% | 0.0% | 120.9 | 47.0 | 27.8% |
-| `anomalous-talents` | 10000 | 6.4% | 93.6% | 0.0% | 115.9 | 41.0 | 26.8% |
+| `no-talents` | 10000 | 42.9% | 57.1% | 0.0% | 97.7 | 67.0 | 19.4% |
+| `uniform-three` | 10000 | 46.9% | 53.1% | 0.0% | 93.5 | 67.0 | 18.8% |
+| `threshold-talents` | 10000 | 44.8% | 55.2% | 0.0% | 96.7 | 67.0 | 19.0% |
+| `material-talents` | 10000 | 42.5% | 57.5% | 0.0% | 97.9 | 67.0 | 19.5% |
+| `anomalous-talents` | 10000 | 95.5% | 4.5% | 0.0% | 46.0 | 40.0 | 3.2% |
 
 ### Guardrail failures across scenarios
 
-- `no-talents` — **nonterminal-rate**: 9990/10000 runs (99.9%) reached the diagnostic maximum age without an ending.
-- `uniform-three` — **nonterminal-rate**: 9927/10000 runs (99.3%) reached the diagnostic maximum age without an ending.
-- `threshold-talents` — **nonterminal-rate**: 9991/10000 runs (99.9%) reached the diagnostic maximum age without an ending.
-- `material-talents` — **nonterminal-rate**: 9984/10000 runs (99.8%) reached the diagnostic maximum age without an ending.
-- `anomalous-talents` — **nonterminal-rate**: 9358/10000 runs (93.6%) reached the diagnostic maximum age without an ending.
+- `no-talents` — **nonterminal-rate**: 5710/10000 runs (57.1%) reached the diagnostic maximum age without an ending.
+- `uniform-three` — **nonterminal-rate**: 5306/10000 runs (53.1%) reached the diagnostic maximum age without an ending.
+- `threshold-talents` — **nonterminal-rate**: 5518/10000 runs (55.2%) reached the diagnostic maximum age without an ending.
+- `material-talents` — **nonterminal-rate**: 5749/10000 runs (57.5%) reached the diagnostic maximum age without an ending.
 
 ## Content snapshot
 
@@ -39,11 +38,13 @@ Decisions arising from this report are tracked in [`docs/OPEN_QUESTIONS.md`](../
 | `content/events/SOLID_STATE_EVENT_BATCH_002_v0.2.json` | `06fa02146b82ff75…` |
 | `content/events/SOLID_STATE_EVENT_BATCH_003_v0.1.json` | `526f4c4e751a0a6b…` |
 | `content/events/SOLID_STATE_EVENT_BATCH_004_v0.2.json` | `0470486bf5a6ec03…` |
-| `content/registries/SOLID_STATE_SPECIES_REGISTRY_v1.1.json` | `d3fa7bfbeae436a7…` |
-| `content/registries/SOLID_STATE_TALENT_REGISTRY_v1.0.csv` | `cd8895941565b5a5…` |
-| `content/registries/SOLID_STATE_ENDING_REGISTRY_v1.0.csv` | `b4f0d57af8cd2cfa…` |
-| `content/balance/SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.1.json` | `4125c2f3482035d3…` |
-| `content/balance/SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json` | `56857eb073f821ce…` |
+| `content/events/SOLID_STATE_EVENT_BATCH_005_v0.1.json` | `ff6c5015e1977395…` |
+| `content/registries/SOLID_STATE_SPECIES_REGISTRY_v1.2.json` | `87b6277adc927516…` |
+| `content/registries/SOLID_STATE_ROUTE_TAG_REGISTRY_v1.0.json` | `fc70af3ba593e1fa…` |
+| `content/registries/SOLID_STATE_TALENT_REGISTRY_v1.1.csv` | `caceac50387239ee…` |
+| `content/registries/SOLID_STATE_ENDING_REGISTRY_v1.1.csv` | `00b508e0df8850ea…` |
+| `content/balance/SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.2.json` | `1de7d4ecff50fefb…` |
+| `content/balance/SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json` | `ffe872e5dbe0661b…` |
 
 ## Scenario `no-talents` — NO_TALENTS_BASELINE
 
@@ -52,69 +53,69 @@ No talents selected. Isolates content and balance from talent effects.
 | Setting | Value |
 |---|---|
 | Runs | 10000 |
-| Base seed | `phase1` |
+| Base seed | `phase1_1` |
 | Species sampling | stratified equally |
 | Diagnostic max age | 120 |
-| Pre-25 coverage policy | `reuse_baseline_repeatables` |
+| Family weighting | `uniform` |
 
 ### Outcome rates
 
 | Outcome | Runs | Share |
 |---|---|---|
-| Completed (reached an ending) | 10 | 0.1% |
-| Nonterminal at diagnostic max age | 9990 | 99.9% |
+| Completed (reached an ending) | 4290 | 42.9% |
+| Nonterminal at diagnostic max age | 5710 | 57.1% |
 | Pre-25 content coverage defect | 0 | 0.0% |
 
-Average run length: **120.9 years** across 1209254 simulated event-years.
+Average run length: **97.7 years** across 977048 simulated event-years.
 
 ### Ending age
 
-Average **45.4**, median **45.0**, p10 **43**, p90 **48**.
+Average **65.7**, median **67.0**, p10 **67**, p90 **69**.
 
 | Age band | Observed share | Target range | Within target |
 |---|---|---|---|
 | 18-24 | 0.0% | 18%–22% | NO |
-| 25-34 | 0.0% | 35%–40% | NO |
-| 35-44 | 50.0% | 20%–25% | NO |
-| 45-54 | 50.0% | 8%–12% | NO |
-| 55-64 | 0.0% | 4%–7% | NO |
-| 65+ | 0.0% | 2%–5% | NO |
+| 25-34 | 0.2% | 35%–40% | NO |
+| 35-44 | 5.4% | 20%–25% | NO |
+| 45-54 | 1.9% | 8%–12% | NO |
+| 55-64 | 0.1% | 4%–7% | NO |
+| 65+ | 92.5% | 2%–5% | NO |
 
 ### Channel counts by age band
 
 | Age band | ORD | INS | TRN | SPC | Total |
 |---|---|---|---|---|---|
-| 0-5 | 55141 | 4859 | 0 | 0 | 60000 |
-| 6-11 | 49361 | 10639 | 0 | 0 | 60000 |
-| 12-17 | 43656 | 11769 | 4575 | 0 | 60000 |
-| 18-24 | 39095 | 17979 | 12926 | 0 | 70000 |
-| 25-34 | 41702 | 30068 | 28230 | 0 | 100000 |
-| 35-44 | 58903 | 34845 | 6249 | 0 | 99997 |
-| 45-54 | 79301 | 20459 | 157 | 0 | 99917 |
-| 55-64 | 88145 | 11725 | 30 | 0 | 99900 |
-| 65+ | 549448 | 9992 | 0 | 0 | 559440 |
+| 0-5 | 55123 | 4877 | 0 | 0 | 60000 |
+| 6-11 | 49216 | 10784 | 0 | 0 | 60000 |
+| 12-17 | 42879 | 11569 | 5552 | 0 | 60000 |
+| 18-24 | 39816 | 17303 | 12881 | 0 | 70000 |
+| 25-34 | 45833 | 27592 | 26571 | 0 | 99996 |
+| 35-44 | 54204 | 37651 | 7222 | 0 | 99077 |
+| 45-54 | 73254 | 23387 | 330 | 0 | 96971 |
+| 55-64 | 84819 | 11906 | 56 | 0 | 96781 |
+| 65+ | 319166 | 15057 | 0 | 0 | 334223 |
 
 ### Family counts by age band
 
 <details><summary>Expand</summary>
 
-**0-5** — ORD/FAM 55141, INS/CIV 4859
+**0-5** — ORD/FAM 20868, ORD/GEN 10624, ORD/HOU 8825, ORD/SOC 7667, ORD/HEA 7139, INS/CIV 4877
 
-**6-11** — ORD/EDU 37287, ORD/SOC 12074, INS/EDU 10639
+**6-11** — ORD/EDU 33709, ORD/SOC 15507, INS/EDU 10784
 
-**12-17** — ORD/EDU 31610, ORD/SOC 12046, INS/EDU 7497, TRN/WOOD 4575, INS/FIN 4272
+**12-17** — ORD/EDU 28407, ORD/SOC 14472, INS/EDU 7413, INS/FIN 4156, TRN/WOOD 1625, TRN/CRYS 703, TRN/METL 691, TRN/STON 671, TRN/GLAS 667, TRN/TEMP 638, TRN/CERA 557
 
-**18-24** — ORD/CAR 13350, ORD/SOC 6337, ORD/HOU 5834, ORD/HEA 5595, INS/REL 5302, INS/MED 3766, INS/ACA 3565, ORD/CIV 3470, ORD/FAM 2562, TRN/STON 2178, TRN/GLAS 2039, TRN/CRYS 1996, TRN/WOOD 1987, TRN/METL 1933, TRN/CERA 1796, INS/COR 1726, ORD/EDU 1688, INS/MUS 1542, INS/CIV 1424, TRN/TEMP 997, INS/FIN 528, ORD/FIN 259, INS/LEG 126
+**18-24** — ORD/CAR 10217, ORD/SOC 6867, ORD/HOU 6663, ORD/HEA 6252, INS/REL 5597, ORD/CIV 4921, INS/ACA 3861, INS/MED 3187, ORD/FAM 2625, TRN/STON 2082, TRN/CRYS 2037, TRN/GLAS 1978, TRN/METL 1930, INS/MUS 1898, TRN/WOOD 1897, TRN/CERA 1667, ORD/EDU 1630, INS/CIV 1460, TRN/TEMP 1290, INS/COR 669, ORD/FIN 641, INS/FIN 532, INS/LEG 99
 
-**25-34** — ORD/SOC 11518, INS/ACA 9373, ORD/HOU 7321, ORD/CAR 7258, ORD/HEA 6272, ORD/FAM 4348, TRN/CRYS 4186, TRN/STON 4124, TRN/CERA 4110, TRN/METL 4096, INS/COR 4044, TRN/WOOD 4040, TRN/GLAS 4038, INS/FIN 3961, ORD/CIV 3663, TRN/TEMP 3592, INS/MUS 3072, INS/MED 3000, INS/CIV 2614, INS/LEG 2416, INS/REL 1581, ORD/FIN 1322, TRN/SYNT 44, INS/ARC 7
+**25-34** — ORD/CAR 15419, ORD/SOC 8060, INS/ACA 7432, ORD/HOU 6872, ORD/HEA 5838, INS/MED 4759, ORD/FAM 4243, INS/FIN 4102, TRN/CRYS 3969, TRN/TEMP 3911, TRN/STON 3909, TRN/METL 3780, TRN/GLAS 3686, TRN/CERA 3661, TRN/WOOD 3618, ORD/CIV 3536, INS/MUS 3150, INS/CIV 2938, INS/LEG 1907, ORD/FIN 1865, INS/REL 1656, INS/COR 1630, TRN/SYNT 37, INS/ARC 18
 
-**35-44** — ORD/SOC 25537, INS/ACA 15117, ORD/FAM 11791, ORD/HOU 7323, ORD/GEN 7290, TRN/TEMP 5170, INS/CIV 4891, INS/LEG 4296, INS/COR 3507, ORD/CAR 3463, INS/MED 2385, ORD/FIN 2316, INS/FIN 2291, INS/MUS 1358, ORD/CIV 1183, INS/REL 880, TRN/CRYS 180, TRN/STON 164, TRN/SYNT 158, TRN/GLAS 148, TRN/METL 141, TRN/WOOD 139, TRN/CERA 128, INS/ARC 120, TRN/MIXD 21
+**35-44** — ORD/SOC 17098, INS/MED 11294, ORD/FAM 10552, ORD/GEN 10033, INS/ACA 9436, ORD/HOU 7810, INS/CIV 5265, ORD/CAR 5065, TRN/TEMP 4194, INS/LEG 3872, ORD/FIN 2575, INS/FIN 2386, INS/MUS 1867, INS/COR 1731, INS/REL 1411, ORD/CIV 1071, TRN/STON 510, TRN/CRYS 470, TRN/WOOD 470, TRN/GLAS 458, TRN/METL 441, TRN/CERA 390, INS/ARC 389, TRN/SYNT 218, TRN/MIXD 71
 
-**45-54** — ORD/FAM 27697, ORD/CAR 15284, ORD/HEA 14969, ORD/SOC 12989, ORD/GEN 8362, INS/FIN 8335, INS/CIV 5781, INS/COR 1805, INS/ACA 1697, INS/LEG 1311, INS/MED 931, INS/REL 314, INS/MUS 170, TRN/MIXD 157, INS/ARC 115
+**45-54** — ORD/FAM 23005, ORD/CAR 15305, ORD/HEA 13945, ORD/SOC 13337, ORD/GEN 7662, INS/FIN 7660, INS/CIV 6156, INS/MED 3323, INS/LEG 2957, INS/ACA 943, INS/COR 932, INS/REL 766, INS/MUS 341, TRN/MIXD 322, INS/ARC 309, TRN/TEMP 8
 
-**55-64** — ORD/GEN 23531, ORD/FAM 17653, ORD/CAR 17506, ORD/SOC 15724, ORD/HEA 13731, INS/CIV 9990, INS/FIN 1654, INS/MED 50, INS/LEG 31, TRN/MIXD 30
+**55-64** — ORD/GEN 20456, ORD/FAM 18521, ORD/CAR 16516, ORD/SOC 15729, ORD/HEA 13597, INS/CIV 9677, INS/FIN 2019, INS/MED 136, INS/LEG 71, TRN/MIXD 56, INS/MUS 2, INS/REL 1
 
-**65+** — ORD/GEN 438411, ORD/SOC 109825, INS/CIV 9990, ORD/FAM 1212, INS/FIN 1, INS/MED 1
+**65+** — ORD/GEN 241442, ORD/SOC 64680, ORD/FAM 13044, INS/CIV 7606, INS/MED 7450, INS/FIN 1
 
 </details>
 
@@ -122,99 +123,116 @@ Average **45.4**, median **45.0**, p10 **43**, p90 **48**.
 
 | Metric | Value |
 |---|---|
-| Fallback event-years | 336108 |
-| Fallback share of all event-years | 27.8% |
-| Fallback share of age-25+ event-years | 35.0% |
+| Fallback event-years | 189903 |
+| Fallback share of all event-years | 19.4% |
+| Fallback share of age-25+ event-years | 26.1% |
 | Target age-25+ fallback share | 2% |
 | Pre-25 fallback events (must be 0) | 0 |
 | Pre-25 coverage-defect runs | 0 (0.0%) |
-| Pre-25 diagnostic reuse years | 13007 |
+| SPC channel share of event-years | 0.00% |
+| Runs using a mandatory_only event | 40.1% |
+| Endings at age 65+ | 92.5% |
 
 ### Routes, schedules and priority
 
 | Metric | Value |
 |---|---|
 | Route entry rate (run entered >=1 route) | 100.0% |
-| Route climax rate (run fired a climax schedule) | 0.1% |
-| Route abandonment/expiry rate (run had >=1 expired schedule) | 98.8% |
-| Expired schedules total | 29921 |
-| Priority collision rate (run had >=1 contested year) | 0.7% |
-| Contested years total | 73 |
-| Schedule displacements per run | 0.01 |
+| Route climax rate (run fired a climax schedule) | 42.9% |
+| Route abandonment/expiry rate (run had >=1 expired schedule) | 97.3% |
+| Expired schedules total | 37761 |
+| Priority collision rate (run had >=1 contested year) | 5.0% |
+| Contested years total | 792 |
+| Schedule displacements per run | 0.08 |
 
 Most-entered route flags:
 
 | Route flag | Runs |
 |---|---|
-| `ROUTE_FAM_PLACEMENT` | 8203 |
-| `ROUTE_REL_INTEREST` | 7482 |
-| `ROUTE_MED_SCREENED` | 7458 |
-| `ROUTE_CIV_SERVICE` | 7223 |
-| `ROUTE_ACA_RESEARCH` | 6864 |
-| `ROUTE_CIV_MEMORIAL` | 6521 |
-| `ROUTE_COR_EMPLOYEE` | 6198 |
-| `ROUTE_FAM_DIRECTIVE` | 6092 |
-| `ROUTE_CIV_REBRANDED` | 5877 |
-| `ROUTE_MUS_INTEREST` | 5676 |
-| `ROUTE_TEMP_STUDY` | 5642 |
-| `ROUTE_ACA_SPECIALIZATION` | 5620 |
-| `ROUTE_FIN_VALUED` | 5337 |
-| `ROUTE_ACA_TENURE_REVIEW` | 3003 |
-| `ROUTE_ACA_TENURE_TRACK` | 3003 |
-| `ROUTE_COR_CONTRACT` | 2885 |
-| `ROUTE_COR_PRESERVATION_PLAN` | 2885 |
-| `ROUTE_ACA_CONTINUITY` | 2831 |
-| `ROUTE_ACA_CONTINUITY_EXPOSED` | 2831 |
-| `ROUTE_ACA_MATERIALS` | 2789 |
+| `ROUTE_FAM_LATE_LEGACY` | 9003 |
+| `ROUTE_CIV_SERVICE` | 8431 |
+| `ROUTE_REL_INTEREST` | 7871 |
+| `ROUTE_FAM_PLACEMENT` | 7796 |
+| `ROUTE_CIV_MEMORIAL` | 7210 |
+| `ROUTE_CIV_REBRANDED` | 6449 |
+| `ROUTE_ACA_RESEARCH` | 6372 |
+| `ROUTE_MUS_INTEREST` | 6210 |
+| `ROUTE_MED_SCREENED` | 6182 |
+| `ROUTE_MED_LATE_CONTINUITY` | 5943 |
+| `ROUTE_FIN_VALUED` | 5427 |
+| `ROUTE_MED_PRESERVATION_CONSULT` | 5305 |
+| `ROUTE_CAR_MATERIAL_EXPOSURE` | 4787 |
+| `ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY` | 4785 |
+| `ROUTE_FAM_DIRECTIVE` | 4552 |
+| `ROUTE_ACA_SPECIALIZATION` | 4012 |
+| `ROUTE_MED_CONTROLLED_HARDENING` | 4007 |
+| `ROUTE_MED_CONTROLLED_HARDENING_STAGE2` | 4007 |
+| `ROUTE_TEMP_STUDY` | 3722 |
+| `ROUTE_COR_EMPLOYEE` | 3448 |
 
 ### Material
 
-Material Commitment rate: **16.0%**. Final-material entropy: **1.11 bits**.
+Material Commitment rate: **42.9%**. Final-material entropy: **2.28 bits**.
 
 | Final material | Runs | Share |
 |---|---|---|
-| NONE | 8405 | 84.0% |
-| CRYS | 229 | 2.3% |
-| GLAS | 221 | 2.2% |
-| STON | 210 | 2.1% |
-| MIXD | 208 | 2.1% |
-| METL | 192 | 1.9% |
-| SYNT | 179 | 1.8% |
-| WOOD | 179 | 1.8% |
-| CERA | 177 | 1.8% |
+| NONE | 5710 | 57.1% |
+| SYNT | 709 | 7.1% |
+| STON | 585 | 5.9% |
+| CRYS | 541 | 5.4% |
+| METL | 527 | 5.3% |
+| WOOD | 525 | 5.3% |
+| GLAS | 497 | 5.0% |
+| MIXD | 449 | 4.5% |
+| CERA | 432 | 4.3% |
+| TEMP | 25 | 0.3% |
 
 Final material by species:
 
-| Species | CERA | CRYS | GLAS | METL | MIXD | NONE | STON | SYNT | WOOD | Entropy (bits) |
-|---|---|---|---|---|---|---|---|---|---|---|
-| HUMAN | 37 | 41 | 45 | 24 | 38 | 1400 | 34 | 23 | 25 | 1.11 |
-| ELF | 25 | 52 | 33 | 14 | 43 | 1397 | 25 | 28 | 50 | 1.11 |
-| DWARF | 41 | 19 | 24 | 36 | 36 | 1398 | 48 | 39 | 26 | 1.11 |
-| WINGED_KIN | 22 | 41 | 41 | 18 | 34 | 1395 | 43 | 35 | 38 | 1.12 |
-| DEMONKIN | 22 | 34 | 57 | 35 | 29 | 1414 | 29 | 22 | 24 | 1.06 |
-| DRAGONKIN | 30 | 42 | 21 | 65 | 28 | 1401 | 31 | 32 | 16 | 1.09 |
+| Species | CERA | CRYS | GLAS | METL | MIXD | NONE | STON | SYNT | TEMP | WOOD | Entropy (bits) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| HUMAN | 83 | 77 | 77 | 95 | 66 | 960 | 86 | 131 | 2 | 90 | 2.25 |
+| ELF | 67 | 114 | 80 | 53 | 100 | 934 | 73 | 115 | 5 | 126 | 2.30 |
+| DWARF | 70 | 61 | 61 | 123 | 71 | 934 | 136 | 127 | 2 | 82 | 2.28 |
+| WINGED_KIN | 75 | 92 | 61 | 68 | 65 | 967 | 127 | 127 | 7 | 78 | 2.24 |
+| DEMONKIN | 76 | 71 | 146 | 81 | 77 | 938 | 81 | 108 | 3 | 85 | 2.29 |
+| DRAGONKIN | 61 | 126 | 72 | 107 | 70 | 977 | 82 | 101 | 6 | 64 | 2.22 |
 
 | Determinism check | Runs with evidence | Same final material | P | Guardrail |
 |---|---|---|---|---|
-| P(final WOOD | hint WOOD) | 884 | 31 | 3.5% | <= 70% |
-| P(final GLAS | hint GLAS) | 762 | 23 | 3.0% | <= 70% |
-| P(final METL | hint METL) | 871 | 37 | 4.2% | <= 70% |
-| P(final STON | hint STON) | 892 | 26 | 2.9% | <= 70% |
-| P(final CRYS | hint CRYS) | 665 | 17 | 2.6% | <= 70% |
-| P(final WOOD | first manifestation WOOD) | 5294 | 116 | 2.2% | <= 80% |
-| P(final METL | first manifestation METL) | 873 | 14 | 1.6% | <= 80% |
-| P(final STON | first manifestation STON) | 907 | 10 | 1.1% | <= 80% |
-| P(final CRYS | first manifestation CRYS) | 901 | 25 | 2.8% | <= 80% |
-| P(final TEMP | first manifestation TEMP) | 416 | 0 | 0.0% | <= 80% |
-| P(final GLAS | first manifestation GLAS) | 845 | 14 | 1.7% | <= 80% |
-| P(final CERA | first manifestation CERA) | 761 | 9 | 1.2% | <= 80% |
+| P(final WOOD | hint WOOD) | 915 | 75 | 8.2% | <= 70% |
+| P(final STON | hint STON) | 932 | 81 | 8.7% | <= 70% |
+| P(final METL | hint METL) | 899 | 69 | 7.7% | <= 70% |
+| P(final GLAS | hint GLAS) | 757 | 79 | 10.4% | <= 70% |
+| P(final CRYS | hint CRYS) | 658 | 43 | 6.5% | <= 70% |
+| P(final CERA | first manifestation CERA) | 1159 | 78 | 6.7% | <= 80% |
+| P(final WOOD | first manifestation WOOD) | 2319 | 174 | 7.5% | <= 80% |
+| P(final CRYS | first manifestation CRYS) | 1392 | 118 | 8.5% | <= 80% |
+| P(final GLAS | first manifestation GLAS) | 1329 | 103 | 7.8% | <= 80% |
+| P(final TEMP | first manifestation TEMP) | 1043 | 7 | 0.7% | <= 80% |
+| P(final STON | first manifestation STON) | 1421 | 101 | 7.1% | <= 80% |
+| P(final METL | first manifestation METL) | 1332 | 99 | 7.4% | <= 80% |
+
+First manifestation family distribution (Q-22):
+
+| Family | Runs | Share of runs with a manifestation | Mean age | Median age |
+|---|---|---|---|---|
+| WOOD | 2319 | 23.2% | 15.8 | 14.0 |
+| STON | 1421 | 14.2% | 19.4 | 19.0 |
+| CRYS | 1392 | 13.9% | 19.2 | 19.0 |
+| METL | 1332 | 13.3% | 19.1 | 19.0 |
+| GLAS | 1329 | 13.3% | 19.0 | 18.0 |
+| CERA | 1159 | 11.6% | 19.2 | 19.0 |
+| TEMP | 1043 | 10.4% | 20.9 | 20.0 |
+
+Runs with no manifestation at all: **0.1%**.
 
 | Material timing | Value |
 |---|---|
-| Average first-hint age | 9.5 |
-| Average first-manifestation age | 18.4 |
-| Average commitment age | 35.8 |
-| Multiple manifestations before commitment | 98.7% |
+| Average first-hint age | 9.4 |
+| Average first-manifestation age | 18.6 |
+| Average commitment age | 41.1 |
+| Multiple manifestations before commitment | 98.4% |
 
 ### Talents
 
@@ -223,37 +241,46 @@ Final material by species:
 
 ### Endings
 
-Distinct endings observed: **1/24** (4.2% of the registry). Rare/hidden share of completed runs: **0.0%**; hidden-only: **0.0%**.
+Distinct endings observed: **10/24** (41.7% of the registry). Rare/hidden share of completed runs: **0.8%**; hidden-only: **0.0%**.
 
 | Ending | Title | Runs | Share of completed |
 |---|---|---|---|
-| `END-MED-001` | Last Version of You | 10 | 100.0% |
+| `END-MED-001` | Last Version of You | 1785 | 41.6% |
+| `END-FAM-002` | The Garden Figure | 1337 | 31.2% |
+| `END-FAM-001` | Family Heirloom | 1125 | 26.2% |
+| `END-TMP-001` | Time Served | 25 | 0.6% |
+| `END-MUS-002` | Excellent Condition, Minor Wear | 5 | 0.1% |
+| `END-MUS-004` | Mixed Media | 4 | 0.1% |
+| `END-CIV-001` | Living Memorial | 3 | 0.1% |
+| `END-REL-001` | Sacred Object, Pending Appeal | 3 | 0.1% |
+| `END-ARC-001` | Structural Support | 2 | 0.0% |
+| `END-CIV-002` | Politically Neutral Landmark | 1 | 0.0% |
 
 ### Final stats
 
 | Stat | Mean at run end |
 |---|---|
-| CHR | 1.09 |
-| INT | 20.57 |
-| STR | -3.33 |
-| MNY | 3.23 |
-| SPR | 53.50 |
-| FIX | 26.95 |
+| CHR | 7.49 |
+| INT | 20.01 |
+| STR | 1.13 |
+| MNY | 1.82 |
+| SPR | 46.09 |
+| FIX | 34.83 |
 
-FIX distribution at run end — p50 **26**, p90 **44**, p99 **49**, max **53**.
+FIX distribution at run end — p50 **35**, p90 **48**, p99 **54**, max **59**.
 
 ### Guardrail findings
 
 | Severity | ID | Finding |
 |---|---|---|
-| WARNING | `fallback-share` | Age-25+ fallback share 35.0% exceeds the warning threshold 5.0% (target 2.0%). |
+| WARNING | `fallback-share` | Age-25+ fallback share 26.1% exceeds the warning threshold 5.0% (target 2.0%). |
 | WARNING | `ending-age-share-18-24` | Ending age band 18-24: observed 0.0% vs target 18-22%. |
-| WARNING | `ending-age-share-25-34` | Ending age band 25-34: observed 0.0% vs target 35-40%. |
-| WARNING | `ending-age-share-35-44` | Ending age band 35-44: observed 50.0% vs target 20-25%. |
-| WARNING | `ending-age-share-45-54` | Ending age band 45-54: observed 50.0% vs target 8-12%. |
-| WARNING | `ending-age-share-55-64` | Ending age band 55-64: observed 0.0% vs target 4-7%. |
-| WARNING | `ending-age-share-65+` | Ending age band 65+: observed 0.0% vs target 2-5%. |
-| FAILURE | `nonterminal-rate` | 9990/10000 runs (99.9%) reached the diagnostic maximum age without an ending. |
+| WARNING | `ending-age-share-25-34` | Ending age band 25-34: observed 0.2% vs target 35-40%. |
+| WARNING | `ending-age-share-35-44` | Ending age band 35-44: observed 5.4% vs target 20-25%. |
+| WARNING | `ending-age-share-45-54` | Ending age band 45-54: observed 1.9% vs target 8-12%. |
+| WARNING | `ending-age-share-55-64` | Ending age band 55-64: observed 0.1% vs target 4-7%. |
+| WARNING | `ending-age-share-65+` | Ending age band 65+: observed 92.5% vs target 2-5%. |
+| FAILURE | `nonterminal-rate` | 5710/10000 runs (57.1%) reached the diagnostic maximum age without an ending. |
 
 ## Scenario `uniform-three` — UNIFORM_RANDOM_THREE_COMPATIBLE_DIAGNOSTIC
 
@@ -262,69 +289,69 @@ Three mutually compatible talents drawn uniformly from a 10-talent draft.
 | Setting | Value |
 |---|---|
 | Runs | 10000 |
-| Base seed | `phase1` |
+| Base seed | `phase1_1` |
 | Species sampling | stratified equally |
 | Diagnostic max age | 120 |
-| Pre-25 coverage policy | `reuse_baseline_repeatables` |
+| Family weighting | `uniform` |
 
 ### Outcome rates
 
 | Outcome | Runs | Share |
 |---|---|---|
-| Completed (reached an ending) | 73 | 0.7% |
-| Nonterminal at diagnostic max age | 9927 | 99.3% |
+| Completed (reached an ending) | 4694 | 46.9% |
+| Nonterminal at diagnostic max age | 5306 | 53.1% |
 | Pre-25 content coverage defect | 0 | 0.0% |
 
-Average run length: **120.4 years** across 1204304 simulated event-years.
+Average run length: **93.5 years** across 935358 simulated event-years.
 
 ### Ending age
 
-Average **42.0**, median **43.0**, p10 **34**, p90 **48**.
+Average **61.5**, median **67.0**, p10 **41**, p90 **69**.
 
 | Age band | Observed share | Target range | Within target |
 |---|---|---|---|
 | 18-24 | 0.0% | 18%–22% | NO |
-| 25-34 | 11.0% | 35%–40% | NO |
-| 35-44 | 57.5% | 20%–25% | NO |
-| 45-54 | 31.5% | 8%–12% | NO |
-| 55-64 | 0.0% | 4%–7% | NO |
-| 65+ | 0.0% | 2%–5% | NO |
+| 25-34 | 1.3% | 35%–40% | NO |
+| 35-44 | 14.5% | 20%–25% | NO |
+| 45-54 | 8.3% | 8%–12% | yes |
+| 55-64 | 1.2% | 4%–7% | NO |
+| 65+ | 74.7% | 2%–5% | NO |
 
 ### Channel counts by age band
 
 | Age band | ORD | INS | TRN | SPC | Total |
 |---|---|---|---|---|---|
-| 0-5 | 55096 | 4904 | 0 | 0 | 60000 |
-| 6-11 | 49306 | 10694 | 0 | 0 | 60000 |
-| 12-17 | 43722 | 11771 | 4507 | 0 | 60000 |
-| 18-24 | 38711 | 18124 | 13165 | 0 | 70000 |
-| 25-34 | 41864 | 30096 | 28027 | 0 | 99987 |
-| 35-44 | 58925 | 34780 | 6088 | 0 | 99793 |
-| 45-54 | 78201 | 20892 | 249 | 0 | 99342 |
-| 55-64 | 87454 | 11782 | 34 | 0 | 99270 |
-| 65+ | 545981 | 9931 | 0 | 0 | 555912 |
+| 0-5 | 55094 | 4906 | 0 | 0 | 60000 |
+| 6-11 | 49305 | 10695 | 0 | 0 | 60000 |
+| 12-17 | 42768 | 11643 | 5589 | 0 | 60000 |
+| 18-24 | 39260 | 17302 | 12602 | 836 | 70000 |
+| 25-34 | 45613 | 27094 | 26285 | 922 | 99914 |
+| 35-44 | 52107 | 36249 | 7075 | 1377 | 96808 |
+| 45-54 | 67575 | 21503 | 344 | 796 | 90218 |
+| 55-64 | 77204 | 10934 | 51 | 113 | 88302 |
+| 65+ | 296232 | 13884 | 0 | 0 | 310116 |
 
 ### Family counts by age band
 
 <details><summary>Expand</summary>
 
-**0-5** — ORD/FAM 55096, INS/CIV 4904
+**0-5** — ORD/FAM 21213, ORD/GEN 10300, ORD/HOU 8765, ORD/SOC 7760, ORD/HEA 7056, INS/CIV 4906
 
-**6-11** — ORD/EDU 37054, ORD/SOC 12252, INS/EDU 10694
+**6-11** — ORD/EDU 33638, ORD/SOC 15667, INS/EDU 10695
 
-**12-17** — ORD/EDU 31500, ORD/SOC 12222, INS/EDU 7511, TRN/WOOD 4507, INS/FIN 4260
+**12-17** — ORD/EDU 28201, ORD/SOC 14567, INS/EDU 7429, INS/FIN 4214, TRN/WOOD 1600, TRN/STON 745, TRN/CRYS 729, TRN/METL 661, TRN/GLAS 636, TRN/TEMP 624, TRN/CERA 594
 
-**18-24** — ORD/CAR 13299, ORD/SOC 6493, ORD/HOU 5692, ORD/HEA 5440, INS/REL 5435, INS/MED 3730, INS/ACA 3647, ORD/CIV 3429, ORD/FAM 2523, TRN/STON 2169, TRN/CRYS 2125, TRN/WOOD 2098, TRN/METL 2001, TRN/GLAS 1934, TRN/CERA 1835, INS/COR 1746, ORD/EDU 1624, INS/MUS 1547, INS/CIV 1463, TRN/TEMP 1003, INS/FIN 450, ORD/FIN 211, INS/LEG 106
+**18-24** — ORD/CAR 10238, ORD/SOC 6909, ORD/HOU 6473, ORD/HEA 6116, INS/REL 5463, ORD/CIV 4818, INS/ACA 3846, INS/MED 3278, ORD/FAM 2601, TRN/STON 2091, TRN/CRYS 1978, INS/MUS 1873, TRN/METL 1872, TRN/GLAS 1866, TRN/WOOD 1859, TRN/CERA 1677, ORD/EDU 1586, INS/CIV 1480, TRN/TEMP 1259, INS/COR 728, INS/FIN 539, ORD/FIN 519, SPC/TLNT 454, SPC/REIN 382, INS/LEG 95
 
-**25-34** — ORD/SOC 11748, INS/ACA 9303, ORD/HOU 7317, ORD/CAR 7263, ORD/HEA 6322, ORD/FAM 4272, TRN/STON 4201, TRN/CRYS 4042, TRN/METL 4040, INS/COR 4026, TRN/CERA 4013, TRN/GLAS 4004, TRN/WOOD 4001, INS/FIN 3823, ORD/CIV 3674, TRN/TEMP 3576, INS/MED 3360, INS/MUS 3099, INS/CIV 2500, INS/LEG 2416, INS/REL 1551, ORD/FIN 1268, TRN/SYNT 149, INS/ARC 18, TRN/MIXD 1
+**25-34** — ORD/CAR 15307, ORD/SOC 8178, INS/ACA 7110, ORD/HOU 6880, ORD/HEA 5853, INS/MED 4793, ORD/FAM 4172, INS/FIN 3922, TRN/STON 3878, TRN/CRYS 3844, TRN/TEMP 3792, TRN/METL 3754, TRN/GLAS 3743, TRN/CERA 3618, ORD/CIV 3600, TRN/WOOD 3570, INS/MUS 3158, INS/CIV 2871, INS/LEG 1830, INS/COR 1693, INS/REL 1680, ORD/FIN 1623, SPC/REIN 426, SPC/TLNT 401, SPC/ANO 95, TRN/SYNT 84, INS/ARC 37, TRN/MIXD 2
 
-**35-44** — ORD/SOC 25946, INS/ACA 14299, ORD/FAM 11639, ORD/GEN 7269, ORD/HOU 7229, INS/CIV 4806, TRN/TEMP 4804, INS/LEG 4450, ORD/CAR 3524, INS/COR 3501, INS/MED 2764, ORD/FIN 2189, INS/FIN 2169, INS/MUS 1607, ORD/CIV 1129, INS/REL 1023, TRN/STON 200, TRN/CRYS 188, TRN/GLAS 180, TRN/METL 177, TRN/WOOD 166, TRN/CERA 163, INS/ARC 161, TRN/SYNT 157, TRN/MIXD 53
+**35-44** — ORD/SOC 16967, INS/MED 10773, ORD/FAM 10064, ORD/GEN 9402, INS/ACA 8916, ORD/HOU 7344, ORD/CAR 5087, INS/CIV 5022, TRN/TEMP 4010, INS/LEG 3877, INS/FIN 2185, ORD/FIN 2173, INS/MUS 1981, INS/COR 1700, INS/REL 1423, SPC/ANO 1098, ORD/CIV 1070, TRN/CRYS 530, TRN/STON 527, TRN/GLAS 448, TRN/METL 443, TRN/WOOD 417, TRN/CERA 388, INS/ARC 372, TRN/SYNT 234, SPC/REIN 176, SPC/TLNT 103, TRN/MIXD 78
 
-**45-54** — ORD/FAM 27199, ORD/CAR 15094, ORD/HEA 14723, ORD/SOC 12939, ORD/GEN 8246, INS/FIN 8169, INS/CIV 5614, INS/COR 1707, INS/LEG 1687, INS/ACA 1663, INS/MED 1219, INS/REL 412, TRN/MIXD 249, INS/MUS 248, INS/ARC 173
+**45-54** — ORD/FAM 21178, ORD/CAR 14217, ORD/HEA 12878, ORD/SOC 12204, ORD/GEN 7098, INS/FIN 6970, INS/CIV 5817, INS/MED 3083, INS/LEG 2604, INS/ACA 909, INS/COR 883, SPC/ANO 750, INS/REL 635, INS/MUS 347, TRN/MIXD 338, INS/ARC 255, SPC/REIN 39, SPC/TLNT 7, TRN/TEMP 6
 
-**55-64** — ORD/GEN 22953, ORD/FAM 17696, ORD/CAR 17337, ORD/SOC 15692, ORD/HEA 13776, INS/CIV 9924, INS/FIN 1757, INS/MED 66, INS/LEG 35, TRN/MIXD 34
+**55-64** — ORD/GEN 18529, ORD/FAM 16832, ORD/CAR 15137, ORD/SOC 14351, ORD/HEA 12355, INS/CIV 8819, INS/FIN 1881, INS/MED 171, SPC/ANO 113, INS/LEG 57, TRN/MIXD 51, INS/MUS 5, INS/REL 1
 
-**65+** — ORD/GEN 435505, ORD/SOC 109127, INS/CIV 9930, ORD/FAM 1349, INS/FIN 1
+**65+** — ORD/GEN 224414, ORD/SOC 60069, ORD/FAM 11747, INS/CIV 7026, INS/MED 6856, INS/FIN 2, ORD/CAR 2
 
 </details>
 
@@ -332,114 +359,130 @@ Average **42.0**, median **43.0**, p10 **34**, p90 **48**.
 
 | Metric | Value |
 |---|---|
-| Fallback event-years | 333630 |
-| Fallback share of all event-years | 27.7% |
-| Fallback share of age-25+ event-years | 35.0% |
+| Fallback event-years | 176204 |
+| Fallback share of all event-years | 18.8% |
+| Fallback share of age-25+ event-years | 25.7% |
 | Target age-25+ fallback share | 2% |
 | Pre-25 fallback events (must be 0) | 0 |
 | Pre-25 coverage-defect runs | 0 (0.0%) |
-| Pre-25 diagnostic reuse years | 12913 |
+| SPC channel share of event-years | 0.43% |
+| Runs using a mandatory_only event | 42.9% |
+| Endings at age 65+ | 74.7% |
 
 ### Routes, schedules and priority
 
 | Metric | Value |
 |---|---|
 | Route entry rate (run entered >=1 route) | 100.0% |
-| Route climax rate (run fired a climax schedule) | 0.7% |
-| Route abandonment/expiry rate (run had >=1 expired schedule) | 98.5% |
-| Expired schedules total | 30100 |
-| Priority collision rate (run had >=1 contested year) | 1.2% |
-| Contested years total | 116 |
-| Schedule displacements per run | 0.01 |
+| Route climax rate (run fired a climax schedule) | 46.9% |
+| Route abandonment/expiry rate (run had >=1 expired schedule) | 93.4% |
+| Expired schedules total | 35341 |
+| Priority collision rate (run had >=1 contested year) | 5.7% |
+| Contested years total | 869 |
+| Schedule displacements per run | 0.09 |
 
 Most-entered route flags:
 
 | Route flag | Runs |
 |---|---|
-| `ROUTE_FAM_PLACEMENT` | 8111 |
-| `ROUTE_REL_INTEREST` | 7524 |
-| `ROUTE_MED_SCREENED` | 7452 |
-| `ROUTE_CIV_SERVICE` | 7158 |
-| `ROUTE_ACA_RESEARCH` | 6838 |
-| `ROUTE_CIV_MEMORIAL` | 6368 |
-| `ROUTE_COR_EMPLOYEE` | 6149 |
-| `ROUTE_FAM_DIRECTIVE` | 5996 |
-| `ROUTE_MUS_INTEREST` | 5757 |
-| `ROUTE_CIV_REBRANDED` | 5685 |
-| `ROUTE_ACA_SPECIALIZATION` | 5461 |
-| `ROUTE_TEMP_STUDY` | 5250 |
-| `ROUTE_FIN_VALUED` | 5208 |
-| `ROUTE_MED_PRESERVATION_CONSULT` | 3009 |
-| `ROUTE_ACA_CONTINUITY` | 2964 |
-| `ROUTE_ACA_CONTINUITY_EXPOSED` | 2964 |
-| `ROUTE_ACA_TENURE_TRACK` | 2952 |
-| `ROUTE_ACA_TENURE_REVIEW` | 2950 |
-| `ROUTE_COR_PRESERVATION_PLAN` | 2885 |
-| `ROUTE_COR_CONTRACT` | 2884 |
+| `ROUTE_CIV_SERVICE` | 8406 |
+| `ROUTE_FAM_LATE_LEGACY` | 8229 |
+| `ROUTE_REL_INTEREST` | 7716 |
+| `ROUTE_FAM_PLACEMENT` | 7662 |
+| `ROUTE_CIV_MEMORIAL` | 6956 |
+| `ROUTE_MUS_INTEREST` | 6249 |
+| `ROUTE_ACA_RESEARCH` | 6208 |
+| `ROUTE_MED_SCREENED` | 6062 |
+| `ROUTE_CIV_REBRANDED` | 6049 |
+| `ROUTE_MED_LATE_CONTINUITY` | 5409 |
+| `ROUTE_FIN_VALUED` | 5294 |
+| `ROUTE_MED_PRESERVATION_CONSULT` | 5255 |
+| `ROUTE_CAR_MATERIAL_EXPOSURE` | 4777 |
+| `ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY` | 4772 |
+| `ROUTE_FAM_DIRECTIVE` | 4376 |
+| `ROUTE_MED_CONTROLLED_HARDENING` | 3859 |
+| `ROUTE_MED_CONTROLLED_HARDENING_STAGE2` | 3859 |
+| `ROUTE_ACA_SPECIALIZATION` | 3814 |
+| `ROUTE_TEMP_STUDY` | 3688 |
+| `ROUTE_COR_EMPLOYEE` | 3480 |
 
 ### Material
 
-Material Commitment rate: **22.0%**. Final-material entropy: **1.42 bits**.
+Material Commitment rate: **46.9%**. Final-material entropy: **2.41 bits**.
 
 | Final material | Runs | Share |
 |---|---|---|
-| NONE | 7804 | 78.0% |
-| MIXD | 337 | 3.4% |
-| STON | 298 | 3.0% |
-| METL | 275 | 2.8% |
-| WOOD | 275 | 2.8% |
-| CRYS | 271 | 2.7% |
-| GLAS | 257 | 2.6% |
-| SYNT | 245 | 2.5% |
-| CERA | 237 | 2.4% |
-| TEMP | 1 | 0.0% |
+| NONE | 5306 | 53.1% |
+| SYNT | 811 | 8.1% |
+| STON | 664 | 6.6% |
+| CRYS | 620 | 6.2% |
+| METL | 569 | 5.7% |
+| GLAS | 548 | 5.5% |
+| WOOD | 514 | 5.1% |
+| CERA | 470 | 4.7% |
+| MIXD | 469 | 4.7% |
+| TEMP | 29 | 0.3% |
 
 Final material by species:
 
 | Species | CERA | CRYS | GLAS | METL | MIXD | NONE | STON | SYNT | TEMP | WOOD | Entropy (bits) |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| HUMAN | 39 | 37 | 34 | 43 | 71 | 1307 | 41 | 40 | 0 | 55 | 1.39 |
-| ELF | 30 | 55 | 39 | 32 | 62 | 1308 | 41 | 34 | 0 | 66 | 1.38 |
-| DWARF | 48 | 26 | 24 | 56 | 40 | 1319 | 70 | 44 | 0 | 40 | 1.35 |
-| WINGED_KIN | 41 | 54 | 46 | 30 | 52 | 1282 | 70 | 41 | 0 | 51 | 1.46 |
-| DEMONKIN | 42 | 37 | 69 | 42 | 65 | 1302 | 35 | 42 | 1 | 31 | 1.40 |
-| DRAGONKIN | 37 | 62 | 45 | 72 | 47 | 1286 | 41 | 44 | 0 | 32 | 1.45 |
+| HUMAN | 89 | 96 | 88 | 95 | 64 | 901 | 95 | 149 | 3 | 87 | 2.37 |
+| ELF | 66 | 113 | 78 | 65 | 97 | 873 | 97 | 136 | 6 | 136 | 2.42 |
+| DWARF | 76 | 69 | 81 | 142 | 86 | 869 | 134 | 128 | 4 | 78 | 2.42 |
+| WINGED_KIN | 71 | 106 | 80 | 86 | 79 | 859 | 149 | 152 | 6 | 79 | 2.44 |
+| DEMONKIN | 73 | 78 | 145 | 74 | 72 | 933 | 82 | 123 | 5 | 81 | 2.30 |
+| DRAGONKIN | 95 | 158 | 76 | 107 | 71 | 871 | 107 | 123 | 5 | 53 | 2.41 |
 
 | Determinism check | Runs with evidence | Same final material | P | Guardrail |
 |---|---|---|---|---|
-| P(final WOOD | hint WOOD) | 878 | 32 | 3.6% | <= 70% |
-| P(final STON | hint STON) | 905 | 43 | 4.8% | <= 70% |
-| P(final GLAS | hint GLAS) | 809 | 35 | 4.3% | <= 70% |
-| P(final METL | hint METL) | 900 | 45 | 5.0% | <= 70% |
-| P(final CRYS | hint CRYS) | 652 | 23 | 3.5% | <= 70% |
-| P(final WOOD | first manifestation WOOD) | 5249 | 179 | 3.4% | <= 80% |
-| P(final GLAS | first manifestation GLAS) | 819 | 22 | 2.7% | <= 80% |
-| P(final CRYS | first manifestation CRYS) | 957 | 24 | 2.5% | <= 80% |
-| P(final STON | first manifestation STON) | 935 | 37 | 4.0% | <= 80% |
-| P(final METL | first manifestation METL) | 902 | 31 | 3.4% | <= 80% |
-| P(final CERA | first manifestation CERA) | 767 | 23 | 3.0% | <= 80% |
-| P(final TEMP | first manifestation TEMP) | 368 | 0 | 0.0% | <= 80% |
+| P(final STON | hint STON) | 872 | 86 | 9.9% | <= 70% |
+| P(final CRYS | hint CRYS) | 678 | 46 | 6.8% | <= 70% |
+| P(final GLAS | hint GLAS) | 743 | 71 | 9.6% | <= 70% |
+| P(final WOOD | hint WOOD) | 918 | 79 | 8.6% | <= 70% |
+| P(final METL | hint METL) | 891 | 59 | 6.6% | <= 70% |
+| P(final GLAS | first manifestation GLAS) | 1338 | 112 | 8.4% | <= 80% |
+| P(final CRYS | first manifestation CRYS) | 1360 | 132 | 9.7% | <= 80% |
+| P(final METL | first manifestation METL) | 1337 | 113 | 8.5% | <= 80% |
+| P(final WOOD | first manifestation WOOD) | 2333 | 191 | 8.2% | <= 80% |
+| P(final STON | first manifestation STON) | 1476 | 150 | 10.2% | <= 80% |
+| P(final CERA | first manifestation CERA) | 1163 | 103 | 8.9% | <= 80% |
+| P(final TEMP | first manifestation TEMP) | 990 | 1 | 0.1% | <= 80% |
+
+First manifestation family distribution (Q-22):
+
+| Family | Runs | Share of runs with a manifestation | Mean age | Median age |
+|---|---|---|---|---|
+| WOOD | 2333 | 23.3% | 15.9 | 14.0 |
+| STON | 1476 | 14.8% | 19.1 | 18.0 |
+| CRYS | 1360 | 13.6% | 19.0 | 18.0 |
+| GLAS | 1338 | 13.4% | 19.3 | 19.0 |
+| METL | 1337 | 13.4% | 19.1 | 19.0 |
+| CERA | 1163 | 11.6% | 19.0 | 18.0 |
+| TEMP | 990 | 9.9% | 20.9 | 20.0 |
+
+Runs with no manifestation at all: **0.0%**.
 
 | Material timing | Value |
 |---|---|
 | Average first-hint age | 9.5 |
-| Average first-manifestation age | 18.4 |
-| Average commitment age | 34.9 |
-| Multiple manifestations before commitment | 99.0% |
+| Average first-manifestation age | 18.5 |
+| Average commitment age | 40.4 |
+| Multiple manifestations before commitment | 98.3% |
 
 ### Talents
 
 | Talent | Name | Trigger | Activation rate | Average activation age |
 |---|---|---|---|---|
 | T1001 | Sharp Eyes | start | 100.0% | 0.0 |
-| T1002 | Knows Excel | threshold_once | 100.0% | 4.4 |
+| T1002 | Knows Excel | threshold_once | 100.0% | 3.4 |
 | T1003 | Heavy Sleeper | start | 100.0% | 0.0 |
 | T1004 | Likes Pigeons | passive | 0.0% | n/a |
 | T1005 | Built Different | start | 100.0% | 0.0 |
 | T1006 | Bad Knees | start | 100.0% | 0.0 |
-| T1007 | Pretty Privilege | threshold_once | 89.1% | 15.0 |
+| T1007 | Pretty Privilege | threshold_once | 95.5% | 11.2 |
 | T1008 | No Thoughts, Head Empty | start | 100.0% | 0.0 |
-| T1009 | Frugal | threshold_once | 90.2% | 6.5 |
+| T1009 | Frugal | threshold_once | 88.4% | 7.4 |
 | T1010 | Keeps a Low Profile | start | 100.0% | 0.0 |
 | T1011 | Stoneworker's Daughter | passive | 0.0% | n/a |
 | T1012 | Perfect Posture | start | 100.0% | 0.0 |
@@ -447,7 +490,7 @@ Final material by species:
 | T1014 | Corporate Favorite | start | 100.0% | 0.0 |
 | T1015 | Second Opinion | passive | 0.0% | n/a |
 | T1016 | No Pain, No Gain | start | 100.0% | 0.0 |
-| T1017 | Late Bloomer | threshold_once | 78.7% | 91.2 |
+| T1017 | Late Bloomer | threshold_once | 37.9% | 95.4 |
 | T1018 | Museum Quality | start | 100.0% | 0.0 |
 | T1019 | Hard to Kill | passive | 0.0% | n/a |
 | T1020 | Old Soul | passive | 0.0% | n/a |
@@ -464,49 +507,55 @@ Final material by species:
 
 ### Endings
 
-Distinct endings observed: **13/24** (54.2% of the registry). Rare/hidden share of completed runs: **13.7%**; hidden-only: **0.0%**.
+Distinct endings observed: **20/24** (83.3% of the registry). Rare/hidden share of completed runs: **19.8%**; hidden-only: **14.5%**.
 
 | Ending | Title | Runs | Share of completed |
 |---|---|---|---|
-| `END-MED-001` | Last Version of You | 51 | 69.9% |
-| `END-MED-002` | Cheap Immortality | 7 | 9.6% |
-| `END-COR-001` | Employee of the Century | 3 | 4.1% |
-| `END-MUS-001` | Permanent Collection | 3 | 4.1% |
-| `END-ARC-001` | Structural Support | 1 | 1.4% |
-| `END-CIV-001` | Living Memorial | 1 | 1.4% |
-| `END-FAM-001` | Family Heirloom | 1 | 1.4% |
-| `END-FAM-002` | The Garden Figure | 1 | 1.4% |
-| `END-LEG-001` | Self-Owned Permanent Citizen | 1 | 1.4% |
-| `END-MUS-002` | Excellent Condition, Minor Wear | 1 | 1.4% |
-| `END-MUS-003` | Crystal Archivist | 1 | 1.4% |
-| `END-REL-001` | Sacred Object, Pending Appeal | 1 | 1.4% |
-| `END-TMP-001` | Time Served | 1 | 1.4% |
+| `END-MED-001` | Last Version of You | 1654 | 35.2% |
+| `END-FAM-002` | The Garden Figure | 1062 | 22.6% |
+| `END-FAM-001` | Family Heirloom | 1009 | 21.5% |
+| `END-ANO-002` | Soul Cannot Harden | 355 | 7.6% |
+| `END-ANO-001` | Object Permanence | 326 | 6.9% |
+| `END-MED-002` | Cheap Immortality | 176 | 3.7% |
+| `END-TMP-001` | Time Served | 29 | 0.6% |
+| `END-REL-001` | Sacred Object, Pending Appeal | 22 | 0.5% |
+| `END-CIV-001` | Living Memorial | 15 | 0.3% |
+| `END-MUS-004` | Mixed Media | 15 | 0.3% |
+| `END-MUS-002` | Excellent Condition, Minor Wear | 8 | 0.2% |
+| `END-CIV-002` | Politically Neutral Landmark | 4 | 0.1% |
+| `END-MUS-001` | Permanent Collection | 4 | 0.1% |
+| `END-FIN-001` | Collateral Realized | 3 | 0.1% |
+| `END-LEG-001` | Self-Owned Permanent Citizen | 3 | 0.1% |
+| `END-MUS-003` | Crystal Archivist | 3 | 0.1% |
+| `END-ACA-001` | Tenure | 2 | 0.0% |
+| `END-ARC-001` | Structural Support | 2 | 0.0% |
+| `END-FIN-003` | No Longer Depreciating | 1 | 0.0% |
+| `END-LEG-002` | Fixture Attached to Land | 1 | 0.0% |
 
 ### Final stats
 
 | Stat | Mean at run end |
 |---|---|
-| CHR | 2.67 |
-| INT | 20.33 |
-| STR | -2.52 |
-| MNY | 3.56 |
-| SPR | 53.46 |
-| FIX | 28.40 |
+| CHR | 9.34 |
+| INT | 19.72 |
+| STR | 2.38 |
+| MNY | 2.71 |
+| SPR | 43.45 |
+| FIX | 35.90 |
 
-FIX distribution at run end — p50 **27**, p90 **45**, p99 **51**, max **61**.
+FIX distribution at run end — p50 **37**, p90 **49**, p99 **56**, max **67**.
 
 ### Guardrail findings
 
 | Severity | ID | Finding |
 |---|---|---|
-| WARNING | `fallback-share` | Age-25+ fallback share 35.0% exceeds the warning threshold 5.0% (target 2.0%). |
+| WARNING | `fallback-share` | Age-25+ fallback share 25.7% exceeds the warning threshold 5.0% (target 2.0%). |
 | WARNING | `ending-age-share-18-24` | Ending age band 18-24: observed 0.0% vs target 18-22%. |
-| WARNING | `ending-age-share-25-34` | Ending age band 25-34: observed 11.0% vs target 35-40%. |
-| WARNING | `ending-age-share-35-44` | Ending age band 35-44: observed 57.5% vs target 20-25%. |
-| WARNING | `ending-age-share-45-54` | Ending age band 45-54: observed 31.5% vs target 8-12%. |
-| WARNING | `ending-age-share-55-64` | Ending age band 55-64: observed 0.0% vs target 4-7%. |
-| WARNING | `ending-age-share-65+` | Ending age band 65+: observed 0.0% vs target 2-5%. |
-| FAILURE | `nonterminal-rate` | 9927/10000 runs (99.3%) reached the diagnostic maximum age without an ending. |
+| WARNING | `ending-age-share-25-34` | Ending age band 25-34: observed 1.3% vs target 35-40%. |
+| WARNING | `ending-age-share-35-44` | Ending age band 35-44: observed 14.5% vs target 20-25%. |
+| WARNING | `ending-age-share-55-64` | Ending age band 55-64: observed 1.2% vs target 4-7%. |
+| WARNING | `ending-age-share-65+` | Ending age band 65+: observed 74.7% vs target 2-5%. |
+| FAILURE | `nonterminal-rate` | 5306/10000 runs (53.1%) reached the diagnostic maximum age without an ending. |
 
 ## Scenario `threshold-talents` — TARGETED_THRESHOLD_TALENT_CASES
 
@@ -515,69 +564,69 @@ All three chosen talents are threshold_once, exercising mid-life activation.
 | Setting | Value |
 |---|---|
 | Runs | 10000 |
-| Base seed | `phase1` |
+| Base seed | `phase1_1` |
 | Species sampling | stratified equally |
 | Diagnostic max age | 120 |
-| Pre-25 coverage policy | `reuse_baseline_repeatables` |
+| Family weighting | `uniform` |
 
 ### Outcome rates
 
 | Outcome | Runs | Share |
 |---|---|---|
-| Completed (reached an ending) | 9 | 0.1% |
-| Nonterminal at diagnostic max age | 9991 | 99.9% |
+| Completed (reached an ending) | 4482 | 44.8% |
+| Nonterminal at diagnostic max age | 5518 | 55.2% |
 | Pre-25 content coverage defect | 0 | 0.0% |
 
-Average run length: **120.9 years** across 1209332 simulated event-years.
+Average run length: **96.7 years** across 967260 simulated event-years.
 
 ### Ending age
 
-Average **45.8**, median **46.0**, p10 **44**, p90 **48**.
+Average **65.8**, median **67.0**, p10 **67**, p90 **69**.
 
 | Age band | Observed share | Target range | Within target |
 |---|---|---|---|
 | 18-24 | 0.0% | 18%–22% | NO |
-| 25-34 | 0.0% | 35%–40% | NO |
-| 35-44 | 22.2% | 20%–25% | yes |
-| 45-54 | 77.8% | 8%–12% | NO |
-| 55-64 | 0.0% | 4%–7% | NO |
-| 65+ | 0.0% | 2%–5% | NO |
+| 25-34 | 0.2% | 35%–40% | NO |
+| 35-44 | 5.3% | 20%–25% | NO |
+| 45-54 | 1.7% | 8%–12% | NO |
+| 55-64 | 0.1% | 4%–7% | NO |
+| 65+ | 92.7% | 2%–5% | NO |
 
 ### Channel counts by age band
 
 | Age band | ORD | INS | TRN | SPC | Total |
 |---|---|---|---|---|---|
-| 0-5 | 55093 | 4907 | 0 | 0 | 60000 |
-| 6-11 | 49286 | 10714 | 0 | 0 | 60000 |
-| 12-17 | 43647 | 11771 | 4582 | 0 | 60000 |
-| 18-24 | 39120 | 17877 | 13003 | 0 | 70000 |
-| 25-34 | 42030 | 30034 | 27936 | 0 | 100000 |
-| 35-44 | 59037 | 34654 | 6308 | 0 | 99999 |
-| 45-54 | 79764 | 20014 | 149 | 0 | 99927 |
-| 55-64 | 88138 | 11742 | 30 | 0 | 99910 |
-| 65+ | 549504 | 9992 | 0 | 0 | 559496 |
+| 0-5 | 55183 | 4817 | 0 | 0 | 60000 |
+| 6-11 | 49280 | 10720 | 0 | 0 | 60000 |
+| 12-17 | 42729 | 11565 | 5706 | 0 | 60000 |
+| 18-24 | 39929 | 17503 | 12568 | 0 | 70000 |
+| 25-34 | 46212 | 27440 | 26342 | 0 | 99994 |
+| 35-44 | 53667 | 38070 | 7340 | 0 | 99077 |
+| 45-54 | 73178 | 23412 | 360 | 0 | 96950 |
+| 55-64 | 84892 | 11813 | 48 | 0 | 96753 |
+| 65+ | 309225 | 15261 | 0 | 0 | 324486 |
 
 ### Family counts by age band
 
 <details><summary>Expand</summary>
 
-**0-5** — ORD/FAM 55093, INS/CIV 4907
+**0-5** — ORD/FAM 20743, ORD/GEN 10427, ORD/HOU 8791, ORD/SOC 8209, ORD/HEA 7013, INS/CIV 4817
 
-**6-11** — ORD/EDU 36311, ORD/SOC 12975, INS/EDU 10714
+**6-11** — ORD/EDU 32870, ORD/SOC 16410, INS/EDU 10720
 
-**12-17** — ORD/EDU 30751, ORD/SOC 12896, INS/EDU 7520, TRN/WOOD 4582, INS/FIN 4251
+**12-17** — ORD/EDU 27320, ORD/SOC 15409, INS/EDU 7469, INS/FIN 4096, TRN/WOOD 1630, TRN/CRYS 729, TRN/STON 713, TRN/GLAS 708, TRN/METL 699, TRN/TEMP 648, TRN/CERA 579
 
-**18-24** — ORD/CAR 13036, ORD/SOC 7372, ORD/HOU 5787, ORD/HEA 5370, INS/REL 5298, INS/MED 3675, INS/ACA 3490, ORD/CIV 3314, ORD/FAM 2537, TRN/STON 2203, TRN/WOOD 2062, TRN/CRYS 2033, TRN/GLAS 2004, TRN/METL 1997, INS/COR 1894, TRN/CERA 1771, ORD/EDU 1653, INS/MUS 1536, INS/CIV 1346, TRN/TEMP 933, INS/FIN 521, INS/LEG 117, ORD/FIN 51
+**18-24** — ORD/CAR 11814, ORD/SOC 7601, ORD/HOU 6137, ORD/HEA 5804, INS/REL 5600, ORD/CIV 4573, INS/ACA 3905, INS/MED 3143, ORD/FAM 2514, TRN/STON 2038, TRN/CRYS 1993, TRN/GLAS 1878, TRN/METL 1825, TRN/WOOD 1815, INS/MUS 1724, TRN/CERA 1710, INS/CIV 1550, ORD/EDU 1448, TRN/TEMP 1309, INS/COR 958, INS/FIN 545, INS/LEG 78, ORD/FIN 38
 
-**25-34** — ORD/SOC 12958, INS/ACA 9313, ORD/CAR 7290, ORD/HOU 7021, ORD/HEA 6371, ORD/FAM 4321, INS/COR 4196, TRN/STON 4164, TRN/CRYS 4107, INS/FIN 4070, TRN/GLAS 4059, TRN/CERA 4033, TRN/METL 3996, TRN/WOOD 3928, ORD/CIV 3781, TRN/TEMP 3606, INS/MED 3063, INS/MUS 2976, INS/CIV 2464, INS/LEG 2447, INS/REL 1502, ORD/FIN 288, TRN/SYNT 43, INS/ARC 3
+**25-34** — ORD/CAR 17339, ORD/SOC 9023, INS/ACA 7274, ORD/HOU 6362, ORD/HEA 5666, INS/MED 4737, ORD/FAM 4059, TRN/TEMP 3860, TRN/STON 3857, TRN/GLAS 3813, TRN/CRYS 3807, INS/FIN 3802, TRN/METL 3799, TRN/WOOD 3628, ORD/CIV 3538, TRN/CERA 3533, INS/MUS 3219, INS/CIV 2854, INS/COR 2065, INS/LEG 1793, INS/REL 1678, ORD/FIN 225, TRN/SYNT 45, INS/ARC 18
 
-**35-44** — ORD/SOC 28078, INS/ACA 15041, ORD/FAM 11431, ORD/HOU 7232, ORD/GEN 6924, TRN/TEMP 5256, INS/CIV 5050, INS/LEG 4228, INS/COR 3796, ORD/CAR 3399, INS/MED 2386, INS/FIN 1693, INS/MUS 1408, ORD/CIV 1161, INS/REL 920, ORD/FIN 812, TRN/STON 165, TRN/METL 163, TRN/GLAS 153, TRN/CRYS 151, TRN/SYNT 150, INS/ARC 132, TRN/CERA 127, TRN/WOOD 114, TRN/MIXD 29
+**35-44** — ORD/SOC 19467, INS/MED 11880, ORD/FAM 9880, INS/ACA 9606, ORD/GEN 9596, ORD/HOU 7613, ORD/CAR 5320, INS/CIV 5017, TRN/TEMP 4230, INS/LEG 3982, INS/COR 2159, INS/MUS 1954, INS/FIN 1610, INS/REL 1433, ORD/CIV 1102, ORD/FIN 689, TRN/CRYS 512, TRN/STON 509, TRN/GLAS 482, TRN/METL 479, TRN/WOOD 455, INS/ARC 429, TRN/CERA 387, TRN/SYNT 236, TRN/MIXD 50
 
-**45-54** — ORD/FAM 27492, ORD/CAR 15193, ORD/HEA 14735, ORD/SOC 13964, ORD/GEN 8380, INS/FIN 8302, INS/CIV 5758, INS/ACA 1743, INS/COR 1580, INS/LEG 1146, INS/MED 900, INS/REL 292, INS/MUS 159, TRN/MIXD 149, INS/ARC 134
+**45-54** — ORD/FAM 22119, ORD/CAR 16117, ORD/SOC 13762, ORD/HEA 13333, ORD/GEN 7847, INS/FIN 7670, INS/CIV 5909, INS/MED 3433, INS/LEG 2939, INS/COR 1031, INS/ACA 979, INS/REL 788, TRN/MIXD 356, INS/MUS 348, INS/ARC 315, TRN/TEMP 4
 
-**55-64** — ORD/GEN 23305, ORD/FAM 17908, ORD/CAR 17499, ORD/SOC 15522, ORD/HEA 13904, INS/CIV 9990, INS/FIN 1689, INS/MED 51, TRN/MIXD 30, INS/LEG 12
+**55-64** — ORD/GEN 20038, ORD/FAM 18665, ORD/CAR 16726, ORD/SOC 15617, ORD/HEA 13846, INS/CIV 9671, INS/FIN 2007, INS/MED 123, TRN/MIXD 48, INS/LEG 9, INS/MUS 3
 
-**65+** — ORD/GEN 438366, ORD/SOC 109850, INS/CIV 9992, ORD/FAM 1288
+**65+** — ORD/GEN 232990, ORD/SOC 63007, ORD/FAM 13227, INS/MED 7742, INS/CIV 7517, INS/FIN 2, ORD/CAR 1
 
 </details>
 
@@ -585,140 +634,168 @@ Average **45.8**, median **46.0**, p10 **44**, p90 **48**.
 
 | Metric | Value |
 |---|---|
-| Fallback event-years | 337013 |
-| Fallback share of all event-years | 27.9% |
-| Fallback share of age-25+ event-years | 35.1% |
+| Fallback event-years | 184057 |
+| Fallback share of all event-years | 19.0% |
+| Fallback share of age-25+ event-years | 25.7% |
 | Target age-25+ fallback share | 2% |
 | Pre-25 fallback events (must be 0) | 0 |
 | Pre-25 coverage-defect runs | 0 (0.0%) |
-| Pre-25 diagnostic reuse years | 13004 |
+| SPC channel share of event-years | 0.00% |
+| Runs using a mandatory_only event | 41.8% |
+| Endings at age 65+ | 92.7% |
 
 ### Routes, schedules and priority
 
 | Metric | Value |
 |---|---|
 | Route entry rate (run entered >=1 route) | 100.0% |
-| Route climax rate (run fired a climax schedule) | 0.1% |
-| Route abandonment/expiry rate (run had >=1 expired schedule) | 99.2% |
-| Expired schedules total | 30741 |
-| Priority collision rate (run had >=1 contested year) | 0.8% |
-| Contested years total | 75 |
-| Schedule displacements per run | 0.01 |
+| Route climax rate (run fired a climax schedule) | 44.8% |
+| Route abandonment/expiry rate (run had >=1 expired schedule) | 97.3% |
+| Expired schedules total | 37741 |
+| Priority collision rate (run had >=1 contested year) | 5.7% |
+| Contested years total | 878 |
+| Schedule displacements per run | 0.09 |
 
 Most-entered route flags:
 
 | Route flag | Runs |
 |---|---|
-| `ROUTE_FAM_PLACEMENT` | 8139 |
-| `ROUTE_MED_SCREENED` | 7444 |
-| `ROUTE_REL_INTEREST` | 7417 |
-| `ROUTE_CIV_SERVICE` | 7186 |
-| `ROUTE_ACA_RESEARCH` | 6838 |
-| `ROUTE_CIV_MEMORIAL` | 6511 |
-| `ROUTE_COR_EMPLOYEE` | 6123 |
-| `ROUTE_FAM_DIRECTIVE` | 6108 |
-| `ROUTE_FIN_VALUED` | 5908 |
-| `ROUTE_CIV_REBRANDED` | 5834 |
-| `ROUTE_MUS_INTEREST` | 5612 |
-| `ROUTE_ACA_SPECIALIZATION` | 5540 |
-| `ROUTE_TEMP_STUDY` | 5527 |
-| `ROUTE_MED_PRESERVATION_CONSULT` | 4254 |
-| `ROUTE_ACA_TENURE_REVIEW` | 3071 |
-| `ROUTE_ACA_TENURE_TRACK` | 3071 |
-| `ROUTE_COR_CONTRACT` | 3045 |
-| `ROUTE_COR_PRESERVATION_PLAN` | 3045 |
-| `ROUTE_ACA_CONTINUITY` | 2824 |
-| `ROUTE_ACA_CONTINUITY_EXPOSED` | 2824 |
+| `ROUTE_FAM_LATE_LEGACY` | 8915 |
+| `ROUTE_CIV_SERVICE` | 8179 |
+| `ROUTE_REL_INTEREST` | 7887 |
+| `ROUTE_FAM_PLACEMENT` | 7503 |
+| `ROUTE_CIV_MEMORIAL` | 6924 |
+| `ROUTE_ACA_RESEARCH` | 6399 |
+| `ROUTE_MED_PRESERVATION_CONSULT` | 6288 |
+| `ROUTE_MUS_INTEREST` | 6198 |
+| `ROUTE_CIV_REBRANDED` | 6151 |
+| `ROUTE_MED_SCREENED` | 6140 |
+| `ROUTE_MED_LATE_CONTINUITY` | 6083 |
+| `ROUTE_FIN_VALUED` | 5712 |
+| `ROUTE_CAR_MATERIAL_EXPOSURE` | 5381 |
+| `ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY` | 5379 |
+| `ROUTE_FAM_DIRECTIVE` | 4416 |
+| `ROUTE_MED_CONTROLLED_HARDENING` | 4184 |
+| `ROUTE_MED_CONTROLLED_HARDENING_STAGE2` | 4183 |
+| `ROUTE_ACA_SPECIALIZATION` | 3978 |
+| `ROUTE_COR_EMPLOYEE` | 3919 |
+| `ROUTE_TEMP_STUDY` | 3752 |
 
 ### Material
 
-Material Commitment rate: **15.5%**. Final-material entropy: **1.09 bits**.
+Material Commitment rate: **44.8%**. Final-material entropy: **2.34 bits**.
 
 | Final material | Runs | Share |
 |---|---|---|
-| NONE | 8450 | 84.5% |
-| STON | 224 | 2.2% |
-| METL | 219 | 2.2% |
-| MIXD | 208 | 2.1% |
-| GLAS | 205 | 2.1% |
-| CRYS | 199 | 2.0% |
-| CERA | 171 | 1.7% |
-| SYNT | 165 | 1.7% |
-| WOOD | 159 | 1.6% |
+| NONE | 5518 | 55.2% |
+| SYNT | 795 | 8.0% |
+| STON | 593 | 5.9% |
+| CRYS | 589 | 5.9% |
+| METL | 558 | 5.6% |
+| GLAS | 536 | 5.4% |
+| WOOD | 508 | 5.1% |
+| MIXD | 454 | 4.5% |
+| CERA | 426 | 4.3% |
+| TEMP | 23 | 0.2% |
 
 Final material by species:
 
-| Species | CERA | CRYS | GLAS | METL | MIXD | NONE | STON | SYNT | WOOD | Entropy (bits) |
-|---|---|---|---|---|---|---|---|---|---|---|
-| HUMAN | 28 | 24 | 28 | 30 | 32 | 1432 | 37 | 22 | 34 | 1.01 |
-| ELF | 23 | 53 | 41 | 24 | 29 | 1412 | 33 | 19 | 33 | 1.07 |
-| DWARF | 39 | 16 | 19 | 50 | 32 | 1409 | 52 | 27 | 23 | 1.07 |
-| WINGED_KIN | 35 | 38 | 30 | 16 | 46 | 1389 | 47 | 38 | 28 | 1.14 |
-| DEMONKIN | 23 | 33 | 61 | 39 | 30 | 1406 | 23 | 32 | 19 | 1.08 |
-| DRAGONKIN | 23 | 35 | 26 | 60 | 39 | 1402 | 32 | 27 | 22 | 1.09 |
+| Species | CERA | CRYS | GLAS | METL | MIXD | NONE | STON | SYNT | TEMP | WOOD | Entropy (bits) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| HUMAN | 90 | 91 | 83 | 101 | 73 | 927 | 91 | 120 | 4 | 87 | 2.33 |
+| ELF | 62 | 113 | 95 | 73 | 72 | 887 | 81 | 134 | 4 | 146 | 2.39 |
+| DWARF | 72 | 76 | 75 | 134 | 64 | 896 | 124 | 136 | 3 | 87 | 2.37 |
+| WINGED_KIN | 63 | 101 | 83 | 70 | 89 | 947 | 109 | 130 | 3 | 72 | 2.28 |
+| DEMONKIN | 74 | 67 | 132 | 76 | 75 | 931 | 81 | 136 | 5 | 89 | 2.31 |
+| DRAGONKIN | 65 | 141 | 68 | 104 | 81 | 930 | 107 | 139 | 4 | 27 | 2.27 |
 
 | Determinism check | Runs with evidence | Same final material | P | Guardrail |
 |---|---|---|---|---|
-| P(final STON | hint STON) | 865 | 26 | 3.0% | <= 70% |
-| P(final GLAS | hint GLAS) | 754 | 25 | 3.3% | <= 70% |
-| P(final METL | hint METL) | 916 | 35 | 3.8% | <= 70% |
-| P(final WOOD | hint WOOD) | 903 | 15 | 1.7% | <= 70% |
-| P(final CRYS | hint CRYS) | 653 | 16 | 2.5% | <= 70% |
-| P(final CERA | first manifestation CERA) | 725 | 17 | 2.3% | <= 80% |
-| P(final CRYS | first manifestation CRYS) | 828 | 13 | 1.6% | <= 80% |
-| P(final STON | first manifestation STON) | 958 | 20 | 2.1% | <= 80% |
-| P(final WOOD | first manifestation WOOD) | 5357 | 89 | 1.7% | <= 80% |
-| P(final METL | first manifestation METL) | 818 | 15 | 1.8% | <= 80% |
-| P(final GLAS | first manifestation GLAS) | 899 | 25 | 2.8% | <= 80% |
-| P(final TEMP | first manifestation TEMP) | 411 | 0 | 0.0% | <= 80% |
+| P(final WOOD | hint WOOD) | 887 | 83 | 9.4% | <= 70% |
+| P(final METL | hint METL) | 883 | 59 | 6.7% | <= 70% |
+| P(final STON | hint STON) | 904 | 81 | 9.0% | <= 70% |
+| P(final GLAS | hint GLAS) | 745 | 58 | 7.8% | <= 70% |
+| P(final CRYS | hint CRYS) | 685 | 46 | 6.7% | <= 70% |
+| P(final CRYS | first manifestation CRYS) | 1392 | 114 | 8.2% | <= 80% |
+| P(final GLAS | first manifestation GLAS) | 1319 | 102 | 7.7% | <= 80% |
+| P(final CERA | first manifestation CERA) | 1164 | 86 | 7.4% | <= 80% |
+| P(final WOOD | first manifestation WOOD) | 2290 | 155 | 6.8% | <= 80% |
+| P(final METL | first manifestation METL) | 1345 | 127 | 9.4% | <= 80% |
+| P(final TEMP | first manifestation TEMP) | 1054 | 1 | 0.1% | <= 80% |
+| P(final STON | first manifestation STON) | 1433 | 122 | 8.5% | <= 80% |
+
+First manifestation family distribution (Q-22):
+
+| Family | Runs | Share of runs with a manifestation | Mean age | Median age |
+|---|---|---|---|---|
+| WOOD | 2290 | 22.9% | 15.6 | 13.0 |
+| STON | 1433 | 14.3% | 19.2 | 18.0 |
+| CRYS | 1392 | 13.9% | 19.0 | 18.0 |
+| METL | 1345 | 13.5% | 19.1 | 18.0 |
+| GLAS | 1319 | 13.2% | 19.1 | 18.0 |
+| CERA | 1164 | 11.6% | 19.1 | 19.0 |
+| TEMP | 1054 | 10.5% | 20.9 | 20.0 |
+
+Runs with no manifestation at all: **0.0%**.
 
 | Material timing | Value |
 |---|---|
-| Average first-hint age | 9.4 |
-| Average first-manifestation age | 18.4 |
-| Average commitment age | 35.9 |
-| Multiple manifestations before commitment | 98.9% |
+| Average first-hint age | 9.5 |
+| Average first-manifestation age | 18.5 |
+| Average commitment age | 41.5 |
+| Multiple manifestations before commitment | 98.2% |
 
 ### Talents
 
 | Talent | Name | Trigger | Activation rate | Average activation age |
 |---|---|---|---|---|
-| T1002 | Knows Excel | threshold_once | 100.0% | 4.6 |
-| T1007 | Pretty Privilege | threshold_once | 99.6% | 21.5 |
-| T1017 | Late Bloomer | threshold_once | 80.2% | 91.5 |
+| T1002 | Knows Excel | threshold_once | 100.0% | 3.2 |
+| T1007 | Pretty Privilege | threshold_once | 99.7% | 15.0 |
+| T1017 | Late Bloomer | threshold_once | 41.6% | 96.2 |
 
 ### Endings
 
-Distinct endings observed: **1/24** (4.2% of the registry). Rare/hidden share of completed runs: **0.0%**; hidden-only: **0.0%**.
+Distinct endings observed: **11/24** (45.8% of the registry). Rare/hidden share of completed runs: **0.7%**; hidden-only: **0.0%**.
 
 | Ending | Title | Runs | Share of completed |
 |---|---|---|---|
-| `END-MED-001` | Last Version of You | 9 | 100.0% |
+| `END-MED-001` | Last Version of You | 1940 | 43.3% |
+| `END-FAM-002` | The Garden Figure | 1328 | 29.6% |
+| `END-FAM-001` | Family Heirloom | 1172 | 26.1% |
+| `END-TMP-001` | Time Served | 23 | 0.5% |
+| `END-MUS-004` | Mixed Media | 5 | 0.1% |
+| `END-ARC-001` | Structural Support | 4 | 0.1% |
+| `END-MUS-001` | Permanent Collection | 4 | 0.1% |
+| `END-CIV-002` | Politically Neutral Landmark | 2 | 0.0% |
+| `END-REL-001` | Sacred Object, Pending Appeal | 2 | 0.0% |
+| `END-ACA-001` | Tenure | 1 | 0.0% |
+| `END-CIV-001` | Living Memorial | 1 | 0.0% |
 
 ### Final stats
 
 | Stat | Mean at run end |
 |---|---|
-| CHR | 4.90 |
-| INT | 19.95 |
-| STR | -3.01 |
-| MNY | 6.86 |
-| SPR | 54.47 |
-| FIX | 26.85 |
+| CHR | 9.88 |
+| INT | 19.43 |
+| STR | 1.48 |
+| MNY | 6.68 |
+| SPR | 46.65 |
+| FIX | 35.32 |
 
-FIX distribution at run end — p50 **26**, p90 **44**, p99 **49**, max **52**.
+FIX distribution at run end — p50 **36**, p90 **48**, p99 **53**, max **59**.
 
 ### Guardrail findings
 
 | Severity | ID | Finding |
 |---|---|---|
-| WARNING | `fallback-share` | Age-25+ fallback share 35.1% exceeds the warning threshold 5.0% (target 2.0%). |
+| WARNING | `fallback-share` | Age-25+ fallback share 25.7% exceeds the warning threshold 5.0% (target 2.0%). |
 | WARNING | `ending-age-share-18-24` | Ending age band 18-24: observed 0.0% vs target 18-22%. |
-| WARNING | `ending-age-share-25-34` | Ending age band 25-34: observed 0.0% vs target 35-40%. |
-| WARNING | `ending-age-share-45-54` | Ending age band 45-54: observed 77.8% vs target 8-12%. |
-| WARNING | `ending-age-share-55-64` | Ending age band 55-64: observed 0.0% vs target 4-7%. |
-| WARNING | `ending-age-share-65+` | Ending age band 65+: observed 0.0% vs target 2-5%. |
-| FAILURE | `nonterminal-rate` | 9991/10000 runs (99.9%) reached the diagnostic maximum age without an ending. |
+| WARNING | `ending-age-share-25-34` | Ending age band 25-34: observed 0.2% vs target 35-40%. |
+| WARNING | `ending-age-share-35-44` | Ending age band 35-44: observed 5.3% vs target 20-25%. |
+| WARNING | `ending-age-share-45-54` | Ending age band 45-54: observed 1.7% vs target 8-12%. |
+| WARNING | `ending-age-share-55-64` | Ending age band 55-64: observed 0.1% vs target 4-7%. |
+| WARNING | `ending-age-share-65+` | Ending age band 65+: observed 92.7% vs target 2-5%. |
+| FAILURE | `nonterminal-rate` | 5518/10000 runs (55.2%) reached the diagnostic maximum age without an ending. |
 
 ## Scenario `material-talents` — TARGETED_MATERIAL_TALENT_CASES
 
@@ -727,69 +804,69 @@ Talents carrying material/route family hooks (stone, metal, museum).
 | Setting | Value |
 |---|---|
 | Runs | 10000 |
-| Base seed | `phase1` |
+| Base seed | `phase1_1` |
 | Species sampling | stratified equally |
 | Diagnostic max age | 120 |
-| Pre-25 coverage policy | `reuse_baseline_repeatables` |
+| Family weighting | `uniform` |
 
 ### Outcome rates
 
 | Outcome | Runs | Share |
 |---|---|---|
-| Completed (reached an ending) | 16 | 0.2% |
-| Nonterminal at diagnostic max age | 9984 | 99.8% |
+| Completed (reached an ending) | 4251 | 42.5% |
+| Nonterminal at diagnostic max age | 5749 | 57.5% |
 | Pre-25 content coverage defect | 0 | 0.0% |
 
-Average run length: **120.9 years** across 1208827 simulated event-years.
+Average run length: **97.9 years** across 979022 simulated event-years.
 
 ### Ending age
 
-Average **46.7**, median **47.0**, p10 **45**, p90 **49**.
+Average **65.7**, median **67.0**, p10 **67**, p90 **69**.
 
 | Age band | Observed share | Target range | Within target |
 |---|---|---|---|
 | 18-24 | 0.0% | 18%–22% | NO |
-| 25-34 | 0.0% | 35%–40% | NO |
-| 35-44 | 12.5% | 20%–25% | NO |
-| 45-54 | 87.5% | 8%–12% | NO |
-| 55-64 | 0.0% | 4%–7% | NO |
-| 65+ | 0.0% | 2%–5% | NO |
+| 25-34 | 0.3% | 35%–40% | NO |
+| 35-44 | 5.2% | 20%–25% | NO |
+| 45-54 | 2.4% | 8%–12% | NO |
+| 55-64 | 0.1% | 4%–7% | NO |
+| 65+ | 92.0% | 2%–5% | NO |
 
 ### Channel counts by age band
 
 | Age band | ORD | INS | TRN | SPC | Total |
 |---|---|---|---|---|---|
-| 0-5 | 55078 | 4922 | 0 | 0 | 60000 |
-| 6-11 | 49219 | 10781 | 0 | 0 | 60000 |
-| 12-17 | 43703 | 11830 | 4467 | 0 | 60000 |
-| 18-24 | 39010 | 17945 | 13045 | 0 | 70000 |
-| 25-34 | 42057 | 29762 | 28181 | 0 | 100000 |
-| 35-44 | 59031 | 34703 | 6266 | 0 | 100000 |
-| 45-54 | 79587 | 20034 | 262 | 0 | 99883 |
-| 55-64 | 87939 | 11856 | 45 | 0 | 99840 |
-| 65+ | 549107 | 9997 | 0 | 0 | 559104 |
+| 0-5 | 55088 | 4912 | 0 | 0 | 60000 |
+| 6-11 | 49128 | 10872 | 0 | 0 | 60000 |
+| 12-17 | 42849 | 11546 | 5605 | 0 | 60000 |
+| 18-24 | 39931 | 17306 | 12763 | 0 | 70000 |
+| 25-34 | 45904 | 27600 | 26494 | 0 | 99998 |
+| 35-44 | 54057 | 37742 | 7400 | 0 | 99199 |
+| 45-54 | 72751 | 23469 | 619 | 0 | 96839 |
+| 55-64 | 84547 | 11977 | 87 | 0 | 96611 |
+| 65+ | 321318 | 15057 | 0 | 0 | 336375 |
 
 ### Family counts by age band
 
 <details><summary>Expand</summary>
 
-**0-5** — ORD/FAM 55078, INS/CIV 4922
+**0-5** — ORD/FAM 20928, ORD/GEN 10577, ORD/HOU 8774, ORD/SOC 7681, ORD/HEA 7128, INS/CIV 4912
 
-**6-11** — ORD/EDU 36216, ORD/SOC 13003, INS/EDU 10781
+**6-11** — ORD/EDU 33711, ORD/SOC 15417, INS/EDU 10872
 
-**12-17** — ORD/EDU 30792, ORD/SOC 12911, INS/EDU 7593, TRN/WOOD 4467, INS/FIN 4237
+**12-17** — ORD/EDU 28333, ORD/SOC 14516, INS/EDU 7453, INS/FIN 4093, TRN/WOOD 1528, TRN/STON 851, TRN/METL 803, TRN/CRYS 690, TRN/GLAS 641, TRN/TEMP 598, TRN/CERA 494
 
-**18-24** — ORD/CAR 12795, ORD/SOC 7461, ORD/HOU 5707, INS/REL 5385, ORD/HEA 5335, INS/MED 3736, INS/ACA 3400, ORD/CIV 3296, ORD/FAM 2443, TRN/STON 2168, TRN/CRYS 2044, TRN/WOOD 2034, TRN/GLAS 2000, TRN/METL 1963, TRN/CERA 1857, INS/MUS 1788, INS/COR 1651, ORD/EDU 1636, INS/CIV 1407, TRN/TEMP 979, INS/FIN 471, ORD/FIN 337, INS/LEG 107
+**18-24** — ORD/CAR 10551, ORD/SOC 6700, ORD/HOU 6661, ORD/HEA 6264, INS/REL 5575, ORD/CIV 4888, INS/ACA 3483, INS/MED 3110, ORD/FAM 2632, INS/MUS 2388, TRN/STON 2356, TRN/METL 2136, TRN/GLAS 1891, TRN/CRYS 1844, TRN/WOOD 1715, ORD/EDU 1633, TRN/CERA 1588, INS/CIV 1461, TRN/TEMP 1233, INS/COR 691, ORD/FIN 602, INS/FIN 521, INS/LEG 77
 
-**25-34** — ORD/SOC 12681, INS/ACA 9124, ORD/HOU 6864, ORD/CAR 6845, ORD/HEA 6192, TRN/STON 4287, ORD/FAM 4259, TRN/CRYS 4082, TRN/GLAS 4071, TRN/METL 4050, TRN/WOOD 4019, TRN/CERA 4005, INS/FIN 3975, INS/COR 3945, ORD/CIV 3695, TRN/TEMP 3618, INS/MUS 3443, INS/MED 3048, INS/CIV 2461, INS/LEG 2291, ORD/FIN 1521, INS/REL 1471, TRN/SYNT 48, INS/ARC 4, TRN/MIXD 1
+**25-34** — ORD/CAR 15171, ORD/SOC 8266, INS/ACA 7270, ORD/HOU 6860, ORD/HEA 5834, INS/MED 4547, ORD/FAM 4178, TRN/STON 4087, TRN/METL 4036, INS/FIN 3934, TRN/TEMP 3817, INS/MUS 3765, TRN/CRYS 3757, TRN/GLAS 3668, ORD/CIV 3624, TRN/WOOD 3580, TRN/CERA 3505, INS/CIV 2964, ORD/FIN 1971, INS/LEG 1860, INS/COR 1640, INS/REL 1599, TRN/SYNT 44, INS/ARC 21
 
-**35-44** — ORD/SOC 27196, INS/ACA 14631, ORD/FAM 11190, ORD/HOU 7105, ORD/GEN 6657, TRN/TEMP 5200, INS/CIV 4941, INS/LEG 4167, INS/COR 3569, ORD/CAR 3331, INS/FIN 2459, ORD/FIN 2404, INS/MED 2255, INS/MUS 1670, ORD/CIV 1148, INS/REL 911, TRN/CRYS 183, TRN/CERA 153, TRN/STON 145, TRN/METL 141, TRN/SYNT 136, TRN/WOOD 126, TRN/GLAS 120, INS/ARC 100, TRN/MIXD 62
+**35-44** — ORD/SOC 17222, INS/MED 11206, ORD/FAM 10476, ORD/GEN 10029, INS/ACA 9338, ORD/HOU 7736, INS/CIV 5190, ORD/CAR 5031, TRN/TEMP 4326, INS/LEG 3819, ORD/FIN 2478, INS/MUS 2446, INS/FIN 2357, INS/COR 1688, INS/REL 1307, ORD/CIV 1085, TRN/STON 557, TRN/METL 513, TRN/CRYS 467, TRN/GLAS 447, INS/ARC 391, TRN/WOOD 372, TRN/CERA 333, TRN/SYNT 228, TRN/MIXD 157
 
-**45-54** — ORD/FAM 27401, ORD/CAR 15140, ORD/HEA 14769, ORD/SOC 13879, ORD/GEN 8398, INS/FIN 8229, INS/CIV 5753, INS/COR 1691, INS/ACA 1619, INS/LEG 1172, INS/MED 888, INS/REL 290, INS/MUS 266, TRN/MIXD 262, INS/ARC 126
+**45-54** — ORD/FAM 22874, ORD/CAR 15204, ORD/HEA 13880, ORD/SOC 13076, ORD/GEN 7717, INS/FIN 7639, INS/CIV 6073, INS/MED 3477, INS/LEG 2707, INS/COR 1037, INS/ACA 917, INS/REL 717, TRN/MIXD 611, INS/MUS 584, INS/ARC 318, TRN/TEMP 8
 
-**55-64** — ORD/GEN 22859, ORD/FAM 18075, ORD/CAR 17507, ORD/SOC 15712, ORD/HEA 13786, INS/CIV 9981, INS/FIN 1749, INS/MED 87, TRN/MIXD 45, INS/LEG 39
+**55-64** — ORD/GEN 20281, ORD/FAM 18506, ORD/CAR 16492, ORD/SOC 15716, ORD/HEA 13552, INS/CIV 9659, INS/FIN 2020, INS/MED 219, TRN/MIXD 87, INS/LEG 76, INS/MUS 3
 
-**65+** — ORD/GEN 438057, ORD/SOC 109779, INS/CIV 9987, ORD/FAM 1271, INS/FIN 6, INS/MED 4
+**65+** — ORD/GEN 243148, ORD/SOC 65066, ORD/FAM 13103, INS/CIV 7598, INS/MED 7457, INS/FIN 2, ORD/CAR 1
 
 </details>
 
@@ -797,99 +874,116 @@ Average **46.7**, median **47.0**, p10 **45**, p90 **49**.
 
 | Metric | Value |
 |---|---|
-| Fallback event-years | 336392 |
-| Fallback share of all event-years | 27.8% |
-| Fallback share of age-25+ event-years | 35.1% |
+| Fallback event-years | 190856 |
+| Fallback share of all event-years | 19.5% |
+| Fallback share of age-25+ event-years | 26.2% |
 | Target age-25+ fallback share | 2% |
 | Pre-25 fallback events (must be 0) | 0 |
 | Pre-25 coverage-defect runs | 0 (0.0%) |
-| Pre-25 diagnostic reuse years | 12941 |
+| SPC channel share of event-years | 0.00% |
+| Runs using a mandatory_only event | 39.9% |
+| Endings at age 65+ | 92.0% |
 
 ### Routes, schedules and priority
 
 | Metric | Value |
 |---|---|
 | Route entry rate (run entered >=1 route) | 100.0% |
-| Route climax rate (run fired a climax schedule) | 0.2% |
-| Route abandonment/expiry rate (run had >=1 expired schedule) | 99.0% |
-| Expired schedules total | 29783 |
-| Priority collision rate (run had >=1 contested year) | 0.6% |
-| Contested years total | 59 |
-| Schedule displacements per run | 0.01 |
+| Route climax rate (run fired a climax schedule) | 42.5% |
+| Route abandonment/expiry rate (run had >=1 expired schedule) | 97.4% |
+| Expired schedules total | 38071 |
+| Priority collision rate (run had >=1 contested year) | 4.7% |
+| Contested years total | 738 |
+| Schedule displacements per run | 0.08 |
 
 Most-entered route flags:
 
 | Route flag | Runs |
 |---|---|
-| `ROUTE_FAM_PLACEMENT` | 7976 |
-| `ROUTE_REL_INTEREST` | 7480 |
-| `ROUTE_MED_SCREENED` | 7473 |
-| `ROUTE_CIV_SERVICE` | 7081 |
-| `ROUTE_MUS_INTEREST` | 6634 |
-| `ROUTE_ACA_RESEARCH` | 6620 |
-| `ROUTE_CIV_MEMORIAL` | 6444 |
-| `ROUTE_COR_EMPLOYEE` | 6091 |
-| `ROUTE_FAM_DIRECTIVE` | 5935 |
-| `ROUTE_CIV_REBRANDED` | 5801 |
-| `ROUTE_TEMP_STUDY` | 5522 |
-| `ROUTE_ACA_SPECIALIZATION` | 5372 |
-| `ROUTE_FIN_VALUED` | 5224 |
-| `ROUTE_ACA_TENURE_REVIEW` | 2944 |
-| `ROUTE_ACA_TENURE_TRACK` | 2944 |
-| `ROUTE_COR_CONTRACT` | 2798 |
-| `ROUTE_COR_PRESERVATION_PLAN` | 2798 |
-| `ROUTE_ACA_MATERIALS` | 2688 |
-| `ROUTE_ACA_MATERIALS_EXPOSED` | 2688 |
-| `ROUTE_ACA_CONTINUITY` | 2684 |
+| `ROUTE_FAM_LATE_LEGACY` | 9047 |
+| `ROUTE_CIV_SERVICE` | 8458 |
+| `ROUTE_REL_INTEREST` | 7805 |
+| `ROUTE_FAM_PLACEMENT` | 7727 |
+| `ROUTE_MUS_INTEREST` | 7696 |
+| `ROUTE_CIV_MEMORIAL` | 7167 |
+| `ROUTE_CIV_REBRANDED` | 6354 |
+| `ROUTE_ACA_RESEARCH` | 6183 |
+| `ROUTE_MED_SCREENED` | 6141 |
+| `ROUTE_MED_LATE_CONTINUITY` | 5966 |
+| `ROUTE_FIN_VALUED` | 5304 |
+| `ROUTE_MED_PRESERVATION_CONSULT` | 5186 |
+| `ROUTE_CAR_MATERIAL_EXPOSURE` | 4727 |
+| `ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY` | 4727 |
+| `ROUTE_FAM_DIRECTIVE` | 4532 |
+| `ROUTE_MED_CONTROLLED_HARDENING` | 3992 |
+| `ROUTE_MED_CONTROLLED_HARDENING_STAGE2` | 3992 |
+| `ROUTE_ACA_SPECIALIZATION` | 3852 |
+| `ROUTE_TEMP_STUDY` | 3668 |
+| `ROUTE_COR_EMPLOYEE` | 3538 |
 
 ### Material
 
-Material Commitment rate: **15.2%**. Final-material entropy: **1.06 bits**.
+Material Commitment rate: **42.5%**. Final-material entropy: **2.24 bits**.
 
 | Final material | Runs | Share |
 |---|---|---|
-| NONE | 8482 | 84.8% |
-| MIXD | 370 | 3.7% |
-| METL | 191 | 1.9% |
-| STON | 188 | 1.9% |
-| GLAS | 169 | 1.7% |
-| CRYS | 162 | 1.6% |
-| WOOD | 153 | 1.5% |
-| SYNT | 143 | 1.4% |
-| CERA | 142 | 1.4% |
+| NONE | 5749 | 57.5% |
+| MIXD | 855 | 8.6% |
+| SYNT | 721 | 7.2% |
+| STON | 589 | 5.9% |
+| METL | 552 | 5.5% |
+| GLAS | 449 | 4.5% |
+| CRYS | 416 | 4.2% |
+| WOOD | 368 | 3.7% |
+| CERA | 284 | 2.8% |
+| TEMP | 17 | 0.2% |
 
 Final material by species:
 
-| Species | CERA | CRYS | GLAS | METL | MIXD | NONE | STON | SYNT | WOOD | Entropy (bits) |
-|---|---|---|---|---|---|---|---|---|---|---|
-| HUMAN | 27 | 31 | 25 | 26 | 59 | 1418 | 23 | 30 | 28 | 1.05 |
-| ELF | 22 | 34 | 24 | 16 | 77 | 1394 | 28 | 26 | 46 | 1.11 |
-| DWARF | 25 | 20 | 21 | 48 | 48 | 1412 | 47 | 23 | 23 | 1.06 |
-| WINGED_KIN | 25 | 17 | 25 | 23 | 75 | 1427 | 35 | 16 | 24 | 1.00 |
-| DEMONKIN | 25 | 27 | 43 | 33 | 46 | 1423 | 25 | 23 | 21 | 1.03 |
-| DRAGONKIN | 18 | 33 | 31 | 45 | 65 | 1408 | 30 | 25 | 11 | 1.06 |
+| Species | CERA | CRYS | GLAS | METL | MIXD | NONE | STON | SYNT | TEMP | WOOD | Entropy (bits) |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| HUMAN | 55 | 79 | 58 | 94 | 147 | 956 | 85 | 119 | 2 | 72 | 2.24 |
+| ELF | 43 | 78 | 70 | 66 | 129 | 994 | 87 | 105 | 3 | 92 | 2.17 |
+| DWARF | 32 | 53 | 56 | 139 | 150 | 927 | 126 | 137 | 1 | 46 | 2.24 |
+| WINGED_KIN | 40 | 63 | 91 | 72 | 141 | 965 | 114 | 120 | 3 | 58 | 2.21 |
+| DEMONKIN | 57 | 55 | 115 | 71 | 155 | 948 | 78 | 120 | 2 | 65 | 2.25 |
+| DRAGONKIN | 57 | 88 | 59 | 110 | 133 | 959 | 99 | 120 | 6 | 35 | 2.23 |
 
 | Determinism check | Runs with evidence | Same final material | P | Guardrail |
 |---|---|---|---|---|
-| P(final WOOD | hint WOOD) | 892 | 25 | 2.8% | <= 70% |
-| P(final STON | hint STON) | 878 | 23 | 2.6% | <= 70% |
-| P(final GLAS | hint GLAS) | 752 | 19 | 2.5% | <= 70% |
-| P(final METL | hint METL) | 942 | 28 | 3.0% | <= 70% |
-| P(final CRYS | hint CRYS) | 665 | 8 | 1.2% | <= 70% |
-| P(final METL | first manifestation METL) | 853 | 13 | 1.5% | <= 80% |
-| P(final WOOD | first manifestation WOOD) | 5230 | 84 | 1.6% | <= 80% |
-| P(final TEMP | first manifestation TEMP) | 377 | 0 | 0.0% | <= 80% |
-| P(final CRYS | first manifestation CRYS) | 891 | 9 | 1.0% | <= 80% |
-| P(final CERA | first manifestation CERA) | 781 | 6 | 0.8% | <= 80% |
-| P(final GLAS | first manifestation GLAS) | 918 | 16 | 1.7% | <= 80% |
-| P(final STON | first manifestation STON) | 945 | 14 | 1.5% | <= 80% |
+| P(final WOOD | hint WOOD) | 923 | 57 | 6.2% | <= 70% |
+| P(final STON | hint STON) | 893 | 73 | 8.2% | <= 70% |
+| P(final CRYS | hint CRYS) | 708 | 25 | 3.5% | <= 70% |
+| P(final GLAS | hint GLAS) | 763 | 60 | 7.9% | <= 70% |
+| P(final METL | hint METL) | 875 | 63 | 7.2% | <= 70% |
+| P(final GLAS | first manifestation GLAS) | 1291 | 91 | 7.0% | <= 80% |
+| P(final METL | first manifestation METL) | 1536 | 119 | 7.7% | <= 80% |
+| P(final STON | first manifestation STON) | 1691 | 121 | 7.2% | <= 80% |
+| P(final CERA | first manifestation CERA) | 1026 | 42 | 4.1% | <= 80% |
+| P(final CRYS | first manifestation CRYS) | 1337 | 81 | 6.1% | <= 80% |
+| P(final WOOD | first manifestation WOOD) | 2147 | 134 | 6.2% | <= 80% |
+| P(final TEMP | first manifestation TEMP) | 966 | 2 | 0.2% | <= 80% |
+
+First manifestation family distribution (Q-22):
+
+| Family | Runs | Share of runs with a manifestation | Mean age | Median age |
+|---|---|---|---|---|
+| WOOD | 2147 | 21.5% | 15.7 | 13.0 |
+| STON | 1691 | 16.9% | 19.1 | 18.0 |
+| METL | 1536 | 15.4% | 18.9 | 18.0 |
+| CRYS | 1337 | 13.4% | 19.1 | 19.0 |
+| GLAS | 1291 | 12.9% | 19.4 | 19.0 |
+| CERA | 1026 | 10.3% | 19.4 | 19.0 |
+| TEMP | 966 | 9.7% | 20.5 | 20.0 |
+
+Runs with no manifestation at all: **0.1%**.
 
 | Material timing | Value |
 |---|---|
-| Average first-hint age | 9.4 |
+| Average first-hint age | 9.5 |
 | Average first-manifestation age | 18.5 |
-| Average commitment age | 35.8 |
-| Multiple manifestations before commitment | 98.9% |
+| Average commitment age | 41.4 |
+| Multiple manifestations before commitment | 98.5% |
 
 ### Talents
 
@@ -901,37 +995,46 @@ Final material by species:
 
 ### Endings
 
-Distinct endings observed: **1/24** (4.2% of the registry). Rare/hidden share of completed runs: **0.0%**; hidden-only: **0.0%**.
+Distinct endings observed: **10/24** (41.7% of the registry). Rare/hidden share of completed runs: **0.7%**; hidden-only: **0.0%**.
 
 | Ending | Title | Runs | Share of completed |
 |---|---|---|---|
-| `END-MED-001` | Last Version of You | 16 | 100.0% |
+| `END-MED-001` | Last Version of You | 1786 | 42.0% |
+| `END-FAM-001` | Family Heirloom | 1282 | 30.2% |
+| `END-FAM-002` | The Garden Figure | 1139 | 26.8% |
+| `END-TMP-001` | Time Served | 17 | 0.4% |
+| `END-MUS-001` | Permanent Collection | 9 | 0.2% |
+| `END-MUS-004` | Mixed Media | 8 | 0.2% |
+| `END-REL-001` | Sacred Object, Pending Appeal | 6 | 0.1% |
+| `END-ARC-001` | Structural Support | 2 | 0.0% |
+| `END-ACA-001` | Tenure | 1 | 0.0% |
+| `END-CIV-001` | Living Memorial | 1 | 0.0% |
 
 ### Final stats
 
 | Stat | Mean at run end |
 |---|---|
-| CHR | 8.86 |
-| INT | 18.93 |
-| STR | -3.20 |
-| MNY | 2.61 |
-| SPR | 54.47 |
-| FIX | 27.01 |
+| CHR | 14.21 |
+| INT | 19.11 |
+| STR | 1.34 |
+| MNY | 1.73 |
+| SPR | 46.61 |
+| FIX | 34.89 |
 
-FIX distribution at run end — p50 **26**, p90 **44**, p99 **50**, max **52**.
+FIX distribution at run end — p50 **34**, p90 **48**, p99 **54**, max **59**.
 
 ### Guardrail findings
 
 | Severity | ID | Finding |
 |---|---|---|
-| WARNING | `fallback-share` | Age-25+ fallback share 35.1% exceeds the warning threshold 5.0% (target 2.0%). |
+| WARNING | `fallback-share` | Age-25+ fallback share 26.2% exceeds the warning threshold 5.0% (target 2.0%). |
 | WARNING | `ending-age-share-18-24` | Ending age band 18-24: observed 0.0% vs target 18-22%. |
-| WARNING | `ending-age-share-25-34` | Ending age band 25-34: observed 0.0% vs target 35-40%. |
-| WARNING | `ending-age-share-35-44` | Ending age band 35-44: observed 12.5% vs target 20-25%. |
-| WARNING | `ending-age-share-45-54` | Ending age band 45-54: observed 87.5% vs target 8-12%. |
-| WARNING | `ending-age-share-55-64` | Ending age band 55-64: observed 0.0% vs target 4-7%. |
-| WARNING | `ending-age-share-65+` | Ending age band 65+: observed 0.0% vs target 2-5%. |
-| FAILURE | `nonterminal-rate` | 9984/10000 runs (99.8%) reached the diagnostic maximum age without an ending. |
+| WARNING | `ending-age-share-25-34` | Ending age band 25-34: observed 0.3% vs target 35-40%. |
+| WARNING | `ending-age-share-35-44` | Ending age band 35-44: observed 5.2% vs target 20-25%. |
+| WARNING | `ending-age-share-45-54` | Ending age band 45-54: observed 2.4% vs target 8-12%. |
+| WARNING | `ending-age-share-55-64` | Ending age band 55-64: observed 0.1% vs target 4-7%. |
+| WARNING | `ending-age-share-65+` | Ending age band 65+: observed 92.0% vs target 2-5%. |
+| FAILURE | `nonterminal-rate` | 5749/10000 runs (57.5%) reached the diagnostic maximum age without an ending. |
 
 ## Scenario `anomalous-talents` — TARGETED_ANOMALOUS_TALENT_CASES
 
@@ -940,69 +1043,69 @@ Hidden-FIX, anomalous-continuity and registration-anomaly talents.
 | Setting | Value |
 |---|---|
 | Runs | 10000 |
-| Base seed | `phase1` |
+| Base seed | `phase1_1` |
 | Species sampling | stratified equally |
 | Diagnostic max age | 120 |
-| Pre-25 coverage policy | `reuse_baseline_repeatables` |
+| Family weighting | `uniform` |
 
 ### Outcome rates
 
 | Outcome | Runs | Share |
 |---|---|---|
-| Completed (reached an ending) | 642 | 6.4% |
-| Nonterminal at diagnostic max age | 9358 | 93.6% |
+| Completed (reached an ending) | 9551 | 95.5% |
+| Nonterminal at diagnostic max age | 449 | 4.5% |
 | Pre-25 content coverage defect | 0 | 0.0% |
 
-Average run length: **115.9 years** across 1159309 simulated event-years.
+Average run length: **46.0 years** across 460473 simulated event-years.
 
 ### Ending age
 
-Average **41.0**, median **41.0**, p10 **35**, p90 **47**.
+Average **41.5**, median **40.0**, p10 **33**, p90 **51**.
 
 | Age band | Observed share | Target range | Within target |
 |---|---|---|---|
 | 18-24 | 0.0% | 18%–22% | NO |
-| 25-34 | 7.6% | 35%–40% | NO |
-| 35-44 | 69.8% | 20%–25% | NO |
-| 45-54 | 20.6% | 8%–12% | NO |
-| 55-64 | 2.0% | 4%–7% | NO |
-| 65+ | 0.0% | 2%–5% | NO |
+| 25-34 | 14.0% | 35%–40% | NO |
+| 35-44 | 60.7% | 20%–25% | NO |
+| 45-54 | 19.4% | 8%–12% | NO |
+| 55-64 | 2.8% | 4%–7% | NO |
+| 65+ | 3.1% | 2%–5% | yes |
 
 ### Channel counts by age band
 
 | Age band | ORD | INS | TRN | SPC | Total |
 |---|---|---|---|---|---|
-| 0-5 | 54955 | 5045 | 0 | 0 | 60000 |
-| 6-11 | 49235 | 10765 | 0 | 0 | 60000 |
-| 12-17 | 43594 | 11881 | 4525 | 0 | 60000 |
-| 18-24 | 38305 | 17611 | 14084 | 0 | 70000 |
-| 25-34 | 42210 | 30171 | 27520 | 0 | 99901 |
-| 35-44 | 55999 | 35776 | 5846 | 0 | 97621 |
-| 45-54 | 66195 | 26956 | 975 | 0 | 94126 |
-| 55-64 | 81154 | 12307 | 152 | 0 | 93613 |
-| 65+ | 514676 | 9372 | 0 | 0 | 524048 |
+| 0-5 | 55182 | 4818 | 0 | 0 | 60000 |
+| 6-11 | 49238 | 10762 | 0 | 0 | 60000 |
+| 12-17 | 42957 | 11450 | 5593 | 0 | 60000 |
+| 18-24 | 38960 | 17373 | 13667 | 0 | 70000 |
+| 25-34 | 41397 | 27211 | 25027 | 3925 | 97560 |
+| 35-44 | 24168 | 16810 | 5380 | 14178 | 60536 |
+| 45-54 | 9509 | 3669 | 87 | 4326 | 17591 |
+| 55-64 | 6706 | 972 | 1 | 630 | 8309 |
+| 65+ | 24869 | 1608 | 0 | 0 | 26477 |
 
 ### Family counts by age band
 
 <details><summary>Expand</summary>
 
-**0-5** — ORD/FAM 54955, INS/CIV 5045
+**0-5** — ORD/FAM 21054, ORD/GEN 10588, ORD/HOU 8786, ORD/SOC 7755, ORD/HEA 6999, INS/CIV 4818
 
-**6-11** — ORD/EDU 37178, ORD/SOC 12057, INS/EDU 10765
+**6-11** — ORD/EDU 33674, ORD/SOC 15564, INS/EDU 10762
 
-**12-17** — ORD/EDU 31699, ORD/SOC 11895, INS/EDU 7635, TRN/WOOD 4525, INS/FIN 4246
+**12-17** — ORD/EDU 28543, ORD/SOC 14414, INS/EDU 7440, INS/FIN 4010, TRN/WOOD 1601, TRN/CRYS 742, TRN/STON 686, TRN/GLAS 668, TRN/TEMP 658, TRN/METL 636, TRN/CERA 602
 
-**18-24** — ORD/CAR 13069, ORD/SOC 6269, ORD/HOU 5813, ORD/HEA 5437, INS/REL 5295, INS/MED 3732, INS/ACA 3426, ORD/CIV 3353, ORD/FAM 2459, TRN/STON 2348, TRN/CRYS 2197, TRN/METL 2186, TRN/WOOD 2185, TRN/GLAS 2122, TRN/CERA 1921, INS/COR 1687, ORD/EDU 1631, INS/MUS 1509, INS/CIV 1401, TRN/TEMP 1117, INS/FIN 455, ORD/FIN 274, INS/LEG 106, TRN/SYNT 8
+**18-24** — ORD/CAR 10000, ORD/SOC 6724, ORD/HOU 6496, ORD/HEA 6172, INS/REL 5540, ORD/CIV 4806, INS/MED 3791, INS/ACA 3681, ORD/FAM 2558, TRN/STON 2241, TRN/CRYS 2162, TRN/METL 2070, TRN/GLAS 2012, TRN/WOOD 1924, TRN/CERA 1840, INS/MUS 1639, ORD/EDU 1572, INS/CIV 1459, TRN/TEMP 1413, INS/COR 684, ORD/FIN 632, INS/FIN 491, INS/LEG 88, TRN/SYNT 5
 
-**25-34** — ORD/SOC 11292, INS/ACA 7894, ORD/CAR 7332, ORD/HOU 7309, ORD/HEA 6516, INS/MED 5377, ORD/FAM 4541, TRN/STON 4296, TRN/CRYS 4044, TRN/WOOD 3995, TRN/GLAS 3982, TRN/METL 3834, TRN/CERA 3816, ORD/CIV 3795, INS/COR 3734, INS/FIN 3447, INS/MUS 2847, INS/LEG 2819, TRN/TEMP 2733, INS/CIV 2166, INS/REL 1731, ORD/FIN 1425, TRN/SYNT 815, INS/ARC 156, TRN/MIXD 5
+**25-34** — ORD/CAR 13711, INS/MED 7465, ORD/SOC 7169, ORD/HOU 6188, INS/ACA 5644, ORD/HEA 5398, SPC/ANO 3925, TRN/STON 3893, ORD/FAM 3845, TRN/CRYS 3787, TRN/GLAS 3605, TRN/METL 3540, TRN/WOOD 3398, INS/FIN 3397, TRN/CERA 3273, ORD/CIV 3184, INS/MUS 3008, TRN/TEMP 2995, INS/CIV 2391, INS/LEG 1961, ORD/FIN 1902, INS/REL 1718, INS/COR 1470, TRN/SYNT 531, INS/ARC 157, TRN/MIXD 5
 
-**35-44** — ORD/SOC 24160, ORD/FAM 11183, INS/ACA 8850, INS/MED 7020, ORD/HOU 6916, ORD/GEN 6906, INS/LEG 6895, ORD/CAR 3316, INS/CIV 3254, INS/MUS 2787, INS/COR 2470, ORD/FIN 2341, TRN/TEMP 2233, INS/REL 2163, INS/FIN 1752, ORD/CIV 1177, TRN/SYNT 615, INS/ARC 585, TRN/WOOD 510, TRN/STON 492, TRN/CRYS 463, TRN/GLAS 458, TRN/METL 457, TRN/CERA 375, TRN/MIXD 243
+**35-44** — SPC/ANO 14178, ORD/SOC 6816, ORD/FAM 4722, ORD/GEN 4500, INS/MED 4434, INS/ACA 3313, ORD/HOU 3294, ORD/CAR 3174, INS/LEG 2286, INS/CIV 1946, INS/MUS 1463, TRN/TEMP 1402, INS/REL 1224, INS/FIN 1067, ORD/FIN 1066, INS/COR 715, TRN/CRYS 655, TRN/STON 638, TRN/GLAS 613, TRN/METL 600, ORD/CIV 596, TRN/WOOD 567, TRN/CERA 465, TRN/SYNT 371, INS/ARC 362, TRN/MIXD 69
 
-**45-54** — ORD/FAM 23396, ORD/CAR 12619, ORD/HEA 12566, ORD/SOC 10691, ORD/GEN 6923, INS/FIN 6917, INS/LEG 5578, INS/CIV 4673, INS/MED 4231, INS/COR 1593, INS/REL 1430, INS/MUS 997, INS/ACA 995, TRN/MIXD 975, INS/ARC 542
+**45-54** — SPC/ANO 4326, ORD/FAM 2939, ORD/CAR 2023, ORD/HEA 1837, ORD/SOC 1693, ORD/GEN 1017, INS/CIV 876, INS/FIN 810, INS/LEG 641, INS/MED 638, INS/REL 212, INS/ACA 179, INS/COR 166, INS/MUS 77, TRN/MIXD 76, INS/ARC 70, TRN/TEMP 11
 
-**55-64** — ORD/GEN 18929, ORD/FAM 17580, ORD/CAR 16174, ORD/SOC 14879, ORD/HEA 13592, INS/CIV 9361, INS/FIN 2446, INS/MED 335, INS/LEG 155, TRN/MIXD 152, INS/MUS 10
+**55-64** — ORD/GEN 1633, ORD/FAM 1457, ORD/CAR 1330, ORD/SOC 1240, ORD/HEA 1046, INS/CIV 801, SPC/ANO 630, INS/FIN 153, INS/MED 15, INS/LEG 1, INS/MUS 1, INS/REL 1, TRN/MIXD 1
 
-**65+** — ORD/GEN 409902, ORD/SOC 102810, INS/CIV 9362, ORD/FAM 1964, INS/FIN 7, INS/MED 3
+**65+** — ORD/GEN 18909, ORD/SOC 5111, INS/MED 942, ORD/FAM 848, INS/CIV 666, ORD/CAR 1
 
 </details>
 
@@ -1010,100 +1113,116 @@ Average **41.0**, median **41.0**, p10 **35**, p90 **47**.
 
 | Metric | Value |
 |---|---|
-| Fallback event-years | 310939 |
-| Fallback share of all event-years | 26.8% |
-| Fallback share of age-25+ event-years | 34.2% |
+| Fallback event-years | 14880 |
+| Fallback share of all event-years | 3.2% |
+| Fallback share of age-25+ event-years | 7.1% |
 | Target age-25+ fallback share | 2% |
 | Pre-25 fallback events (must be 0) | 0 |
 | Pre-25 coverage-defect runs | 0 (0.0%) |
-| Pre-25 diagnostic reuse years | 12856 |
+| SPC channel share of event-years | 5.01% |
+| Runs using a mandatory_only event | 88.0% |
+| Endings at age 65+ | 3.1% |
 
 ### Routes, schedules and priority
 
 | Metric | Value |
 |---|---|
 | Route entry rate (run entered >=1 route) | 100.0% |
-| Route climax rate (run fired a climax schedule) | 6.4% |
-| Route abandonment/expiry rate (run had >=1 expired schedule) | 95.1% |
-| Expired schedules total | 31353 |
-| Priority collision rate (run had >=1 contested year) | 2.6% |
-| Contested years total | 270 |
-| Schedule displacements per run | 0.03 |
+| Route climax rate (run fired a climax schedule) | 95.5% |
+| Route abandonment/expiry rate (run had >=1 expired schedule) | 44.8% |
+| Expired schedules total | 8795 |
+| Priority collision rate (run had >=1 contested year) | 16.2% |
+| Contested years total | 2222 |
+| Schedule displacements per run | 0.24 |
 
 Most-entered route flags:
 
 | Route flag | Runs |
 |---|---|
-| `ROUTE_FAM_PLACEMENT` | 8212 |
-| `ROUTE_CIV_SERVICE` | 7244 |
-| `ROUTE_REL_INTEREST` | 7169 |
-| `ROUTE_MED_SCREENED` | 7052 |
-| `ROUTE_MED_DIRECTIVE` | 6562 |
-| `ROUTE_ACA_RESEARCH` | 6155 |
-| `ROUTE_COR_EMPLOYEE` | 6113 |
-| `ROUTE_CIV_MEMORIAL` | 5345 |
-| `ROUTE_FAM_DIRECTIVE` | 5126 |
-| `ROUTE_MED_PRESERVATION_CONSULT` | 5027 |
-| `ROUTE_MUS_INTEREST` | 5002 |
-| `ROUTE_LEG_STATUS_CASE` | 4815 |
-| `ROUTE_LEG_STATUS_RESOLVED` | 4787 |
-| `ROUTE_FIN_VALUED` | 4613 |
-| `ROUTE_ACA_SPECIALIZATION` | 4356 |
-| `ROUTE_CIV_REBRANDED` | 3935 |
-| `ROUTE_REL_CLAIM` | 3440 |
-| `ROUTE_TEMP_STUDY` | 2768 |
-| `ROUTE_ACA_MATERIALS` | 2738 |
-| `ROUTE_ACA_MATERIALS_EXPOSED` | 2736 |
+| `ROUTE_ANO_OBJECT_CONTINUITY` | 7825 |
+| `ROUTE_CIV_SERVICE` | 7542 |
+| `ROUTE_REL_INTEREST` | 7263 |
+| `ROUTE_FAM_PLACEMENT` | 6889 |
+| `ROUTE_ACA_RESEARCH` | 5468 |
+| `ROUTE_MUS_INTEREST` | 5161 |
+| `ROUTE_MED_SCREENED` | 4426 |
+| `ROUTE_CAR_MATERIAL_EXPOSURE` | 4354 |
+| `ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY` | 4308 |
+| `ROUTE_FIN_VALUED` | 4240 |
+| `ROUTE_MED_PRESERVATION_CONSULT` | 3737 |
+| `ROUTE_COR_EMPLOYEE` | 3382 |
+| `ROUTE_CIV_MEMORIAL` | 3168 |
+| `ROUTE_MED_CONTROLLED_HARDENING` | 2497 |
+| `ROUTE_MED_CONTROLLED_HARDENING_STAGE2` | 2496 |
+| `ROUTE_FAM_DIRECTIVE` | 2440 |
+| `ROUTE_ACA_SPECIALIZATION` | 2350 |
+| `ROUTE_ACA_MATERIALS` | 1648 |
+| `ROUTE_ACA_MATERIALS_EXPOSED` | 1598 |
+| `ROUTE_LEG_STATUS_CASE` | 1433 |
 
 ### Material
 
-Material Commitment rate: **81.7%**. Final-material entropy: **3.14 bits**.
+Material Commitment rate: **95.5%**. Final-material entropy: **3.07 bits**.
 
 | Final material | Runs | Share |
 |---|---|---|
-| NONE | 1827 | 18.3% |
-| MIXD | 1375 | 13.8% |
-| SYNT | 1148 | 11.5% |
-| STON | 1066 | 10.7% |
-| WOOD | 1014 | 10.1% |
-| METL | 942 | 9.4% |
-| CRYS | 938 | 9.4% |
-| GLAS | 914 | 9.1% |
-| CERA | 756 | 7.6% |
-| TEMP | 20 | 0.2% |
+| CRYS | 1469 | 14.7% |
+| STON | 1455 | 14.5% |
+| GLAS | 1359 | 13.6% |
+| SYNT | 1317 | 13.2% |
+| METL | 1297 | 13.0% |
+| WOOD | 1278 | 12.8% |
+| CERA | 1104 | 11.0% |
+| NONE | 449 | 4.5% |
+| MIXD | 151 | 1.5% |
+| TEMP | 121 | 1.2% |
 
 Final material by species:
 
 | Species | CERA | CRYS | GLAS | METL | MIXD | NONE | STON | SYNT | TEMP | WOOD | Entropy (bits) |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| HUMAN | 150 | 140 | 152 | 156 | 230 | 298 | 148 | 202 | 2 | 189 | 3.13 |
-| ELF | 107 | 184 | 138 | 58 | 229 | 307 | 160 | 203 | 4 | 277 | 3.06 |
-| DWARF | 121 | 67 | 83 | 252 | 215 | 321 | 254 | 165 | 4 | 185 | 3.04 |
-| WINGED_KIN | 118 | 194 | 168 | 70 | 244 | 307 | 216 | 187 | 4 | 159 | 3.09 |
-| DEMONKIN | 129 | 142 | 246 | 173 | 226 | 294 | 140 | 213 | 5 | 98 | 3.11 |
-| DRAGONKIN | 131 | 211 | 127 | 233 | 231 | 300 | 148 | 178 | 1 | 106 | 3.10 |
+| HUMAN | 235 | 226 | 213 | 229 | 29 | 77 | 198 | 214 | 17 | 229 | 3.07 |
+| ELF | 163 | 296 | 192 | 162 | 24 | 72 | 187 | 199 | 23 | 349 | 3.02 |
+| DWARF | 166 | 157 | 176 | 299 | 26 | 78 | 350 | 220 | 13 | 182 | 3.00 |
+| WINGED_KIN | 170 | 275 | 241 | 158 | 28 | 74 | 287 | 215 | 17 | 202 | 3.04 |
+| DEMONKIN | 178 | 192 | 380 | 167 | 21 | 79 | 190 | 251 | 29 | 179 | 3.03 |
+| DRAGONKIN | 192 | 323 | 157 | 282 | 23 | 69 | 243 | 218 | 22 | 137 | 3.02 |
 
 | Determinism check | Runs with evidence | Same final material | P | Guardrail |
 |---|---|---|---|---|
-| P(final STON | hint STON) | 886 | 148 | 16.7% | <= 70% |
-| P(final GLAS | hint GLAS) | 745 | 116 | 15.6% | <= 70% |
-| P(final METL | hint METL) | 917 | 139 | 15.2% | <= 70% |
-| P(final CRYS | hint CRYS) | 659 | 80 | 12.1% | <= 70% |
-| P(final WOOD | hint WOOD) | 858 | 148 | 17.2% | <= 70% |
-| P(final GLAS | first manifestation GLAS) | 881 | 144 | 16.3% | <= 80% |
-| P(final WOOD | first manifestation WOOD) | 5246 | 694 | 13.2% | <= 80% |
-| P(final METL | first manifestation METL) | 854 | 143 | 16.7% | <= 80% |
-| P(final STON | first manifestation STON) | 962 | 138 | 14.3% | <= 80% |
-| P(final TEMP | first manifestation TEMP) | 391 | 0 | 0.0% | <= 80% |
-| P(final CRYS | first manifestation CRYS) | 893 | 140 | 15.7% | <= 80% |
-| P(final CERA | first manifestation CERA) | 771 | 99 | 12.8% | <= 80% |
+| P(final STON | hint STON) | 918 | 224 | 24.4% | <= 70% |
+| P(final CRYS | hint CRYS) | 667 | 123 | 18.4% | <= 70% |
+| P(final GLAS | hint GLAS) | 727 | 181 | 24.9% | <= 70% |
+| P(final METL | hint METL) | 857 | 162 | 18.9% | <= 70% |
+| P(final WOOD | hint WOOD) | 917 | 207 | 22.6% | <= 70% |
+| P(final CERA | first manifestation CERA) | 1125 | 290 | 25.8% | <= 80% |
+| P(final METL | first manifestation METL) | 1309 | 381 | 29.1% | <= 80% |
+| P(final WOOD | first manifestation WOOD) | 2285 | 563 | 24.6% | <= 80% |
+| P(final GLAS | first manifestation GLAS) | 1359 | 399 | 29.4% | <= 80% |
+| P(final CRYS | first manifestation CRYS) | 1418 | 422 | 29.8% | <= 80% |
+| P(final STON | first manifestation STON) | 1449 | 420 | 29.0% | <= 80% |
+| P(final TEMP | first manifestation TEMP) | 1055 | 31 | 2.9% | <= 80% |
+
+First manifestation family distribution (Q-22):
+
+| Family | Runs | Share of runs with a manifestation | Mean age | Median age |
+|---|---|---|---|---|
+| WOOD | 2285 | 22.9% | 15.8 | 13.0 |
+| STON | 1449 | 14.5% | 19.3 | 19.0 |
+| CRYS | 1418 | 14.2% | 19.2 | 18.0 |
+| GLAS | 1359 | 13.6% | 19.2 | 18.0 |
+| METL | 1309 | 13.1% | 19.2 | 19.0 |
+| CERA | 1125 | 11.3% | 19.2 | 19.0 |
+| TEMP | 1055 | 10.5% | 20.4 | 20.0 |
+
+Runs with no manifestation at all: **0.0%**.
 
 | Material timing | Value |
 |---|---|
 | Average first-hint age | 9.5 |
-| Average first-manifestation age | 18.4 |
-| Average commitment age | 33.5 |
-| Multiple manifestations before commitment | 99.1% |
+| Average first-manifestation age | 18.5 |
+| Average commitment age | 34.4 |
+| Multiple manifestations before commitment | 98.3% |
 
 ### Talents
 
@@ -1115,50 +1234,51 @@ Final material by species:
 
 ### Endings
 
-Distinct endings observed: **14/24** (58.3% of the registry). Rare/hidden share of completed runs: **8.3%**; hidden-only: **0.0%**.
+Distinct endings observed: **16/24** (66.7% of the registry). Rare/hidden share of completed runs: **82.3%**; hidden-only: **79.8%**.
 
 | Ending | Title | Runs | Share of completed |
 |---|---|---|---|
-| `END-MED-001` | Last Version of You | 505 | 78.7% |
-| `END-MUS-002` | Excellent Condition, Minor Wear | 22 | 3.4% |
-| `END-TMP-001` | Time Served | 20 | 3.1% |
-| `END-MUS-004` | Mixed Media | 18 | 2.8% |
-| `END-CIV-001` | Living Memorial | 16 | 2.5% |
-| `END-FAM-001` | Family Heirloom | 15 | 2.3% |
-| `END-COR-001` | Employee of the Century | 12 | 1.9% |
-| `END-REL-001` | Sacred Object, Pending Appeal | 10 | 1.6% |
-| `END-FAM-002` | The Garden Figure | 8 | 1.2% |
-| `END-ARC-001` | Structural Support | 5 | 0.8% |
-| `END-CIV-002` | Politically Neutral Landmark | 4 | 0.6% |
-| `END-ACA-001` | Tenure | 3 | 0.5% |
-| `END-FIN-001` | Collateral Realized | 3 | 0.5% |
-| `END-MUS-003` | Crystal Archivist | 1 | 0.2% |
+| `END-ANO-001` | Object Permanence | 7617 | 79.8% |
+| `END-MED-001` | Last Version of You | 1343 | 14.1% |
+| `END-TMP-001` | Time Served | 121 | 1.3% |
+| `END-CIV-001` | Living Memorial | 100 | 1.0% |
+| `END-FAM-002` | The Garden Figure | 96 | 1.0% |
+| `END-REL-001` | Sacred Object, Pending Appeal | 71 | 0.7% |
+| `END-FAM-001` | Family Heirloom | 57 | 0.6% |
+| `END-MUS-002` | Excellent Condition, Minor Wear | 35 | 0.4% |
+| `END-CIV-002` | Politically Neutral Landmark | 25 | 0.3% |
+| `END-COR-001` | Employee of the Century | 19 | 0.2% |
+| `END-FIN-001` | Collateral Realized | 19 | 0.2% |
+| `END-ARC-001` | Structural Support | 15 | 0.2% |
+| `END-ACA-001` | Tenure | 11 | 0.1% |
+| `END-MUS-004` | Mixed Media | 10 | 0.1% |
+| `END-FIN-003` | No Longer Depreciating | 9 | 0.1% |
+| `END-MUS-003` | Crystal Archivist | 3 | 0.0% |
 
 ### Final stats
 
 | Stat | Mean at run end |
 |---|---|
-| CHR | 2.09 |
-| INT | 20.94 |
-| STR | -1.29 |
-| MNY | 3.00 |
-| SPR | 47.24 |
-| FIX | 43.19 |
+| CHR | 13.93 |
+| INT | 18.16 |
+| STR | 10.35 |
+| MNY | 4.97 |
+| SPR | 9.52 |
+| FIX | 49.38 |
 
-FIX distribution at run end — p50 **44**, p90 **50**, p99 **55**, max **62**.
+FIX distribution at run end — p50 **49**, p90 **55**, p99 **62**, max **73**.
 
 ### Guardrail findings
 
 | Severity | ID | Finding |
 |---|---|---|
-| WARNING | `fallback-share` | Age-25+ fallback share 34.2% exceeds the warning threshold 5.0% (target 2.0%). |
+| WARNING | `fallback-share` | Age-25+ fallback share 7.1% exceeds the warning threshold 5.0% (target 2.0%). |
 | WARNING | `ending-age-share-18-24` | Ending age band 18-24: observed 0.0% vs target 18-22%. |
-| WARNING | `ending-age-share-25-34` | Ending age band 25-34: observed 7.6% vs target 35-40%. |
-| WARNING | `ending-age-share-35-44` | Ending age band 35-44: observed 69.8% vs target 20-25%. |
-| WARNING | `ending-age-share-45-54` | Ending age band 45-54: observed 20.6% vs target 8-12%. |
-| WARNING | `ending-age-share-55-64` | Ending age band 55-64: observed 2.0% vs target 4-7%. |
-| WARNING | `ending-age-share-65+` | Ending age band 65+: observed 0.0% vs target 2-5%. |
-| FAILURE | `nonterminal-rate` | 9358/10000 runs (93.6%) reached the diagnostic maximum age without an ending. |
+| WARNING | `ending-age-share-25-34` | Ending age band 25-34: observed 14.0% vs target 35-40%. |
+| WARNING | `ending-age-share-35-44` | Ending age band 35-44: observed 60.7% vs target 20-25%. |
+| WARNING | `ending-age-share-45-54` | Ending age band 45-54: observed 19.4% vs target 8-12%. |
+| WARNING | `ending-age-share-55-64` | Ending age band 55-64: observed 2.8% vs target 4-7%. |
+| WARNING | `nonterminal-rate` | 449/10000 runs (4.5%) reached the diagnostic maximum age without an ending. |
 
 ---
 

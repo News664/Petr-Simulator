@@ -5,7 +5,7 @@
  * Markdown is a generated review artifact. CI must fail when the checked-in
  * Markdown is not byte-for-byte identical to a fresh render.
  *
- * This is a TypeScript port of `tools/SOLID_STATE_CONTENT_TOOL_v0.1.py::render`
+ * This is a TypeScript port of `tools/SOLID_STATE_CONTENT_TOOL_v0.2.py::render`
  * so the invariant is enforced by `npm test` without a Python dependency. The
  * Python tool remains the reference implementation; `tests/mirror.test.ts`
  * asserts both agree.
@@ -19,6 +19,7 @@ interface RawSchedule {
   offsetYears: number;
   windowYears: number;
   priority: string;
+  priorityOrder?: number;
   validityCondition: string;
 }
 
@@ -46,6 +47,7 @@ interface RawEvent {
   repeatMaxCount: number | null;
   routeTags?: string[];
   materialTags?: string[];
+  refinementTags?: string[];
   include: string;
   exclude: string;
   variants: RawVariant[];
@@ -124,10 +126,13 @@ export function renderBatchMarkdown(data: RawBatch): string {
         lines.push(`- Material Commitment: \`${variant.setMaterialCommitment}\``);
       }
       for (const schedule of variant.schedules ?? []) {
+        // Content Tool v0.2 renders priorityOrder only when the key is present.
+        const priorityOrder =
+          schedule.priorityOrder !== undefined ? `, priorityOrder ${schedule.priorityOrder}` : '';
         lines.push(
           `- Schedule: \`${schedule.eventId}\` +${schedule.offsetYears}y, ` +
-            `window ${schedule.windowYears}y, priority \`${schedule.priority}\`, ` +
-            `valid while \`${schedule.validityCondition}\``,
+            `window ${schedule.windowYears}y, priority \`${schedule.priority}\`` +
+            `${priorityOrder}, valid while \`${schedule.validityCondition}\``,
         );
       }
       if (variant.endingId) {
@@ -144,6 +149,9 @@ export function renderBatchMarkdown(data: RawBatch): string {
     }
     if (isNonEmptyArray(event.materialTags)) {
       lines.push(`**Material tags:** \`${event.materialTags!.join(', ')}\`  `);
+    }
+    if (isNonEmptyArray(event.refinementTags)) {
+      lines.push(`**Refinement tags:** \`${event.refinementTags!.join(', ')}\`  `);
     }
     lines.push(`**Designer note:** ${event.designerNotes}`);
     lines.push('');

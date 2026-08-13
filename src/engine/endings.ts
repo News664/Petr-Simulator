@@ -1,7 +1,7 @@
-import type { AwarenessRule } from './content/balance.js';
 import type { ContentBundle } from './content/load.js';
 import {
   AUTHORIZATION_REQUIRED_AWARENESS,
+  AWARENESS_STATES,
   type AwarenessState,
   type EndingRecord,
   type EventVariant,
@@ -28,16 +28,23 @@ export class EndingResolutionError extends Error {
   }
 }
 
-/** Contract section 23 fallback when an ending carries no registry default. */
-function contractDefaultAwareness(material: string): AwarenessState {
-  return material === 'TEMP' ? 'Suspended' : 'Unconscious';
-}
-
 export interface AwarenessResolution {
   awareness: AwarenessState;
   authorized: boolean;
 }
 
+/**
+ * Awareness resolution from Ending Registry v1.1 structured fields.
+ *
+ * No prose is parsed (Acceptance Addendum section 5). Rules:
+ *  - ordinary solid Permanent Form -> the ending's `default_awareness`;
+ *  - temporal material -> `awareness_if_temporal` when the ending declares one;
+ *  - `Uncertain` requires no authorization;
+ *  - states listed in `authorization_required_states` need one of the ending's
+ *    `authorizing_talents` (END-ANO-001 -> T1028, END-ANO-002 -> T1029);
+ *  - without authorization the engine falls back to the Contract section 23
+ *    default rather than inventing eternal awareness.
+ */
 export function resolveAwareness(
   content: ContentBundle,
   endingId: string,
@@ -48,33 +55,38 @@ export function resolveAwareness(
   const ending = content.endings.get(endingId);
   if (!ending) throw new EndingResolutionError(`unknown ending ${endingId}`);
 
-  const authorizingTalents = content.adapters.endingAwarenessAuthorizingTalents[endingId] ?? [];
   const hasAuthorization =
-    authorizingTalents.length > 0 && authorizingTalents.some((id) => state.talents.has(id));
+    ending.authorizingTalents.length > 0 &&
+    ending.authorizingTalents.some((id) => state.talents.has(id));
 
-  const requestExplicit = (value: string): AwarenessResolution => {
-    const awareness = value as AwarenessState;
-    if (AUTHORIZATION_REQUIRED_AWARENESS.includes(awareness) && !hasAuthorization) {
+  const needsAuthorization = (value: AwarenessState): boolean =>
+    ending.authorizationRequiredStates.includes(value) ||
+    AUTHORIZATION_REQUIRED_AWARENESS.includes(value);
+
+  // An explicit endingOverride wins, subject to the authorization rule.
+  if (override) {
+    if (!AWARENESS_STATES.includes(override as AwarenessState)) {
+      throw new EndingResolutionError(`${endingId}: unknown awareness override ${JSON.stringify(override)}`);
+    }
+    const awareness = override as AwarenessState;
+    if (needsAuthorization(awareness) && !hasAuthorization) {
       throw new EndingResolutionError(
-        `${endingId}: awareness ${awareness} requires authored authorization (one of ${authorizingTalents.join(', ') || 'none registered'})`,
+        `${endingId}: awareness ${awareness} requires authored authorization (one of ${ending.authorizingTalents.join(', ') || 'none registered'})`,
       );
     }
     return { awareness, authorized: hasAuthorization };
-  };
-
-  // An explicit endingOverride always wins, subject to the authorization rule.
-  if (override) return requestExplicit(override);
-
-  const rules: AwarenessRule[] | undefined = content.adapters.endingAwarenessRules[ending.defaultAwarenessRaw];
-  if (rules) {
-    for (const rule of rules) {
-      if (rule.ifMaterial && !rule.ifMaterial.includes(material as never)) continue;
-      if (rule.requiresAuthorization && !hasAuthorization) continue;
-      if (AUTHORIZATION_REQUIRED_AWARENESS.includes(rule.state) && !hasAuthorization) continue;
-      return { awareness: rule.state, authorized: hasAuthorization };
-    }
   }
-  return { awareness: contractDefaultAwareness(material), authorized: hasAuthorization };
+
+  const preferred =
+    material === 'TEMP' && ending.awarenessIfTemporal
+      ? ending.awarenessIfTemporal
+      : ending.defaultAwareness;
+
+  if (needsAuthorization(preferred) && !hasAuthorization) {
+    // Contract section 23 default: never infer permanent awareness.
+    return { awareness: material === 'TEMP' ? 'Suspended' : 'Unconscious', authorized: false };
+  }
+  return { awareness: preferred, authorized: hasAuthorization };
 }
 
 /**

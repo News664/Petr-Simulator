@@ -42,7 +42,6 @@ Options:
   --adapters <path>       Balance adapters JSON
   --content <dir>         Content root (default: ./content)
   --max-age <n>           Diagnostic maximum age (default: balance diagnosticSimulation.maxAge)
-  --pre25-coverage <mode> strict | reuse_baseline_repeatables (default: adapter setting)
   --out <dir>             Output directory (default: ./reports)
   --name <prefix>         Output file prefix (default: monte-carlo)
   --quiet                 Suppress progress output
@@ -73,15 +72,6 @@ function main(argv: string[]): number {
       return 2;
     }
     throw error;
-  }
-
-  const coverageMode = optionalStringFlag(args, 'pre25-coverage');
-  if (coverageMode) {
-    if (coverageMode !== 'strict' && coverageMode !== 'reuse_baseline_repeatables') {
-      console.error(`--pre25-coverage must be strict or reuse_baseline_repeatables, got ${coverageMode}`);
-      return 2;
-    }
-    content.adapters.engineRules.pre25CoveragePolicy = coverageMode;
   }
 
   const runs = intFlag(args, 'runs', content.balance.diagnosticSimulation.defaultRunsPerScenario);

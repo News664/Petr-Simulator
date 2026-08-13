@@ -96,6 +96,13 @@ export interface MetricsSummary {
   familyCountsByAgeBand: Record<string, Record<string, number>>;
 
   totalEventYears: number;
+  /** Phase 1.1: SPC channel and mandatory-event usage. */
+  spcEventYears: number;
+  spcShare: number;
+  mandatoryEventYears: number;
+  mandatoryUsageRate: number;
+  /** Phase 1.1: share of completed runs ending at 65 or later. */
+  endingShare65Plus: number;
   fallbackYears: number;
   fallbackUseRate: number;
   fallbackYearsAge25Plus: number;
@@ -129,6 +136,11 @@ export interface MetricsSummary {
     string,
     { manifestationRuns: number; sameMaterial: number; probability: number }
   >;
+  /** Phase 1.1 Q-22: first-manifestation family distribution and timing. */
+  firstManifestationFamilyCounts: Record<string, number>;
+  firstManifestationFamilyShare: Record<string, number>;
+  firstManifestationAgeByFamily: Record<string, { mean: number | null; median: number | null; runs: number }>;
+  noManifestationRate: number;
   multipleManifestationBeforeCommitmentRate: number;
   averageHintAge: number | null;
   averageFirstManifestationAge: number | null;
@@ -169,6 +181,9 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
   }
 
   let totalEventYears = 0;
+  let spcEventYears = 0;
+  let mandatoryEventYears = 0;
+  let runsUsingMandatory = 0;
   let fallbackYears = 0;
   let fallbackYearsAge25Plus = 0;
   let pre25FallbackYears = 0;
@@ -199,6 +214,9 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
   const hintAges: number[] = [];
   const firstManifestAges: number[] = [];
   const commitmentAges: number[] = [];
+  const firstManifestationFamilyCounts: Record<string, number> = {};
+  const firstManifestAgesByFamily: Record<string, number[]> = {};
+  let runsWithoutManifestation = 0;
 
   const talentRunCounts: Record<string, number> = {};
   const talentActivationCounts: Record<string, number> = {};
@@ -217,7 +235,13 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
     runLengths.push(state.history.length);
     totalEventYears += state.history.length;
 
+    let usedMandatory = false;
     for (const occurrence of state.history) {
+      if (occurrence.channel === 'SPC') spcEventYears += 1;
+      if (occurrence.selectionMode === 'mandatory_only') {
+        mandatoryEventYears += 1;
+        usedMandatory = true;
+      }
       const band = bandFor(bands, occurrence.age);
       if (band) {
         channelCountsByAgeBand[band.label]![occurrence.channel] += 1;
@@ -231,6 +255,7 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
       }
     }
 
+    if (usedMandatory) runsUsingMandatory += 1;
     pre25EmergencyReuseYears += diagnostics.emergencyReuseAges.length;
 
     if (diagnostics.routeEntries.length > 0) runsWithRouteEntry += 1;
@@ -275,7 +300,13 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
       const family = diagnostics.firstManifestationFamily;
       (manifestStats[family] ??= { manifestationRuns: 0, sameMaterial: 0 }).manifestationRuns += 1;
       if (finalMaterial === family) manifestStats[family]!.sameMaterial += 1;
-      if (diagnostics.firstManifestationAge !== null) firstManifestAges.push(diagnostics.firstManifestationAge);
+      increment(firstManifestationFamilyCounts, family);
+      if (diagnostics.firstManifestationAge !== null) {
+        firstManifestAges.push(diagnostics.firstManifestationAge);
+        (firstManifestAgesByFamily[family] ??= []).push(diagnostics.firstManifestationAge);
+      }
+    } else {
+      runsWithoutManifestation += 1;
     }
     if (diagnostics.manifestationFamilies.length > 1) multiManifestRuns += 1;
 
@@ -344,6 +375,16 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
     talentActivationAverageAge[talentId] = mean(talentActivationAges[talentId] ?? []);
   }
 
+  const firstManifestationTotal = Object.values(firstManifestationFamilyCounts).reduce((a, b) => a + b, 0);
+  const firstManifestationFamilyShare: Record<string, number> = {};
+  for (const [family, count] of Object.entries(firstManifestationFamilyCounts)) {
+    firstManifestationFamilyShare[family] = firstManifestationTotal === 0 ? 0 : count / firstManifestationTotal;
+  }
+  const firstManifestationAgeByFamily: MetricsSummary['firstManifestationAgeByFamily'] = {};
+  for (const [family, ages] of Object.entries(firstManifestAgesByFamily)) {
+    firstManifestationAgeByFamily[family] = { mean: mean(ages), median: median(ages), runs: ages.length };
+  }
+
   const materialEntropyBitsBySpecies: Record<string, number> = {};
   for (const [species, counts] of Object.entries(finalMaterialBySpecies)) {
     materialEntropyBitsBySpecies[species] = entropyBits(counts);
@@ -402,6 +443,14 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
       });
     }
   }
+  const woodShare = firstManifestationFamilyShare['WOOD'] ?? 0;
+  if (firstManifestationTotal >= 100 && woodShare > 0.5) {
+    guardrails.push({
+      id: 'first-manifestation-wood-dominance',
+      severity: 'failure',
+      message: `WOOD is the first manifestation in ${(woodShare * 100).toFixed(1)}% of runs with a manifestation; the Phase-1.1 addendum treats >50% as a failure of opportunity balance (Q-22).`,
+    });
+  }
   if (nonterminal > 0) {
     guardrails.push({
       id: 'nonterminal-rate',
@@ -434,6 +483,11 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
     familyCountsByAgeBand,
 
     totalEventYears,
+    spcEventYears,
+    spcShare: totalEventYears === 0 ? 0 : spcEventYears / totalEventYears,
+    mandatoryEventYears,
+    mandatoryUsageRate: rate(runsUsingMandatory),
+    endingShare65Plus: completed === 0 ? 0 : endingAges.filter((age) => age >= 65).length / completed,
     fallbackYears,
     fallbackUseRate: totalEventYears === 0 ? 0 : fallbackYears / totalEventYears,
     fallbackYearsAge25Plus,
@@ -464,6 +518,10 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
 
     pFinalGivenHint,
     pFinalGivenFirstManifestation,
+    firstManifestationFamilyCounts,
+    firstManifestationFamilyShare,
+    firstManifestationAgeByFamily,
+    noManifestationRate: rate(runsWithoutManifestation),
     multipleManifestationBeforeCommitmentRate: rate(multiManifestRuns),
     averageHintAge: mean(hintAges),
     averageFirstManifestationAge: mean(firstManifestAges),

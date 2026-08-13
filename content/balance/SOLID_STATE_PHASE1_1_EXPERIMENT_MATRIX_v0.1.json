@@ -1,0 +1,189 @@
+{
+  "version": "0.1",
+  "status": "PHASE1_1_DIAGNOSTIC_ONLY",
+  "purpose": "Compare event-driven FIX economy under lower commitment/climax gate profiles without selecting a final balance value.",
+  "implementationNote": "Use a reversible diagnostic override keyed by event ID/gate assignment. Do not rewrite creative prose and do not freeze any profile as canonical based on a single run.",
+  "gateAssignments": {
+    "commitment_standard": [
+      "EVT-TRN-WOOD-0003",
+      "EVT-TRN-STON-0002",
+      "EVT-TRN-METL-0002",
+      "EVT-TRN-GLAS-0002",
+      "EVT-TRN-CRYS-0002",
+      "EVT-TRN-CERA-0002",
+      "EVT-TRN-SYNT-0001"
+    ],
+    "climax_temporal": [
+      "EVT-TRN-TEMP-0002"
+    ],
+    "climax_medical": [
+      "EVT-INS-MED-0003"
+    ],
+    "climax_standard": [
+      "EVT-INS-COR-0003",
+      "EVT-INS-MUS-0003",
+      "EVT-INS-ARC-0002",
+      "EVT-ORD-FAM-0004",
+      "EVT-INS-FIN-0005",
+      "EVT-INS-REL-0003",
+      "EVT-INS-CIV-0006",
+      "EVT-INS-ACA-0005",
+      "EVT-INS-ACA-0006",
+      "EVT-INS-MUS-0005"
+    ],
+    "climax_anomalous": [
+      "EVT-SPC-ANO-0003",
+      "EVT-SPC-ANO-0006"
+    ],
+    "climax_late": [
+      "EVT-INS-MED-0012",
+      "EVT-ORD-FAM-0011"
+    ]
+  },
+  "thresholdProfiles": {
+    "ORIGINAL_REFERENCE": {
+      "commitment_standard": 35,
+      "climax_temporal": 45,
+      "climax_medical": 50,
+      "climax_standard": 55,
+      "climax_anomalous": 50,
+      "climax_late": 50
+    },
+    "LOW": {
+      "commitment_standard": 28,
+      "climax_temporal": 34,
+      "climax_medical": 36,
+      "climax_standard": 40,
+      "climax_anomalous": 36,
+      "climax_late": 36
+    },
+    "MID": {
+      "commitment_standard": 31,
+      "climax_temporal": 36,
+      "climax_medical": 40,
+      "climax_standard": 44,
+      "climax_anomalous": 40,
+      "climax_late": 40
+    },
+    "HIGH": {
+      "commitment_standard": 34,
+      "climax_temporal": 39,
+      "climax_medical": 43,
+      "climax_standard": 48,
+      "climax_anomalous": 44,
+      "climax_late": 44
+    }
+  },
+  "primaryExperimentPlan": [
+    {
+      "name": "threshold_sweep",
+      "familyWeightMode": "uniform",
+      "allocationPolicy": "BALANCED_RANDOM_FILL",
+      "thresholdProfiles": [
+        "LOW",
+        "MID",
+        "HIGH",
+        "ORIGINAL_REFERENCE"
+      ]
+    },
+    {
+      "name": "family_weight_ab",
+      "thresholdProfile": "MID",
+      "allocationPolicy": "BALANCED_RANDOM_FILL",
+      "familyWeightModes": [
+        "uniform",
+        "sum_of_event_weights"
+      ]
+    },
+    {
+      "name": "allocation_policy_compare",
+      "thresholdProfile": "MID",
+      "familyWeightMode": "uniform",
+      "allocationPolicies": [
+        "BALANCED_RANDOM_FILL",
+        "MINMAX_PRIMARY_SECONDARY",
+        "ARCHETYPE_SET"
+      ]
+    }
+  ],
+  "minmaxPolicy": {
+    "description": "Choose a seeded primary and secondary visible stat; fill primary toward 10, secondary toward 8, then distribute remaining points randomly within 0-10."
+  },
+  "archetypePolicy": {
+    "description": "Seeded choice among representative player-like allocation priorities; respect each species' point budget and 0-10 pre-modifier cap.",
+    "archetypes": [
+      {
+        "id": "INT_MNY",
+        "priority": [
+          "INT",
+          "MNY",
+          "SPR",
+          "CHR",
+          "STR"
+        ]
+      },
+      {
+        "id": "CHR_SOCIAL",
+        "priority": [
+          "CHR",
+          "SPR",
+          "MNY",
+          "INT",
+          "STR"
+        ]
+      },
+      {
+        "id": "STR_PHYSICAL",
+        "priority": [
+          "STR",
+          "SPR",
+          "CHR",
+          "MNY",
+          "INT"
+        ]
+      },
+      {
+        "id": "SPR_RESILIENT",
+        "priority": [
+          "SPR",
+          "STR",
+          "INT",
+          "CHR",
+          "MNY"
+        ]
+      },
+      {
+        "id": "MNY_CAREER",
+        "priority": [
+          "MNY",
+          "INT",
+          "CHR",
+          "SPR",
+          "STR"
+        ]
+      }
+    ]
+  },
+  "t1027Sensitivity": {
+    "runAfter": "Choose the most plausible threshold profile from the first comparison, but do not freeze it.",
+    "startFIXValues": [
+      5,
+      8,
+      10,
+      12,
+      15
+    ],
+    "reportSeparately": true
+  },
+  "requiredComparisons": [
+    "completion rate and nonterminal-at-120 rate",
+    "ending-age target buckets",
+    "commitment rate and age",
+    "route climax and schedule-expiry rates",
+    "age-25+ fallback share",
+    "first-manifestation family distribution for HUMAN/no talents/no hint",
+    "material determinism conditional probabilities",
+    "T1017 activation rate/age",
+    "T1027 sensitivity"
+  ]
+}

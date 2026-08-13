@@ -1,6 +1,6 @@
 import type { ContentBundle } from '../engine/content/load.js';
 import { runSimulation, type RunResult } from '../engine/simulation.js';
-import type { SetupPolicy } from '../engine/setup.js';
+import type { AllocationPolicy, SetupPolicy } from '../engine/setup.js';
 import { SPECIES_IDS, type SpeciesId } from '../engine/types.js';
 import { aggregate, type MetricsSummary } from './metrics.js';
 import type { ScenarioDef } from './scenarios.js';
@@ -8,6 +8,8 @@ import type { ScenarioDef } from './scenarios.js';
 export interface ScenarioRunOptions {
   runs: number;
   baseSeed: string;
+  /** Allocation policy (Q-17). Defaults to BALANCED_RANDOM_FILL. */
+  allocation?: AllocationPolicy;
   /** Equal stratification across species, per diagnosticSampling.speciesMode. */
   speciesStratified: boolean;
   /** Pin every run to one species. Overrides stratification. */
@@ -27,7 +29,7 @@ export interface ScenarioReport {
     speciesStratified: boolean;
     fixedSpecies: SpeciesId | null;
     maxAge: number;
-    pre25CoveragePolicy: string;
+    familyWeightMode: string;
   };
   metrics: MetricsSummary;
   /** Present only when keepRuns is set. */
@@ -60,7 +62,7 @@ export function runScenario(
     const policy: SetupPolicy = {
       species,
       talents: scenario.talents,
-      allocation: { kind: 'seeded_random' },
+      allocation: options.allocation ?? { kind: 'seeded_random' },
     };
 
     results.push(runSimulation(runSeed(options.baseSeed, scenario.id, index), content, policy, { maxAge }));
@@ -77,7 +79,7 @@ export function runScenario(
       speciesStratified: options.speciesStratified,
       fixedSpecies: options.fixedSpecies ?? null,
       maxAge,
-      pre25CoveragePolicy: content.adapters.engineRules.pre25CoveragePolicy,
+      familyWeightMode: content.balance.familyWeightMode,
     },
     metrics,
   };

@@ -2,7 +2,13 @@ import { describe, expect, it } from 'vitest';
 
 import { loadDefaultContent } from '../src/engine/content/load.js';
 import { Rng } from '../src/engine/rng.js';
-import { allocateStats, createRun, SetupError, type SetupPolicy } from '../src/engine/setup.js';
+import {
+  allocateStats,
+  createRun,
+  SetupError,
+  STARTING_ALLOCATION_RANGE,
+  type SetupPolicy,
+} from '../src/engine/setup.js';
 import { SPECIES_IDS, VISIBLE_STATS } from '../src/engine/types.js';
 import { fillerEvent, fixtureContent } from './helpers/fixture.js';
 
@@ -28,7 +34,7 @@ describe('Starting allocation', () => {
   });
 
   it('spends exactly the species allocation within the 0-10 pre-modifier range', () => {
-    const range = content.adapters.engineRules.startingAllocationRange;
+    const range = STARTING_ALLOCATION_RANGE;
     expect(range).toEqual({ min: 0, max: 10 });
     for (const species of SPECIES_IDS) {
       const points = content.species.get(species)!.allocation_points;
@@ -82,22 +88,26 @@ describe('Species modifiers', () => {
     }
   });
 
-  it('collapses species tendencies onto transformation family codes', () => {
+  it('reads broad family tendencies directly from Species Registry v1.2', () => {
     const dwarf = content.speciesFamilyTendencies.get('DWARF')!;
     expect([...dwarf.primary].sort()).toEqual(['METL', 'STON']);
     const dragon = content.speciesFamilyTendencies.get('DRAGONKIN')!;
-    expect([...dragon.primary].sort()).toEqual(['CRYS', 'METL']);
+    expect([...dragon.primary].sort()).toEqual(['CRYS']);
     // Human has no material tendency at all.
     const human = content.speciesFamilyTendencies.get('HUMAN')!;
     expect(human.primary.size + human.secondary.size + human.uncommon.size).toBe(0);
   });
 
-  it('lets the strongest tier win when refinement labels collapse', () => {
-    // WINGED_KIN: STON_FINE is primary, CONCRETE_CRUDE is uncommon; both map to STON.
-    const winged = content.speciesFamilyTendencies.get('WINGED_KIN')!;
-    expect(winged.primary.has('STON')).toBe(true);
-    expect(winged.uncommon.has('STON')).toBe(false);
-    expect(winged.secondary.has('STON')).toBe(false);
+  it('keeps refinement hooks separate from family tendencies (Q-04)', () => {
+    // Refinement labels are no longer collapsed into family tiers: they live in
+    // their own catalogue and only ever act at the event layer.
+    const winged = content.species.get('WINGED_KIN')!;
+    expect(winged.familyTendencies.primary).toContain('STON');
+    const hookTags = winged.refinementHooks.map((h) => h.tag);
+    expect(hookTags.length).toBeGreaterThan(0);
+    for (const tag of hookTags) expect(content.refinementTags.has(tag)).toBe(true);
+    // MAGICAL_SEAL is registered but carries no broad material family.
+    expect(content.refinementTags.get('MAGICAL_SEAL')!.family).toBeNull();
   });
 
   it('never hard-locks material from a species tendency', () => {

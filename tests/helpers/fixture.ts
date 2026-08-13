@@ -35,6 +35,7 @@ export function event(overrides: Partial<GameEvent> & Pick<GameEvent, 'id'>): Ga
     repeatMaxCount: null,
     routeTags: [],
     materialTags: [],
+    refinementTags: [],
     include: 'TRUE',
     exclude: 'FALSE',
     variants: [variant()],
@@ -48,10 +49,8 @@ export interface FixtureOptions {
   events: GameEvent[];
   /** Deep-merged over the canonical balance constants. */
   balance?: Partial<BalanceConstants>;
-  /** Deep-merged over the canonical adapters (engineRules merged one level down). */
-  adapters?: Partial<Omit<BalanceAdapters, 'engineRules'>> & {
-    engineRules?: Partial<BalanceAdapters['engineRules']>;
-  };
+  /** Deep-merged over the canonical adapters (diagnostics only in Phase 1.1). */
+  adapters?: Partial<BalanceAdapters>;
 }
 
 /**
@@ -72,9 +71,7 @@ export function fixtureContent(options: FixtureOptions): ContentBundle {
   const adapters: BalanceAdapters = normalizeAdapters({
     ...base.adapters,
     ...options.adapters,
-    engineRules: { ...base.adapters.engineRules, ...(options.adapters?.engineRules ?? {}) },
-    talentAdapters: base.adapters.talentAdapters,
-    endingAwarenessRules: base.adapters.endingAwarenessRules,
+    talentDiagnostics: base.adapters.talentDiagnostics,
   } as never);
 
   return {

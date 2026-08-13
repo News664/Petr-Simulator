@@ -24,6 +24,8 @@ export const scheduleSpecSchema = z
     offsetYears: z.number().int().min(1),
     windowYears: z.number().int().min(0),
     priority: z.enum(SCHEDULE_PRIORITIES),
+    // Content Schema v0.3. Absent behaves as 0.
+    priorityOrder: z.number().int().optional(),
     validityCondition: conditionString,
   })
   .strict();
@@ -79,6 +81,8 @@ export const gameEventSchema = z
     repeatMaxCount: z.number().int().min(1).nullable(),
     routeTags: z.array(z.string()),
     materialTags: z.array(z.string()),
+    // Content Schema v0.3. Optional; validated against the Species Registry.
+    refinementTags: z.array(z.string()).optional(),
     include: conditionString,
     exclude: conditionString,
     variants: z.array(eventVariantSchema).min(1),
@@ -153,10 +157,20 @@ export const eventBatchSchema = z
   })
   .strict();
 
+const refinementOperationSchema = z.enum(['favor', 'strongly_favor', 'suppress', 'unlock']);
+
+/** Species Registry v1.2. */
 export const speciesRegistrySchema = z
   .object({
     version: z.string(),
     canonical: z.boolean().optional(),
+    tendency_vocabulary: z.array(z.string()).optional(),
+    family_tendency_rule: z.string().optional(),
+    refinement_rule: z.string().optional(),
+    refinement_tags: z.record(
+      z.string(),
+      z.object({ family: z.string().nullable(), description: z.string() }).strict(),
+    ),
     species: z
       .array(
         z
@@ -176,16 +190,46 @@ export const speciesRegistrySchema = z
                 SPR: z.number().int().optional(),
               })
               .strict(),
-            primary: z.array(z.string()),
-            secondary: z.array(z.string()),
-            uncommon: z.array(z.string()),
             notes: z.string(),
+            family_tendencies: z
+              .object({
+                primary: z.array(z.string()),
+                secondary: z.array(z.string()),
+                uncommon: z.array(z.string()),
+              })
+              .strict(),
+            refinement_hooks: z.array(
+              z.object({ tag: z.string(), operation: refinementOperationSchema }).strict(),
+            ),
           })
           .strict(),
       )
       .min(1),
-    tendency_vocabulary: z.array(z.string()).optional(),
     authoring_rule: z.string().optional(),
     institution_rule: z.string().optional(),
+  })
+  .strict();
+
+/** Route Tag Registry v1.0. */
+export const routeTagRegistrySchema = z
+  .object({
+    version: z.string(),
+    canonical: z.boolean().optional(),
+    stackingRule: z.string().optional(),
+    familyRule: z.string().optional(),
+    validationRule: z.string().optional(),
+    tags: z
+      .array(
+        z
+          .object({
+            tag: z.string().min(1),
+            kind: z.string().min(1),
+            flagPrefixes: z.array(z.string()),
+            activeEventFavor: z.boolean(),
+            allowTransformationEventFavor: z.boolean(),
+          })
+          .strict(),
+      )
+      .min(1),
   })
   .strict();

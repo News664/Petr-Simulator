@@ -49,11 +49,11 @@ export function applyStartTalents(state: RunState, content: ContentBundle): void
     const talent = content.talents.get(id);
     if (!talent) continue;
     if (talent.trigger_type !== 'start' && talent.trigger_type !== 'start_hidden') continue;
-    applyStatEffects(state, content.adapters, talent.effects);
-    const adapter = content.adapters.talentAdapters[id];
-    if (adapter?.startFIX) {
-      state.stats.FIX += adapter.startFIX;
-    }
+    applyStatEffects(state, content.balance, talent.effects);
+    // Canonical `start_fix_bonus` wins. Talent Registry v1.1 leaves it blank
+    // while Q-14 is OPEN, so the diagnostic value is used only as a fallback.
+    const bonus = talent.startFixBonus ?? content.adapters.talentDiagnostics[id]?.startFIX;
+    if (bonus) state.stats.FIX += bonus;
     state.diagnostics.talentActivations.push({ talentId: id, age: state.age });
   }
 }
@@ -92,7 +92,7 @@ export function evaluateThresholdTalents(state: RunState, content: ContentBundle
     for (const talent of ready) {
       state.dormantTalents.delete(talent.id);
       state.triggeredTalents.add(talent.id);
-      applyStatEffects(state, content.adapters, talent.effects);
+      applyStatEffects(state, content.balance, talent.effects);
       state.diagnostics.talentActivations.push({ talentId: talent.id, age: state.age });
       fired.push(talent.id);
     }

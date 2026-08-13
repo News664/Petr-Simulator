@@ -182,10 +182,7 @@ describe('K. Material continuity', () => {
   });
 
   it('canonical manifestations occur together in real runs', () => {
-    const relaxed = fixtureContent({
-      events: content.events,
-      adapters: { engineRules: { pre25CoveragePolicy: 'reuse_baseline_repeatables' } },
-    });
+    const relaxed = content;
     let multi = 0;
     for (let i = 0; i < 200; i++) {
       const result = runSimulation(`canon-multi-${i}`, relaxed, {

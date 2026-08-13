@@ -8,6 +8,6 @@ reports/*
 !reports/.gitkeep
 !reports/monte-carlo.json
 !reports/monte-carlo.md
-!reports/monte-carlo-strict.json
-!reports/monte-carlo-strict.md
+!reports/phase1_1-experiments.json
+!reports/phase1_1-experiments.md
 scratch/

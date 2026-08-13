@@ -265,7 +265,10 @@ describe('I. Talent engine', () => {
       talents: { kind: 'fixed', talents: ['T1027'] },
     }).state;
     const without = createRun('hidden-fix', fixture, base).state;
-    const bonus = fixture.adapters.talentAdapters['T1027']?.startFIX ?? 0;
+    // Canonical start_fix_bonus is blank while Q-14 is OPEN, so the diagnostic
+    // adapter value is what applies here.
+    const bonus =
+      content.talents.get('T1027')!.startFixBonus ?? fixture.adapters.talentDiagnostics['T1027']?.startFIX ?? 0;
     expect(bonus).toBeGreaterThan(0);
     expect(withTalent.stats.FIX).toBe(without.stats.FIX + bonus);
     for (const stat of ['CHR', 'INT', 'STR', 'MNY', 'SPR'] as const) {

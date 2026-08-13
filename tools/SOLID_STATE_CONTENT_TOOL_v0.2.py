@@ -6,9 +6,9 @@ Canonical source: event batch JSON.
 Generated review artifact: event batch Markdown.
 
 Usage:
-  python SOLID_STATE_CONTENT_TOOL_v0.1.py render BATCH.json [OUTPUT.md]
-  python SOLID_STATE_CONTENT_TOOL_v0.1.py check  BATCH.json BATCH.md
-  python SOLID_STATE_CONTENT_TOOL_v0.1.py validate BATCH.json
+  python SOLID_STATE_CONTENT_TOOL_v0.2.py render BATCH.json [OUTPUT.md]
+  python SOLID_STATE_CONTENT_TOOL_v0.2.py check  BATCH.json BATCH.md
+  python SOLID_STATE_CONTENT_TOOL_v0.2.py validate BATCH.json
 
 `check` exits non-zero if Markdown is not byte-for-byte identical to a fresh render.
 """
@@ -64,10 +64,11 @@ def render(data):
             if v.get("setMaterialCommitment"):
                 lines.append(f"- Material Commitment: `{v['setMaterialCommitment']}`")
             for s in v.get("schedules",[]):
+                priority_order = f", priorityOrder {s['priorityOrder']}" if "priorityOrder" in s else ""
                 lines.append(
                     f"- Schedule: `{s['eventId']}` +{s['offsetYears']}y, "
-                    f"window {s['windowYears']}y, priority `{s['priority']}`, "
-                    f"valid while `{s['validityCondition']}`"
+                    f"window {s['windowYears']}y, priority `{s['priority']}`"
+                    f"{priority_order}, valid while `{s['validityCondition']}`"
                 )
             if v.get("endingId"):
                 lines.append(f"- Ending: `{v['endingId']}`")
@@ -78,6 +79,8 @@ def render(data):
             lines.append(f"**Route tags:** `{', '.join(e['routeTags'])}`  ")
         if e.get("materialTags"):
             lines.append(f"**Material tags:** `{', '.join(e['materialTags'])}`  ")
+        if e.get("refinementTags"):
+            lines.append(f"**Refinement tags:** `{', '.join(e['refinementTags'])}`  ")
         lines.append(f"**Designer note:** {e['designerNotes']}")
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
@@ -136,6 +139,9 @@ def validate(data):
                 # Cross-batch refs are allowed, so warn only by convention? Here same-batch absence is not error.
                 if s.get("offsetYears",0) < 1:
                     errors.append(f"{e['id']}: scheduled offsetYears must be >=1")
+                po = s.get("priorityOrder", 0)
+                if not isinstance(po, int):
+                    errors.append(f"{e['id']}: schedule priorityOrder must be an integer")
     return errors
 
 def main(argv):

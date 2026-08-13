@@ -33,9 +33,27 @@ import {
 export const TALENT_DRAFT_SIZE = 10;
 export const TALENT_CHOICE_SIZE = 3;
 
+/** Core Contract section 5: "ordinary intended starting range is 0-10 before modifiers". */
+export const STARTING_ALLOCATION_RANGE = { min: 0, max: 10 } as const;
+
+/**
+ * Allocation policies. Q-17 RESOLVED: report balanced, min-max and archetype
+ * separately rather than mixing them into one headline statistic.
+ *
+ *  - `seeded_random`  BALANCED_RANDOM_FILL: one point at a time to a uniformly
+ *                     chosen stat that still has room.
+ *  - `minmax`         MINMAX_PRIMARY_SECONDARY: seeded primary toward 10 and
+ *                     secondary toward 8, remainder distributed randomly.
+ *  - `archetype`      ARCHETYPE_SET: seeded choice among player-like priority
+ *                     orders, filled greedily by priority.
+ *  - `even`           deterministic round-robin; used by tests.
+ *  - `explicit`       a fixed allocation; used by tests.
+ */
 export type AllocationPolicy =
   | { kind: 'seeded_random' }
   | { kind: 'even' }
+  | { kind: 'minmax'; primaryTarget?: number; secondaryTarget?: number }
+  | { kind: 'archetype'; archetypes: readonly (readonly VisibleStat[])[] }
   | { kind: 'explicit'; allocation: Record<VisibleStat, number> };
 
 export type SpeciesPolicy = { kind: 'seeded_random' } | { kind: 'fixed'; species: SpeciesId };
@@ -108,7 +126,7 @@ export function allocateStats(
   points: number,
   policy: AllocationPolicy,
 ): Record<VisibleStat, number> {
-  const range = content.adapters.engineRules.startingAllocationRange;
+  const range = STARTING_ALLOCATION_RANGE;
   const allocation: Record<VisibleStat, number> = { CHR: range.min, INT: range.min, STR: range.min, MNY: range.min, SPR: range.min };
 
   if (policy.kind === 'explicit') {
@@ -146,6 +164,53 @@ export function allocateStats(
     return allocation;
   }
 
+  if (policy.kind === 'minmax') {
+    // Seeded primary/secondary, filled toward their targets, then random fill.
+    const order = rng.shuffled(VISIBLE_STATS);
+    const primary = order[0]!;
+    const secondary = order[1]!;
+    const primaryTarget = Math.min(policy.primaryTarget ?? 10, range.max);
+    const secondaryTarget = Math.min(policy.secondaryTarget ?? 8, range.max);
+    let remaining = budget;
+    for (const [stat, target] of [
+      [primary, primaryTarget],
+      [secondary, secondaryTarget],
+    ] as const) {
+      const take = Math.min(target - allocation[stat], remaining);
+      allocation[stat] += take;
+      remaining -= take;
+    }
+    while (remaining > 0) {
+      const open = VISIBLE_STATS.filter((stat) => allocation[stat] < range.max);
+      allocation[rng.pick(open)] += 1;
+      remaining -= 1;
+    }
+    return allocation;
+  }
+
+  if (policy.kind === 'archetype') {
+    if (policy.archetypes.length === 0) throw new SetupError('archetype policy has no archetypes');
+    const priority = rng.pick(policy.archetypes);
+    for (const stat of priority) {
+      if (!VISIBLE_STATS.includes(stat)) throw new SetupError(`archetype names unknown stat ${stat}`);
+    }
+    let remaining = budget;
+    // Fill greedily by priority, respecting the per-stat cap.
+    for (const stat of priority) {
+      if (remaining === 0) break;
+      const take = Math.min(range.max - allocation[stat], remaining);
+      allocation[stat] += take;
+      remaining -= take;
+    }
+    while (remaining > 0) {
+      const open = VISIBLE_STATS.filter((stat) => allocation[stat] < range.max);
+      if (open.length === 0) break;
+      allocation[rng.pick(open)] += 1;
+      remaining -= 1;
+    }
+    return allocation;
+  }
+
   let remaining = budget;
   while (remaining > 0) {
     const open = VISIBLE_STATS.filter((stat) => allocation[stat] < range.max);
@@ -160,12 +225,14 @@ function resolveRegisteredSpecies(rng: Rng, content: ContentBundle, species: Spe
   let registered: string = species;
   // Deterministic order so two talents with rules cannot race.
   for (const id of [...talents].sort()) {
-    const rule = content.adapters.talentAdapters[id]?.registeredSpeciesRule;
+    // Q-15 is canonical in Talent Registry v1.1 `registered_species_rule`.
+    const rule = content.talents.get(id)?.registeredSpeciesRule;
     if (!rule) continue;
     if (rule === 'UNREGISTERED') {
       registered = 'UNREGISTERED';
     } else if (rule === 'SEEDED_OTHER_SPECIES') {
       const others = SPECIES_IDS.filter((s) => s !== species);
+      // Chosen once and fixed for the run.
       registered = rng.pick(others);
     }
   }
@@ -232,7 +299,7 @@ export function createRun(seed: string, content: ContentBundle, policy: SetupPol
 
   const state: RunState = {
     age: 0,
-    stats: { CHR: 0, INT: 0, STR: 0, MNY: 0, SPR: 0, FIX: content.adapters.startingFIX.base },
+    stats: { CHR: 0, INT: 0, STR: 0, MNY: 0, SPR: 0, FIX: content.balance.startingFIX.base },
     species,
     registeredSpecies: species,
     material: 'NONE',
@@ -256,7 +323,7 @@ export function createRun(seed: string, content: ContentBundle, policy: SetupPol
   for (const stat of VISIBLE_STATS) state.stats[stat] = allocation[stat];
 
   // Step 6: apply species modifiers.
-  applyStatEffects(state, content.adapters, speciesDef.modifiers);
+  applyStatEffects(state, content.balance, speciesDef.modifiers);
 
   state.registeredSpecies = resolveRegisteredSpecies(rng, content, species, chosen);
 
@@ -272,7 +339,7 @@ export function createRun(seed: string, content: ContentBundle, policy: SetupPol
   evaluateThresholdTalents(state, content);
 
   // Clamp once more in case start effects pushed FIX below its floor.
-  for (const stat of ALL_STATS) state.stats[stat] = clampStat(content.adapters, stat, state.stats[stat]);
+  for (const stat of ALL_STATS) state.stats[stat] = clampStat(content.balance, stat, state.stats[stat]);
 
   // Step 9: life begins at age 0.
   state.age = 0;
