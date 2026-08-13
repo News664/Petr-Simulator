@@ -1115,7 +1115,8 @@ export interface Phase13Payload {
   requiredMetrics: string[];
   explicitlyNotRun: string[];
   retentionPolicy: SanityPlan['retentionPolicy'];
-  h2aDecisionRule: string;
+  h2aDecisionRule?: string;
+  interpretationGuardrails?: SanityPlan['interpretationGuardrails'];
   stopCondition: string;
 }
 
@@ -1295,12 +1296,21 @@ export function renderPhase13Report(content: ContentBundle, payload: Phase13Payl
     ),
   );
   out.push('');
-  out.push('Mean age of each faction\'s endings:');
+  out.push('Each faction\'s endings, by how they arrived:');
   out.push('');
   out.push(
     table(
-      ['Faction', 'Mean ending age'],
-      factionNames.map((name) => [name, num(f.meanFactionEndingAge[name], 1)]),
+      ['Faction', 'Endings', 'Committed ladder', 'Sudden', 'Mean ending age'],
+      factionNames.map((name) => {
+        const stats = f.byFaction[name]!;
+        return [
+          name,
+          String(stats.endingRuns),
+          String(stats.committedLadderEndings),
+          String(stats.suddenEndings),
+          num(f.meanFactionEndingAge[name], 1),
+        ];
+      }),
     ),
   );
   out.push('');
@@ -1426,8 +1436,21 @@ export function renderPhase13Report(content: ContentBundle, payload: Phase13Payl
     );
   }
   out.push('');
-  out.push(`H2A decision rule: ${payload.h2aDecisionRule}`);
-  out.push('');
+  if (payload.h2aDecisionRule) {
+    out.push(`H2A decision rule: ${payload.h2aDecisionRule}`);
+    out.push('');
+  }
+  const guardrails = payload.interpretationGuardrails;
+  if (guardrails?.desiredDirection?.length) {
+    out.push('Desired direction for this run (review guidance, not frozen targets):');
+    out.push('');
+    for (const line of guardrails.desiredDirection) out.push(`- ${line}`);
+    out.push('');
+    if (guardrails.youngEndingCalibrationBandForReviewOnly) {
+      out.push(`Young-ending calibration band, for review only: ${guardrails.youngEndingCalibrationBandForReviewOnly}`);
+      out.push('');
+    }
+  }
   out.push('---');
   out.push('');
   out.push(payload.stopCondition);

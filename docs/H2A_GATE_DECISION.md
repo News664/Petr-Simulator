@@ -1,6 +1,14 @@
 # SOLID STATE — H2A Gate Decision
 
-## Phase 1.3 · 2026-08-13
+## Phase 1.3 · 2026-08-13 · re-checked after Phase 1.3.1
+
+> **Phase 1.3.1 (2026-08-13):** the four condition-only Batch 007 edits changed no
+> gate blocker. Re-measured over 2 500 runs at content fingerprint
+> `a10919ca…`, all eleven blockers still PASS and every correctness counter is
+> still zero. **H2A remains OPEN.** Two warnings below moved: 18–24 endings went
+> 0.8% → 1.8% of completions (still far below target), and Order of the Last
+> Posture now reaches COMMITTED — once in 180 contacts. See
+> [`PHASE1_3_1_FINDINGS.md`](PHASE1_3_1_FINDINGS.md).
 
 Evaluated **only** against the hard correctness blockers in
 [`docs/spec/SOLID_STATE_H2A_HUMAN_PLAYTEST_GATE_v0.1.md`](spec/SOLID_STATE_H2A_HUMAN_PLAYTEST_GATE_v0.1.md).
@@ -58,12 +66,12 @@ what H2B regression should re-measure.
 | Warning | Measurement | Why it matters in playtest |
 |---|---|---|
 | **Only 23.9% of runs reach an ending** | completion 60.2% → 23.9%; nonterminal 76.1% | Three of four playtest lives will run to the diagnostic maximum with no ending. Playtesters will notice this before they notice anything else — consider capping the playtest lifespan or seeding toward completing runs |
-| **18–24 endings are effectively gone** | 31.5% → 0.8% (1.8 per 1 000 runs) | A player will almost never see a young ending, so "sudden endings feel surprising but supported" is hard to evaluate as shipped |
+| **18–24 endings are nearly absent** | 31.5% → 0.8%; **1.8% after Phase 1.3.1** (4.4 per 1 000 runs) | A player will almost never see a young ending, so "sudden endings feel surprising but supported" is hard to evaluate as shipped |
 | **25–34 did not improve** | 106 → 38 endings per 1 000 runs | The intended modal window is emptier than before the patch meant to fill it — [Q-27](OPEN_QUESTIONS.md#q-27) |
 | **65+ dominates the shape** | 51.1% of completions | Most endings a playtester reaches will be late-life survivor endings |
 | **Late-life years are half fallback** | at 65+: 24.6% generic + 29.6% lore = 54.2% of active years | Directly relevant to "which events feel repetitive"; lore fallback improved the texture without reducing the emptiness |
 | **Faction terminality may now be too low** | 48.6% → 15.4% of endings | [Q-29](OPEN_QUESTIONS.md#q-29) has no frozen target. Relevant to "can faction involvement be felt without a faction dashboard?" |
-| **Order of the Last Posture never terminates** | 0 of 380 contacts reach COMMITTED; `END-REL-001` fell 267 → 5 | One of six factions has no terminal branch a player can reach. Worth fixing before it distorts faction feedback |
+| **Order of the Last Posture almost never terminates** | Phase 1.3: 0 of 380 contacts reach COMMITTED. **Phase 1.3.1: 1 of 180** — unblocked, but a second gate in `EVT-SPC-SECR-0024` still filters it | One of six factions has no terminal branch a player can reach. Worth fixing before it distorts faction feedback |
 | **Faction news is near-universal** | 82.2–87.2% exposure per faction | May read as noise rather than world texture |
 | **Material Commitment is rarer and more expensive** | 60.7% → 36.9%; mean FIX at commitment 28.4 → 42.9 | Affects "is transformation pressure perceptible without FIX?" |
 | **7 endings still unobserved** | 17/24 coverage; academic, corporate, museum, legal, finance ladders | Those routes cannot be playtested at all yet |

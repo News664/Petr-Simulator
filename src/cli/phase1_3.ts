@@ -25,7 +25,7 @@ import {
 import type { AllocationPolicy } from '../engine/setup.js';
 import type { VisibleStat } from '../engine/types.js';
 import { loadExperimentMatrix } from '../sim/experiments.js';
-import { FactionAccumulator, loadSanityPlan } from '../sim/phase1_3.js';
+import { DEFAULT_SANITY_PLAN, FactionAccumulator, loadSanityPlan } from '../sim/phase1_3.js';
 import { renderPhase13Report, type Phase13Payload } from '../sim/report.js';
 import { runScenario } from '../sim/runner.js';
 import { findScenario } from '../sim/scenarios.js';
@@ -38,8 +38,10 @@ Usage:
   npm run sanity -- [options]
 
 Options:
-  --runs <n>      Override the plan's run count (default: the plan's own 5000)
+  --runs <n>      Override the plan's run count (default: the plan's own)
   --seed <string> Base seed (default "phase1_3")
+  --plan <file>   Sanity plan JSON under content/balance (default the Phase 1.3 plan)
+  --name <prefix> Report file prefix (default derived from the plan's status)
   --out <dir>     Output directory (default ./reports)
   --quiet         Suppress progress output
   --help          Show this help
@@ -85,7 +87,8 @@ function main(argv: string[]): number {
     throw error;
   }
 
-  const plan = loadSanityPlan();
+  const planFile = optionalStringFlag(args, 'plan') ?? DEFAULT_SANITY_PLAN;
+  const plan = loadSanityPlan(path.join(REPO_ROOT, 'content', 'balance', planFile));
   const baseSeed = stringFlag(args, 'seed', 'phase1_3');
   const quiet = boolFlag(args, 'quiet');
   const runsOverride = intFlag(args, 'runs', 0);
@@ -140,11 +143,15 @@ function main(argv: string[]): number {
     explicitlyNotRun: plan.explicitlyNotRun,
     retentionPolicy: plan.retentionPolicy,
     h2aDecisionRule: plan.h2aDecisionRule,
+    interpretationGuardrails: plan.interpretationGuardrails,
     stopCondition: plan.stopCondition,
   };
 
-  const jsonPath = path.join(outDir, 'phase1_3-sanity.json');
-  const mdPath = path.join(outDir, 'phase1_3-sanity.md');
+  const prefix =
+    optionalStringFlag(args, 'name') ??
+    (plan.status === 'PHASE1_3_1_TARGETED_SANITY' ? 'phase1_3_1-targeted-sanity' : 'phase1_3-sanity');
+  const jsonPath = path.join(outDir, `${prefix}.json`);
+  const mdPath = path.join(outDir, `${prefix}.md`);
   writeFileSync(jsonPath, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
   writeFileSync(mdPath, renderPhase13Report(content, payload), 'utf8');
 

@@ -14,4 +14,6 @@ reports/*
 !reports/phase1_2-diagnostic.md
 !reports/phase1_3-sanity.json
 !reports/phase1_3-sanity.md
+!reports/phase1_3_1-targeted-sanity.json
+!reports/phase1_3_1-targeted-sanity.md
 scratch/

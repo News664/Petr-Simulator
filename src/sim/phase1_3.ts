@@ -38,15 +38,27 @@ const sanityPlanSchema = z
     requiredMetrics: z.array(z.string()),
     explicitlyNotRun: z.array(z.string()),
     retentionPolicy: z.object({ notDropped: z.boolean(), note: z.string() }).strict(),
-    h2aDecisionRule: z.string(),
+    // Phase 1.3 named the H2A rule here; Phase 1.3.1 states desired directions
+    // instead, because the gate is already open. Either may be absent.
+    h2aDecisionRule: z.string().optional(),
+    interpretationGuardrails: z
+      .object({
+        notFinalBalanceTargets: z.boolean().optional(),
+        desiredDirection: z.array(z.string()).optional(),
+        youngEndingCalibrationBandForReviewOnly: z.string().optional(),
+      })
+      .strict()
+      .optional(),
     stopCondition: z.string(),
   })
   .strict();
 
 export type SanityPlan = z.infer<typeof sanityPlanSchema>;
 
+export const DEFAULT_SANITY_PLAN = 'SOLID_STATE_PHASE1_3_SANITY_PLAN_v0.1.json';
+
 export function loadSanityPlan(file?: string): SanityPlan {
-  const target = file ?? path.join(CONTENT_ROOT, 'balance', 'SOLID_STATE_PHASE1_3_SANITY_PLAN_v0.1.json');
+  const target = file ?? path.join(CONTENT_ROOT, 'balance', DEFAULT_SANITY_PLAN);
   const parsed = sanityPlanSchema.safeParse(JSON.parse(readFileSync(target, 'utf8')));
   if (!parsed.success) {
     throw new Error(
@@ -78,6 +90,9 @@ export interface FactionLifecycleStats {
   /** Runs whose ending came from this faction. */
   endingRuns: number;
   endingRate: number;
+  /** How this faction's endings arrived. */
+  suddenEndings: number;
+  committedLadderEndings: number;
   /** Years from CONTACTED to each later milestone. */
   yearsFromContact: Record<string, { mean: number | null; median: number | null; runs: number }>;
 }
@@ -139,6 +154,8 @@ export class FactionAccumulator {
       targeted: number;
       news: number;
       endings: number;
+      sudden: number;
+      ladder: number;
       endingAges: number[];
       yearsFromContact: Record<string, number[]>;
     }
@@ -167,6 +184,8 @@ export class FactionAccumulator {
         targeted: 0,
         news: 0,
         endings: 0,
+        sudden: 0,
+        ladder: 0,
         endingAges: [],
         yearsFromContact: Object.fromEntries(MILESTONES.map((s) => [s, [] as number[]])),
       });
@@ -257,8 +276,13 @@ export class FactionAccumulator {
     const bucket = this.stats.get(source.name)!;
     bucket.endings += 1;
     bucket.endingAges.push(result.outcome.ending.endingAge);
-    if (source.interaction === 'climax') this.ladder += 1;
-    else this.sudden += 1;
+    if (source.interaction === 'climax') {
+      this.ladder += 1;
+      bucket.ladder += 1;
+    } else {
+      this.sudden += 1;
+      bucket.sudden += 1;
+    }
     const faction = [...this.content.factions.values()].find((f) => f.shortName === source.name);
     if (faction) {
       const from = contactAge.get(source.name);
@@ -289,6 +313,8 @@ export class FactionAccumulator {
         newsRate: rate(bucket.news),
         endingRuns: bucket.endings,
         endingRate: rate(bucket.endings),
+        suddenEndings: bucket.sudden,
+        committedLadderEndings: bucket.ladder,
         yearsFromContact: Object.fromEntries(
           Object.entries(bucket.yearsFromContact).map(([milestone, values]) => [
             milestone,

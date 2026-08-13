@@ -1,6 +1,6 @@
 # SOLID STATE — Open Questions Register
 
-## Version 0.4 — the official decision list (Phase 1 → Phase 1.3)
+## Version 0.5 — the official decision list (Phase 1 → Phase 1.3.1)
 
 This file is the **single authoritative list of everything the coding agent could
 not decide alone**. Anything discussed in a chat log but not written here is not
@@ -25,6 +25,14 @@ news / lore fallback), update **Q-27** and **Q-23**, and ratify the P12-C1
 duplicate-ID resolution. Measured outcomes are in
 [`PHASE1_3_FINDINGS.md`](PHASE1_3_FINDINGS.md). Five questions remain
 deliberately open: **Q-14, Q-23, Q-25, Q-27, Q-29**.
+
+**Phase 1.3.1 update (decisions dated 2026-08-13).** The micro-calibration
+resolutions in
+[`PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md)
+close **P13-C1** (packaging error; the derived Content Tool v0.3 and Route Tag
+Registry v1.2 are ratified as canonical) and approve four condition-only edits in
+Batch 007 under **Q-27**. Measured outcomes are in
+[`PHASE1_3_1_FINDINGS.md`](PHASE1_3_1_FINDINGS.md). No question changed status.
 
 **Next project milestone: H2A.** Phase 1.3 is the final planned headless-only
 content iteration. The H2A human-playtest gate is
@@ -990,6 +998,16 @@ supplies **48.6%** of all endings.
 >
 > **The 25–34 shortfall is now larger in absolute terms than before the patch designed to close it.** That is a content-supply question, not a threshold question, and the engine will not answer it. See [`PHASE1_3_FINDINGS.md`](PHASE1_3_FINDINGS.md) §3.
 
+### Phase 1.3.1 — micro-calibration of four already-authored conditions
+
+> _Phase 1.3.1 decision_: **OPEN NUMERICALLY; micro-calibration approved.** The faction FSM and safe-exit architecture are unchanged. Four **condition-only** edits in Batch 007, described as *observability edits, not the final 18–24 balance target*: Last Posture's disposition safe exit `TLT[T1010] | INT>=8` → `TLT[T1010] | (INT>=8 & SPR>=6)`; Meridian's sudden preservation `CHR>=9 & FIX>=14` → `CHR>=8 & FIX>=12` in both variants; CRI's sudden experiment `FIX>=18 & STR<=3` → `FIX>=16 & STR<=3` in both variants; Black Ledger's sudden enforcement `MNY<=0 & MAT!=NONE` → `MNY<=1 & MAT!=NONE`. No age windows, schedules, lifecycle transitions, commitment ladders or global FIX thresholds changed.
+> _Files changed_: `SOLID_STATE_EVENT_BATCH_007_v0.2.json` — six `when` strings, nothing else. Verified field-by-field against v0.1.
+> _Phase 1.3.1 outcome_ (2 500 runs): **partial.** 18–24 endings went 9 → 11, i.e. **1.8 → 4.4 per 1 000 runs** and 0.8% → 1.8% of completions — a real increase (Poisson p≈0.007 against the Phase-1.3 rate) but still an order of magnitude below the plan's own 5–15% review band. Sudden faction endings stayed a clear minority at **13.9%** of faction endings, and faction terminality did not rebound: **16.7%**, nowhere near the Phase-1.2 48.6%. Every FSM, safe-exit and pre-25 correctness counter stayed **zero**. Completion barely moved (23.9% → 24.2%).
+>
+> **Last Posture is unblocked but still nearly filtered.** The disposition edit worked — ENGAGED went from 68/380 contacts (17.9%) to **76/180 (42.2%)** — and the faction now reaches COMMITTED and produces an ending, which it never did before. But that is **1** of 180 contacts, because the *escalation* event `EVT-SPC-SECR-0024` variant 1 still opts out on `INT>=8 | SPR>=8 | TLT[T1010]`, which the patch deliberately did not touch. The structural zero is gone; the practical floor is not.
+>
+> **The Black Ledger edit produced no observable change.** `MNY<=1 & MAT!=NONE` still fired 0 sudden endings, because it needs a committed material at ages 19–29 and the mean commitment age is 35.7. The gate that blocks it is `MAT!=NONE`, not the money threshold.
+
 **Still open, restated for Phase 1.4:** where do 18–34 endings come from now that
 the faction layer is deliberately non-terminal for 90% of contacts? Three
 directions, none applied:
@@ -1042,6 +1060,9 @@ a layer that was not meant to be a primary route.
 > _Files changed_: none directly; this is measured against the Q-28 restructure.
 > _Outcome_: **Direction achieved, possibly overshot.** Contact stayed broad at 34.9% of runs (35.9% in Phase 1.2) while faction-caused endings fell to **15.4%** of completions. News exposure is near-universal: every faction reaches **82.2–87.2%** of runs, because the twelve news events are `random`/`VERY_LOW`/`include: TRUE` over wide adult windows and the average run is 105 years long. Whether 15.4% is now too low, and whether 82–87% news exposure is more than "occasional world texture" was meant to mean, are the two open numbers. Nothing was tuned toward a target.
 > _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.3.1 decision_: No target frozen. Keep the Phase 1.3 direction — presence may be common, faction-caused endings must stay substantially below 48.6% — and keep sudden faction endings a minority branch. **Do not globally raise faction COMMITTED rates.**
+> _Phase 1.3.1 outcome_: Held. Faction-caused endings **16.7%** of completions (from 15.4%), sudden branch **13.9%** of faction endings (from 6.0%), contact **36.0%** of runs. The four condition edits moved the sudden branch without touching the commitment ladder, exactly as scoped.
 
 ---
 
@@ -1070,4 +1091,5 @@ late-life year with anything but the generic quiet-year fallback.
 | 2026-08-12 | Created at Phase-1 handoff with Q-01 … Q-26 |
 | 2026-08-13 | Phase 1.1: merged `PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md`. 22 questions RESOLVED; Q-14, Q-23, Q-24, Q-25 deliberately remain open. Outcomes measured against the Phase 1.1 content and reported in `PHASE1_1_FINDINGS.md`. |
 | 2026-08-13 | Phase 1.2: merged `PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md`. Added **Q-27**; added a `_Phase 1.2 outcome_` line to Q-02, Q-10, Q-14, Q-19, Q-22, Q-23, Q-24. **Q-24 is now RESOLVED.** Q-14, Q-23, Q-25 and Q-27 remain open. Outcomes measured against the Phase 1.2 content and reported in `PHASE1_2_FINDINGS.md`. |
+| 2026-08-13 | Phase 1.3.1: merged `PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md`. **P13-C1 CLOSED** and the derived Content Tool v0.3 / Route Tag Registry v1.2 ratified as canonical; the dangling "P13-C2" reference in `PHASE1_CONFLICTS.md` corrected (no such section ever existed). Four condition-only Batch 007 edits applied under Q-27. No question changed status. Outcomes in `PHASE1_3_1_FINDINGS.md`. |
 | 2026-08-13 | Phase 1.3: merged `PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md`. Added **Q-28** (RESOLVED), **Q-29** (open, direction only) and **Q-30** (RESOLVED); added `_Phase 1.3_` blocks to Q-23 and Q-27; ratified the P12-C1 duplicate-ID resolution. **H2A recorded as the next project milestone and its gate opened.** Q-14, Q-23, Q-25, Q-27 and Q-29 remain open. Outcomes measured against the Phase 1.3 content and reported in `PHASE1_3_FINDINGS.md`. |

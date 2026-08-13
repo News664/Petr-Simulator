@@ -44,10 +44,12 @@ design review.
 | [`docs/ENGINE_CHANGES.md`](docs/ENGINE_CHANGES.md) | Bugs found and fixed, behaviour decided, validation added, and what was deliberately left out |
 | [`docs/PHASE1_1_FINDINGS.md`](docs/PHASE1_1_FINDINGS.md) | Phase 1.1 results |
 | [`docs/PHASE1_2_FINDINGS.md`](docs/PHASE1_2_FINDINGS.md) | Phase 1.2 results |
-| [`docs/PHASE1_3_FINDINGS.md`](docs/PHASE1_3_FINDINGS.md) | **Phase 1.3 results — read this first** |
+| [`docs/PHASE1_3_FINDINGS.md`](docs/PHASE1_3_FINDINGS.md) | Phase 1.3 results |
+| [`docs/PHASE1_3_1_FINDINGS.md`](docs/PHASE1_3_1_FINDINGS.md) | **Phase 1.3.1 micro-calibration results — read this first** |
 | [`docs/H2A_GATE_DECISION.md`](docs/H2A_GATE_DECISION.md) | **The H2A blocker checklist and gate status** |
 | [`docs/spec/SOLID_STATE_FACTION_SYSTEM_SPEC_v0.2.md`](docs/spec/SOLID_STATE_FACTION_SYSTEM_SPEC_v0.2.md) | The faction rules: lifecycle FSM, orthogonal roles, safe exits, no meter |
-| [`reports/phase1_3-sanity.md`](reports/phase1_3-sanity.md) | **Phase 1.3 sanity diagnostic — the current measurements** |
+| [`reports/phase1_3_1-targeted-sanity.md`](reports/phase1_3_1-targeted-sanity.md) | **Phase 1.3.1 targeted sanity — the current measurements** |
+| [`reports/phase1_3-sanity.md`](reports/phase1_3-sanity.md) | Phase 1.3 sanity diagnostic — pre-1.3.1 corpus |
 | [`reports/phase1_2-diagnostic.md`](reports/phase1_2-diagnostic.md) | Phase-1.2 compact diagnostic — **pre-1.3 corpus, not regenerated** |
 | [`reports/monte-carlo.md`](reports/monte-carlo.md) | Phase-1.1 Monte Carlo report — **pre-1.2 corpus, not regenerated** |
 | [`reports/phase1_1-experiments.md`](reports/phase1_1-experiments.md) | Phase-1.1 experiment matrix — **pre-1.2 corpus, not regenerated** |
@@ -96,8 +98,12 @@ npm run simulate -- --help
 
 ```bash
 npm run sanity
+npm run sanity -- --plan SOLID_STATE_PHASE1_3_1_TARGETED_SANITY_v0.1.json
 npm run sanity -- --runs 500 --seed smoke
 ```
+
+`--plan` selects a sanity plan under `content/balance`; the report file name is
+derived from the plan's own status.
 
 Runs exactly `SOLID_STATE_PHASE1_3_SANITY_PLAN_v0.1.json` — one 5 000-run pass,
 no targeted arms — and writes `reports/phase1_3-sanity.{json,md}`. It exits

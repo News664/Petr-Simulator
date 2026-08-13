@@ -37,8 +37,13 @@
 > | P12-C1 duplicate event ID | **RATIFIED** by design in `PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md`: the published Batch 005 `EVT-INS-ACA-0011` stays immutable, the Batch 006 research follow-up stays `EVT-INS-ACA-0012`, and patch validation now compares proposed IDs against the whole published corpus |
 > | C-7 `AEVT` / `ACH` / `TMS` unused | `AEVT`/`ACH` still unused; **`EVT[...]` is now used** by the twelve progressive faction-news events |
 >
-> Two **new** conflicts were found while integrating the Phase 1.3 patch: **P13-C1**
-> and **P13-C2** below. Both are missing-input conflicts, not schema conflicts.
+> One **new** conflict was found while integrating the Phase 1.3 patch: **P13-C1**
+> below. It is a missing-input conflict, not a schema conflict.
+>
+> _Correction (Phase 1.3.1):_ this sentence previously referred to "P13-C1 and
+> P13-C2". No `## P13-C2` section was ever defined here or in any other
+> authoritative document — the two missing inputs were written up as a single
+> entry — so the count is corrected to one. Nothing was deleted.
 
 ---
 
@@ -81,6 +86,24 @@ itself:
 particular if `faction_news` was meant to carry a different `kind` or any flag
 prefix — supply the file and it will be replaced. The derived registry is
 recorded here rather than presented as canonical design.
+
+> **Status: CLOSED (2026-08-13, Phase 1.3.1).** Design ratifies both derived
+> implementations as canonical and records the gap as a **packaging error, not a
+> design disagreement**
+> ([`PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md)).
+> Ratified exactly as built:
+>
+> - Content Tool v0.3 renders and checks `factionIds`, `factionInteraction`,
+>   `factionTransitions` and `lore_fallback_only`, so generated review mirrors do
+>   not omit canonical Schema v0.4 fields.
+> - Route Tag Registry v1.2 activates faction route context only for
+>   `STATE_CONTACTED`, `STATE_ENGAGED` and `STATE_COMMITTED`.
+> - Historical `FAC_*_CONTACT`, `STATE_OPTED_OUT` and `STATE_CLOSED` grant no
+>   faction route Favor.
+> - `faction_news` is metadata-only: no flag prefix, no active route Favor, no
+>   Transformation-family Favor.
+>
+> No further action. The derivation stands as the canonical behaviour.
 
 ---
 

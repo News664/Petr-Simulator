@@ -1,0 +1,57 @@
+{
+  "version": "0.1",
+  "status": "PHASE1_3_1_TARGETED_SANITY",
+  "purpose": "Measure only the effect of the four Phase 1.3.1 condition edits before UI work. This is not the retained global FIX threshold sweep.",
+  "primary": {
+    "runs": 2500,
+    "speciesMode": "STRATIFY_EQUALLY_BY_SPECIES",
+    "talentScenario": "UNIFORM_RANDOM_THREE_COMPATIBLE_DIAGNOSTIC",
+    "allocationPolicy": "ARCHETYPE_SET",
+    "familyWeightMode": "uniform",
+    "thresholdMode": "AUTHORED_CURRENT_CONTENT",
+    "pre25CoveragePolicy": "strict"
+  },
+  "requiredMetrics": [
+    "completion and nonterminal rate",
+    "18-24 ending count, share of completions, and endings per 1000 runs",
+    "25-34 ending count, share of completions, and endings per 1000 runs",
+    "65+ ending share of completions for regression awareness",
+    "faction-caused ending share",
+    "sudden faction ending count and share of faction endings",
+    "committed-ladder faction ending count and share",
+    "faction contact/ENGAGED/COMMITTED/OPTED_OUT/CLOSED incidence by faction",
+    "Last Posture contact -> ENGAGED -> COMMITTED -> ending counts",
+    "Meridian sudden ending count",
+    "CRI sudden ending count",
+    "Black Ledger sudden ending count",
+    "illegal faction lifecycle transition count",
+    "multiple-lifecycle-state count",
+    "personalized faction event after OPTED_OUT/CLOSED count",
+    "pre-25 coverage defect count",
+    "pre-25 generic/lore fallback count"
+  ],
+  "interpretationGuardrails": {
+    "notFinalBalanceTargets": true,
+    "desiredDirection": [
+      "Last Posture COMMITTED count is greater than zero.",
+      "18-24 endings are meaningfully observable rather than effectively zero.",
+      "Sudden faction endings remain a clear minority of faction endings.",
+      "Faction-caused ending share does not rebound anywhere near the Phase 1.2 48.6% result.",
+      "All faction FSM/safe-exit/pre-25 correctness counters remain zero."
+    ],
+    "youngEndingCalibrationBandForReviewOnly": "Roughly 5-15% of completed endings is a useful H2A-observability range, not a frozen game target."
+  },
+  "explicitlyNotRun": [
+    "LOW/MID/HIGH global FIX/commitment/climax threshold sweep",
+    "family-weight A/B",
+    "three-way allocation comparison",
+    "T1027 sensitivity sweep",
+    "T1023 SPC comparison",
+    "neutral-Human manifestation diagnostic"
+  ],
+  "retentionPolicy": {
+    "notDropped": true,
+    "note": "All skipped harnesses remain part of H2B / larger balance regression. The LOW/MID/HIGH sweep is specifically the next larger calibration after this micro-patch if the condition edits behave safely."
+  },
+  "stopCondition": "Report results and stop. Do not choose global thresholds and do not begin React/UI implementation in the same task."
+}

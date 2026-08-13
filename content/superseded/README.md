@@ -15,6 +15,7 @@ Retained for provenance only. **Nothing here is loaded at runtime.**
 | `SOLID_STATE_EVENT_BATCH_006_v0.1.json` / `.md` | `events/SOLID_STATE_EVENT_BATCH_006_v0.2.json` / `.md` | Phase 1.3 patch v0.2 |
 | `SOLID_STATE_FACTION_REGISTRY_v0.1.json` | `registries/SOLID_STATE_FACTION_REGISTRY_v0.2.json` | Phase 1.3 patch v0.2 |
 | `SOLID_STATE_ROUTE_TAG_REGISTRY_v1.1.json` / `.md` | `registries/SOLID_STATE_ROUTE_TAG_REGISTRY_v1.2.json` / `.md` | Phase 1.3 (derived — see `PHASE1_CONFLICTS.md` P13-C1) |
+| `SOLID_STATE_EVENT_BATCH_007_v0.1.json` / `.md` | `events/SOLID_STATE_EVENT_BATCH_007_v0.2.json` / `.md` | Phase 1.3.1 micro-patch v0.1 |
 | `SOLID_STATE_CONTENT_TOOL_v0.2.py` | `tools/SOLID_STATE_CONTENT_TOOL_v0.3.py` | Phase 1.3 (derived — see `PHASE1_CONFLICTS.md` P13-C1) |
 
 `tools/SOLID_STATE_CONTENT_TOOL_v0.1.py` was likewise superseded by v0.2 and removed.
