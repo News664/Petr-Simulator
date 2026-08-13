@@ -19,6 +19,11 @@ export interface ScenarioRunOptions {
   keepRuns?: boolean;
   /** Per-year observers for targeted diagnostics that need in-run state. */
   hooks?: Pick<SimulationOptions, 'onBeforeYear' | 'onYear'>;
+  /**
+   * Called as each run finishes. Lets a streaming accumulator read the whole
+   * result without `keepRuns` retaining every timeline at high run counts.
+   */
+  onRun?: (result: RunResult, index: number) => void;
 }
 
 export interface ScenarioReport {
@@ -67,12 +72,12 @@ export function runScenario(
       allocation: options.allocation ?? { kind: 'seeded_random' },
     };
 
-    results.push(
-      runSimulation(runSeed(options.baseSeed, scenario.id, index), content, policy, {
-        maxAge,
-        ...options.hooks,
-      }),
-    );
+    const result = runSimulation(runSeed(options.baseSeed, scenario.id, index), content, policy, {
+      maxAge,
+      ...options.hooks,
+    });
+    options.onRun?.(result, index);
+    results.push(result);
   }
 
   const metrics = aggregate(content, results);

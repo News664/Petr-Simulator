@@ -1,6 +1,6 @@
 # SOLID STATE — Engine Behaviour Log
 
-## Version 0.3 — Phase 1 + Phase 1.1 + Phase 1.2
+## Version 0.4 — Phase 1 → Phase 1.3
 
 Every point where the engine's behaviour was **decided, corrected, or made
 stricter** during Phase-1 implementation, with the reason and the test that pins
@@ -15,13 +15,17 @@ and need no design input.
 `content/registries/` and `content/balance/` are byte-identical to their source
 artifact — snapshot v0.7 for Batches 001–004, Phase 1.1 patch v0.1 for Batch 005
 v0.1, the v1.1/v1.2 registries, Balance Constants v0.2, the experiment matrix and
-`tools/SOLID_STATE_CONTENT_TOOL_v0.2.py`, and Phase 1.2 patch v0.1 for Batch 006,
+the canonical Python content tool, and Phase 1.2 patch v0.1 for Batch 006,
 Batch 005 v0.2, the Faction Registry, Route Tag Registry v1.1, Talent Registry
-v1.2 and the diagnostic plan. The single exception is the two-line event-ID
-renumbering forced by a cross-batch collision, reported as
-[`PHASE1_CONFLICTS.md` P12-C1](PHASE1_CONFLICTS.md) and recorded as E-25 below.
-Superseded files are kept under `content/superseded/` and are never loaded at
-runtime.
+v1.2 and the diagnostic plan, and Phase 1.3 patch v0.2 for Batch 007, Batch 006
+v0.2, Batch 005 v0.3, Faction Registry v0.2 and the sanity plan. There are three
+exceptions, all reported rather than assumed: the two-line event-ID renumbering
+forced by a cross-batch collision ([`PHASE1_CONFLICTS.md` P12-C1](PHASE1_CONFLICTS.md),
+E-25 below), and the two Phase-1.3 inputs the patch did not ship — the content-tool
+requirements and the Route Tag Registry v1.2 patch — which were derived
+mechanically from the instruction text
+([`PHASE1_CONFLICTS.md` P13-C1](PHASE1_CONFLICTS.md)). Superseded files are kept
+under `content/superseded/` and are never loaded at runtime.
 
 ---
 
@@ -124,6 +128,11 @@ biases a material family. `tests/phase1_2-acceptance.test.ts` asserts the last
 point behaviourally: setting every faction flag leaves `familyEvidenceScalar`
 unchanged for all seven Transformation families.
 
+**Superseded by E-27.** Faction Registry v0.2 replaces the single-flag model with
+a lifecycle FSM. What survives unchanged is the part that matters most: factions
+still add no drafting stage and no scalar of their own, and the no-meter /
+no-player-choice / no-material-bias rules are still pinned as schema literals.
+
 ## E-24 — `onBeforeYear`, so diagnostics can read draft-time state
 
 `onYear` fires after effects, flags, material and schedules are applied, which
@@ -158,6 +167,69 @@ One formatting nuance was found that way: within the Talent mirror's
 unlock/redirect column, values inside a single field are separated by `;`, but
 the two fields are joined with `; `. Only T1022 populates both, which is why the
 difference is invisible everywhere else.
+
+## E-27 — Faction lifecycle is an FSM whose shape lives in the registry
+
+`src/engine/factions.ts` implements Content Schema v0.4's structured
+`factionTransitions`. The legal-edge table, the active-context states and the
+personal-terminal states are all read from Faction Registry v0.2; the module
+contains no faction policy of its own.
+
+The helper is **atomic**: the next flag set is built to the side and only swapped
+in once the edge is known legal and every named role is registered for that
+faction. An illegal transition therefore leaves the run exactly as it was rather
+than half-applied, and "at most one lifecycle flag per faction" holds by
+construction because every lifecycle flag is dropped before the new one is added.
+
+`NONE` is the absence of a lifecycle flag and is never stored. Historical
+`FAC_*_CONTACT` markers are never removed by a transition — they record that
+contact happened, which a safe exit does not undo.
+
+The condition grammar is unchanged. There is no `FSTATE[...]`, and no numeric
+reputation, loyalty, hostility or alignment value anywhere in the engine.
+
+## E-28 — Safe exit is proven statically, not sampled
+
+Content validation rejects any event whose `factionInteraction` is `personal` or
+`climax` if its `include` condition could still be satisfied once that faction is
+`OPTED_OUT` or `CLOSED`.
+
+The check is a three-valued evaluation over the condition AST: the faction's
+active lifecycle flags and every role flag are pinned false, the terminal flag is
+pinned true, and every other atom is left free. It over-approximates
+satisfiability — correlated numeric atoms are treated as independent — which can
+only make the validation stricter, never let a violation through.
+
+A runtime counter (`personalEventsAfterExit`) measures the same property during
+simulation, so the guarantee is checked from both directions. A test asserts the
+static check is not vacuous by showing that a condition gated only on the
+historical `FAC_*_CONTACT` marker *is* still satisfiable after opting out.
+
+## E-29 — `lore_fallback_only` is its own tier, and cannot do anything
+
+Fallback resolution is now: scheduled/priority event → normal hierarchical draft
+→ eligible `lore_fallback_only` → generic `fallback_only`.
+
+Selection inside the tier is weighted **only** by `weightClass`; no route, talent
+or species modifier reaches it. The schema rejects any lore-fallback variant that
+carries stat effects, flag changes, faction transitions, schedules, a Material
+Commitment or an ending, so the mode cannot quietly become a normal event with a
+privileged selection path. `loreFallbackYears` is tracked separately from
+`fallbackYears` because Q-23 and Q-30 both require the two never to be merged.
+
+## E-30 — Route context follows lifecycle state, not history
+
+Route Tag Registry v1.2 narrows each faction tag's `flagPrefixes` from the
+namespace-wide `FAC_X_` to that faction's three active lifecycle flags. Because
+the drafting layer matches flags by prefix, this alone stops a historical
+`FAC_X_CONTACT` marker, `OPTED_OUT` and `CLOSED` from granting route favor — no
+drafting-code change was needed.
+
+Cross-validation now enforces the rule in both directions: a faction's route tag
+must carry all three active flags, and must not carry any history or terminal
+flag. The `authoredFlags` scan that backs the registry's "every prefix must match
+a real namespace" rule was extended to count flags produced by
+`factionTransitions`, since lifecycle flags never appear in `addFlags`.
 
 ---
 
@@ -378,7 +450,7 @@ Listed so their absence is not mistaken for an oversight.
 
 | Not implemented | Reason |
 |---|---|
-| Any React or UI code | Gate H2 is not open |
+| Any React or UI code | H2A is now open, but Phase 1.3 stops before implementation by instruction |
 | 0.5-year cadence | Contract §7 — explicitly forbidden in v1 |
 | Afterform | Contract §26 — not part of the annual timeline; not required for Phase 1 |
 | localStorage persistence | Contract §27 — browser-side, belongs to H2 |
@@ -386,6 +458,8 @@ Listed so their absence is not mistaken for an oversight.
 | `zh-TW` text | Contract §28 — agents must not invent translations; empty strings preserved |
 | Any balance retune | Handoff §7 — provisional constants are simulation inputs, and §Q requires design review first |
 | A FIX drift rule | No canonical field exists — [Q-26](OPEN_QUESTIONS.md#q-26) |
+| `FSTATE[...]` or any faction condition syntax | Content Schema v0.4 forbids it; lifecycle is read through ordinary `FLAG[...]` |
+| Any faction reputation, loyalty, hostility or alignment value | [Q-28](OPEN_QUESTIONS.md#q-28); the registry schema pins `numericReputationMeter: false` |
 
 ---
 
@@ -396,3 +470,4 @@ Listed so their absence is not mistaken for an oversight.
 | 2026-08-12 | Created at Phase-1 handoff with E-01 … E-18 |
 | 2026-08-13 | Phase 1.1 patch integrated. Adapter shrunk to two diagnostic entries; E-19 … E-22 added. E-01, E-02, E-03, E-05 … E-13, E-17 are now canonical data rather than engine decisions. |
 | 2026-08-13 | Phase 1.2 patch integrated: Faction Registry v0.1, Batch 006, Batch 005 v0.2, Route Tag Registry v1.1, Talent Registry v1.2, the compact diagnostic plan. E-23 … E-26 added. One content conflict found and reported (`PHASE1_CONFLICTS.md` P12-C1). |
+| 2026-08-13 | Phase 1.3 patch integrated: Content Schema v0.4, Faction Registry v0.2, Batch 007, Batch 006 v0.2, Batch 005 v0.3, Route Tag Registry v1.2, content tool v0.3, the sanity plan. E-27 … E-30 added. Two missing-input conflicts found and reported (`PHASE1_CONFLICTS.md` P13-C1). |

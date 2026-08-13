@@ -36,6 +36,7 @@ export function event(overrides: Partial<GameEvent> & Pick<GameEvent, 'id'>): Ga
     routeTags: [],
     materialTags: [],
     refinementTags: [],
+    factionIds: [],
     include: 'TRUE',
     exclude: 'FALSE',
     variants: [variant()],

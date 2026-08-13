@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { parseCondition } from '../conditions/parser.js';
+import { satisfiableAfterExit } from '../factions.js';
 import {
   AWARENESS_STATES,
   CHANNELS,
@@ -14,6 +15,8 @@ import {
   type EndingDef,
   type EventBatch,
   type FactionDef,
+  type FactionLifecycleState,
+  type FactionRules,
   type GameEvent,
   type Material,
   type RefinementTagDef,
@@ -62,8 +65,8 @@ export function defaultContentPaths(root: string = CONTENT_ROOT): ContentPaths {
     speciesRegistry: path.join(root, 'registries', 'SOLID_STATE_SPECIES_REGISTRY_v1.2.json'),
     talentRegistry: path.join(root, 'registries', 'SOLID_STATE_TALENT_REGISTRY_v1.2.csv'),
     endingRegistry: path.join(root, 'registries', 'SOLID_STATE_ENDING_REGISTRY_v1.1.csv'),
-    routeTagRegistry: path.join(root, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.1.json'),
-    factionRegistry: path.join(root, 'registries', 'SOLID_STATE_FACTION_REGISTRY_v0.1.json'),
+    routeTagRegistry: path.join(root, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.2.json'),
+    factionRegistry: path.join(root, 'registries', 'SOLID_STATE_FACTION_REGISTRY_v0.2.json'),
     balanceConstants: path.join(root, 'balance', 'SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.2.json'),
     balanceAdapters: path.join(root, 'balance', 'SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json'),
   };
@@ -94,10 +97,12 @@ export interface ContentBundle {
   speciesFamilyTendencies: Map<SpeciesId, SpeciesTendencies>;
   /** Species Registry v1.2 refinement tag catalogue. */
   refinementTags: Map<string, RefinementTagDef>;
-  /** Route Tag Registry v1.1. */
+  /** Route Tag Registry v1.2. */
   routeTags: Map<string, RouteTagDef>;
-  /** Faction Registry v0.1. Discrete flag contexts only. */
+  /** Faction Registry v0.2. Flag-backed lifecycle FSM plus orthogonal roles. */
   factions: Map<string, FactionDef>;
+  /** Faction Registry v0.2 `rules`: the FSM shape, as data. */
+  factionRules: FactionRules;
   talents: Map<string, TalentDef>;
   endings: Map<string, EndingDef>;
   balance: BalanceConstants;
@@ -149,6 +154,7 @@ function loadEventBatches(dir: string, issues: string[], files: { path: string; 
           ({
             ...event,
             refinementTags: event.refinementTags ?? [],
+            factionIds: event.factionIds ?? [],
             sourceBatchId: parsed.data.batchId,
           }) as GameEvent,
       ),
@@ -222,12 +228,12 @@ function loadRefinementTags(
   return map;
 }
 
-/** Faction Registry v0.1. */
+/** Faction Registry v0.2: flag-backed lifecycle FSM plus orthogonal role flags. */
 function loadFactions(
   file: string,
   issues: string[],
   files: { path: string; sha256: string }[],
-): Map<string, FactionDef> {
+): { factions: Map<string, FactionDef>; rules: FactionRules | null } {
   const text = readFileSync(file, 'utf8');
   files.push({ path: path.relative(REPO_ROOT, file), sha256: sha256(text) });
   const parsed = factionRegistrySchema.safeParse(JSON.parse(text));
@@ -236,10 +242,20 @@ function loadFactions(
     for (const issue of parsed.error.issues) {
       issues.push(`faction registry: ${issue.path.join('.')} ${issue.message}`);
     }
-    return map;
+    return { factions: map, rules: null };
   }
+  const raw = parsed.data.rules;
+  const rules: FactionRules = {
+    lifecycleStates: raw.lifecycleStates,
+    initialState: raw.initialState,
+    legalTransitions: raw.legalTransitions as Record<string, string[]>,
+    activeContextStates: raw.activeContextStates,
+    personalTerminalStates: raw.personalTerminalStates,
+  };
+
   const seenPrefix = new Set<string>();
   const seenTag = new Set<string>();
+  const flagOwner = new Map<string, string>();
   for (const entry of parsed.data.factions) {
     if (map.has(entry.id)) {
       issues.push(`faction registry: duplicate faction id ${entry.id}`);
@@ -253,14 +269,46 @@ function loadFactions(
       issues.push(`faction registry: routeTag ${entry.routeTag} is claimed by more than one faction`);
     }
     seenTag.add(entry.routeTag);
-    for (const flag of entry.flags) {
+
+    // Every registered flag must be inside this faction's own namespace and
+    // must not be claimed by another faction.
+    const own = [...entry.historyFlags, ...Object.values(entry.lifecycleFlags), ...Object.values(entry.roleFlags)];
+    for (const flag of own) {
       if (!flag.startsWith(entry.flagPrefix)) {
         issues.push(`faction ${entry.id}: flag ${flag} does not start with its own prefix ${entry.flagPrefix}`);
       }
+      const owner = flagOwner.get(flag);
+      if (owner) issues.push(`faction flag ${flag} is registered by both ${owner} and ${entry.id}`);
+      flagOwner.set(flag, entry.id);
     }
-    map.set(entry.id, entry);
+    // A lifecycle flag must exist for every non-NONE state the rules declare.
+    for (const state of rules.lifecycleStates) {
+      if (state === 'NONE') continue;
+      if (!entry.lifecycleFlags[state as Exclude<FactionLifecycleState, 'NONE'>]) {
+        issues.push(`faction ${entry.id}: no registered flag for lifecycle state ${state}`);
+      }
+    }
+    // Roles and their flags must agree in both directions.
+    for (const role of entry.allowedRoles) {
+      if (!entry.roleFlags[role]) issues.push(`faction ${entry.id}: allowed role ${role} has no registered flag`);
+    }
+    for (const role of Object.keys(entry.roleFlags)) {
+      if (!entry.allowedRoles.includes(role)) {
+        issues.push(`faction ${entry.id}: roleFlags declares ${role}, which is not in allowedRoles`);
+      }
+    }
+    // A lifecycle flag must never double as a role flag.
+    const lifecycle = new Set(Object.values(entry.lifecycleFlags));
+    for (const flag of Object.values(entry.roleFlags)) {
+      if (lifecycle.has(flag)) issues.push(`faction ${entry.id}: ${flag} is both a lifecycle and a role flag`);
+    }
+    for (const flag of entry.historyFlags) {
+      if (lifecycle.has(flag)) issues.push(`faction ${entry.id}: history flag ${flag} is also a lifecycle flag`);
+    }
+
+    map.set(entry.id, entry as FactionDef);
   }
-  return map;
+  return { factions: map, rules };
 }
 
 /** Route Tag Registry v1.0 / v1.1. */
@@ -535,11 +583,108 @@ const TRANSFORMATION_FAMILY_SET = new Set<string>(TRANSFORMATION_FAMILIES);
 const CHANNEL_SET = new Set<string>(CHANNELS);
 const AWARENESS_SET = new Set<string>(AWARENESS_STATES);
 
+/** Interactions that address the protagonist personally, rather than the world. */
+const PERSONALIZED_INTERACTIONS = new Set(['personal', 'climax']);
+
+/**
+ * Content Schema v0.4 faction validation.
+ *
+ * Checks that every structured transition names a real faction, a legal edge and
+ * registered roles, and — the safe-exit guarantee — that no ordinary
+ * personalized faction event is still reachable once the protagonist has
+ * OPTED_OUT or CLOSED with that faction.
+ *
+ * The reachability check is a three-valued analysis over the event's own
+ * `include`: it pins the faction's lifecycle and role flags to their
+ * post-exit values and leaves everything else free, so it proves unreachability
+ * rather than sampling for it.
+ */
+function validateFactionContent(
+  bundle: Omit<ContentBundle, 'contentVersion' | 'sourceFiles'>,
+  issues: string[],
+): void {
+  const { events, factions, factionRules } = bundle;
+
+  for (const event of events) {
+    for (const factionId of event.factionIds) {
+      if (!factions.has(factionId)) {
+        issues.push(`${event.id}: factionIds references unknown faction ${factionId}`);
+      }
+    }
+    if (event.factionInteraction && event.factionIds.length === 0) {
+      issues.push(`${event.id}: factionInteraction ${event.factionInteraction} without any factionIds`);
+    }
+
+    event.variants.forEach((variant, index) => {
+      const where = `${event.id} variant ${index + 1}`;
+      const touched = new Set<string>();
+      for (const transition of variant.factionTransitions ?? []) {
+        const faction = factions.get(transition.factionId);
+        if (!faction) {
+          issues.push(`${where}: factionTransitions references unknown faction ${transition.factionId}`);
+          continue;
+        }
+        if (!event.factionIds.includes(transition.factionId)) {
+          issues.push(`${where}: transitions ${transition.factionId}, which is not in the event's factionIds`);
+        }
+        // One variant may not move the same faction twice: the second edge would
+        // silently read the state the first one just wrote.
+        if (touched.has(transition.factionId)) {
+          issues.push(`${where}: transitions ${transition.factionId} more than once`);
+        }
+        touched.add(transition.factionId);
+        // The target must be a state the FSM can ever enter.
+        const reachable = Object.values(factionRules.legalTransitions).some((targets) =>
+          targets.includes(transition.to),
+        );
+        if (!reachable) {
+          issues.push(`${where}: ${transition.to} is not the target of any legal transition`);
+        }
+        for (const role of [...(transition.addRoles ?? []), ...(transition.removeRoles ?? [])]) {
+          if (!faction.allowedRoles.includes(role)) {
+            issues.push(`${where}: role ${role} is not registered for faction ${faction.id}`);
+          }
+        }
+        if (
+          factionRules.personalTerminalStates.includes(transition.to) &&
+          (transition.addRoles ?? []).length > 0
+        ) {
+          issues.push(`${where}: cannot add roles while entering the terminal state ${transition.to}`);
+        }
+      }
+    });
+
+    // Safe-exit guarantee. A `contact` event is exempt: re-contact after a safe
+    // exit is blocked by the FSM itself (OPTED_OUT/CLOSED have no outgoing
+    // edges), so the transition would be refused even if the event were drafted.
+    if (!event.factionInteraction || !PERSONALIZED_INTERACTIONS.has(event.factionInteraction)) continue;
+    for (const factionId of event.factionIds) {
+      const faction = factions.get(factionId);
+      if (!faction) continue;
+      let include;
+      try {
+        include = parseCondition(event.include);
+      } catch {
+        continue; // Already reported by the condition-parse pass.
+      }
+      for (const terminal of factionRules.personalTerminalStates) {
+        if (satisfiableAfterExit(include, faction, factionRules, terminal)) {
+          issues.push(
+            `${event.id}: personalized faction event is still reachable after ${factionId} reaches ${terminal}; ` +
+              'gate it on an active lifecycle flag or declare an explicit exceptional rule',
+          );
+        }
+      }
+    }
+  }
+}
+
 function validateCrossReferences(
   bundle: Omit<ContentBundle, 'contentVersion' | 'sourceFiles'>,
   issues: string[],
 ): void {
-  const { events, eventsById, endings, talents, adapters, routeTags, refinementTags, factions } = bundle;
+  const { events, eventsById, endings, talents, adapters, routeTags, refinementTags, factions, factionRules } =
+    bundle;
 
   const seen = new Set<string>();
   for (const event of events) {
@@ -592,8 +737,8 @@ function validateCrossReferences(
           issues.push(`${where}: schedules unknown event ${schedule.eventId}`);
           continue;
         }
-        if (target.selectionMode === 'fallback_only') {
-          issues.push(`${where}: cannot schedule a fallback_only event (${schedule.eventId})`);
+        if (target.selectionMode === 'fallback_only' || target.selectionMode === 'lore_fallback_only') {
+          issues.push(`${where}: cannot schedule a ${target.selectionMode} event (${schedule.eventId})`);
         }
         // A schedule that can never fire inside its own window is a content defect.
         if (target.age.max !== null && event.age.min + schedule.offsetYears > target.age.max) {
@@ -640,6 +785,18 @@ function validateCrossReferences(
     for (const variant of event.variants) {
       for (const flag of variant.addFlags) authoredFlags.add(flag);
       for (const flag of variant.removeFlags) authoredFlags.add(flag);
+      // Content Schema v0.4: lifecycle and role flags are produced by structured
+      // transitions rather than addFlags, but they are just as authored.
+      for (const transition of variant.factionTransitions ?? []) {
+        const faction = factions.get(transition.factionId);
+        if (!faction) continue;
+        const lifecycle = faction.lifecycleFlags[transition.to];
+        if (lifecycle) authoredFlags.add(lifecycle);
+        for (const role of [...(transition.addRoles ?? []), ...(transition.removeRoles ?? [])]) {
+          const flag = faction.roleFlags[role];
+          if (flag) authoredFlags.add(flag);
+        }
+      }
     }
   }
   for (const def of routeTags.values()) {
@@ -653,22 +810,44 @@ function validateCrossReferences(
     }
   }
 
-  // Faction Registry v0.1 integrity (Phase 1.2 route-tag patch validationAdditions).
+  // Faction Registry v0.2 integrity (Content Schema v0.4 §Validation additions).
   const factionFlags = new Map<string, string>();
   for (const faction of factions.values()) {
-    // Every faction routeTag must exist in the merged Route Tag Registry, and
-    // must carry that faction's flag prefix.
+    // Route Tag Registry patch v1.2: a faction's route context is active for
+    // exactly its CONTACTED/ENGAGED/COMMITTED flags. Historical `FAC_*_CONTACT`
+    // markers and the terminal states must never grant favor.
     const tag = routeTags.get(faction.routeTag);
     if (!tag) {
       issues.push(`faction ${faction.id}: routeTag ${faction.routeTag} is not in the Route Tag Registry`);
-    } else if (!tag.flagPrefixes.includes(faction.flagPrefix)) {
-      issues.push(
-        `faction ${faction.id}: routeTag ${faction.routeTag} does not carry flag prefix ${faction.flagPrefix}`,
+    } else {
+      const expected = factionRules.activeContextStates.map(
+        (state) => faction.lifecycleFlags[state as Exclude<FactionLifecycleState, 'NONE'>],
       );
+      for (const flag of expected) {
+        if (flag && !tag.flagPrefixes.includes(flag)) {
+          issues.push(`faction ${faction.id}: routeTag ${faction.routeTag} does not carry active flag ${flag}`);
+        }
+      }
+      const forbidden = [
+        ...faction.historyFlags,
+        ...factionRules.personalTerminalStates.map(
+          (state) => faction.lifecycleFlags[state as Exclude<FactionLifecycleState, 'NONE'>],
+        ),
+      ].filter((flag): flag is string => Boolean(flag));
+      for (const flag of forbidden) {
+        if (tag.flagPrefixes.some((prefix) => flag.startsWith(prefix))) {
+          issues.push(
+            `route tag ${faction.routeTag}: ${flag} must not activate faction route context ` +
+              '(historical contact and safe exits grant no favor)',
+          );
+        }
+      }
     }
-    for (const flag of faction.flags) {
-      const owner = factionFlags.get(flag);
-      if (owner) issues.push(`faction flag ${flag} is registered by both ${owner} and ${faction.id}`);
+    for (const flag of [
+      ...faction.historyFlags,
+      ...Object.values(faction.lifecycleFlags),
+      ...Object.values(faction.roleFlags),
+    ]) {
       factionFlags.set(flag, faction.id);
     }
   }
@@ -692,6 +871,7 @@ function validateCrossReferences(
       issues.push(`route tag ${tag}: faction tags must not allow Transformation event favor`);
     }
   }
+  validateFactionContent(bundle, issues);
 
   // Ending Registry v1.1 awareness integrity (Acceptance Addendum section 5).
   for (const ending of endings.values()) {
@@ -765,13 +945,13 @@ export function loadContent(paths: ContentPaths = defaultContentPaths()): Conten
   const species = loadSpecies(paths.speciesRegistry, issues, sourceFiles);
   const refinementTags = loadRefinementTags(paths.speciesRegistry, issues);
   const routeTags = loadRouteTags(paths.routeTagRegistry, issues, sourceFiles);
-  const factions = loadFactions(paths.factionRegistry, issues, sourceFiles);
+  const { factions, rules: factionRules } = loadFactions(paths.factionRegistry, issues, sourceFiles);
   const talents = loadTalents(paths.talentRegistry, issues, sourceFiles);
   const endings = loadEndings(paths.endingRegistry, issues, sourceFiles);
   const balance = loadJsonWithSchema(paths.balanceConstants, balanceConstantsSchema, 'balance constants', issues, sourceFiles);
   const adaptersRaw = loadJsonWithSchema(paths.balanceAdapters, balanceAdaptersSchema, 'balance adapters', issues, sourceFiles);
 
-  if (issues.length > 0 || !balance || !adaptersRaw) throw new ContentValidationError(issues);
+  if (issues.length > 0 || !balance || !adaptersRaw || !factionRules) throw new ContentValidationError(issues);
 
   const adapters = normalizeAdapters(adaptersRaw);
   const events = batches.flatMap((b) => b.events);
@@ -786,6 +966,7 @@ export function loadContent(paths: ContentPaths = defaultContentPaths()): Conten
     refinementTags,
     routeTags,
     factions,
+    factionRules,
     talents,
     endings,
     balance,

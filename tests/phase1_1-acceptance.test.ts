@@ -149,7 +149,7 @@ describe('2. Route tag registry integrity', () => {
 
   it('has no duplicate registered tags and well-formed prefixes', () => {
     const raw = JSON.parse(
-      readFileSync(path.join(CONTENT_ROOT, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.1.json'), 'utf8'),
+      readFileSync(path.join(CONTENT_ROOT, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.2.json'), 'utf8'),
     ) as { tags: { tag: string; flagPrefixes: string[] }[] };
     const tags = raw.tags.map((t) => t.tag);
     expect(new Set(tags).size).toBe(tags.length);

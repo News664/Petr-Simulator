@@ -1,0 +1,347 @@
+{
+  "version": "1.2",
+  "canonical": true,
+  "stackingRule": "At most one route-context favor scalar may be applied to a single event from routeTags, even if multiple tags match active state.",
+  "familyRule": "Route-tag matching is an event-level modifier under the Phase 1.1 uniform-family baseline. It does not alter family selection unless a future registry field explicitly declares a family tendency.",
+  "validationRule": "Every event routeTag must exist in this registry. Every non-empty flag prefix must match at least one registered flag namespace or explicitly approved non-route state prefix; faction lifecycle flags are produced by factionTransitions rather than addFlags and count as authored. Every faction routeTag in SOLID_STATE_FACTION_REGISTRY_v0.2.json must exist here and must carry exactly that faction's active lifecycle flags (CONTACTED, ENGAGED, COMMITTED). Historical FAC_*_CONTACT markers, OPTED_OUT and CLOSED must NOT appear as faction route-context prefixes. Every FAC_* flag used by canonical content must be registered by exactly one faction. Faction route tags remain event-level context favors only and do not create family/material bias.",
+  "tags": [
+    {
+      "tag": "academic",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ACA_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "anomalous",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ANO_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "architectural",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ARC_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": true
+    },
+    {
+      "tag": "black_ledger",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "FAC_BLACK_LEDGER_STATE_CONTACTED",
+        "FAC_BLACK_LEDGER_STATE_ENGAGED",
+        "FAC_BLACK_LEDGER_STATE_COMMITTED"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "career",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_CAR_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "civic",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_CIV_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "continuity",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ACA_CONTINUITY"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "continuity_institute",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "FAC_CRI_STATE_CONTACTED",
+        "FAC_CRI_STATE_ENGAGED",
+        "FAC_CRI_STATE_COMMITTED"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "corporate",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_COR_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "debt",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_FIN_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "dmms",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "FAC_DMMS_STATE_CONTACTED",
+        "FAC_DMMS_STATE_ENGAGED",
+        "FAC_DMMS_STATE_COMMITTED"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "education",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "EDU_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "everlasting",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "FAC_EVERLASTING_STATE_CONTACTED",
+        "FAC_EVERLASTING_STATE_ENGAGED",
+        "FAC_EVERLASTING_STATE_COMMITTED"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "family",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_FAM_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "finance",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_FIN_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "industrial",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ARC_",
+        "ROUTE_CAR_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": true
+    },
+    {
+      "tag": "last_posture",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "FAC_LAST_POSTURE_STATE_CONTACTED",
+        "FAC_LAST_POSTURE_STATE_ENGAGED",
+        "FAC_LAST_POSTURE_STATE_COMMITTED"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "legal",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_LEG_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "materials",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ACA_MATERIALS"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "medical",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_MED_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "meridian",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "FAC_MERIDIAN_STATE_CONTACTED",
+        "FAC_MERIDIAN_STATE_ENGAGED",
+        "FAC_MERIDIAN_STATE_COMMITTED"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "museum",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_MUS_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "political",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_CIV_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "religious",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_REL_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "research",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_ACA_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "restoration",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_MUS_"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "temporal",
+      "kind": "route_context",
+      "flagPrefixes": [
+        "ROUTE_TEMP_",
+        "MAT_MANIFEST_TEMP"
+      ],
+      "activeEventFavor": true,
+      "allowTransformationEventFavor": true
+    },
+    {
+      "tag": "baseline",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "faction_news",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "fallback",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "health",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "housing",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "midlife",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "reincarnation",
+      "kind": "metadata",
+      "flagPrefixes": [
+        "SPC_REIN_"
+      ],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "social",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "species",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "survivor",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    },
+    {
+      "tag": "talent",
+      "kind": "metadata",
+      "flagPrefixes": [],
+      "activeEventFavor": false,
+      "allowTransformationEventFavor": false
+    }
+  ],
+  "supersedes": "SOLID_STATE_ROUTE_TAG_REGISTRY_v1.1.json",
+  "factionContextRule": "Faction route context is active only while the protagonist holds one of that faction's CONTACTED, ENGAGED or COMMITTED lifecycle flags. A historical FAC_*_CONTACT marker does not activate route favor by itself, and OPTED_OUT/CLOSED never do."
+}

@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 import { CONTENT_ROOT, loadDefaultContent } from '../src/engine/content/load.js';
 import { eventContextScalar, familyEvidenceScalar } from '../src/engine/drafting.js';
+import { allFactionFlags } from '../src/engine/factions.js';
 import { createRun, type SetupPolicy } from '../src/engine/setup.js';
 import { runSimulation } from '../src/engine/simulation.js';
 import { SPECIES_IDS, TRANSFORMATION_FAMILIES } from '../src/engine/types.js';
@@ -44,26 +45,27 @@ describe('Phase 1.2 — faction registry integrity', () => {
     expect(content.factions.size).toBe(6);
     for (const faction of content.factions.values()) {
       expect(content.routeTags.has(faction.routeTag), `${faction.id} routeTag`).toBe(true);
-      expect(faction.flags.length).toBeGreaterThan(0);
-      for (const flag of faction.flags) expect(flag.startsWith(faction.flagPrefix)).toBe(true);
+      expect(allFactionFlags(faction).length).toBeGreaterThan(0);
+      for (const flag of allFactionFlags(faction)) expect(flag.startsWith(faction.flagPrefix)).toBe(true);
     }
     expect([...content.factions.values()].map((f) => f.routeTag).sort()).toEqual([...FACTION_TAGS].sort());
   });
 
   it('pins the no-meter / no-choice rules in canonical data', () => {
+    // Phase 1.3 supersedes the registry with v0.2, but the two rules design must
+    // never lose by accident are still pinned in the canonical file.
     const raw = JSON.parse(
-      readFileSync(path.join(CONTENT_ROOT, 'registries', 'SOLID_STATE_FACTION_REGISTRY_v0.1.json'), 'utf8'),
+      readFileSync(path.join(CONTENT_ROOT, 'registries', 'SOLID_STATE_FACTION_REGISTRY_v0.2.json'), 'utf8'),
     ) as { rules: Record<string, unknown> };
-    expect(raw.rules['stateModel']).toBe('discrete_flags_only');
+    expect(raw.rules['storageModel']).toBe('FLAG_BACKED_FSM_PLUS_ROLE_FLAGS');
     expect(raw.rules['numericReputationMeter']).toBe(false);
     expect(raw.rules['playerChoosesFaction']).toBe(false);
-    expect(raw.rules['contactDoesNotEqualMembership']).toBe(true);
     expect(raw.rules['automaticMaterialBiasFromFaction']).toBe(false);
     expect(raw.rules['alignmentStyleFactionSystem']).toBe('DEFERRED');
   });
 
   it('registers every FAC_* flag used by canonical content', () => {
-    const registered = new Set([...content.factions.values()].flatMap((f) => f.flags));
+    const registered = new Set([...content.factions.values()].flatMap((f) => allFactionFlags(f)));
     const used = new Set<string>();
     for (const gameEvent of content.events) {
       for (const v of gameEvent.variants) {
@@ -90,7 +92,7 @@ describe('Phase 1.2 — faction registry integrity', () => {
     state.age = 30;
     const families = ['STON', 'METL', 'SYNT', 'TEMP', 'CRYS'];
     const before = families.map((f) => familyEvidenceScalar('TRN', f, state, content));
-    for (const faction of content.factions.values()) for (const flag of faction.flags) state.flags.add(flag);
+    for (const faction of content.factions.values()) for (const flag of allFactionFlags(faction)) state.flags.add(flag);
     const after = families.map((f) => familyEvidenceScalar('TRN', f, state, content));
     expect(after).toEqual(before);
   });
@@ -105,14 +107,17 @@ describe('Phase 1.2 — faction registry integrity', () => {
       allocation: { kind: 'even' },
     });
     const neutral = eventContextScalar(factionEvent, state, content);
-    for (const faction of content.factions.values()) for (const flag of faction.flags) state.flags.add(flag);
+    for (const faction of content.factions.values()) for (const flag of allFactionFlags(faction)) state.flags.add(flag);
     const all = eventContextScalar(factionEvent, state, content);
     expect(all / neutral).toBeCloseTo(content.balance.familyEvidenceScalar.routeFavor, 10);
   });
 
   it('keeps faction contact age-appropriate and endings 18+', () => {
-    for (const faction of content.factions.values()) {
-      expect(faction.entryAgeMin).toBeGreaterThanOrEqual(16);
+    // Phase 1.3 moved the entry floor out of the registry and into the contact
+    // seeds themselves, so read it from the content that actually gates it.
+    for (const gameEvent of content.events) {
+      if (gameEvent.factionInteraction !== 'contact') continue;
+      expect(gameEvent.age.min, gameEvent.id).toBeGreaterThanOrEqual(16);
     }
     // No faction seed event can produce an ending, and no ending before 18.
     for (const gameEvent of content.events) {
@@ -158,7 +163,9 @@ describe('Phase 1.2 — content deltas', () => {
     expect(published.include).toContain('ROUTE_ACA_MATERIALS');
     const renumbered = content.eventsById.get('EVT-INS-ACA-0012')!;
     expect(renumbered.sourceBatchId).toBe('EVENT_BATCH_006');
-    expect(renumbered.include).toContain('FAC_CRI_CONTACT');
+    // Phase 1.3 re-gated it on lifecycle state; it is still the CRI follow-up.
+    expect(renumbered.factionIds).toEqual(['FCT-CRI']);
+    expect(renumbered.include).toContain('FAC_CRI_STATE_ENGAGED');
   });
 });
 
@@ -169,7 +176,7 @@ describe('Phase 1.2 — faction reachability', () => {
     const contacted = new Map<string, number>();
     for (const result of results) {
       for (const faction of content.factions.values()) {
-        if (faction.flags.some((f) => result.state.flags.has(f))) {
+        if (allFactionFlags(faction).some((flag) => result.state.flags.has(flag))) {
           contacted.set(faction.id, (contacted.get(faction.id) ?? 0) + 1);
         }
       }
@@ -281,11 +288,14 @@ describe('Phase 1.2 — compact diagnostic harness', () => {
 
     const seeds = factionSeedIncidence(content, report.runs!);
     expect(seeds.anyContactRuns).toBeGreaterThan(0);
-    // Contact ages must respect each faction's registered entry floor.
+    // Contact ages must respect the earliest age any contact seed can fire.
+    const earliestContact = Math.min(
+      ...content.events.filter((e) => e.factionInteraction === 'contact').map((e) => e.age.min),
+    );
     for (const faction of content.factions.values()) {
       const age = seeds.meanFirstContactAgeByFaction[faction.shortName];
       if (age === null || age === undefined) continue;
-      expect(age, faction.shortName).toBeGreaterThanOrEqual(faction.entryAgeMin);
+      expect(age, faction.shortName).toBeGreaterThanOrEqual(earliestContact);
     }
   });
 

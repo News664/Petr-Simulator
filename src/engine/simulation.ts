@@ -1,7 +1,8 @@
 import type { ContentBundle } from './content/load.js';
 import { draftNormalEvent, EmptyPoolError } from './drafting.js';
 import { buildEndingRecord } from './endings.js';
-import { eligibleFallbackEvents, selectVariantIndex } from './eligibility.js';
+import { eligibleFallbackEvents, eligibleLoreFallbackEvents, selectVariantIndex } from './eligibility.js';
+import { applyFactionTransition, factionState, IllegalFactionTransitionError, isPersonalTerminal } from './factions.js';
 import type { Rng } from './rng.js';
 import {
   addSchedules,
@@ -116,6 +117,23 @@ function selectYearEvent(state: RunState, content: ContentBundle, rng: Rng): Yea
   const minimumAge = content.balance.fallback.minimumAge;
   if (state.age < minimumAge) throw new ContentCoverageError(state.age);
 
+  // Content Schema v0.4 fallback resolution: lore fallback is its own tier,
+  // consulted after the normal pool is empty and before the generic quiet year.
+  // Selection is weighted only by weightClass — no route, talent or species
+  // modifier reaches this tier.
+  const lore = eligibleLoreFallbackEvents(state, content);
+  if (lore.length > 0) {
+    const chosen =
+      lore.length === 1
+        ? lore[0]!
+        : rng.weightedPick(
+            lore,
+            lore.map((event) => content.balance.eventWeightClassScalar[event.weightClass]),
+          );
+    state.diagnostics.loreFallbackYears.push(state.age);
+    return { event: chosen, source: 'lore_fallback' };
+  }
+
   const fallbacks = eligibleFallbackEvents(state, content);
   if (fallbacks.length === 0) throw new ContentCoverageError(state.age);
   const chosen = fallbacks.length === 1 ? fallbacks[0]! : rng.pick(fallbacks);
@@ -159,6 +177,25 @@ function resolveYear(state: RunState, content: ContentBundle, rng: Rng, options:
   const selection = selectYearEvent(state, content, rng);
   const event = selection.event;
 
+  // Safe-exit audit, measured against PRE-EVENT state: an ordinary personalized
+  // faction event must never fire once that faction is OPTED_OUT or CLOSED.
+  // Content validation proves this statically; this counts it at runtime too.
+  if (event.factionInteraction === 'personal' || event.factionInteraction === 'climax') {
+    for (const factionId of event.factionIds) {
+      const faction = content.factions.get(factionId);
+      if (!faction) continue;
+      const current = factionState(state.flags, faction);
+      if (isPersonalTerminal(content.factionRules, current)) {
+        state.diagnostics.personalEventsAfterExit.push({
+          age: state.age,
+          factionId,
+          state: current,
+          eventId: event.id,
+        });
+      }
+    }
+  }
+
   // Step 7: first matching variant, evaluated against PRE-EVENT state.
   const variantIndex = selectVariantIndex(event, state);
   const variant = event.variants[variantIndex]!;
@@ -189,6 +226,28 @@ function resolveYear(state: RunState, content: ContentBundle, rng: Rng, options:
       if (flag.startsWith('ROUTE_') && !state.diagnostics.routeEntries.includes(flag)) {
         state.diagnostics.routeEntries.push(flag);
       }
+    }
+  }
+
+  // Content Schema v0.4 effect order: stats -> flags -> factionTransitions ->
+  // Material Commitment -> schedules -> ending -> threshold talents.
+  for (const transition of variant.factionTransitions ?? []) {
+    const faction = content.factions.get(transition.factionId);
+    if (!faction) continue;
+    try {
+      const applied = applyFactionTransition(state, faction, content.factionRules, transition);
+      state.diagnostics.factionTransitions.push({ age: state.age, eventId: event.id, ...applied });
+    } catch (error) {
+      if (!(error instanceof IllegalFactionTransitionError)) throw error;
+      // Refuse the edge rather than applying it. Content validation should have
+      // caught this, so it is recorded as a defect instead of being swallowed.
+      state.diagnostics.illegalFactionTransitions.push({
+        age: state.age,
+        eventId: event.id,
+        factionId: error.factionId,
+        from: error.from,
+        to: error.to,
+      });
     }
   }
 

@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 import { CONTENT_ROOT, type ContentBundle } from '../engine/content/load.js';
 import { eligibleNormalEvents } from '../engine/eligibility.js';
+import { allFactionFlags } from '../engine/factions.js';
 import type { RunResult } from '../engine/simulation.js';
 import type { Channel, EventOccurrence, RunState } from '../engine/types.js';
 
@@ -156,7 +157,7 @@ export interface FactionSeedIncidence {
 export function factionSeedIncidence(content: ContentBundle, results: RunResult[]): FactionSeedIncidence {
   const flagToFaction = new Map<string, string>();
   for (const faction of content.factions.values()) {
-    for (const flag of faction.flags) flagToFaction.set(flag, faction.shortName);
+    for (const flag of allFactionFlags(faction)) flagToFaction.set(flag, faction.shortName);
   }
 
   const byFaction: Record<string, number> = {};

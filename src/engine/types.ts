@@ -57,8 +57,41 @@ export const SELECTION_MODES = [
   'mandatory_only',
   'climax',
   'fallback_only',
+  // Content Schema v0.4. Its own fallback tier, ahead of generic fallback.
+  'lore_fallback_only',
 ] as const;
 export type SelectionMode = (typeof SELECTION_MODES)[number];
+
+/**
+ * Faction lifecycle. Faction System Spec v0.2 / Content Schema v0.4.
+ *
+ * A small flag-backed FSM. `NONE` is the absence of any lifecycle flag, never a
+ * stored one. There is no numeric reputation, loyalty, hostility or alignment
+ * value anywhere in the engine, and the condition grammar has no faction syntax.
+ */
+export const FACTION_LIFECYCLE_STATES = [
+  'NONE',
+  'CONTACTED',
+  'ENGAGED',
+  'COMMITTED',
+  'OPTED_OUT',
+  'CLOSED',
+] as const;
+export type FactionLifecycleState = (typeof FACTION_LIFECYCLE_STATES)[number];
+
+/** Lifecycle states an event variant may transition *to*. `NONE` is initial only. */
+export const FACTION_TRANSITION_TARGETS = [
+  'CONTACTED',
+  'ENGAGED',
+  'COMMITTED',
+  'OPTED_OUT',
+  'CLOSED',
+] as const satisfies readonly Exclude<FactionLifecycleState, 'NONE'>[];
+export type FactionTransitionTarget = (typeof FACTION_TRANSITION_TARGETS)[number];
+
+/** How an event relates to its factions. Metadata and validation scope only. */
+export const FACTION_INTERACTIONS = ['contact', 'personal', 'climax', 'news', 'lore_fallback'] as const;
+export type FactionInteraction = (typeof FACTION_INTERACTIONS)[number];
 
 export const WEIGHT_CLASSES = ['VERY_LOW', 'LOW', 'NORMAL', 'HIGH', 'VERY_HIGH'] as const;
 export type WeightClass = (typeof WEIGHT_CLASSES)[number];
@@ -105,12 +138,27 @@ export interface ScheduleSpec {
   validityCondition: string;
 }
 
+/**
+ * Content Schema v0.4 structured faction action.
+ *
+ * Roles are orthogonal flags, not states, and only roles registered for the
+ * faction may be added. Entering a personal-terminal state clears them all.
+ */
+export interface FactionTransition {
+  factionId: string;
+  to: Exclude<FactionLifecycleState, 'NONE'>;
+  addRoles?: string[];
+  removeRoles?: string[];
+}
+
 export interface EventVariant {
   when: string;
   text: LocalizedText;
   effects: Partial<Record<StatKey, number>>;
   addFlags: string[];
   removeFlags: string[];
+  /** Content Schema v0.4. Applied after ordinary flags, before Material Commitment. */
+  factionTransitions?: FactionTransition[];
   schedules: ScheduleSpec[];
   setMaterialCommitment?: Material;
   endingId?: string;
@@ -131,6 +179,9 @@ export interface GameEvent {
   materialTags: string[];
   /** Content Schema v0.3. Optional local event metadata; never a drafting layer. */
   refinementTags: string[];
+  /** Content Schema v0.4. Validation/reporting scope. Never changes drafting weights. */
+  factionIds: string[];
+  factionInteraction?: FactionInteraction;
   include: string;
   exclude: string;
   variants: EventVariant[];
@@ -186,7 +237,14 @@ export interface RouteTagDef {
   allowTransformationEventFavor: boolean;
 }
 
-/** Faction Registry v0.1 entry. Factions are discrete flag contexts only. */
+/**
+ * Faction Registry v0.2 entry.
+ *
+ * Lifecycle is stored as at most one registered flag per faction; roles are
+ * separate, orthogonal flags. `historyFlags` hold the legacy `FAC_*_CONTACT`
+ * ever-contacted markers, which are never lifecycle state and never activate
+ * route-context favor on their own.
+ */
 export interface FactionDef {
   id: string;
   name_en: string;
@@ -195,10 +253,25 @@ export interface FactionDef {
   /** The Route Tag Registry tag that carries this faction's context favor. */
   routeTag: string;
   flagPrefix: string;
-  /** Registered flags. `*_CONTACT` means crossed paths, never membership. */
-  flags: string[];
-  entryAgeMin: number;
+  historyFlags: string[];
+  /** Registered flag for each lifecycle state except `NONE`. */
+  lifecycleFlags: Record<Exclude<FactionLifecycleState, 'NONE'>, string>;
+  /** Registered flag per allowed role. Roles may coexist. */
+  roleFlags: Record<string, string>;
+  allowedRoles: string[];
   intent: string;
+}
+
+/** Faction Registry v0.2 `rules`. The FSM shape is data, not code. */
+export interface FactionRules {
+  lifecycleStates: FactionLifecycleState[];
+  initialState: FactionLifecycleState;
+  /** `from -> allowed to`. Absent/empty means terminal. */
+  legalTransitions: Record<string, string[]>;
+  /** States for which faction route-context favor is active. */
+  activeContextStates: FactionLifecycleState[];
+  /** States that end ordinary personalized faction content. */
+  personalTerminalStates: FactionLifecycleState[];
 }
 
 /** Talent Registry v1.1 typed drafting target, e.g. `family:COR` / `channel:SPC`. */
@@ -280,7 +353,7 @@ export interface EventOccurrence {
   family: string;
   selectionMode: SelectionMode;
   /** How this event won the year. */
-  source: 'normal' | 'fallback' | SchedulePriority;
+  source: 'normal' | 'fallback' | 'lore_fallback' | SchedulePriority;
   textEn: string;
 }
 
@@ -369,8 +442,36 @@ export interface RunState {
   diagnostics: RunDiagnostics;
 }
 
+/** One applied faction lifecycle transition, for diagnostics and tracing. */
+export interface FactionTransitionRecord {
+  age: number;
+  factionId: string;
+  from: FactionLifecycleState;
+  to: FactionLifecycleState;
+  addedRoles: string[];
+  removedRoles: string[];
+  eventId: string;
+}
+
 export interface RunDiagnostics {
   fallbackYears: number[];
+  /**
+   * Years resolved by a `lore_fallback_only` bulletin. Reported separately from
+   * `fallbackYears`: lore fallback is world texture, not a claim that the
+   * generic quiet-year problem is solved (Q-23/Q-30).
+   */
+  loreFallbackYears: number[];
+  factionTransitions: FactionTransitionRecord[];
+  /**
+   * Transitions content asked for that the registry forbids. Must stay empty:
+   * the engine refuses them rather than applying them.
+   */
+  illegalFactionTransitions: { age: number; factionId: string; from: string; to: string; eventId: string }[];
+  /**
+   * Ordinary personalized faction events that fired while that faction was
+   * already OPTED_OUT or CLOSED. Must stay empty — a safe exit is meant to hold.
+   */
+  personalEventsAfterExit: { age: number; factionId: string; state: string; eventId: string }[];
   /** Ages where more than one priority candidate was available. */
   priorityCollisionAges: number[];
   /** Schedules that lost a year to a higher-ranked candidate. */

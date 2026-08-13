@@ -67,6 +67,19 @@ export function eligibleNormalEvents(state: RunState, content: ContentBundle): G
   return content.events.filter((event) => event.selectionMode === 'random' && isEligible(event, state, content, ctx));
 }
 
+/**
+ * Eligible `lore_fallback_only` bulletins. Content Schema v0.4.
+ *
+ * Its own tier: never drafted normally, and consulted only after the normal pool
+ * is exhausted but before the generic quiet-year fallback.
+ */
+export function eligibleLoreFallbackEvents(state: RunState, content: ContentBundle): GameEvent[] {
+  const ctx = conditionContext(state);
+  return content.events.filter(
+    (event) => event.selectionMode === 'lore_fallback_only' && isEligible(event, state, content, ctx),
+  );
+}
+
 /** Eligible `fallback_only` events. Never participates in normal weighting. */
 export function eligibleFallbackEvents(state: RunState, content: ContentBundle): GameEvent[] {
   const ctx = conditionContext(state);

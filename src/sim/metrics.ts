@@ -1,4 +1,5 @@
 import type { ContentBundle } from '../engine/content/load.js';
+import { allFactionFlags } from '../engine/factions.js';
 import type { RunResult } from '../engine/simulation.js';
 import { CHANNELS, SPECIES_IDS, type Channel, type SpeciesId } from '../engine/types.js';
 
@@ -118,6 +119,26 @@ export interface MetricsSummary {
    * that band. A run that ended at 30 contributes nothing to the 45-54 band.
    */
   fallbackShareByAgeBandActive: Record<string, { fallbackYears: number; activeYears: number; share: number }>;
+  /**
+   * Phase 1.3: the lore-fallback tier, reported separately from generic
+   * fallback. `combined` is the substitution view — how often a year was filled
+   * by *some* fallback — and deliberately keeps the two categories visible,
+   * because lore fallback is world texture, not evidence that the quiet-year
+   * problem is solved (Q-23/Q-30).
+   */
+  loreFallbackShareByAgeBandActive: Record<
+    string,
+    {
+      loreFallbackYears: number;
+      genericFallbackYears: number;
+      activeYears: number;
+      loreShare: number;
+      genericShare: number;
+      combinedShare: number;
+    }
+  >;
+  loreFallbackYears: number;
+  loreFallbackShare: number;
   /** Mean FIX at Material Commitment and at the ending. */
   meanFixAtCommitment: number | null;
   meanFixAtEnding: number | null;
@@ -210,8 +231,10 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
   const endingAgesByRouteFamily: Record<string, number[]> = {};
   const scheduleExpiryByRouteFamily: Record<string, number> = {};
   const mandatoryIncidenceByRouteFamily: Record<string, number> = {};
-  const bandFallback: Record<string, { fallbackYears: number; activeYears: number }> = {};
-  for (const band of bands) bandFallback[band.label] = { fallbackYears: 0, activeYears: 0 };
+  const bandFallback: Record<string, { fallbackYears: number; loreFallbackYears: number; activeYears: number }> =
+    {};
+  for (const band of bands) bandFallback[band.label] = { fallbackYears: 0, loreFallbackYears: 0, activeYears: 0 };
+  let loreFallbackYears = 0;
   const fixAtCommitment: number[] = [];
   const fixAtEnding: number[] = [];
 
@@ -219,7 +242,7 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
   const factionByFlag = new Map<string, string>();
   const factionTagToName = new Map<string, string>();
   for (const faction of content.factions.values()) {
-    for (const flag of faction.flags) factionByFlag.set(flag, faction.shortName);
+    for (const flag of allFactionFlags(faction)) factionByFlag.set(flag, faction.shortName);
     factionTagToName.set(faction.routeTag, faction.shortName);
   }
   /** Attributes an event to a faction (if any) or otherwise to its channel/family. */
@@ -289,7 +312,9 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
       if (activeBand) {
         bandFallback[activeBand.label]!.activeYears += 1;
         if (occurrence.source === 'fallback') bandFallback[activeBand.label]!.fallbackYears += 1;
+        if (occurrence.source === 'lore_fallback') bandFallback[activeBand.label]!.loreFallbackYears += 1;
       }
+      if (occurrence.source === 'lore_fallback') loreFallbackYears += 1;
       if (occurrence.selectionMode === 'mandatory_only') mandatoryFamilies.add(routeFamilyOf(occurrence.eventId));
       if (occurrence.channel === 'SPC') spcEventYears += 1;
       if (occurrence.selectionMode === 'mandatory_only') {
@@ -593,6 +618,22 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
         },
       ]),
     ),
+    loreFallbackShareByAgeBandActive: Object.fromEntries(
+      Object.entries(bandFallback).map(([label, counts]) => [
+        label,
+        {
+          loreFallbackYears: counts.loreFallbackYears,
+          genericFallbackYears: counts.fallbackYears,
+          activeYears: counts.activeYears,
+          loreShare: counts.activeYears === 0 ? 0 : counts.loreFallbackYears / counts.activeYears,
+          genericShare: counts.activeYears === 0 ? 0 : counts.fallbackYears / counts.activeYears,
+          combinedShare:
+            counts.activeYears === 0 ? 0 : (counts.loreFallbackYears + counts.fallbackYears) / counts.activeYears,
+        },
+      ]),
+    ),
+    loreFallbackYears,
+    loreFallbackShare: totalEventYears === 0 ? 0 : loreFallbackYears / totalEventYears,
     meanFixAtCommitment: mean(fixAtCommitment),
     meanFixAtEnding: mean(fixAtEnding),
     fallbackYears,

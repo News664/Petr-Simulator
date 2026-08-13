@@ -30,7 +30,7 @@ import { optionalStringFlag, parseArgs } from './args.js';
  * live here beside the renderer.
  */
 const ROUTE_TAG_INTRO =
-  'Every event `routeTag` must be registered. Route-context matching is an event-level favor under the Phase 1.1 uniform-family baseline. Multiple matching tags do not stack. `academic` explicitly cannot favor Transformation events. Phase 1.2 adds six faction route-context tags, cross-validated against the Faction Registry.';
+  'Every event `routeTag` must be registered. Route-context matching is an event-level favor under the Phase 1.1 uniform-family baseline. Multiple matching tags do not stack. `academic` explicitly cannot favor Transformation events. Phase 1.2 added six faction route-context tags, cross-validated against the Faction Registry. Phase 1.3 narrows those six to the active lifecycle flags only — a historical `FAC_*_CONTACT` marker, `OPTED_OUT` and `CLOSED` grant no favor — and adds the metadata-only `faction_news` tag.';
 
 const TALENT_INTRO = [
   'Typed drafting fields use stable targets such as `channel:SPC` or `family:MUS`. Unlock/redirect/narrative tags do not automatically become probability multipliers; authored events still check talent IDs directly where appropriate.',
@@ -46,12 +46,12 @@ interface RegistryMirror {
 
 function registryMirrors(root: string): RegistryMirror[] {
   const registries = path.join(root, 'registries');
-  const routeTagJson = path.join(registries, 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.1.json');
+  const routeTagJson = path.join(registries, 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.2.json');
   const talentCsv = path.join(registries, 'SOLID_STATE_TALENT_REGISTRY_v1.2.csv');
   return [
     {
       source: routeTagJson,
-      markdown: path.join(registries, 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.1.md'),
+      markdown: path.join(registries, 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.2.md'),
       render: () =>
         renderRouteTagRegistryMarkdown(
           JSON.parse(readFileSync(routeTagJson, 'utf8')) as RouteTagRegistryRaw,

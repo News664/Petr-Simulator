@@ -1,0 +1,1084 @@
+{
+  "batchId": "EVENT_BATCH_006",
+  "version": "0.2",
+  "languageStatus": {
+    "en": "canonical_draft",
+    "zh-TW": "reserved_empty"
+  },
+  "notes": "Phase 1.2 compact content-shape patch. Adds six lightweight faction contacts, six 18–32 faction-driven Permanent Form climaxes, and six adult follow-ups. Designed to populate 18–34 endings, make FIX growth perceivable through events, broaden SPC, and improve adult pool depth. No passive FIX drift and no global threshold change.",
+  "events": [
+    {
+      "id": "EVT-SPC-SECR-0001",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 16,
+        "max": 20
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "dmms",
+        "civic"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-DMMS"
+      ],
+      "factionInteraction": "contact",
+      "include": "!FLAG[FAC_DMMS_CONTACT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your school sends several students to an “optional” Material Status compliance seminar. Attendance is recorded before anyone explains what optional means.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "FAC_DMMS_CONTACT"
+          ],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-DMMS",
+              "to": "CONTACTED"
+            }
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0013",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_DMMS_STATE_CONTACTED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Broadly reachable late-school bureaucracy seed. Contact is not employment or allegiance."
+    },
+    {
+      "id": "EVT-SPC-SECR-0002",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 17,
+        "max": 22
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "meridian",
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-MERIDIAN"
+      ],
+      "factionInteraction": "contact",
+      "include": "!FLAG[FAC_MERIDIAN_CONTACT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Meridian Preservation Group offers your graduating class a “best years” preservation voucher. The expiration date is printed larger than the medical disclaimer.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "FAC_MERIDIAN_CONTACT"
+          ],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-MERIDIAN",
+              "to": "CONTACTED"
+            }
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0014",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_MERIDIAN_STATE_CONTACTED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Commercial-preservation seed. Can mature in 18–24 or carry into 25–29."
+    },
+    {
+      "id": "EVT-SPC-SECR-0003",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 18,
+        "max": 23
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "continuity_institute",
+        "research",
+        "academic"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-CRI"
+      ],
+      "factionInteraction": "contact",
+      "include": "!FLAG[FAC_CRI_CONTACT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Continuity Research Institute pays you to join a young-adult transformation study. The consent packet is longer than the experiment and the side effects last longer than both.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "INT": 1,
+            "SPR": -1,
+            "FIX": 4
+          },
+          "addFlags": [
+            "FAC_CRI_CONTACT"
+          ],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-CRI",
+              "to": "CONTACTED"
+            }
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0015",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_CRI_STATE_CONTACTED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Visible event-driven FIX source and early research-faction seed."
+    },
+    {
+      "id": "EVT-SPC-SECR-0004",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 18,
+        "max": 23
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "everlasting",
+        "finance"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-EVERLASTING"
+      ],
+      "factionInteraction": "contact",
+      "include": "!FLAG[FAC_EVERLASTING_CONTACT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Everlasting Mutual sells you a starter policy priced on the assumption that your future Permanent Form will be worth more than your current savings.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": 1
+          },
+          "addFlags": [
+            "FAC_EVERLASTING_CONTACT"
+          ],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-EVERLASTING",
+              "to": "CONTACTED"
+            }
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0016",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_EVERLASTING_STATE_CONTACTED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Insurance faction seed. Financial condition, not FIX alone, can create an early ending opportunity."
+    },
+    {
+      "id": "EVT-SPC-SECR-0005",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 18,
+        "max": 24
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "black_ledger",
+        "finance"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-BLACK-LEDGER"
+      ],
+      "factionInteraction": "contact",
+      "include": "MNY<=5 & !FLAG[FAC_BLACK_LEDGER_CONTACT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A friend of a friend introduces you to the Black Ledger Cooperative, which can borrow against rights you did not know were separately saleable. The first payment arrives immediately.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -2
+          },
+          "addFlags": [
+            "FAC_BLACK_LEDGER_CONTACT"
+          ],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-BLACK-LEDGER",
+              "to": "CONTACTED"
+            }
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0017",
+              "offsetYears": 1,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_BLACK_LEDGER_STATE_CONTACTED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Underground-finance seed. Rare, automatic bad-decision trajectory rather than a player contract choice."
+    },
+    {
+      "id": "EVT-SPC-SECR-0006",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 16,
+        "max": 22
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "last_posture",
+        "religious"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-LAST-POSTURE"
+      ],
+      "factionInteraction": "contact",
+      "include": "!FLAG[FAC_LAST_POSTURE_CONTACT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Order of the Last Posture runs a free stillness workshop near your school. The breathing exercises are ordinary; the permanence waiver is not.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "FIX": 1
+          },
+          "addFlags": [
+            "FAC_LAST_POSTURE_CONTACT"
+          ],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "to": "CONTACTED"
+            }
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0018",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_CONTACTED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Late-school/young-adult cult contact. Age-appropriate before 18; no under-18 commitment or ending."
+    },
+    {
+      "id": "EVT-SPC-SECR-0007",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 25,
+        "max": 39
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "dmms",
+        "civic",
+        "legal",
+        "architectural"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-DMMS"
+      ],
+      "factionInteraction": "climax",
+      "include": "FLAG[FAC_DMMS_STATE_COMMITTED] & (FIX>=8 | MAT!=NONE)",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1024] & MAT=NONE",
+          "text": {
+            "en": "A Material Status correction declares that your required stabilization must be permanent. Your legal preparation preserves self-ownership even as the approved synthetic support frame becomes your final body.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "SYNT",
+          "schedules": [],
+          "endingId": "END-LEG-001"
+        },
+        {
+          "when": "TLT[T1024]",
+          "text": {
+            "en": "A Material Status correction makes your stabilization permanent. You retain legal ownership of the Permanent Form, which the department records as an unusually successful compliance outcome.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-LEG-001"
+        },
+        {
+          "when": "MAT=NONE",
+          "text": {
+            "en": "A clerical reclassification turns a mobility accommodation into a structural-compliance requirement. The standard metal support frame locks into place around you and is registered as installed infrastructure.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "METL",
+          "schedules": [],
+          "endingId": "END-ARC-001"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A clerical reclassification turns your existing material condition into a structural-compliance requirement. By the time the appeal reaches the right office, your Permanent Form is already registered with the building.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ARC-001"
+        }
+      ],
+      "designerNotes": "Early bureaucracy ending. External administrative force can create permanence at relatively low FIX; this is intentional and route-specific."
+    },
+    {
+      "id": "EVT-SPC-SECR-0008",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 25,
+        "max": 39
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "meridian",
+        "medical"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-MERIDIAN"
+      ],
+      "factionInteraction": "climax",
+      "include": "FLAG[FAC_MERIDIAN_STATE_COMMITTED] & (FIX>=10 | MAT!=NONE | CHR>=8)",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1026] & MAT=NONE",
+          "text": {
+            "en": "Meridian honors the voucher with its cheapest qualifying permanent package. The procedure works; the rights section of the contract works even better.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "SYNT",
+          "schedules": [],
+          "endingId": "END-MED-002"
+        },
+        {
+          "when": "TLT[T1026]",
+          "text": {
+            "en": "Meridian converts your existing material trajectory under a discounted permanent package whose price is far clearer than its long-term rights.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MED-002"
+        },
+        {
+          "when": "MAT=NONE",
+          "text": {
+            "en": "Meridian decides that your current appearance qualifies for its “Last Version” campaign. A synthetic preservation procedure makes the marketing phrase literally true.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "SYNT",
+          "schedules": [],
+          "endingId": "END-MED-001"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Meridian decides that your current appearance qualifies for its “Last Version” campaign. Your existing material trajectory is finalized while the promotional photographs are still current.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MED-001"
+        }
+      ],
+      "designerNotes": "Commercial young-adult preservation climax. Intentionally capable of firing before 25."
+    },
+    {
+      "id": "EVT-SPC-SECR-0009",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 25,
+        "max": 39
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "continuity_institute",
+        "research",
+        "academic",
+        "temporal"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-CRI"
+      ],
+      "factionInteraction": "climax",
+      "include": "FLAG[FAC_CRI_STATE_COMMITTED] & FIX>=12",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT=NONE",
+          "text": {
+            "en": "A Continuity Institute protocol locks one experimental second in place and fails to restart it. The paper calls the outcome stable temporal preservation.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "TEMP",
+          "schedules": [],
+          "endingId": "END-TMP-001"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A Continuity Institute protocol pushes your committed material past the point the study was meant to observe. Your final state becomes the strongest result in the paper.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ACA-002"
+        }
+      ],
+      "designerNotes": "Research accident/climax. TEMP transition is explicit only when no prior material commitment exists."
+    },
+    {
+      "id": "EVT-SPC-SECR-0010",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 25,
+        "max": 39
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "everlasting",
+        "finance",
+        "medical"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-EVERLASTING"
+      ],
+      "factionInteraction": "climax",
+      "include": "FLAG[FAC_EVERLASTING_STATE_COMMITTED] & MNY<=3",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT=NONE",
+          "text": {
+            "en": "A cash-flow crisis triggers the preservation clause in your starter policy. Everlasting settles the claim through permanent synthetic stabilization and closes the account at zero.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "SYNT",
+          "schedules": [],
+          "endingId": "END-FIN-002"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A cash-flow crisis triggers the preservation clause in your starter policy. Everlasting finalizes your existing material condition and records the settlement as fully performed.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-FIN-002"
+        }
+      ],
+      "designerNotes": "Early financial/insurance climax. Wealth condition can matter independently of high FIX."
+    },
+    {
+      "id": "EVT-SPC-SECR-0011",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 25,
+        "max": 39
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "black_ledger",
+        "finance",
+        "legal"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-BLACK-LEDGER"
+      ],
+      "factionInteraction": "climax",
+      "include": "FLAG[FAC_BLACK_LEDGER_STATE_COMMITTED] & MNY<=5 & (FIX>=8 | MAT!=NONE)",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "(TLT[T1013] | TLT[T1024]) & MAT=NONE",
+          "text": {
+            "en": "The Black Ledger calls the future-form collateral. Legal preparation prevents creditor ownership, but not the conversion itself; a standardized metal form is registered to you instead.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "METL",
+          "schedules": [],
+          "endingId": "END-LEG-001"
+        },
+        {
+          "when": "TLT[T1013] | TLT[T1024]",
+          "text": {
+            "en": "The Black Ledger calls the future-form collateral. You keep legal ownership of the Permanent Form after a dispute that costs less time than mobility.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-LEG-001"
+        },
+        {
+          "when": "MAT=NONE",
+          "text": {
+            "en": "The Black Ledger calls a lien on rights you had treated as hypothetical. Off-book metallization makes the collateral real enough to collect.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "METL",
+          "schedules": [],
+          "endingId": "END-FIN-001"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Black Ledger calls a lien on your existing material trajectory. The valuation becomes enforceable at the same moment your body becomes permanent.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-FIN-001"
+        }
+      ],
+      "designerNotes": "Underground/criminal-adjacent finance climax; legal talents change ownership meaning, not permanence."
+    },
+    {
+      "id": "EVT-SPC-SECR-0012",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 25,
+        "max": 39
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "last_posture",
+        "religious",
+        "legal"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-LAST-POSTURE"
+      ],
+      "factionInteraction": "climax",
+      "include": "FLAG[FAC_LAST_POSTURE_STATE_COMMITTED] & FIX>=8",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT=NONE",
+          "text": {
+            "en": "The Order of the Last Posture selects you for a public consecration after a sequence of increasingly literal stillness exercises. The ritual ends with a permanent stone body and an immediate civil filing dispute.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "STON",
+          "schedules": [],
+          "endingId": "END-REL-001"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Order of the Last Posture treats your existing material condition as proof that the final rite was meant for you. Civil authorities open an appeal before the consecration concludes.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-REL-001"
+        }
+      ],
+      "designerNotes": "Cult/religious early climax. Low FIX gate reflects an externally induced rite rather than spontaneous biological completion."
+    },
+    {
+      "id": "EVT-INS-CIV-0010",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 5,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "dmms",
+        "civic"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-DMMS"
+      ],
+      "factionInteraction": "personal",
+      "include": "(FLAG[FAC_DMMS_STATE_ENGAGED] | FLAG[FAC_DMMS_STATE_COMMITTED])",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Department schedules another Material Status review because an old school record never stopped being active. New measurements are added to a file you assumed had closed.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": -1,
+            "FIX": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Persistent bureaucracy follow-up. Adds modest, perceivable FIX through repeated compliance testing."
+    },
+    {
+      "id": "EVT-INS-MED-0013",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 4,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "meridian",
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-MERIDIAN"
+      ],
+      "factionInteraction": "personal",
+      "include": "(FLAG[FAC_MERIDIAN_STATE_ENGAGED] | FLAG[FAC_MERIDIAN_STATE_COMMITTED])",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY>=7",
+          "text": {
+            "en": "Meridian offers a premium maintenance trial intended to keep future preservation options open. The treatment is expensive and produces measurable structural change.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -2,
+            "CHR": 1,
+            "FIX": 2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Meridian offers a maintenance trial intended to keep future preservation options open. The brochure calls the accumulating structural changes “eligibility improvements.”",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": -1,
+            "FIX": 2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Commercial follow-up that can visibly build FIX across several adult years."
+    },
+    {
+      "id": "EVT-INS-ACA-0012",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 4,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "continuity_institute",
+        "research",
+        "academic"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-CRI"
+      ],
+      "factionInteraction": "personal",
+      "include": "(FLAG[FAC_CRI_STATE_ENGAGED] | FLAG[FAC_CRI_STATE_COMMITTED])",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Continuity Research Institute invites former subjects back for another longitudinal session. The dataset improves; your FIX reading does too.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": -1,
+            "FIX": 3
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Research follow-up and one of the intended event-driven FIX chains."
+    },
+    {
+      "id": "EVT-INS-FIN-0006",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 5,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "everlasting",
+        "finance"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-EVERLASTING"
+      ],
+      "factionInteraction": "personal",
+      "include": "(FLAG[FAC_EVERLASTING_STATE_ENGAGED] | FLAG[FAC_EVERLASTING_STATE_COMMITTED])",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY<=3",
+          "text": {
+            "en": "Everlasting reassesses your policy and discovers that financial distress increases the value of several preservation clauses. Your premium falls for reasons you dislike.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Everlasting reassesses your policy using a newer future-form valuation model. The projected asset value rises faster than the coverage limit.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Insurance follow-up adds adult density without adding FIX by itself."
+    },
+    {
+      "id": "EVT-INS-FIN-0007",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 5,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "black_ledger",
+        "finance"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-BLACK-LEDGER"
+      ],
+      "factionInteraction": "personal",
+      "include": "(FLAG[FAC_BLACK_LEDGER_STATE_ENGAGED] | FLAG[FAC_BLACK_LEDGER_STATE_COMMITTED])",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Black Ledger sends an updated rights statement showing that your future body has been divided into more financial categories than you remember agreeing to. One category now requires a physical assessment.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -2,
+            "FIX": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Underground follow-up; bad decisions remain present without forcing an ending every time."
+    },
+    {
+      "id": "EVT-INS-REL-0004",
+      "channel": "INS",
+      "family": "REL",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 5,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "last_posture",
+        "religious"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-LAST-POSTURE"
+      ],
+      "factionInteraction": "personal",
+      "include": "(FLAG[FAC_LAST_POSTURE_STATE_ENGAGED] | FLAG[FAC_LAST_POSTURE_STATE_COMMITTED])",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Order invites former workshop participants to an anniversary observance. The ceremonial stillness lasts longer each year and the temporary changes take longer to fade.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "FIX": 2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Cult follow-up supplies recurring but visible event-driven FIX rather than passive age drift."
+    }
+  ]
+}

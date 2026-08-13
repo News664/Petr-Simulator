@@ -1,19 +1,21 @@
-# SOLID STATE — Headless Simulation Engine (Phase 1.2)
+# SOLID STATE — Headless Simulation Engine (Phase 1.3)
 
 Deterministic, headless TypeScript simulation engine for **Solid State**, built
 against the `SOLID_STATE_PROJECT_SNAPSHOT_v0.7` contracts plus
 **Phase 1.1 patch v0.1** (Event Batch 005, Species Registry v1.2, Ending
 Registry v1.1, Content Schema v0.3, Event Drafting Rules v0.3, Balance Constants
-v0.2) and **Phase 1.2 patch v0.1** (Event Batch 006, Event Batch 005 v0.2,
-Faction Registry v0.1, Route Tag Registry v1.1, Talent Registry v1.2, the
-faction addendum and the compact diagnostic plan).
+v0.2), **Phase 1.2 patch v0.1** (Event Batch 006, Faction Registry v0.1, Talent
+Registry v1.2, the faction addendum and the compact diagnostic plan) and
+**Phase 1.3 patch v0.2** (Content Schema v0.4, Faction Registry v0.2 with a
+lifecycle FSM, Event Batch 007, the `lore_fallback_only` tier, Route Tag Registry
+v1.2, the H2A gate and the sanity plan).
 
 This repository contains the engine, its tests, and the Monte Carlo /
 experiment / diagnostic CLIs satisfying
 `SOLID_STATE_PHASE1_ACCEPTANCE_TESTS_v0.1.md` **and**
 `SOLID_STATE_PHASE1_1_ACCEPTANCE_ADDENDUM_v0.1.md`. There is no UI: gate H2 is
-not open, and Phase 1.2 **stops** at the diagnostic report pending design
-review.
+not open yet: Phase 1.3 evaluates the H2A gate and **stops** there, pending
+design review.
 
 ## Read these first
 
@@ -25,24 +27,28 @@ review.
 > block in place. Anything discussed elsewhere but not written there is not
 > official.
 >
-> **Phase 1.2:** 23 of 27 questions are RESOLVED. Still open by design:
+> **Phase 1.3:** 25 of 30 questions are RESOLVED. Still open by design:
 > [Q-14](docs/OPEN_QUESTIONS.md#q-14) T1027 magnitude ·
 > [Q-23](docs/OPEN_QUESTIONS.md#q-23) adult fallback ·
 > [Q-25](docs/OPEN_QUESTIONS.md#q-25) achievements registry ·
-> [**Q-27**](docs/OPEN_QUESTIONS.md#q-27) **ending-age shape — the one blocking
-> question, and the main thing Phase 1.2 asks design to decide.**
+> [Q-29](docs/OPEN_QUESTIONS.md#q-29) faction prominence ·
+> [**Q-27**](docs/OPEN_QUESTIONS.md#q-27) **ending-age shape — still the one
+> blocking question, and the main thing Phase 1.3 asks design to decide.**
 
 | Document | What it is |
 |---|---|
-| [`docs/OPEN_QUESTIONS.md`](docs/OPEN_QUESTIONS.md) | **The decision register — Q-01 … Q-27, resolve in place** |
+| [`docs/OPEN_QUESTIONS.md`](docs/OPEN_QUESTIONS.md) | **The decision register — Q-01 … Q-30, resolve in place** |
 | [`docs/PHASE1_FINDINGS.md`](docs/PHASE1_FINDINGS.md) | Executive summary of the Monte Carlo results |
 | [`docs/PHASE1_CONFLICTS.md`](docs/PHASE1_CONFLICTS.md) | Schema/content conflicts, with the smallest proposed change for each |
 | [`docs/PHASE1_ASSUMPTIONS.md`](docs/PHASE1_ASSUMPTIONS.md) | Every decision made where no canonical file specified one |
 | [`docs/ENGINE_CHANGES.md`](docs/ENGINE_CHANGES.md) | Bugs found and fixed, behaviour decided, validation added, and what was deliberately left out |
 | [`docs/PHASE1_1_FINDINGS.md`](docs/PHASE1_1_FINDINGS.md) | Phase 1.1 results |
-| [`docs/PHASE1_2_FINDINGS.md`](docs/PHASE1_2_FINDINGS.md) | **Phase 1.2 results — read this first** |
-| [`docs/spec/SOLID_STATE_FACTION_ADDENDUM_v0.1.md`](docs/spec/SOLID_STATE_FACTION_ADDENDUM_v0.1.md) | The faction rules: discrete flags only, no meter, no player choice |
-| [`reports/phase1_2-diagnostic.md`](reports/phase1_2-diagnostic.md) | **Phase 1.2 compact diagnostic — the current measurements** |
+| [`docs/PHASE1_2_FINDINGS.md`](docs/PHASE1_2_FINDINGS.md) | Phase 1.2 results |
+| [`docs/PHASE1_3_FINDINGS.md`](docs/PHASE1_3_FINDINGS.md) | **Phase 1.3 results — read this first** |
+| [`docs/H2A_GATE_DECISION.md`](docs/H2A_GATE_DECISION.md) | **The H2A blocker checklist and gate status** |
+| [`docs/spec/SOLID_STATE_FACTION_SYSTEM_SPEC_v0.2.md`](docs/spec/SOLID_STATE_FACTION_SYSTEM_SPEC_v0.2.md) | The faction rules: lifecycle FSM, orthogonal roles, safe exits, no meter |
+| [`reports/phase1_3-sanity.md`](reports/phase1_3-sanity.md) | **Phase 1.3 sanity diagnostic — the current measurements** |
+| [`reports/phase1_2-diagnostic.md`](reports/phase1_2-diagnostic.md) | Phase-1.2 compact diagnostic — **pre-1.3 corpus, not regenerated** |
 | [`reports/monte-carlo.md`](reports/monte-carlo.md) | Phase-1.1 Monte Carlo report — **pre-1.2 corpus, not regenerated** |
 | [`reports/phase1_1-experiments.md`](reports/phase1_1-experiments.md) | Phase-1.1 experiment matrix — **pre-1.2 corpus, not regenerated** |
 
@@ -53,13 +59,14 @@ them all. Every question links back to its evidence.
 
 **No creative content was changed.** Everything under `content/events/`,
 `content/registries/` and `content/balance/` is byte-identical to its source
-artifact (snapshot v0.7, Phase 1.1 patch v0.1, or Phase 1.2 patch v0.1), and the
-JSON → Markdown mirror check passes against
-`tools/SOLID_STATE_CONTENT_TOOL_v0.2.py` for all six batches. The single
-exception is a two-line event-ID renumbering forced by a cross-batch ID
-collision in the supplied patch — reported in full as
-[`docs/PHASE1_CONFLICTS.md` P12-C1](docs/PHASE1_CONFLICTS.md) rather than worked
-around silently.
+artifact (snapshot v0.7, or Phase 1.1 / 1.2 / 1.3 patch), and the JSON → Markdown
+mirror check passes against `tools/SOLID_STATE_CONTENT_TOOL_v0.3.py` for all
+seven batches. There are three exceptions, all reported rather than assumed: a
+two-line event-ID renumbering forced by a cross-batch ID collision
+([P12-C1](docs/PHASE1_CONFLICTS.md)), and the two Phase-1.3 inputs the patch did
+not ship — the content-tool requirements and the Route Tag Registry v1.2 patch —
+which were derived mechanically from the instruction text
+([P13-C1](docs/PHASE1_CONFLICTS.md)).
 
 ## Quick start
 
@@ -74,7 +81,7 @@ Individual steps:
 npm run typecheck     # tsc --noEmit
 npm run validate      # load and cross-validate all canonical content
 npm run mirror:check  # assert batch Markdown is the exact render of batch JSON
-npm test              # 263 tests: acceptance A-P, Phase-1.1 addendum, Phase-1.2, golden runs
+npm test              # 295 tests: acceptance A-P, Phase-1.1/1.2/1.3, golden runs
 ```
 
 ## Monte Carlo simulator
@@ -84,6 +91,24 @@ npm run simulate -- --runs 10000 --scenario no-talents --seed 12345
 npm run simulate -- --runs 10000 --scenario all --species-stratified
 npm run simulate -- --help
 ```
+
+## Phase 1.3 sanity diagnostic
+
+```bash
+npm run sanity
+npm run sanity -- --runs 500 --seed smoke
+```
+
+Runs exactly `SOLID_STATE_PHASE1_3_SANITY_PLAN_v0.1.json` — one 5 000-run pass,
+no targeted arms — and writes `reports/phase1_3-sanity.{json,md}`. It exits
+non-zero if any hard H2A correctness counter is non-zero: pre-25 coverage
+defects, pre-25 fallback, illegal faction transitions, lifecycle collisions, or a
+personalized faction event after a safe exit.
+
+Everything the plan lists under `explicitlyNotRun` — the LOW/MID/HIGH sweep, the
+family-weight A/B, the allocation comparison, the T1027 sweep, the T1023 SPC
+comparison and the neutral-Human manifestation diagnostic — is **not** run here
+and **not** retired; a test asserts each harness is still constructible.
 
 ## Phase 1.2 compact diagnostic
 
@@ -136,10 +161,10 @@ Writes a machine-readable `<prefix>.json` and a human-readable `<prefix>.md`.
 
 ```
 content/                  canonical data — the only runtime content source
-  events/                 SOLID_STATE_EVENT_BATCH_*.json  (canonical, 6 batches / 156 events)
+  events/                 SOLID_STATE_EVENT_BATCH_*.json  (canonical, 7 batches / 186 events)
                           SOLID_STATE_EVENT_BATCH_*.md    (generated mirror, never read at runtime)
-  registries/             species v1.2, talent v1.2, ending v1.1, route tag v1.1, faction v0.1
-  balance/                balance constants v0.2, experiment matrix, diagnostic plan, adapters
+  registries/             species v1.2, talent v1.2, ending v1.1, route tag v1.2, faction v0.2
+  balance/                balance constants v0.2, experiment matrix, diagnostic + sanity plans, adapters
   superseded/             replaced registries, kept for provenance, never loaded
 docs/spec/                the v0.7 machine-facing contracts, verbatim
 docs/design/              the Bibles, verbatim (creative context)
@@ -149,6 +174,7 @@ src/engine/               React-free simulation engine (runs under plain Node)
   conditions/             lexer, parser, evaluator for the condition DSL (no eval)
   content/                loaders, Zod schemas, JSON->Markdown mirror renderers
   eligibility.ts          age / repeat / material-lock / include-exclude gating
+  factions.ts             lifecycle FSM, orthogonal roles, safe-exit reachability analysis
   drafting.ts             channel -> family -> event hierarchical draft
   schedules.ts            schedule queue, priority classes, displacement, expiry
   talents.ts              Dormant -> Triggered -> Spent, cascading to stable
@@ -157,8 +183,9 @@ src/engine/               React-free simulation engine (runs under plain Node)
 src/sim/                  Monte Carlo scenarios, metrics, report renderer
 src/sim/experiments.ts    reversible threshold / family-mode / T1027 overrides (retained)
 src/sim/phase1_2.ts       compact diagnostic plan, SPC split, faction seeds, manifestation probe
-src/cli/                  validate / mirror / simulate / experiment / diagnostic entry points
-tests/                    acceptance A-P, Phase-1.1 addendum, Phase-1.2, golden runs, setup
+src/sim/phase1_3.ts       sanity plan, streaming faction-lifecycle accumulator
+src/cli/                  validate / mirror / simulate / experiment / diagnostic / sanity entry points
+tests/                    acceptance A-P, Phase-1.1/1.2/1.3, golden runs, setup
 reports/                  generated simulation output
 ```
 
@@ -199,38 +226,55 @@ UPDATE_GOLDEN=1 npm test -- tests/golden-runs.test.ts
 
 ## Design constraints specific to the faction layer
 
-- **Discrete flags only.** No reputation meter, no alignment scale, no player
-  faction-choice UI. The registry pins these as schema literals, so a future
-  registry cannot introduce them without failing validation.
-- **`CONTACT` is not membership.** It records that a life crossed a faction's
-  path.
-- **No material bias.** Faction context never moves a Transformation family — a
-  test sets every faction flag and asserts the family-layer scalars are
+- **A flag-backed FSM, never a meter.** `NONE → CONTACTED → ENGAGED → COMMITTED`
+  with authored exits to `OPTED_OUT` / `CLOSED`. No reputation, loyalty,
+  hostility or alignment value exists anywhere, and the condition grammar gained
+  no faction syntax — lifecycle is read through ordinary `FLAG[...]`.
+- **Roles are orthogonal flags**, not states, and may coexist. Only roles the
+  registry lists for that faction may be added.
+- **Transitions are atomic.** An illegal edge or an unregistered role leaves the
+  run exactly as it was, so two lifecycle flags for one faction is impossible by
+  construction.
+- **A safe exit really is safe.** After `OPTED_OUT` / `CLOSED` no ordinary
+  personalized faction event can occur — proven statically at load by a
+  three-valued reachability analysis, and counted at runtime. News and lore stay
+  available, because they are about the world, not the protagonist.
+- **History is not context.** A `FAC_*_CONTACT` marker records that contact
+  happened; it grants no route favor, and neither do the terminal states.
+- **No material bias, no new drafting stage.** A faction reaches the engine only
+  through its registered route tag, so "at most one route-favor scalar per event"
+  still holds, and a test asserts faction flags leave every family scalar
   unchanged.
-- **No new drafting stage.** A faction reaches the engine only through its
-  registered route tag, so "at most one route-favor scalar per event" still
-  holds.
-- **Every `FAC_*` flag is registered.** Cross-validation rejects any faction flag
-  in content that no faction claims.
 
 ## Status
 
-Phase 1.2 integration is complete: 156 events across 6 batches, 37 route tags,
-6 factions, all Markdown mirrors byte-for-byte, 263 tests passing, and the
-compact diagnostic run and reported.
+Phase 1.3 integration is complete: 186 events across 7 batches, 38 route tags,
+6 factions with a lifecycle FSM, all Markdown mirrors byte-for-byte, 295 tests
+passing, and the 5 000-run sanity diagnostic run and reported.
 
-**The Phase-1.1 blocker moved but did not close.** Batch 006 made the 18–24 band
-reachable (0.0% → 31.5%) and halved the 65+ pile-up (74.7% → 37.8%), but 25–34 —
-the intended modal window — is now the largest miss at 17.7% against a 35–40%
-target, and the ending landscape is bimodal: every faction route lands at a
-median age of 22–25, `INS/MED` and `ORD/FAM` at 67–68, and almost nothing
-occupies 26–60. The cause is a timing relationship in the authored content, not
-a threshold value, and it is set out with the smallest candidate levers in
+**H2A is OPEN.** All eleven hard correctness blockers pass — see
+[`docs/H2A_GATE_DECISION.md`](docs/H2A_GATE_DECISION.md). Across 5 000 runs there
+were zero illegal faction transitions, zero lifecycle collisions, zero
+personalized faction events after a safe exit, and zero pre-25 coverage defects.
+
+**The faction system now behaves exactly as specified, and the ending economy got
+worse.** The ladder works — faction endings moved from a 1–3 year fuse at 22–25
+onto the committed path at 25.5–28.4, 94% of them via the intended route, with
+sudden endings surviving as a 6% minority. But 90% of faction contacts now end in
+a safe exit, so the layer that supplied 1 169 of 2 406 endings in Phase 1.2
+supplied 184. Nothing replaced them: completion fell 60.2% → 23.9%, 18–24 endings
+fell from 189.5 to 1.8 per 1 000 runs, and 25–34 — the window this patch was meant
+to fill — fell from 106.2 to 37.8.
+
+That is a content-supply question, not a threshold question, and it is set out
+with three candidate directions in
 [Q-27](docs/OPEN_QUESTIONS.md#q-27) and
-[`docs/PHASE1_2_FINDINGS.md`](docs/PHASE1_2_FINDINGS.md) §1.
+[`docs/PHASE1_3_FINDINGS.md`](docs/PHASE1_3_FINDINGS.md) §3.
 
 Nothing was auto-tuned: no threshold profile selected, the two late-life
-`FIX>=40` gates untouched, no filler authored, no T1027 change, uniform
-family weighting preserved, and FIX still event-driven only.
+`FIX>=40` gates untouched, no filler authored, no T1027 change, uniform family
+weighting preserved, FIX still event-driven only, and no faction meter of any
+kind.
 
-**H2 remains CLOSED.** Phase 1.2 stops here pending design review.
+**Phase 1.3 stops here** pending design review. H2A implementation is a separate
+task.

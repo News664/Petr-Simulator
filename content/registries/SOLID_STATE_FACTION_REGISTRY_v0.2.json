@@ -1,0 +1,240 @@
+{
+  "version": "0.2",
+  "canonical": true,
+  "supersedes": "SOLID_STATE_FACTION_REGISTRY_v0.1.json",
+  "designStatus": "PHASE1_3_FACTION_LIFECYCLE",
+  "rules": {
+    "storageModel": "FLAG_BACKED_FSM_PLUS_ROLE_FLAGS",
+    "numericReputationMeter": false,
+    "playerChoosesFaction": false,
+    "lifecycleStates": [
+      "NONE",
+      "CONTACTED",
+      "ENGAGED",
+      "COMMITTED",
+      "OPTED_OUT",
+      "CLOSED"
+    ],
+    "initialState": "NONE",
+    "legalTransitions": {
+      "NONE": [
+        "CONTACTED"
+      ],
+      "CONTACTED": [
+        "ENGAGED",
+        "COMMITTED",
+        "OPTED_OUT",
+        "CLOSED"
+      ],
+      "ENGAGED": [
+        "COMMITTED",
+        "OPTED_OUT",
+        "CLOSED"
+      ],
+      "COMMITTED": [
+        "CLOSED"
+      ],
+      "OPTED_OUT": [],
+      "CLOSED": []
+    },
+    "activeContextStates": [
+      "CONTACTED",
+      "ENGAGED",
+      "COMMITTED"
+    ],
+    "personalTerminalStates": [
+      "OPTED_OUT",
+      "CLOSED"
+    ],
+    "safeOptOutRule": "OPTED_OUT blocks all ordinary personalized events from that faction. News and lore-fallback events remain eligible because they are not personal interactions.",
+    "committedRule": "COMMITTED has no routine safe opt-out. Only an explicitly authored transition to CLOSED or a terminal ending may leave it.",
+    "roleRule": "Roles are orthogonal to lifecycle state. Multiple registered roles may coexist.",
+    "terminalRoleCleanup": "Entering OPTED_OUT or CLOSED removes all current role flags for that faction. Event history preserves what happened.",
+    "historyFlagRule": "Legacy FAC_*_CONTACT flags become historical ever-contacted markers only. They are not lifecycle state and must not activate route-context favor by themselves.",
+    "newsRule": "Faction news does not create contact, lifecycle or role state unless explicitly authored.",
+    "automaticMaterialBiasFromFaction": false,
+    "alignmentStyleFactionSystem": "DEFERRED"
+  },
+  "factions": [
+    {
+      "id": "FCT-DMMS",
+      "name_en": "Department of Mobility and Material Status",
+      "shortName": "DMMS",
+      "kind": "state_regulator",
+      "routeTag": "dmms",
+      "flagPrefix": "FAC_DMMS_",
+      "historyFlags": [
+        "FAC_DMMS_CONTACT"
+      ],
+      "lifecycleFlags": {
+        "CONTACTED": "FAC_DMMS_STATE_CONTACTED",
+        "ENGAGED": "FAC_DMMS_STATE_ENGAGED",
+        "COMMITTED": "FAC_DMMS_STATE_COMMITTED",
+        "OPTED_OUT": "FAC_DMMS_STATE_OPTED_OUT",
+        "CLOSED": "FAC_DMMS_STATE_CLOSED"
+      },
+      "roleFlags": {
+        "CASE": "FAC_DMMS_ROLE_CASE",
+        "TARGETED": "FAC_DMMS_ROLE_TARGETED",
+        "OBLIGATED": "FAC_DMMS_ROLE_OBLIGATED"
+      },
+      "allowedRoles": [
+        "CASE",
+        "TARGETED",
+        "OBLIGATED"
+      ],
+      "intent": "Government classification, compliance and personal cases. A protagonist is normally a case subject, not a member."
+    },
+    {
+      "id": "FCT-EVERLASTING",
+      "name_en": "Everlasting Mutual",
+      "shortName": "Everlasting Mutual",
+      "kind": "insurer",
+      "routeTag": "everlasting",
+      "flagPrefix": "FAC_EVERLASTING_",
+      "historyFlags": [
+        "FAC_EVERLASTING_CONTACT"
+      ],
+      "lifecycleFlags": {
+        "CONTACTED": "FAC_EVERLASTING_STATE_CONTACTED",
+        "ENGAGED": "FAC_EVERLASTING_STATE_ENGAGED",
+        "COMMITTED": "FAC_EVERLASTING_STATE_COMMITTED",
+        "OPTED_OUT": "FAC_EVERLASTING_STATE_OPTED_OUT",
+        "CLOSED": "FAC_EVERLASTING_STATE_CLOSED"
+      },
+      "roleFlags": {
+        "CLIENT": "FAC_EVERLASTING_ROLE_CLIENT",
+        "DEBTOR": "FAC_EVERLASTING_ROLE_DEBTOR",
+        "OBLIGATED": "FAC_EVERLASTING_ROLE_OBLIGATED"
+      },
+      "allowedRoles": [
+        "CLIENT",
+        "DEBTOR",
+        "OBLIGATED"
+      ],
+      "intent": "Insurance/client relationship, debt pressure and preservation clauses."
+    },
+    {
+      "id": "FCT-MERIDIAN",
+      "name_en": "Meridian Preservation Group",
+      "shortName": "Meridian",
+      "kind": "commercial_preservation",
+      "routeTag": "meridian",
+      "flagPrefix": "FAC_MERIDIAN_",
+      "historyFlags": [
+        "FAC_MERIDIAN_CONTACT"
+      ],
+      "lifecycleFlags": {
+        "CONTACTED": "FAC_MERIDIAN_STATE_CONTACTED",
+        "ENGAGED": "FAC_MERIDIAN_STATE_ENGAGED",
+        "COMMITTED": "FAC_MERIDIAN_STATE_COMMITTED",
+        "OPTED_OUT": "FAC_MERIDIAN_STATE_OPTED_OUT",
+        "CLOSED": "FAC_MERIDIAN_STATE_CLOSED"
+      },
+      "roleFlags": {
+        "CLIENT": "FAC_MERIDIAN_ROLE_CLIENT",
+        "AFFILIATE": "FAC_MERIDIAN_ROLE_AFFILIATE",
+        "OBLIGATED": "FAC_MERIDIAN_ROLE_OBLIGATED"
+      },
+      "allowedRoles": [
+        "CLIENT",
+        "AFFILIATE",
+        "OBLIGATED"
+      ],
+      "intent": "Commercial preservation client/affiliate relationship and promotional obligations."
+    },
+    {
+      "id": "FCT-CRI",
+      "name_en": "Continuity Research Institute",
+      "shortName": "CRI",
+      "kind": "research",
+      "routeTag": "continuity_institute",
+      "flagPrefix": "FAC_CRI_",
+      "historyFlags": [
+        "FAC_CRI_CONTACT"
+      ],
+      "lifecycleFlags": {
+        "CONTACTED": "FAC_CRI_STATE_CONTACTED",
+        "ENGAGED": "FAC_CRI_STATE_ENGAGED",
+        "COMMITTED": "FAC_CRI_STATE_COMMITTED",
+        "OPTED_OUT": "FAC_CRI_STATE_OPTED_OUT",
+        "CLOSED": "FAC_CRI_STATE_CLOSED"
+      },
+      "roleFlags": {
+        "SUBJECT": "FAC_CRI_ROLE_SUBJECT",
+        "AFFILIATE": "FAC_CRI_ROLE_AFFILIATE",
+        "TARGETED": "FAC_CRI_ROLE_TARGETED",
+        "OBLIGATED": "FAC_CRI_ROLE_OBLIGATED"
+      },
+      "allowedRoles": [
+        "SUBJECT",
+        "AFFILIATE",
+        "TARGETED",
+        "OBLIGATED"
+      ],
+      "intent": "Research-subject/affiliate relationship, including experiments and hostile or non-consensual targeting."
+    },
+    {
+      "id": "FCT-BLACK-LEDGER",
+      "name_en": "Black Ledger Cooperative",
+      "shortName": "Black Ledger",
+      "kind": "underground_finance",
+      "routeTag": "black_ledger",
+      "flagPrefix": "FAC_BLACK_LEDGER_",
+      "historyFlags": [
+        "FAC_BLACK_LEDGER_CONTACT"
+      ],
+      "lifecycleFlags": {
+        "CONTACTED": "FAC_BLACK_LEDGER_STATE_CONTACTED",
+        "ENGAGED": "FAC_BLACK_LEDGER_STATE_ENGAGED",
+        "COMMITTED": "FAC_BLACK_LEDGER_STATE_COMMITTED",
+        "OPTED_OUT": "FAC_BLACK_LEDGER_STATE_OPTED_OUT",
+        "CLOSED": "FAC_BLACK_LEDGER_STATE_CLOSED"
+      },
+      "roleFlags": {
+        "CLIENT": "FAC_BLACK_LEDGER_ROLE_CLIENT",
+        "DEBTOR": "FAC_BLACK_LEDGER_ROLE_DEBTOR",
+        "TARGETED": "FAC_BLACK_LEDGER_ROLE_TARGETED",
+        "OBLIGATED": "FAC_BLACK_LEDGER_ROLE_OBLIGATED"
+      },
+      "allowedRoles": [
+        "CLIENT",
+        "DEBTOR",
+        "TARGETED",
+        "OBLIGATED"
+      ],
+      "intent": "Underground finance, debt, enforcement and hostile targeting."
+    },
+    {
+      "id": "FCT-LAST-POSTURE",
+      "name_en": "Order of the Last Posture",
+      "shortName": "Last Posture",
+      "kind": "cult_religious",
+      "routeTag": "last_posture",
+      "flagPrefix": "FAC_LAST_POSTURE_",
+      "historyFlags": [
+        "FAC_LAST_POSTURE_CONTACT"
+      ],
+      "lifecycleFlags": {
+        "CONTACTED": "FAC_LAST_POSTURE_STATE_CONTACTED",
+        "ENGAGED": "FAC_LAST_POSTURE_STATE_ENGAGED",
+        "COMMITTED": "FAC_LAST_POSTURE_STATE_COMMITTED",
+        "OPTED_OUT": "FAC_LAST_POSTURE_STATE_OPTED_OUT",
+        "CLOSED": "FAC_LAST_POSTURE_STATE_CLOSED"
+      },
+      "roleFlags": {
+        "MEMBER": "FAC_LAST_POSTURE_ROLE_MEMBER",
+        "AFFILIATE": "FAC_LAST_POSTURE_ROLE_AFFILIATE",
+        "TARGETED": "FAC_LAST_POSTURE_ROLE_TARGETED",
+        "OBLIGATED": "FAC_LAST_POSTURE_ROLE_OBLIGATED"
+      },
+      "allowedRoles": [
+        "MEMBER",
+        "AFFILIATE",
+        "TARGETED",
+        "OBLIGATED"
+      ],
+      "intent": "Ceremonial/cult contact, affiliation or membership, including recruitment targeting."
+    }
+  ]
+}

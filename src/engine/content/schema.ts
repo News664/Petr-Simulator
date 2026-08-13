@@ -1,6 +1,9 @@
 import { z } from 'zod';
 import {
   CHANNELS,
+  FACTION_INTERACTIONS,
+  FACTION_LIFECYCLE_STATES,
+  FACTION_TRANSITION_TARGETS,
   MATERIALS,
   REPEAT_POLICIES,
   SCHEDULE_PRIORITIES,
@@ -49,6 +52,19 @@ export const localizedTextSchema = z
   })
   .strict();
 
+export const FACTION_ID_RE = /^FCT-[A-Z0-9-]+$/;
+export const FACTION_ROLE_RE = /^[A-Z][A-Z0-9_]*$/;
+
+/** Content Schema v0.4 structured faction transition. */
+export const factionTransitionSchema = z
+  .object({
+    factionId: z.string().regex(FACTION_ID_RE, 'malformed faction id'),
+    to: z.enum(FACTION_TRANSITION_TARGETS),
+    addRoles: z.array(z.string().regex(FACTION_ROLE_RE)).optional(),
+    removeRoles: z.array(z.string().regex(FACTION_ROLE_RE)).optional(),
+  })
+  .strict();
+
 export const eventVariantSchema = z
   .object({
     when: conditionString,
@@ -56,6 +72,7 @@ export const eventVariantSchema = z
     effects: statEffectsSchema,
     addFlags: z.array(z.string().regex(FLAG_ID_RE)),
     removeFlags: z.array(z.string().regex(FLAG_ID_RE)),
+    factionTransitions: z.array(factionTransitionSchema).optional(),
     schedules: z.array(scheduleSpecSchema),
     setMaterialCommitment: z.enum(MATERIALS).optional(),
     endingId: z.string().regex(ENDING_ID_RE).optional(),
@@ -83,6 +100,9 @@ export const gameEventSchema = z
     materialTags: z.array(z.string()),
     // Content Schema v0.3. Optional; validated against the Species Registry.
     refinementTags: z.array(z.string()).optional(),
+    // Content Schema v0.4. Metadata/validation scope; never a drafting weight.
+    factionIds: z.array(z.string().regex(FACTION_ID_RE)).optional(),
+    factionInteraction: z.enum(FACTION_INTERACTIONS).optional(),
     include: conditionString,
     exclude: conditionString,
     variants: z.array(eventVariantSchema).min(1),
@@ -119,6 +139,28 @@ export const gameEventSchema = z
           message: `${event.id}: fallback_only is forbidden before age 25`,
         });
       }
+    }
+    // Content Schema v0.4: lore fallback is world texture with no mechanics.
+    // Anything that could change the run makes it a normal event in disguise.
+    if (event.selectionMode === 'lore_fallback_only') {
+      const complain = (message: string): void => {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: `${event.id}: ${message}` });
+      };
+      if (event.repeatPolicy !== 'repeatable') complain('lore_fallback_only must be repeatable');
+      if (event.age.min < 25) complain('lore_fallback_only is forbidden before age 25');
+      event.variants.forEach((variant, index) => {
+        const where = `lore_fallback_only variant ${index + 1}`;
+        if (Object.keys(variant.effects).length > 0) complain(`${where} may not change stats`);
+        if (variant.addFlags.length > 0 || variant.removeFlags.length > 0) {
+          complain(`${where} may not change flags`);
+        }
+        if (variant.factionTransitions && variant.factionTransitions.length > 0) {
+          complain(`${where} may not change faction state`);
+        }
+        if (variant.schedules.length > 0) complain(`${where} may not schedule events`);
+        if (variant.setMaterialCommitment) complain(`${where} may not commit material`);
+        if (variant.endingId) complain(`${where} may not produce an ending`);
+      });
     }
     // Contract section 13 / taxonomy: a final TRUE fallback variant is validated.
     const last = event.variants[event.variants.length - 1]!;
@@ -210,41 +252,79 @@ export const speciesRegistrySchema = z
   })
   .strict();
 
+const factionFlag = z.string().regex(/^FAC_[A-Z0-9_]+$/);
+
 /**
- * Faction Registry v0.1.
+ * Faction Registry v0.2.
  *
- * Factions are a lightweight authored context: discrete flags only, no
- * reputation/alignment meter, no player faction choice. The schema pins those
- * rules so a future registry cannot quietly introduce them.
+ * Lifecycle is a flag-backed FSM whose shape lives entirely in this data. The
+ * schema pins the two rules design must never lose by accident: there is no
+ * numeric reputation/loyalty/hostility meter, and the player never picks a
+ * faction. A future registry that tried to add either would fail to load.
  */
 export const factionRegistrySchema = z
   .object({
     version: z.string(),
     canonical: z.boolean().optional(),
+    supersedes: z.string().optional(),
     designStatus: z.string().optional(),
     rules: z
       .object({
-        stateModel: z.literal('discrete_flags_only'),
+        storageModel: z.literal('FLAG_BACKED_FSM_PLUS_ROLE_FLAGS'),
         numericReputationMeter: z.literal(false),
         playerChoosesFaction: z.literal(false),
-        contactDoesNotEqualMembership: z.literal(true),
+        lifecycleStates: z.array(z.enum(FACTION_LIFECYCLE_STATES)).min(1),
+        initialState: z.literal('NONE'),
+        legalTransitions: z.record(z.enum(FACTION_LIFECYCLE_STATES), z.array(z.enum(FACTION_LIFECYCLE_STATES))),
+        activeContextStates: z.array(z.enum(FACTION_LIFECYCLE_STATES)).min(1),
+        personalTerminalStates: z.array(z.enum(FACTION_LIFECYCLE_STATES)).min(1),
+        safeOptOutRule: z.string(),
+        committedRule: z.string(),
+        roleRule: z.string(),
+        terminalRoleCleanup: z.string(),
+        historyFlagRule: z.string(),
+        newsRule: z.string(),
         automaticMaterialBiasFromFaction: z.literal(false),
         alignmentStyleFactionSystem: z.literal('DEFERRED'),
         notes: z.string().optional(),
       })
-      .strict(),
+      .strict()
+      .superRefine((rules, ctx) => {
+        // `NONE` may only lead to CONTACTED, and the terminal states are terminal.
+        // Pinned here so the FSM shape cannot drift silently in a later registry.
+        const complain = (message: string): void => {
+          ctx.addIssue({ code: z.ZodIssueCode.custom, message });
+        };
+        if ((rules.legalTransitions['COMMITTED'] ?? []).includes('OPTED_OUT')) {
+          complain('COMMITTED -> OPTED_OUT is illegal: COMMITTED has no routine safe opt-out');
+        }
+        if ((rules.legalTransitions['NONE'] ?? []).some((to) => to !== 'CONTACTED')) {
+          complain('NONE may only transition to CONTACTED');
+        }
+        for (const terminal of rules.personalTerminalStates) {
+          if ((rules.legalTransitions[terminal] ?? []).length > 0) {
+            complain(`${terminal} is a personal-terminal state and must have no outgoing transitions`);
+          }
+        }
+        if (rules.activeContextStates.some((state) => rules.personalTerminalStates.includes(state))) {
+          complain('a personal-terminal state must not grant active route context');
+        }
+        if (rules.activeContextStates.includes('NONE')) complain('NONE must not grant active route context');
+      }),
     factions: z
       .array(
         z
           .object({
-            id: z.string().regex(/^FCT-[A-Z0-9-]+$/, 'malformed faction id'),
+            id: z.string().regex(FACTION_ID_RE, 'malformed faction id'),
             name_en: z.string().min(1),
             shortName: z.string().min(1),
             kind: z.string().min(1),
             routeTag: z.string().min(1),
             flagPrefix: z.string().regex(/^FAC_[A-Z0-9_]*_$/, 'faction flag prefix must be FAC_..._'),
-            flags: z.array(z.string().regex(/^FAC_[A-Z0-9_]+$/)).min(1),
-            entryAgeMin: z.number().int().min(0),
+            historyFlags: z.array(factionFlag),
+            lifecycleFlags: z.record(z.enum(FACTION_TRANSITION_TARGETS), factionFlag),
+            roleFlags: z.record(z.string().regex(FACTION_ROLE_RE), factionFlag),
+            allowedRoles: z.array(z.string().regex(FACTION_ROLE_RE)),
             intent: z.string(),
           })
           .strict(),
@@ -254,14 +334,17 @@ export const factionRegistrySchema = z
   })
   .strict();
 
-/** Route Tag Registry v1.0 / v1.1. */
+/** Route Tag Registry v1.0 … v1.2. */
 export const routeTagRegistrySchema = z
   .object({
     version: z.string(),
     canonical: z.boolean().optional(),
+    supersedes: z.string().optional(),
     stackingRule: z.string().optional(),
     familyRule: z.string().optional(),
     validationRule: z.string().optional(),
+    /** v1.2: faction context is active only for the active lifecycle states. */
+    factionContextRule: z.string().optional(),
     tags: z
       .array(
         z

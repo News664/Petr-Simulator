@@ -1,0 +1,53 @@
+{
+  "version": "0.1",
+  "status": "PHASE1_3_SANITY_DIAGNOSTIC",
+  "purpose": "Validate faction FSM/content shape before opening H2A; not a final balance freeze.",
+  "primary": {
+    "runs": 5000,
+    "speciesMode": "STRATIFY_EQUALLY_BY_SPECIES",
+    "talentScenario": "UNIFORM_RANDOM_THREE_COMPATIBLE_DIAGNOSTIC",
+    "allocationPolicy": "ARCHETYPE_SET",
+    "familyWeightMode": "uniform",
+    "thresholdMode": "AUTHORED_CURRENT_CONTENT",
+    "pre25CoveragePolicy": "strict"
+  },
+  "requiredMetrics": [
+    "completion/nonterminal rate",
+    "ending-age buckets",
+    "median/mean ending age",
+    "ending coverage and ending counts by route/faction",
+    "faction news exposure by faction",
+    "faction contact rate by faction",
+    "faction ENGAGED incidence by faction",
+    "faction OPTED_OUT incidence by faction",
+    "faction CLOSED incidence by faction",
+    "faction COMMITTED incidence by faction",
+    "faction TARGETED role incidence by faction",
+    "faction-caused ending share",
+    "sudden faction ending share versus committed-ladder faction ending share",
+    "mean/median years from faction contact to opt-out/close/commitment/ending",
+    "illegal faction lifecycle state count (must be zero)",
+    "personal faction event after OPTED_OUT/CLOSED count (must be zero)",
+    "generic fallback share by age band",
+    "lore-fallback share by age band",
+    "combined fallback substitution view without conflating the two",
+    "pre-25 coverage defect rate",
+    "schedule expiry/collision rates",
+    "FIX at commitment/ending",
+    "material commitment age"
+  ],
+  "explicitlyNotRun": [
+    "LOW/MID/HIGH FIX threshold sweep",
+    "family-weight A/B",
+    "three-way allocation comparison",
+    "T1027 sensitivity sweep",
+    "T1023 targeted comparison",
+    "neutral-Human manifestation diagnostic"
+  ],
+  "retentionPolicy": {
+    "notDropped": true,
+    "note": "All skipped experiment harnesses remain available for relevant future changes and the H2B/pre-freeze regression."
+  },
+  "h2aDecisionRule": "Use only hard correctness blockers from SOLID_STATE_H2A_HUMAN_PLAYTEST_GATE_v0.1.md. Balance misses are warnings, not H2A blockers.",
+  "stopCondition": "After report generation, stop for design review/H2A decision. Do not auto-tune."
+}

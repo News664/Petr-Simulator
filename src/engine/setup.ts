@@ -242,6 +242,10 @@ function resolveRegisteredSpecies(rng: Rng, content: ContentBundle, species: Spe
 export function emptyDiagnostics(): RunState['diagnostics'] {
   return {
     fallbackYears: [],
+    loreFallbackYears: [],
+    factionTransitions: [],
+    illegalFactionTransitions: [],
+    personalEventsAfterExit: [],
     priorityCollisionAges: [],
     displacementCount: 0,
     expiredSchedules: [],

@@ -1,7 +1,7 @@
 /**
  * Deterministic registry review-mirror renderers.
  *
- * Event batches have `tools/SOLID_STATE_CONTENT_TOOL_v0.2.py`; the Route Tag and
+ * Event batches have `tools/SOLID_STATE_CONTENT_TOOL_v0.3.py`; the Route Tag and
  * Talent registries did not, so their `.md` review mirrors were hand-authored by
  * design. Phase 1.2 bumps both registries, so these renderers reproduce the
  * existing v1.0 / v1.1 mirrors byte-for-byte and then generate the new versions,

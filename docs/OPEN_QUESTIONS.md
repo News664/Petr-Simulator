@@ -1,6 +1,6 @@
 # SOLID STATE — Open Questions Register
 
-## Version 0.3 — the official decision list (Phase 1 + Phase 1.1 + Phase 1.2)
+## Version 0.4 — the official decision list (Phase 1 → Phase 1.3)
 
 This file is the **single authoritative list of everything the coding agent could
 not decide alone**. Anything discussed in a chat log but not written here is not
@@ -16,8 +16,21 @@ a second register. Measured outcomes are in
 [`PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md) have
 been merged the same way, adding **Q-27** and a `_Phase 1.2 outcome_` line to
 Q-02, Q-10, Q-14, Q-19, Q-22, Q-23 and Q-24. Measured outcomes are in
-[`PHASE1_2_FINDINGS.md`](PHASE1_2_FINDINGS.md). Four questions remain
-deliberately open: **Q-14, Q-23, Q-25, Q-27**; **Q-24** is now resolved.
+[`PHASE1_2_FINDINGS.md`](PHASE1_2_FINDINGS.md).
+
+**Phase 1.3 update (decisions dated 2026-08-13).** The design resolutions in
+[`PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md) add
+**Q-28** (faction FSM), **Q-29** (faction prominence) and **Q-30** (faction
+news / lore fallback), update **Q-27** and **Q-23**, and ratify the P12-C1
+duplicate-ID resolution. Measured outcomes are in
+[`PHASE1_3_FINDINGS.md`](PHASE1_3_FINDINGS.md). Five questions remain
+deliberately open: **Q-14, Q-23, Q-25, Q-27, Q-29**.
+
+**Next project milestone: H2A.** Phase 1.3 is the final planned headless-only
+content iteration. The H2A human-playtest gate is
+[`docs/spec/SOLID_STATE_H2A_HUMAN_PLAYTEST_GATE_v0.1.md`](spec/SOLID_STATE_H2A_HUMAN_PLAYTEST_GATE_v0.1.md);
+its eleven hard correctness blockers all pass, so **H2A is OPEN**. Balance
+questions below stay open and are explicitly *not* H2A blockers.
 
 Every open question has a stable ID (`Q-nn`). Resolve one by editing its
 **Resolution** block in place — set `Status`, write the decision, and note which
@@ -75,7 +88,10 @@ or rewrite registries without a decision here.**
 | [Q-24](#q-24) | Is T1017's activation profile intended? | Balance | no | `RESOLVED` (Phase 1.2) |
 | [Q-25](#q-25) | What is the achievements registry, for `ACH[id]`? | Design | no | **`OPEN`** / deferred |
 | [Q-26](#q-26) | Should FIX drift passively with age? | Balance | no | `RESOLVED` |
-| [Q-27](#q-27) | How should the ending-age distribution be shaped? | Content | **yes** | **`OPEN`** (content shape resolved, 25–34 gap new) |
+| [Q-27](#q-27) | How should the ending-age distribution be shaped? | Content | **yes** | **`OPEN`** (two structural iterations done; 18–34 supply now the gap) |
+| [Q-28](#q-28) | What is the faction relationship model? | Design | no | `RESOLVED` |
+| [Q-29](#q-29) | How prominent should factions be? | Balance | no | **`OPEN`** (direction resolved, number not frozen) |
+| [Q-30](#q-30) | Should passive faction news exist, and how? | Content | no | `RESOLVED` |
 
 ---
 
@@ -827,6 +843,9 @@ before authoring more late-life content.**
 >
 > _Phase 1.2 decision_: 24–30% is not acceptable, but do **not** bulk-author generic filler. Batch 006 faction follow-ups add meaningful adult density. The next report must break fallback down by age band and report it conditional on runs still active in each band.
 > _Phase 1.2 outcome_: **The requested breakdown localizes the problem completely.** Conditional on the run still being active: 0.0% fallback at every band from 0–5 through **45–54**, then 21.3% at 55–64 and 51.8% at 65+. The 26.7% aggregate age-25+ figure is produced entirely by the 55+ tail. **There is no adult content-density problem between 25 and 54**, so filler would be the wrong response; the 55+ share is a symptom of Q-27 — runs that should have ended at 25–44 are still walking through a pool never authored for a 120-year life. Stays open pending Q-27.
+>
+> _Phase 1.3 decision_: **OPEN / MONITOR.** No filler expansion. Lore fallback is for world texture, not a claim that generic fallback is solved. Report both metrics separately.
+> _Phase 1.3 outcome_: **Reported separately, as required.** Conditional on the run still being active, generic fallback is still **0.0% at every band through 45–54**. At 55–64 generic fallback is **eliminated** (21.3% → 0.0%) and replaced by 12.6% lore. At 65+ generic falls 51.8% → **24.6%** while lore takes **29.6%**, so combined emptiness is essentially unchanged (51.8% → 54.2%). The honest reading: **lore fallback made the late-life years better to read, not fewer.** Still downstream of Q-27.
 
 ---
 
@@ -963,6 +982,85 @@ history is a separate decision, and was deliberately not made here.
 **Also for review:** the faction layer, introduced as lightweight context, now
 supplies **48.6%** of all endings.
 
+### Phase 1.3 — structural change approved, applied and measured
+
+> _Phase 1.3 decision_: **OPEN NUMERICALLY; the structural change is approved.** The Phase 1.2 fuse is replaced by `CONTACT -> DISPOSITION -> ENGAGED/EXIT -> ESCALATION -> COMMITTED/EXIT -> CLIMAX`. Only strongly conditioned disposition variants keep sudden 18–24 faction endings. Existing faction climaxes require `COMMITTED` and `age.min` 25, so ordinary faction terminal paths should populate 25–34 instead. Late-life Medical/Family entries are tightened by prior-route conjunctions; their `FIX>=40` climax gates stay unchanged. Do not run LOW/MID/HIGH or freeze global FIX thresholds until this structure is measured.
+> _Files changed_: `SOLID_STATE_EVENT_BATCH_007_v0.1.json` (30 events); `SOLID_STATE_EVENT_BATCH_006_v0.2.json`; `SOLID_STATE_EVENT_BATCH_005_v0.3.json`; `SOLID_STATE_FACTION_REGISTRY_v0.2.json`; `SOLID_STATE_ROUTE_TAG_REGISTRY_v1.2.json`.
+> _Phase 1.3 outcome_: **The ladder works; the supply collapsed.** Faction endings moved onto the intended path — median age 22–25 → **25.5–28.4**, and **94%** now arrive via the committed ladder with only 6% sudden. But 90% of faction contacts now end in a safe exit, so only 184 endings came through where Phase 1.2 produced 1 169, and nothing replaced them. Measured per 1 000 runs: **18–24 fell 189.5 → 1.8**, **25–34 fell 106.2 → 37.8**, 65+ fell 227.5 → 122.4, and 35–44 / 45–54 / 55–64 are unchanged. Completion fell **60.2% → 23.9%**; nonterminal rose to 76.1%.
+>
+> **The 25–34 shortfall is now larger in absolute terms than before the patch designed to close it.** That is a content-supply question, not a threshold question, and the engine will not answer it. See [`PHASE1_3_FINDINGS.md`](PHASE1_3_FINDINGS.md) §3.
+
+**Still open, restated for Phase 1.4:** where do 18–34 endings come from now that
+the faction layer is deliberately non-terminal for 90% of contacts? Three
+directions, none applied:
+
+| Option | Change | Trade-off |
+|---|---|---|
+| A | Make the non-faction mid-life ladders (academic, corporate, museum, legal, finance) reachable in 25–34 | Those are exactly the five routes whose endings are still never observed, so it fixes two findings at once; needs authored content |
+| B | Let more than 9.3% of faction contacts reach `COMMITTED` | Smallest edit — loosen the escalation conditions — but pushes faction terminality back up, against Q-29 |
+| C | Loosen the sudden branch so 18–24 is not empty | Restores the band directly; risks re-creating the Phase 1.2 fuse the spec just removed |
+
+**Also for review:** `END-REL-001` fell from 267 endings to 5, because Order of
+the Last Posture now reaches `COMMITTED` in **zero** runs — every one of its 380
+contacts opts out, most at the disposition stage.
+
+---
+
+<a id="q-28"></a>
+## Q-28 — What is the faction relationship model?
+
+**Owner** Design · **Blocking** no · **Status** `RESOLVED` · **Evidence** [`PHASE1_2_FINDINGS.md §3`](PHASE1_2_FINDINGS.md)
+
+Phase 1.2 stored faction involvement as a single `FAC_*_CONTACT` flag per
+faction. That flag could not express the difference between "heard of them",
+"they have a file on you" and "you signed something", and it could never be
+withdrawn — a life that crossed a faction's path once stayed personally
+entangled with it for 120 years.
+
+**Engine before** One discrete flag per faction, set once, never cleared.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: A small **flag-backed FSM** for lifecycle — `NONE -> CONTACTED -> ENGAGED -> COMMITTED`, with authored exits to `OPTED_OUT` / `CLOSED`. Roles (CASE, CLIENT, SUBJECT, AFFILIATE, MEMBER, DEBTOR, TARGETED, OBLIGATED) are **orthogonal flags, not FSM states**, and may coexist. Events use structured `factionTransitions`; conditions still use ordinary `FLAG[...]`. **No faction condition syntax and no numeric reputation/alignment meter.** `OPTED_OUT` is a genuine safe exit that blocks ordinary personalized faction chains. `COMMITTED` has no routine safe opt-out — only an explicitly authored `CLOSED` or a terminal ending leaves it.
+> _Files changed_: `SOLID_STATE_FACTION_REGISTRY_v0.2.json`; Content Schema v0.4; `src/engine/factions.ts`; `src/engine/types.ts`; `src/engine/content/schema.ts`; `src/engine/content/load.ts`; `src/engine/simulation.ts`.
+> _Engine change_: the transition helper is **atomic** — the next flag set is built to the side and only swapped in once the edge is known legal and every named role registered, so an illegal transition can never leave a half-applied state or two lifecycle flags for one faction. The FSM's shape (legal edges, active-context states, terminal states) lives in the registry, not in code.
+> _Outcome_: **Verified, not sampled.** Across 5 000 runs: 0 illegal transitions, 0 lifecycle collisions, 0 personalized faction events after a safe exit. 1 988 contacts produced 1 046 `ENGAGED`, 184 `COMMITTED`, 949 `OPTED_OUT` and 845 `CLOSED`. The registry schema pins `numericReputationMeter: false` and `playerChoosesFaction: false` as literals, and rejects a `COMMITTED -> OPTED_OUT` edge, so a later registry cannot reintroduce either by accident.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-29"></a>
+## Q-29 — How prominent should factions be?
+
+**Owner** Balance · **Blocking** no · **Status** **`OPEN`** (direction resolved, number not frozen) · **Evidence** [`PHASE1_3_FINDINGS.md §5`](PHASE1_3_FINDINGS.md)
+
+Phase 1.2 introduced factions as lightweight authored context and they ended up
+supplying **48.6%** of all endings — half the game's terminal outcomes came from
+a layer that was not meant to be a primary route.
+
+> **Resolution** — _status_: **RESOLVED IN DIRECTION / numeric target later**
+> _Decision_: Faction **presence** may be broad. Faction **terminality** should be substantially lower than 48.6%. Measure news exposure, contact, engagement, opt-out, closure, commitment, targeting and faction-caused endings separately. **Do not freeze a target percentage yet.**
+> _Files changed_: none directly; this is measured against the Q-28 restructure.
+> _Outcome_: **Direction achieved, possibly overshot.** Contact stayed broad at 34.9% of runs (35.9% in Phase 1.2) while faction-caused endings fell to **15.4%** of completions. News exposure is near-universal: every faction reaches **82.2–87.2%** of runs, because the twelve news events are `random`/`VERY_LOW`/`include: TRUE` over wide adult windows and the average run is 105 years long. Whether 15.4% is now too low, and whether 82–87% news exposure is more than "occasional world texture" was meant to mean, are the two open numbers. Nothing was tuned toward a target.
+> _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-30"></a>
+## Q-30 — Should passive faction news exist, and how?
+
+**Owner** Content · **Blocking** no · **Status** `RESOLVED` · **Evidence** [`PHASE1_3_FINDINGS.md §4`](PHASE1_3_FINDINGS.md)
+
+Factions could only reach the protagonist through personal contact, so a faction
+either had a file on you or did not exist. There was also no way to fill an empty
+late-life year with anything but the generic quiet-year fallback.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Most faction news is **once-per-run and protagonist-unrelated**, and creates no personal faction state. Add **`lore_fallback_only`** as a separate fallback tier **ahead of** generic fallback. One rare repeatable bulletin per faction is enough for the first slice. Report lore fallback **separately** from generic fallback.
+> _Files changed_: `SOLID_STATE_EVENT_BATCH_007_v0.1.json` (12 once-per-run news events forming progressions via `EVT[...]`, plus 6 lore-fallback bulletins); Content Schema v0.4; `src/engine/eligibility.ts`; `src/engine/simulation.ts`; `src/sim/metrics.ts`.
+> _Engine change_: fallback resolution is now scheduled → normal draft → eligible `lore_fallback_only` → generic `fallback_only`. Lore fallback is weighted **only** by `weightClass` — no route, talent or species modifier reaches the tier — and the schema rejects any lore-fallback variant that carries stats, flags, faction transitions, schedules, material or an ending, so the mode cannot become a normal event in disguise. `loreFallbackYears` is a separate diagnostic from `fallbackYears`.
+> _Outcome_: **Working, and honest about what it covers.** Conditional on the run still being active, lore fallback fills 12.6% of 55–64 years and 29.6% of 65+ years. Generic fallback at 55–64 went to **0.0%** and at 65+ fell 51.8% → 24.6%, but combined emptiness at 65+ is unchanged (51.8% → 54.2%). News is confirmed inert: all 12 events carry no effects, no flags and no transitions, and remain eligible after a safe exit without reopening personal state.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md
+
 ---
 
 ## Change log for this file
@@ -972,3 +1070,4 @@ supplies **48.6%** of all endings.
 | 2026-08-12 | Created at Phase-1 handoff with Q-01 … Q-26 |
 | 2026-08-13 | Phase 1.1: merged `PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md`. 22 questions RESOLVED; Q-14, Q-23, Q-24, Q-25 deliberately remain open. Outcomes measured against the Phase 1.1 content and reported in `PHASE1_1_FINDINGS.md`. |
 | 2026-08-13 | Phase 1.2: merged `PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md`. Added **Q-27**; added a `_Phase 1.2 outcome_` line to Q-02, Q-10, Q-14, Q-19, Q-22, Q-23, Q-24. **Q-24 is now RESOLVED.** Q-14, Q-23, Q-25 and Q-27 remain open. Outcomes measured against the Phase 1.2 content and reported in `PHASE1_2_FINDINGS.md`. |
+| 2026-08-13 | Phase 1.3: merged `PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md`. Added **Q-28** (RESOLVED), **Q-29** (open, direction only) and **Q-30** (RESOLVED); added `_Phase 1.3_` blocks to Q-23 and Q-27; ratified the P12-C1 duplicate-ID resolution. **H2A recorded as the next project milestone and its gate opened.** Q-14, Q-23, Q-25, Q-27 and Q-29 remain open. Outcomes measured against the Phase 1.3 content and reported in `PHASE1_3_FINDINGS.md`. |

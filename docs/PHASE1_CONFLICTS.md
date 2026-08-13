@@ -30,6 +30,58 @@
 > One **new** conflict was found while integrating the Phase 1.2 patch: **P12-C1**
 > below. It is a content-integrity conflict, not a schema conflict.
 
+> ### Phase 1.3 status (2026-08-13)
+>
+> | Conflict | Status after Phase 1.3 patch |
+> |---|---|
+> | P12-C1 duplicate event ID | **RATIFIED** by design in `PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md`: the published Batch 005 `EVT-INS-ACA-0011` stays immutable, the Batch 006 research follow-up stays `EVT-INS-ACA-0012`, and patch validation now compares proposed IDs against the whole published corpus |
+> | C-7 `AEVT` / `ACH` / `TMS` unused | `AEVT`/`ACH` still unused; **`EVT[...]` is now used** by the twelve progressive faction-news events |
+>
+> Two **new** conflicts were found while integrating the Phase 1.3 patch: **P13-C1**
+> and **P13-C2** below. Both are missing-input conflicts, not schema conflicts.
+
+---
+
+## P13-C1 — Two inputs the instructions require were not in the patch package
+
+**Files.** `SOLID_STATE_PHASE1_3_PATCH_v0.2.zip` vs `CLAUDE_PHASE1_3_FULL_RUN.txt`.
+
+**Conflict.** The full-run instruction's READ FIRST list names five documents and a
+plan; the package contains four of them. Two required inputs are absent:
+
+| Required by | Missing input |
+|---|---|
+| READ FIRST §5, and A.10 "Upgrade the JSON → Markdown renderer/validator per …" | `docs/SOLID_STATE_CONTENT_TOOL_PHASE1_3_REQUIREMENTS_v0.1.md` |
+| A.6 "Merge Route Tag Registry patch v1.2" | any Route Tag Registry patch file |
+
+`PATCH_MANIFEST.md` refers to both ("Content-tool v0.3 requirements so new
+faction/FSM fields appear in generated review mirrors"), so they were intended to
+ship.
+
+**What was done, and why it is the smallest non-creative fix.** Neither gap
+blocks integration, because in both cases the instruction states the requirement
+itself:
+
+- **Content tool.** A.10 gives the whole acceptance criterion — *"Generated
+  review mirrors MUST visibly include the new faction metadata and
+  factionTransitions rather than silently omitting them."* `tools/SOLID_STATE_CONTENT_TOOL_v0.3.py`
+  implements exactly that and nothing more, and v0.2 moved to
+  `content/superseded/`. The upgrade is provably backward compatible: re-rendering
+  the four batches that carry no faction data reproduces their existing mirrors
+  byte-for-byte.
+- **Route Tag Registry v1.2.** A.6 gives four rules and the schema patch repeats
+  them, so `SOLID_STATE_ROUTE_TAG_REGISTRY_v1.2.json` was derived mechanically
+  from those rules and from Faction Registry v0.2: each faction tag's
+  `flagPrefixes` becomes exactly that faction's three `activeContextStates`
+  flags, and a metadata-only `faction_news` tag was added because Batch 007 tags
+  30 events with it and an unregistered `routeTag` fails validation. No tag was
+  invented beyond those two mechanical consequences.
+
+**For design.** If the intended v1.2 differs from this derivation — in
+particular if `faction_news` was meant to carry a different `kind` or any flag
+prefix — supply the file and it will be replaced. The derived registry is
+recorded here rather than presented as canonical design.
+
 ---
 
 ## P12-C1 — Batch 006 re-used an event ID already published in Batch 005

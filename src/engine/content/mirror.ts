@@ -5,7 +5,7 @@
  * Markdown is a generated review artifact. CI must fail when the checked-in
  * Markdown is not byte-for-byte identical to a fresh render.
  *
- * This is a TypeScript port of `tools/SOLID_STATE_CONTENT_TOOL_v0.2.py::render`
+ * This is a TypeScript port of `tools/SOLID_STATE_CONTENT_TOOL_v0.3.py::render`
  * so the invariant is enforced by `npm test` without a Python dependency. The
  * Python tool remains the reference implementation; `tests/mirror.test.ts`
  * asserts both agree.
@@ -23,12 +23,20 @@ interface RawSchedule {
   validityCondition: string;
 }
 
+interface RawFactionTransition {
+  factionId: string;
+  to: string;
+  addRoles?: string[];
+  removeRoles?: string[];
+}
+
 interface RawVariant {
   when: string;
   text: { en: string; [key: string]: string };
   effects?: Record<string, number>;
   addFlags?: string[];
   removeFlags?: string[];
+  factionTransitions?: RawFactionTransition[];
   setMaterialCommitment?: string;
   schedules?: RawSchedule[];
   endingId?: string;
@@ -48,6 +56,8 @@ interface RawEvent {
   routeTags?: string[];
   materialTags?: string[];
   refinementTags?: string[];
+  factionIds?: string[];
+  factionInteraction?: string;
   include: string;
   exclude: string;
   variants: RawVariant[];
@@ -122,6 +132,19 @@ export function renderBatchMarkdown(data: RawBatch): string {
       if (isNonEmptyArray(variant.removeFlags)) {
         lines.push(`- Remove flags: \`${variant.removeFlags!.join(', ')}\``);
       }
+      // Content Tool v0.3: faction transitions are rendered in resolution order,
+      // after ordinary flags and before Material Commitment, so a reviewer sees
+      // the lifecycle change instead of it being silently omitted.
+      for (const transition of variant.factionTransitions ?? []) {
+        const parts = [`- Faction transition: \`${transition.factionId}\` -> \`${transition.to}\``];
+        if (isNonEmptyArray(transition.removeRoles)) {
+          parts.push(`, remove roles \`${transition.removeRoles!.join(', ')}\``);
+        }
+        if (isNonEmptyArray(transition.addRoles)) {
+          parts.push(`, add roles \`${transition.addRoles!.join(', ')}\``);
+        }
+        lines.push(parts.join(''));
+      }
       if (variant.setMaterialCommitment) {
         lines.push(`- Material Commitment: \`${variant.setMaterialCommitment}\``);
       }
@@ -152,6 +175,12 @@ export function renderBatchMarkdown(data: RawBatch): string {
     }
     if (isNonEmptyArray(event.refinementTags)) {
       lines.push(`**Refinement tags:** \`${event.refinementTags!.join(', ')}\`  `);
+    }
+    if (isNonEmptyArray(event.factionIds)) {
+      lines.push(`**Factions:** \`${event.factionIds!.join(', ')}\`  `);
+    }
+    if (event.factionInteraction) {
+      lines.push(`**Faction interaction:** \`${event.factionInteraction}\`  `);
     }
     lines.push(`**Designer note:** ${event.designerNotes}`);
     lines.push('');
