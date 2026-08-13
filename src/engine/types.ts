@@ -186,6 +186,21 @@ export interface RouteTagDef {
   allowTransformationEventFavor: boolean;
 }
 
+/** Faction Registry v0.1 entry. Factions are discrete flag contexts only. */
+export interface FactionDef {
+  id: string;
+  name_en: string;
+  shortName: string;
+  kind: string;
+  /** The Route Tag Registry tag that carries this faction's context favor. */
+  routeTag: string;
+  flagPrefix: string;
+  /** Registered flags. `*_CONTACT` means crossed paths, never membership. */
+  flags: string[];
+  entryAgeMin: number;
+  intent: string;
+}
+
 /** Talent Registry v1.1 typed drafting target, e.g. `family:COR` / `channel:SPC`. */
 export interface DraftingTarget {
   kind: 'family' | 'channel';
@@ -374,6 +389,8 @@ export interface RunDiagnostics {
   firstHintAge: number | null;
   hintFamilies: string[];
   commitmentAge: number | null;
+  /** FIX immediately after the committing event resolved. */
+  fixAtCommitment: number | null;
   routeEntries: string[];
   routeClimaxes: string[];
 }

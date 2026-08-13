@@ -13,6 +13,7 @@ import {
   type DraftingTarget,
   type EndingDef,
   type EventBatch,
+  type FactionDef,
   type GameEvent,
   type Material,
   type RefinementTagDef,
@@ -30,7 +31,13 @@ import {
   type BalanceConstants,
 } from './balance.js';
 import { parseCsvRecords } from './csv.js';
-import { eventBatchSchema, routeTagRegistrySchema, speciesRegistrySchema, TALENT_ID_RE } from './schema.js';
+import {
+  eventBatchSchema,
+  factionRegistrySchema,
+  routeTagRegistrySchema,
+  speciesRegistrySchema,
+  TALENT_ID_RE,
+} from './schema.js';
 import { normalizeTalentCondition, parseTalentEffects } from './talentEffects.js';
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
@@ -43,6 +50,7 @@ export interface ContentPaths {
   talentRegistry: string;
   endingRegistry: string;
   routeTagRegistry: string;
+  factionRegistry: string;
   balanceConstants: string;
   balanceAdapters: string;
 }
@@ -52,9 +60,10 @@ export function defaultContentPaths(root: string = CONTENT_ROOT): ContentPaths {
   return {
     eventsDir: path.join(root, 'events'),
     speciesRegistry: path.join(root, 'registries', 'SOLID_STATE_SPECIES_REGISTRY_v1.2.json'),
-    talentRegistry: path.join(root, 'registries', 'SOLID_STATE_TALENT_REGISTRY_v1.1.csv'),
+    talentRegistry: path.join(root, 'registries', 'SOLID_STATE_TALENT_REGISTRY_v1.2.csv'),
     endingRegistry: path.join(root, 'registries', 'SOLID_STATE_ENDING_REGISTRY_v1.1.csv'),
-    routeTagRegistry: path.join(root, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.0.json'),
+    routeTagRegistry: path.join(root, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.1.json'),
+    factionRegistry: path.join(root, 'registries', 'SOLID_STATE_FACTION_REGISTRY_v0.1.json'),
     balanceConstants: path.join(root, 'balance', 'SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.2.json'),
     balanceAdapters: path.join(root, 'balance', 'SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json'),
   };
@@ -85,8 +94,10 @@ export interface ContentBundle {
   speciesFamilyTendencies: Map<SpeciesId, SpeciesTendencies>;
   /** Species Registry v1.2 refinement tag catalogue. */
   refinementTags: Map<string, RefinementTagDef>;
-  /** Route Tag Registry v1.0. */
+  /** Route Tag Registry v1.1. */
   routeTags: Map<string, RouteTagDef>;
+  /** Faction Registry v0.1. Discrete flag contexts only. */
+  factions: Map<string, FactionDef>;
   talents: Map<string, TalentDef>;
   endings: Map<string, EndingDef>;
   balance: BalanceConstants;
@@ -211,7 +222,48 @@ function loadRefinementTags(
   return map;
 }
 
-/** Route Tag Registry v1.0. */
+/** Faction Registry v0.1. */
+function loadFactions(
+  file: string,
+  issues: string[],
+  files: { path: string; sha256: string }[],
+): Map<string, FactionDef> {
+  const text = readFileSync(file, 'utf8');
+  files.push({ path: path.relative(REPO_ROOT, file), sha256: sha256(text) });
+  const parsed = factionRegistrySchema.safeParse(JSON.parse(text));
+  const map = new Map<string, FactionDef>();
+  if (!parsed.success) {
+    for (const issue of parsed.error.issues) {
+      issues.push(`faction registry: ${issue.path.join('.')} ${issue.message}`);
+    }
+    return map;
+  }
+  const seenPrefix = new Set<string>();
+  const seenTag = new Set<string>();
+  for (const entry of parsed.data.factions) {
+    if (map.has(entry.id)) {
+      issues.push(`faction registry: duplicate faction id ${entry.id}`);
+      continue;
+    }
+    if (seenPrefix.has(entry.flagPrefix)) {
+      issues.push(`faction registry: flag prefix ${entry.flagPrefix} is claimed by more than one faction`);
+    }
+    seenPrefix.add(entry.flagPrefix);
+    if (seenTag.has(entry.routeTag)) {
+      issues.push(`faction registry: routeTag ${entry.routeTag} is claimed by more than one faction`);
+    }
+    seenTag.add(entry.routeTag);
+    for (const flag of entry.flags) {
+      if (!flag.startsWith(entry.flagPrefix)) {
+        issues.push(`faction ${entry.id}: flag ${flag} does not start with its own prefix ${entry.flagPrefix}`);
+      }
+    }
+    map.set(entry.id, entry);
+  }
+  return map;
+}
+
+/** Route Tag Registry v1.0 / v1.1. */
 function loadRouteTags(
   file: string,
   issues: string[],
@@ -487,7 +539,7 @@ function validateCrossReferences(
   bundle: Omit<ContentBundle, 'contentVersion' | 'sourceFiles'>,
   issues: string[],
 ): void {
-  const { events, eventsById, endings, talents, adapters, routeTags, refinementTags } = bundle;
+  const { events, eventsById, endings, talents, adapters, routeTags, refinementTags, factions } = bundle;
 
   const seen = new Set<string>();
   for (const event of events) {
@@ -601,6 +653,46 @@ function validateCrossReferences(
     }
   }
 
+  // Faction Registry v0.1 integrity (Phase 1.2 route-tag patch validationAdditions).
+  const factionFlags = new Map<string, string>();
+  for (const faction of factions.values()) {
+    // Every faction routeTag must exist in the merged Route Tag Registry, and
+    // must carry that faction's flag prefix.
+    const tag = routeTags.get(faction.routeTag);
+    if (!tag) {
+      issues.push(`faction ${faction.id}: routeTag ${faction.routeTag} is not in the Route Tag Registry`);
+    } else if (!tag.flagPrefixes.includes(faction.flagPrefix)) {
+      issues.push(
+        `faction ${faction.id}: routeTag ${faction.routeTag} does not carry flag prefix ${faction.flagPrefix}`,
+      );
+    }
+    for (const flag of faction.flags) {
+      const owner = factionFlags.get(flag);
+      if (owner) issues.push(`faction flag ${flag} is registered by both ${owner} and ${faction.id}`);
+      factionFlags.set(flag, faction.id);
+    }
+  }
+  // Every FAC_* flag used by canonical content must belong to exactly one faction.
+  for (const event of events) {
+    for (const variant of event.variants) {
+      for (const flag of [...variant.addFlags, ...variant.removeFlags]) {
+        if (!flag.startsWith('FAC_')) continue;
+        if (!factionFlags.has(flag)) {
+          issues.push(`${event.id}: faction flag ${flag} is not registered by any faction`);
+        }
+      }
+    }
+  }
+  // Faction context must never bias a material family
+  // (Faction Registry rule `automaticMaterialBiasFromFaction: false`).
+  const factionTags = new Set([...factions.values()].map((f) => f.routeTag));
+  for (const tag of factionTags) {
+    const def = routeTags.get(tag);
+    if (def?.allowTransformationEventFavor) {
+      issues.push(`route tag ${tag}: faction tags must not allow Transformation event favor`);
+    }
+  }
+
   // Ending Registry v1.1 awareness integrity (Acceptance Addendum section 5).
   for (const ending of endings.values()) {
     for (const state of ending.authorizationRequiredStates) {
@@ -673,6 +765,7 @@ export function loadContent(paths: ContentPaths = defaultContentPaths()): Conten
   const species = loadSpecies(paths.speciesRegistry, issues, sourceFiles);
   const refinementTags = loadRefinementTags(paths.speciesRegistry, issues);
   const routeTags = loadRouteTags(paths.routeTagRegistry, issues, sourceFiles);
+  const factions = loadFactions(paths.factionRegistry, issues, sourceFiles);
   const talents = loadTalents(paths.talentRegistry, issues, sourceFiles);
   const endings = loadEndings(paths.endingRegistry, issues, sourceFiles);
   const balance = loadJsonWithSchema(paths.balanceConstants, balanceConstantsSchema, 'balance constants', issues, sourceFiles);
@@ -692,6 +785,7 @@ export function loadContent(paths: ContentPaths = defaultContentPaths()): Conten
     speciesFamilyTendencies: speciesFamilyTendencies(species),
     refinementTags,
     routeTags,
+    factions,
     talents,
     endings,
     balance,

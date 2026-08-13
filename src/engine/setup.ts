@@ -255,6 +255,7 @@ export function emptyDiagnostics(): RunState['diagnostics'] {
     firstHintAge: null,
     hintFamilies: [],
     commitmentAge: null,
+    fixAtCommitment: null,
     routeEntries: [],
     routeClimaxes: [],
   };

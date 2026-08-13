@@ -1,0 +1,3600 @@
+{
+  "generatedAt": "2026-08-13T08:09:17.453Z",
+  "contentVersion": "2798e4ddd106ba6f8d255a578c2333c603ccb415472fe13026f167066eb88418",
+  "balanceVersion": "0.2",
+  "planVersion": "0.1",
+  "planStatus": "PHASE1_2_COMPACT_DIAGNOSTIC",
+  "planPurpose": "Measure the content-shape effect of Batch 006 without rerunning unrelated Phase 1.1 matrices.",
+  "baseSeed": "phase1_2",
+  "baseline": {
+    "settings": {
+      "runs": 4000,
+      "speciesMode": "STRATIFY_EQUALLY_BY_SPECIES",
+      "talentScenario": "UNIFORM_RANDOM_THREE_COMPATIBLE_DIAGNOSTIC",
+      "allocationPolicy": "ARCHETYPE_SET",
+      "familyWeightMode": "uniform",
+      "thresholdMode": "AUTHORED_CURRENT_CONTENT",
+      "pre25CoveragePolicy": "strict"
+    },
+    "metrics": {
+      "runs": 4000,
+      "completed": 2406,
+      "nonterminal": 1594,
+      "coverageErrors": 0,
+      "completedRate": 0.6015,
+      "nonterminalRate": 0.3985,
+      "coverageErrorRate": 0,
+      "averageRunLengthYears": 74.7025,
+      "averageEndingAge": 43.02992518703242,
+      "medianEndingAge": 36,
+      "endingAgeP10": 21,
+      "endingAgeP90": 68,
+      "endingAgeHistogram": {
+        "18-24": 758,
+        "45-54": 107,
+        "35-44": 188,
+        "25-34": 425,
+        "65+": 910,
+        "55-64": 18
+      },
+      "endingAgeShareByTargetBucket": [
+        {
+          "band": "18-24",
+          "observedShare": 0.31504571903574397,
+          "targetMin": 0.18,
+          "targetMax": 0.22,
+          "withinTarget": false
+        },
+        {
+          "band": "25-34",
+          "observedShare": 0.17664172901080633,
+          "targetMin": 0.35,
+          "targetMax": 0.4,
+          "withinTarget": false
+        },
+        {
+          "band": "35-44",
+          "observedShare": 0.07813798836242726,
+          "targetMin": 0.2,
+          "targetMax": 0.25,
+          "withinTarget": false
+        },
+        {
+          "band": "45-54",
+          "observedShare": 0.04447215295095595,
+          "targetMin": 0.08,
+          "targetMax": 0.12,
+          "withinTarget": false
+        },
+        {
+          "band": "55-64",
+          "observedShare": 0.007481296758104738,
+          "targetMin": 0.04,
+          "targetMax": 0.07,
+          "withinTarget": false
+        },
+        {
+          "band": "65+",
+          "observedShare": 0.3782211138819618,
+          "targetMin": 0.02,
+          "targetMax": 0.05,
+          "withinTarget": false
+        }
+      ],
+      "channelCountsByAgeBand": {
+        "0-5": {
+          "ORD": 21990,
+          "INS": 2010,
+          "TRN": 0,
+          "SPC": 0
+        },
+        "6-11": {
+          "ORD": 19704,
+          "INS": 4296,
+          "TRN": 0,
+          "SPC": 0
+        },
+        "12-17": {
+          "ORD": 16978,
+          "INS": 4577,
+          "TRN": 2252,
+          "SPC": 193
+        },
+        "18-24": {
+          "ORD": 13671,
+          "INS": 6015,
+          "TRN": 4350,
+          "SPC": 2340
+        },
+        "25-34": {
+          "ORD": 13233,
+          "INS": 7764,
+          "TRN": 7719,
+          "SPC": 766
+        },
+        "35-44": {
+          "ORD": 14841,
+          "INS": 10225,
+          "TRN": 1976,
+          "SPC": 460
+        },
+        "45-54": {
+          "ORD": 19339,
+          "INS": 5933,
+          "TRN": 107,
+          "SPC": 207
+        },
+        "55-64": {
+          "ORD": 21914,
+          "INS": 3120,
+          "TRN": 21,
+          "SPC": 37
+        },
+        "65+": {
+          "ORD": 88892,
+          "INS": 3880,
+          "TRN": 0,
+          "SPC": 0
+        }
+      },
+      "familyCountsByAgeBand": {
+        "0-5": {
+          "ORD/HOU": 3511,
+          "ORD/GEN": 4103,
+          "ORD/HEA": 2864,
+          "ORD/FAM": 8371,
+          "ORD/SOC": 3141,
+          "INS/CIV": 2010
+        },
+        "6-11": {
+          "ORD/SOC": 6253,
+          "ORD/EDU": 13451,
+          "INS/EDU": 4296
+        },
+        "12-17": {
+          "ORD/SOC": 5771,
+          "ORD/EDU": 11207,
+          "INS/EDU": 2986,
+          "TRN/WOOD": 623,
+          "INS/FIN": 1591,
+          "TRN/TEMP": 258,
+          "TRN/STON": 315,
+          "SPC/SECR": 193,
+          "TRN/CRYS": 249,
+          "TRN/METL": 289,
+          "TRN/CERA": 262,
+          "TRN/GLAS": 256
+        },
+        "18-24": {
+          "ORD/SOC": 2403,
+          "INS/REL": 2065,
+          "ORD/HEA": 2105,
+          "SPC/SECR": 2170,
+          "ORD/EDU": 601,
+          "ORD/CIV": 1659,
+          "TRN/CRYS": 710,
+          "INS/MED": 1169,
+          "INS/MUS": 654,
+          "TRN/STON": 738,
+          "ORD/HOU": 2263,
+          "INS/CIV": 555,
+          "TRN/GLAS": 642,
+          "ORD/CAR": 3583,
+          "TRN/WOOD": 582,
+          "INS/ACA": 1117,
+          "ORD/FAM": 875,
+          "TRN/METL": 660,
+          "TRN/CERA": 619,
+          "TRN/TEMP": 399,
+          "INS/FIN": 189,
+          "SPC/REIN": 68,
+          "INS/COR": 245,
+          "SPC/TLNT": 102,
+          "ORD/FIN": 182,
+          "INS/LEG": 21
+        },
+        "25-34": {
+          "INS/FIN": 1219,
+          "ORD/CAR": 4364,
+          "TRN/WOOD": 1053,
+          "ORD/FAM": 1192,
+          "ORD/HOU": 1984,
+          "ORD/SOC": 2421,
+          "TRN/GLAS": 1139,
+          "TRN/METL": 1089,
+          "TRN/TEMP": 1115,
+          "INS/MED": 1354,
+          "TRN/CERA": 1040,
+          "TRN/SYNT": 20,
+          "SPC/REIN": 166,
+          "SPC/SECR": 411,
+          "INS/COR": 539,
+          "INS/REL": 491,
+          "INS/CIV": 867,
+          "ORD/CIV": 1082,
+          "ORD/HEA": 1757,
+          "ORD/FIN": 433,
+          "INS/ACA": 1761,
+          "TRN/STON": 1132,
+          "TRN/CRYS": 1131,
+          "INS/MUS": 956,
+          "INS/LEG": 572,
+          "SPC/TLNT": 166,
+          "SPC/ANO": 23,
+          "INS/ARC": 5
+        },
+        "35-44": {
+          "ORD/FAM": 2950,
+          "INS/CIV": 1468,
+          "INS/ACA": 2373,
+          "ORD/GEN": 2675,
+          "INS/LEG": 1091,
+          "INS/MED": 3037,
+          "TRN/GLAS": 124,
+          "ORD/SOC": 4821,
+          "ORD/HOU": 2135,
+          "ORD/CAR": 1394,
+          "TRN/TEMP": 1164,
+          "TRN/CERA": 84,
+          "INS/FIN": 686,
+          "INS/REL": 411,
+          "ORD/FIN": 577,
+          "ORD/CIV": 289,
+          "INS/COR": 500,
+          "INS/ARC": 106,
+          "TRN/SYNT": 65,
+          "INS/MUS": 553,
+          "TRN/METL": 142,
+          "SPC/ANO": 337,
+          "TRN/CRYS": 132,
+          "SPC/REIN": 74,
+          "SPC/TLNT": 49,
+          "TRN/STON": 124,
+          "TRN/WOOD": 106,
+          "TRN/MIXD": 35
+        },
+        "45-54": {
+          "INS/MED": 807,
+          "ORD/GEN": 2026,
+          "ORD/SOC": 3457,
+          "ORD/HEA": 3707,
+          "ORD/CAR": 4059,
+          "ORD/FAM": 6090,
+          "INS/FIN": 1968,
+          "INS/COR": 256,
+          "INS/CIV": 1605,
+          "INS/REL": 184,
+          "INS/ACA": 225,
+          "INS/LEG": 718,
+          "SPC/ANO": 191,
+          "INS/MUS": 111,
+          "TRN/MIXD": 105,
+          "INS/ARC": 59,
+          "SPC/TLNT": 3,
+          "SPC/REIN": 13,
+          "TRN/TEMP": 2
+        },
+        "55-64": {
+          "ORD/CAR": 4257,
+          "ORD/FAM": 4714,
+          "ORD/SOC": 4112,
+          "INS/CIV": 2505,
+          "ORD/HEA": 3486,
+          "ORD/GEN": 5345,
+          "INS/FIN": 548,
+          "INS/LEG": 27,
+          "TRN/MIXD": 21,
+          "SPC/ANO": 37,
+          "INS/MED": 40
+        },
+        "65+": {
+          "ORD/FAM": 2708,
+          "INS/CIV": 2134,
+          "ORD/SOC": 18052,
+          "ORD/GEN": 68131,
+          "INS/MED": 1746,
+          "ORD/CAR": 1
+        }
+      },
+      "totalEventYears": 298810,
+      "spcEventYears": 4003,
+      "spcShare": 0.013396472674943944,
+      "mandatoryEventYears": 2309,
+      "mandatoryUsageRate": 0.295,
+      "endingShare65Plus": 0.3782211138819618,
+      "factionContactRate": {
+        "DMMS": 0.05125,
+        "Everlasting Mutual": 0.0785,
+        "Meridian": 0.0655,
+        "CRI": 0.0815,
+        "Black Ledger": 0.042,
+        "Last Posture": 0.0825
+      },
+      "factionClimaxRate": {
+        "DMMS": 0.03525,
+        "Everlasting Mutual": 0.0435,
+        "Meridian": 0.0555,
+        "CRI": 0.062,
+        "Black Ledger": 0.02975,
+        "Last Posture": 0.06625
+      },
+      "endingCountsByFaction": {
+        "Meridian": 222,
+        "Last Posture": 265,
+        "Black Ledger": 119,
+        "Everlasting Mutual": 174,
+        "CRI": 248,
+        "DMMS": 141
+      },
+      "endingCountsByRouteFamily": {
+        "faction:Meridian": 222,
+        "INS/MED": 598,
+        "faction:Last Posture": 265,
+        "ORD/FAM": 415,
+        "faction:Black Ledger": 119,
+        "faction:Everlasting Mutual": 174,
+        "faction:CRI": 248,
+        "SPC/ANO": 195,
+        "INS/CIV": 7,
+        "faction:DMMS": 141,
+        "INS/REL": 2,
+        "TRN/TEMP": 9,
+        "INS/MUS": 7,
+        "INS/FIN": 1,
+        "INS/ARC": 3
+      },
+      "endingAgeByRouteFamily": {
+        "faction:Meridian": {
+          "mean": 21.94144144144144,
+          "median": 22,
+          "runs": 222
+        },
+        "INS/MED": {
+          "mean": 63.87123745819398,
+          "median": 68,
+          "runs": 598
+        },
+        "faction:Last Posture": {
+          "mean": 24.0188679245283,
+          "median": 24,
+          "runs": 265
+        },
+        "ORD/FAM": {
+          "mean": 66.83855421686746,
+          "median": 67,
+          "runs": 415
+        },
+        "faction:Black Ledger": {
+          "mean": 25.73949579831933,
+          "median": 25,
+          "runs": 119
+        },
+        "faction:Everlasting Mutual": {
+          "mean": 22.304597701149426,
+          "median": 22,
+          "runs": 174
+        },
+        "faction:CRI": {
+          "mean": 24.911290322580644,
+          "median": 24,
+          "runs": 248
+        },
+        "SPC/ANO": {
+          "mean": 44.52820512820513,
+          "median": 44,
+          "runs": 195
+        },
+        "INS/CIV": {
+          "mean": 45.714285714285715,
+          "median": 42,
+          "runs": 7
+        },
+        "faction:DMMS": {
+          "mean": 23.106382978723403,
+          "median": 23,
+          "runs": 141
+        },
+        "INS/REL": {
+          "mean": 44.5,
+          "median": 44.5,
+          "runs": 2
+        },
+        "TRN/TEMP": {
+          "mean": 42.111111111111114,
+          "median": 43,
+          "runs": 9
+        },
+        "INS/MUS": {
+          "mean": 48,
+          "median": 47,
+          "runs": 7
+        },
+        "INS/FIN": {
+          "mean": 35,
+          "median": 35,
+          "runs": 1
+        },
+        "INS/ARC": {
+          "mean": 46.333333333333336,
+          "median": 45,
+          "runs": 3
+        }
+      },
+      "scheduleExpiryByRouteFamily": {
+        "ORD/FAM": 2525,
+        "faction:Everlasting Mutual": 107,
+        "INS/COR": 370,
+        "INS/MED": 2123,
+        "INS/ACA": 315,
+        "INS/CIV": 1904,
+        "INS/REL": 364,
+        "TRN/TEMP": 1010,
+        "INS/FIN": 418,
+        "INS/ARC": 137,
+        "faction:Last Posture": 38,
+        "INS/MUS": 332,
+        "faction:Black Ledger": 34,
+        "faction:CRI": 38,
+        "TRN/SYNT": 57,
+        "faction:DMMS": 48,
+        "faction:Meridian": 27
+      },
+      "mandatoryIncidenceByRouteFamily": {
+        "INS/MED": 1057,
+        "SPC/ANO": 195
+      },
+      "fallbackShareByAgeBandActive": {
+        "0-5": {
+          "fallbackYears": 0,
+          "activeYears": 24000,
+          "share": 0
+        },
+        "6-11": {
+          "fallbackYears": 0,
+          "activeYears": 24000,
+          "share": 0
+        },
+        "12-17": {
+          "fallbackYears": 0,
+          "activeYears": 24000,
+          "share": 0
+        },
+        "18-24": {
+          "fallbackYears": 0,
+          "activeYears": 26376,
+          "share": 0
+        },
+        "25-34": {
+          "fallbackYears": 0,
+          "activeYears": 29482,
+          "share": 0
+        },
+        "35-44": {
+          "fallbackYears": 0,
+          "activeYears": 27502,
+          "share": 0
+        },
+        "45-54": {
+          "fallbackYears": 0,
+          "activeYears": 25586,
+          "share": 0
+        },
+        "55-64": {
+          "fallbackYears": 5345,
+          "activeYears": 25092,
+          "share": 0.2130161007492428
+        },
+        "65+": {
+          "fallbackYears": 48074,
+          "activeYears": 92772,
+          "share": 0.5181951450868797
+        }
+      },
+      "meanFixAtCommitment": 28.438169826875516,
+      "meanFixAtEnding": 28.996259351620946,
+      "fallbackYears": 53419,
+      "fallbackUseRate": 0.17877246410762693,
+      "fallbackYearsAge25Plus": 53419,
+      "fallbackShareAge25Plus": 0.26651665885029485,
+      "pre25FallbackYears": 0,
+      "pre25CoverageDefectRate": 0,
+      "pre25CoverageDefectAges": {},
+      "pre25EmergencyReuseYears": 0,
+      "routeEntryRate": 0.91325,
+      "routeEntryCountsByRoute": {
+        "ROUTE_REL_INTEREST": 2694,
+        "ROUTE_CIV_SERVICE": 2648,
+        "ROUTE_MED_SCREENED": 1979,
+        "ROUTE_MUS_INTEREST": 1912,
+        "ROUTE_FIN_VALUED": 1567,
+        "ROUTE_FAM_PLACEMENT": 2342,
+        "ROUTE_CIV_MEMORIAL": 1981,
+        "ROUTE_CIV_REBRANDED": 1715,
+        "ROUTE_TEMP_STUDY": 1049,
+        "ROUTE_FAM_DIRECTIVE": 1279,
+        "ROUTE_MED_CONTROLLED_HARDENING": 1058,
+        "ROUTE_MED_PRESERVATION_CONSULT": 1498,
+        "ROUTE_MED_CONTROLLED_HARDENING_STAGE2": 1057,
+        "ROUTE_CAR_MATERIAL_EXPOSURE": 1421,
+        "ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY": 1375,
+        "ROUTE_MED_SYNTH_OPTION": 146,
+        "ROUTE_ACA_RESEARCH": 1703,
+        "ROUTE_ACA_SPECIALIZATION": 959,
+        "ROUTE_ACA_CONTINUITY": 499,
+        "ROUTE_ACA_CONTINUITY_EXPOSED": 493,
+        "ROUTE_FAM_LATE_LEGACY": 1869,
+        "ROUTE_ACA_MATERIALS": 344,
+        "ROUTE_ACA_MATERIALS_EXPOSED": 339,
+        "ROUTE_COR_EMPLOYEE": 1246,
+        "ROUTE_COR_PRESERVATION_PLAN": 401,
+        "ROUTE_COR_CONTRACT": 384,
+        "ROUTE_MED_LATE_CONTINUITY": 1239,
+        "ROUTE_ACA_TENURE_TRACK": 324,
+        "ROUTE_ACA_TENURE_REVIEW": 320,
+        "ROUTE_ACA_POLICY": 116,
+        "ROUTE_ACA_POLICY_EXPOSED": 115,
+        "ROUTE_REL_CLAIM": 399,
+        "ROUTE_FIN_SECURED_DEBT": 430,
+        "ROUTE_LEG_STATUS_CASE": 527,
+        "ROUTE_LEG_STATUS_RESOLVED": 515,
+        "ROUTE_MED_DIRECTIVE": 712,
+        "ROUTE_ARC_STRUCTURAL": 151,
+        "ROUTE_ANO_OBJECT_CONTINUITY": 102,
+        "ROUTE_ANO_SOUL_ESCAPE": 96,
+        "ROUTE_MUS_APPRAISED": 209,
+        "ROUTE_COR_LEGAL_REVIEW": 76,
+        "ROUTE_MUS_MIXED_OPTION": 162,
+        "ROUTE_FIN_LEGAL_REVIEW": 10
+      },
+      "routeClimaxRate": 0.6015,
+      "routeClimaxCountsByEvent": {
+        "EVT-SPC-SECR-0008": 222,
+        "EVT-INS-MED-0003": 92,
+        "EVT-SPC-SECR-0012": 265,
+        "EVT-INS-MED-0012": 506,
+        "EVT-ORD-FAM-0011": 404,
+        "EVT-SPC-SECR-0011": 119,
+        "EVT-SPC-SECR-0010": 174,
+        "EVT-SPC-SECR-0009": 248,
+        "EVT-SPC-ANO-0003": 101,
+        "EVT-INS-CIV-0006": 7,
+        "EVT-SPC-ANO-0006": 94,
+        "EVT-SPC-SECR-0007": 141,
+        "EVT-INS-REL-0003": 2,
+        "EVT-ORD-FAM-0004": 11,
+        "EVT-TRN-TEMP-0002": 9,
+        "EVT-INS-MUS-0003": 5,
+        "EVT-INS-MUS-0005": 2,
+        "EVT-INS-FIN-0005": 1,
+        "EVT-INS-ARC-0002": 3
+      },
+      "routeAbandonmentRate": 0.672,
+      "expiredScheduleCount": 9847,
+      "expiredSchedulesByEvent": {
+        "EVT-ORD-FAM-0004": 1216,
+        "EVT-ORD-FAM-0011": 1309,
+        "EVT-SPC-SECR-0010": 107,
+        "EVT-INS-COR-0003": 370,
+        "EVT-INS-MED-0003": 1507,
+        "EVT-INS-MED-0012": 616,
+        "EVT-INS-ACA-0005": 315,
+        "EVT-INS-CIV-0006": 1904,
+        "EVT-INS-REL-0003": 364,
+        "EVT-TRN-TEMP-0002": 1010,
+        "EVT-INS-FIN-0005": 418,
+        "EVT-INS-ARC-0002": 137,
+        "EVT-SPC-SECR-0012": 38,
+        "EVT-INS-MUS-0003": 187,
+        "EVT-INS-MUS-0005": 145,
+        "EVT-SPC-SECR-0011": 34,
+        "EVT-SPC-SECR-0009": 38,
+        "EVT-TRN-SYNT-0001": 57,
+        "EVT-SPC-SECR-0007": 48,
+        "EVT-SPC-SECR-0008": 27
+      },
+      "priorityCollisionRate": 0.05675,
+      "priorityCollisionYears": 304,
+      "scheduleDisplacementCount": 309,
+      "scheduleDisplacementPerRun": 0.07725,
+      "finalMaterialDistribution": {
+        "SYNT": 611,
+        "GLAS": 155,
+        "NONE": 1574,
+        "STON": 424,
+        "CERA": 123,
+        "METL": 411,
+        "TEMP": 257,
+        "CRYS": 158,
+        "MIXD": 161,
+        "WOOD": 126
+      },
+      "finalMaterialBySpecies": {
+        "HUMAN": {
+          "SYNT": 104,
+          "NONE": 280,
+          "METL": 63,
+          "TEMP": 39,
+          "CRYS": 19,
+          "STON": 60,
+          "WOOD": 20,
+          "CERA": 26,
+          "GLAS": 28,
+          "MIXD": 28
+        },
+        "ELF": {
+          "GLAS": 26,
+          "NONE": 246,
+          "SYNT": 121,
+          "CERA": 18,
+          "STON": 60,
+          "CRYS": 35,
+          "METL": 47,
+          "WOOD": 37,
+          "TEMP": 47,
+          "MIXD": 30
+        },
+        "DWARF": {
+          "SYNT": 104,
+          "NONE": 254,
+          "METL": 97,
+          "CERA": 17,
+          "STON": 66,
+          "GLAS": 18,
+          "TEMP": 43,
+          "MIXD": 25,
+          "CRYS": 20,
+          "WOOD": 23
+        },
+        "WINGED_KIN": {
+          "NONE": 245,
+          "CERA": 23,
+          "CRYS": 28,
+          "SYNT": 103,
+          "GLAS": 27,
+          "TEMP": 44,
+          "STON": 88,
+          "MIXD": 31,
+          "METL": 59,
+          "WOOD": 19
+        },
+        "DEMONKIN": {
+          "STON": 81,
+          "NONE": 266,
+          "SYNT": 89,
+          "CRYS": 22,
+          "METL": 62,
+          "GLAS": 34,
+          "TEMP": 56,
+          "MIXD": 18,
+          "CERA": 23,
+          "WOOD": 15
+        },
+        "DRAGONKIN": {
+          "NONE": 283,
+          "METL": 83,
+          "SYNT": 90,
+          "TEMP": 28,
+          "CRYS": 34,
+          "STON": 69,
+          "MIXD": 29,
+          "GLAS": 22,
+          "WOOD": 12,
+          "CERA": 16
+        }
+      },
+      "materialCommitmentRate": 0.6065,
+      "materialEntropyBitsOverall": 2.7425383271114665,
+      "materialEntropyBitsBySpecies": {
+        "HUMAN": 2.681797485151651,
+        "ELF": 2.8083236280884547,
+        "DWARF": 2.710560952522745,
+        "WINGED_KIN": 2.7994930311385096,
+        "DEMONKIN": 2.7191224114044075,
+        "DRAGONKIN": 2.6325169697618316
+      },
+      "pFinalGivenHint": {
+        "WOOD": {
+          "hintRuns": 357,
+          "sameMaterial": 20,
+          "probability": 0.056022408963585436
+        },
+        "GLAS": {
+          "hintRuns": 298,
+          "sameMaterial": 18,
+          "probability": 0.06040268456375839
+        },
+        "METL": {
+          "hintRuns": 353,
+          "sameMaterial": 46,
+          "probability": 0.13031161473087818
+        },
+        "STON": {
+          "hintRuns": 359,
+          "sameMaterial": 40,
+          "probability": 0.11142061281337047
+        },
+        "CRYS": {
+          "hintRuns": 281,
+          "sameMaterial": 14,
+          "probability": 0.0498220640569395
+        }
+      },
+      "pFinalGivenFirstManifestation": {
+        "WOOD": {
+          "manifestationRuns": 874,
+          "sameMaterial": 46,
+          "probability": 0.05263157894736842
+        },
+        "TEMP": {
+          "manifestationRuns": 382,
+          "sameMaterial": 23,
+          "probability": 0.060209424083769635
+        },
+        "GLAS": {
+          "manifestationRuns": 504,
+          "sameMaterial": 35,
+          "probability": 0.06944444444444445
+        },
+        "CRYS": {
+          "manifestationRuns": 503,
+          "sameMaterial": 28,
+          "probability": 0.055666003976143144
+        },
+        "METL": {
+          "manifestationRuns": 527,
+          "sameMaterial": 71,
+          "probability": 0.1347248576850095
+        },
+        "STON": {
+          "manifestationRuns": 533,
+          "sameMaterial": 66,
+          "probability": 0.12382739212007504
+        },
+        "CERA": {
+          "manifestationRuns": 472,
+          "sameMaterial": 23,
+          "probability": 0.048728813559322036
+        }
+      },
+      "firstManifestationFamilyCounts": {
+        "WOOD": 874,
+        "TEMP": 382,
+        "GLAS": 504,
+        "CRYS": 503,
+        "METL": 527,
+        "STON": 533,
+        "CERA": 472
+      },
+      "firstManifestationFamilyShare": {
+        "WOOD": 0.23030303030303031,
+        "TEMP": 0.10065876152832674,
+        "GLAS": 0.13280632411067195,
+        "CRYS": 0.13254281949934124,
+        "METL": 0.138866930171278,
+        "STON": 0.1404479578392622,
+        "CERA": 0.12437417654808959
+      },
+      "firstManifestationAgeByFamily": {
+        "WOOD": {
+          "mean": 15.879862700228832,
+          "median": 13,
+          "runs": 874
+        },
+        "TEMP": {
+          "mean": 20.56282722513089,
+          "median": 20,
+          "runs": 382
+        },
+        "GLAS": {
+          "mean": 19.23611111111111,
+          "median": 18,
+          "runs": 504
+        },
+        "CRYS": {
+          "mean": 19.292246520874752,
+          "median": 19,
+          "runs": 503
+        },
+        "METL": {
+          "mean": 18.93168880455408,
+          "median": 18,
+          "runs": 527
+        },
+        "STON": {
+          "mean": 18.896810506566606,
+          "median": 18,
+          "runs": 533
+        },
+        "CERA": {
+          "mean": 18.783898305084747,
+          "median": 18,
+          "runs": 472
+        }
+      },
+      "noManifestationRate": 0.05125,
+      "multipleManifestationBeforeCommitmentRate": 0.86125,
+      "averageHintAge": 9.458131067961165,
+      "averageFirstManifestationAge": 18.457971014492752,
+      "averageCommitmentAge": 32.060181368507834,
+      "talentActivationRate": {
+        "T1001": 1,
+        "T1006": 1,
+        "T1012": 1,
+        "T1004": 0,
+        "T1024": 0,
+        "T1016": 1,
+        "T1005": 1,
+        "T1002": 1,
+        "T1027": 1,
+        "T1017": 0.4255813953488372,
+        "T1010": 1,
+        "T1020": 0,
+        "T1030": 1,
+        "T1023": 0,
+        "T1009": 0.6730769230769231,
+        "T1014": 1,
+        "T1003": 1,
+        "T1025": 0,
+        "T1021": 1,
+        "T1007": 0.6804878048780488,
+        "T1018": 1,
+        "T1011": 0,
+        "T1019": 0,
+        "T1026": 0,
+        "T1028": 0,
+        "T1013": 0,
+        "T1022": 0,
+        "T1015": 0,
+        "T1008": 1,
+        "T1029": 0
+      },
+      "talentActivationAverageAge": {
+        "T1001": 0,
+        "T1006": 0,
+        "T1012": 0,
+        "T1004": null,
+        "T1024": null,
+        "T1016": 0,
+        "T1005": 0,
+        "T1002": 6.597733711048159,
+        "T1027": 0,
+        "T1017": 49.74863387978142,
+        "T1010": 0,
+        "T1020": null,
+        "T1030": 0,
+        "T1023": null,
+        "T1009": 5.75,
+        "T1014": 0,
+        "T1003": 0,
+        "T1025": null,
+        "T1021": 0,
+        "T1007": 15.612903225806452,
+        "T1018": 0,
+        "T1011": null,
+        "T1019": null,
+        "T1026": null,
+        "T1028": null,
+        "T1013": null,
+        "T1022": null,
+        "T1015": null,
+        "T1008": 0,
+        "T1029": null
+      },
+      "endingDistribution": {
+        "END-MED-001": 734,
+        "END-REL-001": 267,
+        "END-FAM-002": 216,
+        "END-FIN-001": 100,
+        "END-FIN-002": 174,
+        "END-TMP-001": 257,
+        "END-FAM-001": 199,
+        "END-ANO-001": 101,
+        "END-CIV-001": 5,
+        "END-ANO-002": 94,
+        "END-ARC-001": 132,
+        "END-LEG-001": 32,
+        "END-MED-002": 86,
+        "END-MUS-002": 2,
+        "END-MUS-001": 3,
+        "END-MUS-004": 2,
+        "END-CIV-002": 2
+      },
+      "distinctEndingsObserved": 17,
+      "distinctEndingsInRegistry": 24,
+      "endingCoverageShare": 0.7083333333333334,
+      "hiddenEndingRate": 0.08104738154613467,
+      "rareEndingRate": 0.33624272651704074,
+      "finalStatMeans": {
+        "CHR": 6.58075,
+        "INT": 17.486,
+        "STR": 4.0165,
+        "MNY": 4.10175,
+        "SPR": 37.66075,
+        "FIX": 27.97775
+      },
+      "finalFixPercentiles": {
+        "p50": 29,
+        "p90": 48,
+        "p99": 55,
+        "max": 64
+      },
+      "guardrails": [
+        {
+          "id": "fallback-share",
+          "severity": "warning",
+          "message": "Age-25+ fallback share 26.7% exceeds the warning threshold 5.0% (target 2.0%)."
+        },
+        {
+          "id": "ending-age-share-18-24",
+          "severity": "warning",
+          "message": "Ending age band 18-24: observed 31.5% vs target 18-22%."
+        },
+        {
+          "id": "ending-age-share-25-34",
+          "severity": "warning",
+          "message": "Ending age band 25-34: observed 17.7% vs target 35-40%."
+        },
+        {
+          "id": "ending-age-share-35-44",
+          "severity": "warning",
+          "message": "Ending age band 35-44: observed 7.8% vs target 20-25%."
+        },
+        {
+          "id": "ending-age-share-45-54",
+          "severity": "warning",
+          "message": "Ending age band 45-54: observed 4.4% vs target 8-12%."
+        },
+        {
+          "id": "ending-age-share-55-64",
+          "severity": "warning",
+          "message": "Ending age band 55-64: observed 0.7% vs target 4-7%."
+        },
+        {
+          "id": "ending-age-share-65+",
+          "severity": "warning",
+          "message": "Ending age band 65+: observed 37.8% vs target 2-5%."
+        },
+        {
+          "id": "nonterminal-rate",
+          "severity": "warning",
+          "message": "1594/4000 runs (39.9%) reached the diagnostic maximum age without an ending."
+        }
+      ]
+    },
+    "spc": {
+      "completedRuns": 2406,
+      "noncompletedRuns": 1594,
+      "spcEventsInCompleted": 3396,
+      "spcEventsInNoncompleted": 607,
+      "spcPerCompletedRun": 1.4114713216957606,
+      "spcPerNoncompletedRun": 0.3808030112923463,
+      "runsWithAnySpc": 2135,
+      "anySpcRate": 0.53375
+    },
+    "factionSeeds": {
+      "anyContactRuns": 1435,
+      "anyContactRate": 0.35875,
+      "meanFirstContactAge": 19.99581881533101,
+      "byFaction": {
+        "DMMS": 205,
+        "Everlasting Mutual": 314,
+        "Meridian": 262,
+        "CRI": 326,
+        "Black Ledger": 168,
+        "Last Posture": 330
+      },
+      "meanFirstContactAgeByFaction": {
+        "DMMS": 17.931707317073172,
+        "Everlasting Mutual": 20.898089171974522,
+        "Meridian": 19.66412213740458,
+        "CRI": 20.88957055214724,
+        "Black Ledger": 22.458333333333332,
+        "Last Posture": 19.124242424242425
+      }
+    }
+  },
+  "t1023Arms": [
+    {
+      "name": "control",
+      "talents": [
+        "T1013",
+        "T1015",
+        "T1004"
+      ],
+      "metrics": {
+        "runs": 1500,
+        "completed": 855,
+        "nonterminal": 645,
+        "coverageErrors": 0,
+        "completedRate": 0.57,
+        "nonterminalRate": 0.43,
+        "coverageErrorRate": 0,
+        "averageRunLengthYears": 77.16533333333334,
+        "averageEndingAge": 43.097076023391814,
+        "medianEndingAge": 28,
+        "endingAgeP10": 22,
+        "endingAgeP90": 69,
+        "endingAgeHistogram": {
+          "65+": 358,
+          "18-24": 280,
+          "25-34": 184,
+          "35-44": 24,
+          "45-54": 9
+        },
+        "endingAgeShareByTargetBucket": [
+          {
+            "band": "18-24",
+            "observedShare": 0.32748538011695905,
+            "targetMin": 0.18,
+            "targetMax": 0.22,
+            "withinTarget": false
+          },
+          {
+            "band": "25-34",
+            "observedShare": 0.2152046783625731,
+            "targetMin": 0.35,
+            "targetMax": 0.4,
+            "withinTarget": false
+          },
+          {
+            "band": "35-44",
+            "observedShare": 0.028070175438596492,
+            "targetMin": 0.2,
+            "targetMax": 0.25,
+            "withinTarget": false
+          },
+          {
+            "band": "45-54",
+            "observedShare": 0.010526315789473684,
+            "targetMin": 0.08,
+            "targetMax": 0.12,
+            "withinTarget": false
+          },
+          {
+            "band": "55-64",
+            "observedShare": 0,
+            "targetMin": 0.04,
+            "targetMax": 0.07,
+            "withinTarget": false
+          },
+          {
+            "band": "65+",
+            "observedShare": 0.41871345029239765,
+            "targetMin": 0.02,
+            "targetMax": 0.05,
+            "withinTarget": false
+          }
+        ],
+        "channelCountsByAgeBand": {
+          "0-5": {
+            "ORD": 8269,
+            "INS": 731,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "6-11": {
+            "ORD": 7485,
+            "INS": 1515,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "12-17": {
+            "ORD": 6356,
+            "INS": 1746,
+            "TRN": 846,
+            "SPC": 52
+          },
+          "18-24": {
+            "ORD": 5208,
+            "INS": 2256,
+            "TRN": 1659,
+            "SPC": 890
+          },
+          "25-34": {
+            "ORD": 4777,
+            "INS": 3022,
+            "TRN": 2888,
+            "SPC": 182
+          },
+          "35-44": {
+            "ORD": 5601,
+            "INS": 3923,
+            "TRN": 732,
+            "SPC": 0
+          },
+          "45-54": {
+            "ORD": 7682,
+            "INS": 2348,
+            "TRN": 24,
+            "SPC": 0
+          },
+          "55-64": {
+            "ORD": 8822,
+            "INS": 1203,
+            "TRN": 5,
+            "SPC": 0
+          },
+          "65+": {
+            "ORD": 35958,
+            "INS": 1568,
+            "TRN": 0,
+            "SPC": 0
+          }
+        },
+        "familyCountsByAgeBand": {
+          "0-5": {
+            "ORD/FAM": 3107,
+            "ORD/HEA": 1091,
+            "ORD/HOU": 1315,
+            "ORD/SOC": 1175,
+            "ORD/GEN": 1581,
+            "INS/CIV": 731
+          },
+          "6-11": {
+            "ORD/EDU": 5137,
+            "ORD/SOC": 2348,
+            "INS/EDU": 1515
+          },
+          "12-17": {
+            "TRN/WOOD": 238,
+            "TRN/GLAS": 100,
+            "ORD/SOC": 2172,
+            "ORD/EDU": 4184,
+            "INS/EDU": 1141,
+            "INS/FIN": 605,
+            "TRN/METL": 92,
+            "TRN/CRYS": 94,
+            "TRN/STON": 129,
+            "TRN/CERA": 93,
+            "SPC/SECR": 52,
+            "TRN/TEMP": 100
+          },
+          "18-24": {
+            "INS/REL": 770,
+            "ORD/EDU": 234,
+            "ORD/HEA": 777,
+            "TRN/WOOD": 227,
+            "INS/MUS": 221,
+            "INS/MED": 425,
+            "ORD/SOC": 869,
+            "SPC/SECR": 890,
+            "TRN/CERA": 239,
+            "ORD/CAR": 1371,
+            "INS/CIV": 232,
+            "TRN/STON": 266,
+            "TRN/METL": 237,
+            "TRN/CRYS": 269,
+            "TRN/GLAS": 263,
+            "ORD/HOU": 873,
+            "TRN/TEMP": 158,
+            "ORD/CIV": 717,
+            "ORD/FAM": 299,
+            "INS/ACA": 434,
+            "ORD/FIN": 68,
+            "INS/COR": 101,
+            "INS/FIN": 66,
+            "INS/LEG": 7
+          },
+          "25-34": {
+            "INS/FIN": 475,
+            "ORD/FAM": 444,
+            "ORD/HEA": 637,
+            "INS/LEG": 212,
+            "TRN/METL": 387,
+            "TRN/GLAS": 406,
+            "INS/ACA": 712,
+            "ORD/SOC": 899,
+            "TRN/CERA": 390,
+            "INS/MUS": 336,
+            "INS/MED": 537,
+            "ORD/CAR": 1573,
+            "ORD/HOU": 656,
+            "TRN/TEMP": 454,
+            "ORD/CIV": 405,
+            "TRN/WOOD": 406,
+            "SPC/SECR": 182,
+            "ORD/FIN": 163,
+            "TRN/STON": 438,
+            "INS/CIV": 399,
+            "TRN/CRYS": 403,
+            "INS/REL": 163,
+            "INS/COR": 186,
+            "TRN/SYNT": 4,
+            "INS/ARC": 2
+          },
+          "35-44": {
+            "INS/MED": 1132,
+            "INS/ACA": 939,
+            "TRN/TEMP": 465,
+            "ORD/HOU": 824,
+            "TRN/CERA": 37,
+            "ORD/FAM": 1111,
+            "INS/LEG": 371,
+            "ORD/CAR": 549,
+            "INS/CIV": 663,
+            "ORD/GEN": 1031,
+            "ORD/SOC": 1783,
+            "INS/FIN": 256,
+            "ORD/FIN": 221,
+            "ORD/CIV": 82,
+            "INS/COR": 200,
+            "TRN/STON": 57,
+            "TRN/WOOD": 41,
+            "INS/MUS": 180,
+            "INS/REL": 138,
+            "INS/ARC": 44,
+            "TRN/GLAS": 33,
+            "TRN/CRYS": 44,
+            "TRN/METL": 41,
+            "TRN/SYNT": 11,
+            "TRN/MIXD": 3
+          },
+          "45-54": {
+            "INS/ACA": 106,
+            "INS/LEG": 256,
+            "ORD/FAM": 2423,
+            "ORD/SOC": 1363,
+            "ORD/HEA": 1463,
+            "INS/FIN": 819,
+            "INS/MED": 329,
+            "INS/CIV": 647,
+            "ORD/CAR": 1614,
+            "ORD/GEN": 819,
+            "INS/ARC": 23,
+            "INS/REL": 55,
+            "INS/COR": 90,
+            "INS/MUS": 23,
+            "TRN/MIXD": 23,
+            "TRN/TEMP": 1
+          },
+          "55-64": {
+            "ORD/FAM": 1917,
+            "ORD/CAR": 1712,
+            "INS/CIV": 1003,
+            "ORD/HEA": 1396,
+            "ORD/SOC": 1646,
+            "ORD/GEN": 2151,
+            "INS/FIN": 184,
+            "INS/MED": 9,
+            "INS/LEG": 7,
+            "TRN/MIXD": 5
+          },
+          "65+": {
+            "ORD/FAM": 1073,
+            "INS/MED": 717,
+            "INS/CIV": 851,
+            "ORD/SOC": 7308,
+            "ORD/GEN": 27577
+          }
+        },
+        "totalEventYears": 115748,
+        "spcEventYears": 1124,
+        "spcShare": 0.009710750941700937,
+        "mandatoryEventYears": 852,
+        "mandatoryUsageRate": 0.284,
+        "endingShare65Plus": 0.41871345029239765,
+        "factionContactRate": {
+          "DMMS": 0.05333333333333334,
+          "Everlasting Mutual": 0.088,
+          "Meridian": 0.07466666666666667,
+          "CRI": 0.09333333333333334,
+          "Black Ledger": 0.054,
+          "Last Posture": 0.078
+        },
+        "factionClimaxRate": {
+          "DMMS": 0.034666666666666665,
+          "Everlasting Mutual": 0.048,
+          "Meridian": 0.06133333333333333,
+          "CRI": 0.068,
+          "Black Ledger": 0.034,
+          "Last Posture": 0.062
+        },
+        "endingCountsByFaction": {
+          "CRI": 102,
+          "Meridian": 92,
+          "Everlasting Mutual": 72,
+          "Black Ledger": 51,
+          "Last Posture": 93,
+          "DMMS": 52
+        },
+        "endingCountsByRouteFamily": {
+          "ORD/FAM": 149,
+          "faction:CRI": 102,
+          "faction:Meridian": 92,
+          "faction:Everlasting Mutual": 72,
+          "INS/MED": 235,
+          "faction:Black Ledger": 51,
+          "faction:Last Posture": 93,
+          "faction:DMMS": 52,
+          "TRN/TEMP": 6,
+          "INS/CIV": 1,
+          "INS/MUS": 2
+        },
+        "endingAgeByRouteFamily": {
+          "ORD/FAM": {
+            "mean": 67.42953020134229,
+            "median": 67,
+            "runs": 149
+          },
+          "faction:CRI": {
+            "mean": 24.941176470588236,
+            "median": 24,
+            "runs": 102
+          },
+          "faction:Meridian": {
+            "mean": 22.98913043478261,
+            "median": 23,
+            "runs": 92
+          },
+          "faction:Everlasting Mutual": {
+            "mean": 21.88888888888889,
+            "median": 22,
+            "runs": 72
+          },
+          "INS/MED": {
+            "mean": 65.20425531914894,
+            "median": 68,
+            "runs": 235
+          },
+          "faction:Black Ledger": {
+            "mean": 26.352941176470587,
+            "median": 26,
+            "runs": 51
+          },
+          "faction:Last Posture": {
+            "mean": 24.548387096774192,
+            "median": 24,
+            "runs": 93
+          },
+          "faction:DMMS": {
+            "mean": 23.615384615384617,
+            "median": 24,
+            "runs": 52
+          },
+          "TRN/TEMP": {
+            "mean": 40,
+            "median": 40,
+            "runs": 6
+          },
+          "INS/CIV": {
+            "mean": 46,
+            "median": 46,
+            "runs": 1
+          },
+          "INS/MUS": {
+            "mean": 51,
+            "median": 51,
+            "runs": 2
+          }
+        },
+        "scheduleExpiryByRouteFamily": {
+          "INS/FIN": 177,
+          "ORD/FAM": 1013,
+          "INS/MED": 817,
+          "INS/ACA": 156,
+          "INS/CIV": 822,
+          "TRN/TEMP": 397,
+          "faction:Everlasting Mutual": 42,
+          "INS/ARC": 61,
+          "INS/REL": 110,
+          "INS/COR": 133,
+          "faction:Black Ledger": 21,
+          "faction:CRI": 17,
+          "TRN/SYNT": 25,
+          "faction:DMMS": 21,
+          "INS/MUS": 71,
+          "faction:Last Posture": 13,
+          "faction:Meridian": 15
+        },
+        "mandatoryIncidenceByRouteFamily": {
+          "INS/MED": 426
+        },
+        "fallbackShareByAgeBandActive": {
+          "0-5": {
+            "fallbackYears": 0,
+            "activeYears": 9000,
+            "share": 0
+          },
+          "6-11": {
+            "fallbackYears": 0,
+            "activeYears": 9000,
+            "share": 0
+          },
+          "12-17": {
+            "fallbackYears": 0,
+            "activeYears": 9000,
+            "share": 0
+          },
+          "18-24": {
+            "fallbackYears": 0,
+            "activeYears": 10013,
+            "share": 0
+          },
+          "25-34": {
+            "fallbackYears": 0,
+            "activeYears": 10869,
+            "share": 0
+          },
+          "35-44": {
+            "fallbackYears": 0,
+            "activeYears": 10256,
+            "share": 0
+          },
+          "45-54": {
+            "fallbackYears": 0,
+            "activeYears": 10054,
+            "share": 0
+          },
+          "55-64": {
+            "fallbackYears": 2151,
+            "activeYears": 10030,
+            "share": 0.21445663010967098
+          },
+          "65+": {
+            "fallbackYears": 19448,
+            "activeYears": 37526,
+            "share": 0.5182540105526835
+          }
+        },
+        "meanFixAtCommitment": 25.835075493612077,
+        "meanFixAtEnding": 25.977777777777778,
+        "fallbackYears": 21599,
+        "fallbackUseRate": 0.18660365621868197,
+        "fallbackYearsAge25Plus": 21599,
+        "fallbackShareAge25Plus": 0.274325268305074,
+        "pre25FallbackYears": 0,
+        "pre25CoverageDefectRate": 0,
+        "pre25CoverageDefectAges": {},
+        "pre25EmergencyReuseYears": 0,
+        "routeEntryRate": 0.9313333333333333,
+        "routeEntryCountsByRoute": {
+          "ROUTE_REL_INTEREST": 992,
+          "ROUTE_MUS_INTEREST": 681,
+          "ROUTE_MED_SCREENED": 760,
+          "ROUTE_FIN_SECURED_DEBT": 180,
+          "ROUTE_FIN_VALUED": 575,
+          "ROUTE_FAM_PLACEMENT": 867,
+          "ROUTE_FAM_DIRECTIVE": 482,
+          "ROUTE_ACA_RESEARCH": 671,
+          "ROUTE_MED_CONTROLLED_HARDENING": 426,
+          "ROUTE_MED_PRESERVATION_CONSULT": 553,
+          "ROUTE_MED_CONTROLLED_HARDENING_STAGE2": 426,
+          "ROUTE_ACA_SPECIALIZATION": 384,
+          "ROUTE_ACA_POLICY": 198,
+          "ROUTE_ACA_POLICY_EXPOSED": 197,
+          "ROUTE_ACA_TENURE_TRACK": 158,
+          "ROUTE_ACA_TENURE_REVIEW": 157,
+          "ROUTE_LEG_STATUS_CASE": 164,
+          "ROUTE_LEG_STATUS_RESOLVED": 164,
+          "ROUTE_MED_DIRECTIVE": 249,
+          "ROUTE_FIN_LEGAL_REVIEW": 43,
+          "ROUTE_FAM_LATE_LEGACY": 751,
+          "ROUTE_MED_LATE_CONTINUITY": 508,
+          "ROUTE_CAR_MATERIAL_EXPOSURE": 528,
+          "ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY": 503,
+          "ROUTE_CIV_SERVICE": 1040,
+          "ROUTE_CIV_MEMORIAL": 838,
+          "ROUTE_ACA_CONTINUITY": 186,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 186,
+          "ROUTE_CIV_REBRANDED": 764,
+          "ROUTE_COR_EMPLOYEE": 470,
+          "ROUTE_TEMP_STUDY": 411,
+          "ROUTE_ARC_STRUCTURAL": 62,
+          "ROUTE_REL_CLAIM": 111,
+          "ROUTE_COR_PRESERVATION_PLAN": 149,
+          "ROUTE_COR_CONTRACT": 138,
+          "ROUTE_COR_LEGAL_REVIEW": 138,
+          "ROUTE_MED_SYNTH_OPTION": 40,
+          "ROUTE_MUS_APPRAISED": 46,
+          "ROUTE_MUS_MIXED_OPTION": 31
+        },
+        "routeClimaxRate": 0.57,
+        "routeClimaxCountsByEvent": {
+          "EVT-ORD-FAM-0011": 149,
+          "EVT-SPC-SECR-0009": 102,
+          "EVT-SPC-SECR-0008": 92,
+          "EVT-SPC-SECR-0010": 72,
+          "EVT-INS-MED-0012": 209,
+          "EVT-SPC-SECR-0011": 51,
+          "EVT-SPC-SECR-0012": 93,
+          "EVT-SPC-SECR-0007": 52,
+          "EVT-INS-MED-0003": 26,
+          "EVT-TRN-TEMP-0002": 6,
+          "EVT-INS-CIV-0006": 1,
+          "EVT-INS-MUS-0005": 1,
+          "EVT-INS-MUS-0003": 1
+        },
+        "routeAbandonmentRate": 0.6793333333333333,
+        "expiredScheduleCount": 3911,
+        "expiredSchedulesByEvent": {
+          "EVT-INS-FIN-0005": 177,
+          "EVT-ORD-FAM-0004": 478,
+          "EVT-INS-MED-0003": 567,
+          "EVT-INS-ACA-0005": 156,
+          "EVT-INS-CIV-0006": 822,
+          "EVT-ORD-FAM-0011": 535,
+          "EVT-TRN-TEMP-0002": 397,
+          "EVT-INS-MED-0012": 250,
+          "EVT-SPC-SECR-0010": 42,
+          "EVT-INS-ARC-0002": 61,
+          "EVT-INS-REL-0003": 110,
+          "EVT-INS-COR-0003": 133,
+          "EVT-SPC-SECR-0011": 21,
+          "EVT-SPC-SECR-0009": 17,
+          "EVT-TRN-SYNT-0001": 25,
+          "EVT-SPC-SECR-0007": 21,
+          "EVT-INS-MUS-0003": 43,
+          "EVT-INS-MUS-0005": 28,
+          "EVT-SPC-SECR-0012": 13,
+          "EVT-SPC-SECR-0008": 15
+        },
+        "priorityCollisionRate": 0.058,
+        "priorityCollisionYears": 110,
+        "scheduleDisplacementCount": 111,
+        "scheduleDisplacementPerRun": 0.074,
+        "finalMaterialDistribution": {
+          "CERA": 46,
+          "TEMP": 108,
+          "NONE": 639,
+          "SYNT": 240,
+          "METL": 152,
+          "STON": 154,
+          "WOOD": 45,
+          "GLAS": 37,
+          "CRYS": 48,
+          "MIXD": 31
+        },
+        "finalMaterialBySpecies": {
+          "HUMAN": {
+            "CERA": 8,
+            "SYNT": 37,
+            "METL": 26,
+            "NONE": 107,
+            "STON": 30,
+            "TEMP": 19,
+            "GLAS": 4,
+            "CRYS": 6,
+            "WOOD": 9,
+            "MIXD": 4
+          },
+          "ELF": {
+            "TEMP": 17,
+            "CERA": 8,
+            "NONE": 115,
+            "CRYS": 12,
+            "METL": 30,
+            "STON": 18,
+            "MIXD": 5,
+            "GLAS": 4,
+            "SYNT": 33,
+            "WOOD": 8
+          },
+          "DWARF": {
+            "NONE": 96,
+            "METL": 29,
+            "STON": 21,
+            "SYNT": 43,
+            "TEMP": 25,
+            "WOOD": 6,
+            "CRYS": 8,
+            "GLAS": 7,
+            "CERA": 9,
+            "MIXD": 6
+          },
+          "WINGED_KIN": {
+            "SYNT": 42,
+            "NONE": 112,
+            "STON": 28,
+            "TEMP": 15,
+            "METL": 23,
+            "GLAS": 3,
+            "WOOD": 9,
+            "CRYS": 8,
+            "MIXD": 4,
+            "CERA": 6
+          },
+          "DEMONKIN": {
+            "SYNT": 41,
+            "NONE": 113,
+            "MIXD": 6,
+            "METL": 19,
+            "CERA": 5,
+            "STON": 24,
+            "CRYS": 7,
+            "TEMP": 11,
+            "GLAS": 15,
+            "WOOD": 9
+          },
+          "DRAGONKIN": {
+            "SYNT": 44,
+            "TEMP": 21,
+            "WOOD": 4,
+            "NONE": 96,
+            "STON": 33,
+            "METL": 25,
+            "CERA": 10,
+            "GLAS": 4,
+            "CRYS": 7,
+            "MIXD": 6
+          }
+        },
+        "materialCommitmentRate": 0.574,
+        "materialEntropyBitsOverall": 2.6048484605341726,
+        "materialEntropyBitsBySpecies": {
+          "HUMAN": 2.5727658231186723,
+          "ELF": 2.541473130758104,
+          "DWARF": 2.6941736307465636,
+          "WINGED_KIN": 2.4979991155113557,
+          "DEMONKIN": 2.5535966470609694,
+          "DRAGONKIN": 2.639576251628379
+        },
+        "pFinalGivenHint": {
+          "STON": {
+            "hintRuns": 154,
+            "sameMaterial": 13,
+            "probability": 0.08441558441558442
+          },
+          "GLAS": {
+            "hintRuns": 112,
+            "sameMaterial": 6,
+            "probability": 0.05357142857142857
+          },
+          "METL": {
+            "hintRuns": 124,
+            "sameMaterial": 12,
+            "probability": 0.0967741935483871
+          },
+          "WOOD": {
+            "hintRuns": 119,
+            "sameMaterial": 3,
+            "probability": 0.025210084033613446
+          },
+          "CRYS": {
+            "hintRuns": 88,
+            "sameMaterial": 3,
+            "probability": 0.03409090909090909
+          }
+        },
+        "pFinalGivenFirstManifestation": {
+          "WOOD": {
+            "manifestationRuns": 330,
+            "sameMaterial": 16,
+            "probability": 0.048484848484848485
+          },
+          "CERA": {
+            "manifestationRuns": 168,
+            "sameMaterial": 7,
+            "probability": 0.041666666666666664
+          },
+          "METL": {
+            "manifestationRuns": 174,
+            "sameMaterial": 23,
+            "probability": 0.13218390804597702
+          },
+          "GLAS": {
+            "manifestationRuns": 201,
+            "sameMaterial": 7,
+            "probability": 0.03482587064676617
+          },
+          "TEMP": {
+            "manifestationRuns": 148,
+            "sameMaterial": 12,
+            "probability": 0.08108108108108109
+          },
+          "STON": {
+            "manifestationRuns": 240,
+            "sameMaterial": 31,
+            "probability": 0.12916666666666668
+          },
+          "CRYS": {
+            "manifestationRuns": 181,
+            "sameMaterial": 9,
+            "probability": 0.049723756906077346
+          }
+        },
+        "firstManifestationFamilyCounts": {
+          "WOOD": 330,
+          "CERA": 168,
+          "METL": 174,
+          "GLAS": 201,
+          "TEMP": 148,
+          "STON": 240,
+          "CRYS": 181
+        },
+        "firstManifestationFamilyShare": {
+          "WOOD": 0.2288488210818308,
+          "CERA": 0.11650485436893204,
+          "METL": 0.12066574202496533,
+          "GLAS": 0.1393897364771151,
+          "TEMP": 0.10263522884882108,
+          "STON": 0.1664355062413315,
+          "CRYS": 0.12552011095700416
+        },
+        "firstManifestationAgeByFamily": {
+          "WOOD": {
+            "mean": 15.709090909090909,
+            "median": 13,
+            "runs": 330
+          },
+          "CERA": {
+            "mean": 18.595238095238095,
+            "median": 18,
+            "runs": 168
+          },
+          "METL": {
+            "mean": 19.29310344827586,
+            "median": 18,
+            "runs": 174
+          },
+          "GLAS": {
+            "mean": 18.925373134328357,
+            "median": 18,
+            "runs": 201
+          },
+          "TEMP": {
+            "mean": 19.89864864864865,
+            "median": 17,
+            "runs": 148
+          },
+          "STON": {
+            "mean": 18.8125,
+            "median": 18,
+            "runs": 240
+          },
+          "CRYS": {
+            "mean": 19.320441988950275,
+            "median": 18,
+            "runs": 181
+          }
+        },
+        "noManifestationRate": 0.03866666666666667,
+        "multipleManifestationBeforeCommitmentRate": 0.8746666666666667,
+        "averageHintAge": 9.484087102177554,
+        "averageFirstManifestationAge": 18.32593619972261,
+        "averageCommitmentAge": 32.71312427409988,
+        "talentActivationRate": {
+          "T1013": 0,
+          "T1015": 0,
+          "T1004": 0
+        },
+        "talentActivationAverageAge": {
+          "T1013": null,
+          "T1015": null,
+          "T1004": null
+        },
+        "endingDistribution": {
+          "END-FAM-002": 101,
+          "END-TMP-001": 108,
+          "END-MED-001": 327,
+          "END-FIN-002": 72,
+          "END-LEG-001": 52,
+          "END-REL-001": 93,
+          "END-ARC-001": 52,
+          "END-FAM-001": 48,
+          "END-CIV-001": 1,
+          "END-MUS-004": 1
+        },
+        "distinctEndingsObserved": 10,
+        "distinctEndingsInRegistry": 24,
+        "endingCoverageShare": 0.4166666666666667,
+        "hiddenEndingRate": 0,
+        "rareEndingRate": 0.23625730994152047,
+        "finalStatMeans": {
+          "CHR": 4.61,
+          "INT": 18.489333333333335,
+          "STR": 2.842,
+          "MNY": 3.3773333333333335,
+          "SPR": 38.584,
+          "FIX": 26.254
+        },
+        "finalFixPercentiles": {
+          "p50": 27,
+          "p90": 46,
+          "p99": 53,
+          "max": 58
+        },
+        "guardrails": [
+          {
+            "id": "fallback-share",
+            "severity": "warning",
+            "message": "Age-25+ fallback share 27.4% exceeds the warning threshold 5.0% (target 2.0%)."
+          },
+          {
+            "id": "ending-age-share-18-24",
+            "severity": "warning",
+            "message": "Ending age band 18-24: observed 32.7% vs target 18-22%."
+          },
+          {
+            "id": "ending-age-share-25-34",
+            "severity": "warning",
+            "message": "Ending age band 25-34: observed 21.5% vs target 35-40%."
+          },
+          {
+            "id": "ending-age-share-35-44",
+            "severity": "warning",
+            "message": "Ending age band 35-44: observed 2.8% vs target 20-25%."
+          },
+          {
+            "id": "ending-age-share-45-54",
+            "severity": "warning",
+            "message": "Ending age band 45-54: observed 1.1% vs target 8-12%."
+          },
+          {
+            "id": "ending-age-share-55-64",
+            "severity": "warning",
+            "message": "Ending age band 55-64: observed 0.0% vs target 4-7%."
+          },
+          {
+            "id": "ending-age-share-65+",
+            "severity": "warning",
+            "message": "Ending age band 65+: observed 41.9% vs target 2-5%."
+          },
+          {
+            "id": "nonterminal-rate",
+            "severity": "warning",
+            "message": "645/1500 runs (43.0%) reached the diagnostic maximum age without an ending."
+          }
+        ]
+      },
+      "spc": {
+        "completedRuns": 855,
+        "noncompletedRuns": 645,
+        "spcEventsInCompleted": 1027,
+        "spcEventsInNoncompleted": 97,
+        "spcPerCompletedRun": 1.2011695906432749,
+        "spcPerNoncompletedRun": 0.15038759689922482,
+        "runsWithAnySpc": 578,
+        "anySpcRate": 0.38533333333333336
+      },
+      "factionSeeds": {
+        "anyContactRuns": 578,
+        "anyContactRate": 0.38533333333333336,
+        "meanFirstContactAge": 20.077854671280278,
+        "byFaction": {
+          "DMMS": 80,
+          "Everlasting Mutual": 132,
+          "Meridian": 112,
+          "CRI": 140,
+          "Black Ledger": 81,
+          "Last Posture": 117
+        },
+        "meanFirstContactAgeByFaction": {
+          "DMMS": 18.175,
+          "Everlasting Mutual": 20.75,
+          "Meridian": 19.955357142857142,
+          "CRI": 20.792857142857144,
+          "Black Ledger": 22.37037037037037,
+          "Last Posture": 19.41025641025641
+        }
+      }
+    },
+    {
+      "name": "main_character",
+      "talents": [
+        "T1023",
+        "T1013",
+        "T1015"
+      ],
+      "metrics": {
+        "runs": 1500,
+        "completed": 771,
+        "nonterminal": 729,
+        "coverageErrors": 0,
+        "completedRate": 0.514,
+        "nonterminalRate": 0.486,
+        "coverageErrorRate": 0,
+        "averageRunLengthYears": 82.722,
+        "averageEndingAge": 45.52918287937743,
+        "medianEndingAge": 38,
+        "endingAgeP10": 21,
+        "endingAgeP90": 69,
+        "endingAgeHistogram": {
+          "65+": 374,
+          "18-24": 239,
+          "35-44": 15,
+          "25-34": 143
+        },
+        "endingAgeShareByTargetBucket": [
+          {
+            "band": "18-24",
+            "observedShare": 0.3099870298313878,
+            "targetMin": 0.18,
+            "targetMax": 0.22,
+            "withinTarget": false
+          },
+          {
+            "band": "25-34",
+            "observedShare": 0.185473411154345,
+            "targetMin": 0.35,
+            "targetMax": 0.4,
+            "withinTarget": false
+          },
+          {
+            "band": "35-44",
+            "observedShare": 0.019455252918287938,
+            "targetMin": 0.2,
+            "targetMax": 0.25,
+            "withinTarget": false
+          },
+          {
+            "band": "45-54",
+            "observedShare": 0,
+            "targetMin": 0.08,
+            "targetMax": 0.12,
+            "withinTarget": false
+          },
+          {
+            "band": "55-64",
+            "observedShare": 0,
+            "targetMin": 0.04,
+            "targetMax": 0.07,
+            "withinTarget": false
+          },
+          {
+            "band": "65+",
+            "observedShare": 0.48508430609597925,
+            "targetMin": 0.02,
+            "targetMax": 0.05,
+            "withinTarget": false
+          }
+        ],
+        "channelCountsByAgeBand": {
+          "0-5": {
+            "ORD": 8296,
+            "INS": 704,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "6-11": {
+            "ORD": 7394,
+            "INS": 1606,
+            "TRN": 0,
+            "SPC": 0
+          },
+          "12-17": {
+            "ORD": 6313,
+            "INS": 1755,
+            "TRN": 854,
+            "SPC": 78
+          },
+          "18-24": {
+            "ORD": 5040,
+            "INS": 2226,
+            "TRN": 1661,
+            "SPC": 1127
+          },
+          "25-34": {
+            "ORD": 4934,
+            "INS": 2943,
+            "TRN": 2944,
+            "SPC": 765
+          },
+          "35-44": {
+            "ORD": 6092,
+            "INS": 4065,
+            "TRN": 802,
+            "SPC": 171
+          },
+          "45-54": {
+            "ORD": 8504,
+            "INS": 2492,
+            "TRN": 22,
+            "SPC": 12
+          },
+          "55-64": {
+            "ORD": 9674,
+            "INS": 1353,
+            "TRN": 3,
+            "SPC": 0
+          },
+          "65+": {
+            "ORD": 40584,
+            "INS": 1669,
+            "TRN": 0,
+            "SPC": 0
+          }
+        },
+        "familyCountsByAgeBand": {
+          "0-5": {
+            "ORD/HOU": 1341,
+            "ORD/GEN": 1310,
+            "ORD/SOC": 1190,
+            "ORD/HEA": 1098,
+            "ORD/FAM": 3357,
+            "INS/CIV": 704
+          },
+          "6-11": {
+            "ORD/EDU": 5072,
+            "INS/EDU": 1606,
+            "ORD/SOC": 2322
+          },
+          "12-17": {
+            "ORD/SOC": 2147,
+            "INS/EDU": 1116,
+            "ORD/EDU": 4166,
+            "TRN/WOOD": 230,
+            "INS/FIN": 639,
+            "TRN/CERA": 65,
+            "SPC/SECR": 78,
+            "TRN/STON": 121,
+            "TRN/GLAS": 105,
+            "TRN/CRYS": 117,
+            "TRN/METL": 115,
+            "TRN/TEMP": 101
+          },
+          "18-24": {
+            "ORD/HEA": 825,
+            "TRN/METL": 242,
+            "ORD/CAR": 1297,
+            "INS/MED": 416,
+            "INS/REL": 781,
+            "INS/MUS": 215,
+            "ORD/HOU": 829,
+            "ORD/SOC": 882,
+            "TRN/GLAS": 260,
+            "SPC/TLNT": 421,
+            "INS/ACA": 427,
+            "SPC/SECR": 706,
+            "ORD/EDU": 237,
+            "TRN/TEMP": 161,
+            "TRN/CERA": 244,
+            "ORD/FAM": 307,
+            "TRN/WOOD": 216,
+            "TRN/CRYS": 269,
+            "ORD/CIV": 588,
+            "TRN/STON": 269,
+            "INS/CIV": 215,
+            "INS/FIN": 73,
+            "ORD/FIN": 75,
+            "INS/COR": 90,
+            "INS/LEG": 9
+          },
+          "25-34": {
+            "TRN/CERA": 408,
+            "ORD/FAM": 472,
+            "TRN/GLAS": 441,
+            "TRN/STON": 420,
+            "ORD/HOU": 759,
+            "ORD/SOC": 886,
+            "ORD/CIV": 426,
+            "TRN/WOOD": 413,
+            "INS/MED": 483,
+            "ORD/HEA": 663,
+            "ORD/CAR": 1563,
+            "TRN/METL": 405,
+            "SPC/TLNT": 622,
+            "TRN/TEMP": 419,
+            "TRN/CRYS": 436,
+            "INS/FIN": 465,
+            "INS/CIV": 351,
+            "INS/ACA": 716,
+            "INS/MUS": 371,
+            "INS/REL": 217,
+            "INS/LEG": 193,
+            "ORD/FIN": 165,
+            "SPC/SECR": 143,
+            "INS/COR": 146,
+            "TRN/SYNT": 2,
+            "INS/ARC": 1
+          },
+          "35-44": {
+            "INS/MED": 1196,
+            "ORD/FAM": 1253,
+            "TRN/TEMP": 517,
+            "ORD/CIV": 150,
+            "INS/ACA": 1019,
+            "SPC/TLNT": 171,
+            "TRN/METL": 34,
+            "INS/MUS": 175,
+            "TRN/WOOD": 41,
+            "ORD/GEN": 915,
+            "ORD/CAR": 592,
+            "ORD/HOU": 891,
+            "ORD/SOC": 2014,
+            "ORD/FIN": 277,
+            "INS/COR": 180,
+            "INS/LEG": 425,
+            "INS/CIV": 603,
+            "INS/FIN": 293,
+            "TRN/CERA": 41,
+            "INS/ARC": 19,
+            "INS/REL": 155,
+            "TRN/GLAS": 43,
+            "TRN/SYNT": 28,
+            "TRN/CRYS": 46,
+            "TRN/MIXD": 5,
+            "TRN/STON": 47
+          },
+          "45-54": {
+            "INS/LEG": 280,
+            "ORD/FAM": 2714,
+            "ORD/GEN": 879,
+            "ORD/HEA": 1609,
+            "INS/FIN": 868,
+            "ORD/CAR": 1799,
+            "INS/CIV": 684,
+            "ORD/SOC": 1503,
+            "INS/ACA": 108,
+            "INS/MED": 316,
+            "INS/REL": 70,
+            "INS/ARC": 26,
+            "INS/COR": 118,
+            "INS/MUS": 22,
+            "TRN/MIXD": 22,
+            "SPC/TLNT": 12
+          },
+          "55-64": {
+            "ORD/SOC": 1784,
+            "ORD/HEA": 1550,
+            "ORD/CAR": 1883,
+            "ORD/FAM": 2070,
+            "INS/CIV": 1102,
+            "ORD/GEN": 2387,
+            "INS/FIN": 235,
+            "INS/MED": 8,
+            "INS/LEG": 8,
+            "TRN/MIXD": 3
+          },
+          "65+": {
+            "ORD/FAM": 1142,
+            "ORD/SOC": 8242,
+            "INS/CIV": 948,
+            "ORD/GEN": 31199,
+            "INS/MED": 721,
+            "ORD/CAR": 1
+          }
+        },
+        "totalEventYears": 124083,
+        "spcEventYears": 2153,
+        "spcShare": 0.017351289056518622,
+        "mandatoryEventYears": 826,
+        "mandatoryUsageRate": 0.2753333333333333,
+        "endingShare65Plus": 0.48508430609597925,
+        "factionContactRate": {
+          "DMMS": 0.04533333333333334,
+          "Everlasting Mutual": 0.06933333333333333,
+          "Meridian": 0.054,
+          "CRI": 0.066,
+          "Black Ledger": 0.042,
+          "Last Posture": 0.08666666666666667
+        },
+        "factionClimaxRate": {
+          "DMMS": 0.024,
+          "Everlasting Mutual": 0.042,
+          "Meridian": 0.046,
+          "CRI": 0.04533333333333334,
+          "Black Ledger": 0.032,
+          "Last Posture": 0.06533333333333333
+        },
+        "endingCountsByFaction": {
+          "CRI": 68,
+          "DMMS": 36,
+          "Everlasting Mutual": 63,
+          "Meridian": 69,
+          "Last Posture": 98,
+          "Black Ledger": 48
+        },
+        "endingCountsByRouteFamily": {
+          "ORD/FAM": 157,
+          "faction:CRI": 68,
+          "INS/MED": 232,
+          "faction:DMMS": 36,
+          "faction:Everlasting Mutual": 63,
+          "faction:Meridian": 69,
+          "faction:Last Posture": 98,
+          "faction:Black Ledger": 48
+        },
+        "endingAgeByRouteFamily": {
+          "ORD/FAM": {
+            "mean": 67.50955414012739,
+            "median": 67,
+            "runs": 157
+          },
+          "faction:CRI": {
+            "mean": 25.36764705882353,
+            "median": 24.5,
+            "runs": 68
+          },
+          "INS/MED": {
+            "mean": 66.27586206896552,
+            "median": 68,
+            "runs": 232
+          },
+          "faction:DMMS": {
+            "mean": 23.75,
+            "median": 24,
+            "runs": 36
+          },
+          "faction:Everlasting Mutual": {
+            "mean": 22.26984126984127,
+            "median": 22,
+            "runs": 63
+          },
+          "faction:Meridian": {
+            "mean": 22.47826086956522,
+            "median": 22,
+            "runs": 69
+          },
+          "faction:Last Posture": {
+            "mean": 24.132653061224488,
+            "median": 24,
+            "runs": 98
+          },
+          "faction:Black Ledger": {
+            "mean": 25.604166666666668,
+            "median": 25,
+            "runs": 48
+          }
+        },
+        "scheduleExpiryByRouteFamily": {
+          "INS/MED": 798,
+          "TRN/TEMP": 458,
+          "INS/MUS": 70,
+          "INS/CIV": 806,
+          "ORD/FAM": 1099,
+          "INS/ACA": 161,
+          "INS/FIN": 202,
+          "faction:DMMS": 26,
+          "INS/REL": 148,
+          "INS/ARC": 44,
+          "TRN/SYNT": 38,
+          "INS/COR": 110,
+          "faction:Everlasting Mutual": 35,
+          "faction:Last Posture": 22,
+          "faction:Black Ledger": 10,
+          "faction:CRI": 17,
+          "faction:Meridian": 8
+        },
+        "mandatoryIncidenceByRouteFamily": {
+          "INS/MED": 413
+        },
+        "fallbackShareByAgeBandActive": {
+          "0-5": {
+            "fallbackYears": 0,
+            "activeYears": 9000,
+            "share": 0
+          },
+          "6-11": {
+            "fallbackYears": 0,
+            "activeYears": 9000,
+            "share": 0
+          },
+          "12-17": {
+            "fallbackYears": 0,
+            "activeYears": 9000,
+            "share": 0
+          },
+          "18-24": {
+            "fallbackYears": 0,
+            "activeYears": 10054,
+            "share": 0
+          },
+          "25-34": {
+            "fallbackYears": 0,
+            "activeYears": 11586,
+            "share": 0
+          },
+          "35-44": {
+            "fallbackYears": 0,
+            "activeYears": 11130,
+            "share": 0
+          },
+          "45-54": {
+            "fallbackYears": 0,
+            "activeYears": 11030,
+            "share": 0
+          },
+          "55-64": {
+            "fallbackYears": 2387,
+            "activeYears": 11030,
+            "share": 0.21640979147778786
+          },
+          "65+": {
+            "fallbackYears": 22156,
+            "activeYears": 42253,
+            "share": 0.5243651338366506
+          }
+        },
+        "meanFixAtCommitment": 27.10025706940874,
+        "meanFixAtEnding": 27.164721141374837,
+        "fallbackYears": 24543,
+        "fallbackUseRate": 0.19779502429825196,
+        "fallbackYearsAge25Plus": 24543,
+        "fallbackShareAge25Plus": 0.2820094451274862,
+        "pre25FallbackYears": 0,
+        "pre25CoverageDefectRate": 0,
+        "pre25CoverageDefectAges": {},
+        "pre25EmergencyReuseYears": 0,
+        "routeEntryRate": 0.9366666666666666,
+        "routeEntryCountsByRoute": {
+          "ROUTE_MED_SCREENED": 758,
+          "ROUTE_REL_INTEREST": 1046,
+          "ROUTE_MUS_INTEREST": 711,
+          "ROUTE_FAM_PLACEMENT": 899,
+          "ROUTE_MED_CONTROLLED_HARDENING": 413,
+          "ROUTE_MED_PRESERVATION_CONSULT": 534,
+          "ROUTE_MED_CONTROLLED_HARDENING_STAGE2": 413,
+          "ROUTE_CIV_SERVICE": 1021,
+          "ROUTE_ACA_RESEARCH": 682,
+          "ROUTE_TEMP_STUDY": 462,
+          "ROUTE_MUS_APPRAISED": 42,
+          "ROUTE_LEG_STATUS_CASE": 173,
+          "ROUTE_LEG_STATUS_RESOLVED": 173,
+          "ROUTE_FAM_LATE_LEGACY": 799,
+          "ROUTE_CAR_MATERIAL_EXPOSURE": 521,
+          "ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY": 504,
+          "ROUTE_CIV_MEMORIAL": 813,
+          "ROUTE_COR_EMPLOYEE": 432,
+          "ROUTE_FIN_VALUED": 594,
+          "ROUTE_FAM_DIRECTIVE": 519,
+          "ROUTE_ACA_SPECIALIZATION": 393,
+          "ROUTE_ACA_CONTINUITY": 186,
+          "ROUTE_ACA_CONTINUITY_EXPOSED": 185,
+          "ROUTE_CIV_REBRANDED": 718,
+          "ROUTE_MED_LATE_CONTINUITY": 504,
+          "ROUTE_ACA_POLICY": 207,
+          "ROUTE_ACA_POLICY_EXPOSED": 206,
+          "ROUTE_ACA_TENURE_TRACK": 161,
+          "ROUTE_ACA_TENURE_REVIEW": 161,
+          "ROUTE_FIN_SECURED_DEBT": 204,
+          "ROUTE_REL_CLAIM": 148,
+          "ROUTE_MED_DIRECTIVE": 272,
+          "ROUTE_ARC_STRUCTURAL": 44,
+          "ROUTE_MED_SYNTH_OPTION": 68,
+          "ROUTE_COR_PRESERVATION_PLAN": 122,
+          "ROUTE_COR_CONTRACT": 114,
+          "ROUTE_COR_LEGAL_REVIEW": 114,
+          "ROUTE_FIN_LEGAL_REVIEW": 50,
+          "ROUTE_MUS_MIXED_OPTION": 30
+        },
+        "routeClimaxRate": 0.514,
+        "routeClimaxCountsByEvent": {
+          "EVT-ORD-FAM-0011": 157,
+          "EVT-SPC-SECR-0009": 68,
+          "EVT-INS-MED-0012": 217,
+          "EVT-SPC-SECR-0007": 36,
+          "EVT-SPC-SECR-0010": 63,
+          "EVT-SPC-SECR-0008": 69,
+          "EVT-INS-MED-0003": 15,
+          "EVT-SPC-SECR-0012": 98,
+          "EVT-SPC-SECR-0011": 48
+        },
+        "routeAbandonmentRate": 0.7406666666666667,
+        "expiredScheduleCount": 4052,
+        "expiredSchedulesByEvent": {
+          "EVT-INS-MED-0003": 563,
+          "EVT-TRN-TEMP-0002": 458,
+          "EVT-INS-MUS-0003": 41,
+          "EVT-INS-CIV-0006": 806,
+          "EVT-ORD-FAM-0004": 512,
+          "EVT-ORD-FAM-0011": 587,
+          "EVT-INS-MED-0012": 235,
+          "EVT-INS-ACA-0005": 161,
+          "EVT-INS-FIN-0005": 202,
+          "EVT-SPC-SECR-0007": 26,
+          "EVT-INS-REL-0003": 148,
+          "EVT-INS-ARC-0002": 44,
+          "EVT-TRN-SYNT-0001": 38,
+          "EVT-INS-COR-0003": 110,
+          "EVT-INS-MUS-0005": 29,
+          "EVT-SPC-SECR-0010": 35,
+          "EVT-SPC-SECR-0012": 22,
+          "EVT-SPC-SECR-0011": 10,
+          "EVT-SPC-SECR-0009": 17,
+          "EVT-SPC-SECR-0008": 8
+        },
+        "priorityCollisionRate": 0.05333333333333334,
+        "priorityCollisionYears": 112,
+        "scheduleDisplacementCount": 112,
+        "scheduleDisplacementPerRun": 0.07466666666666667,
+        "finalMaterialDistribution": {
+          "METL": 120,
+          "WOOD": 52,
+          "NONE": 722,
+          "TEMP": 68,
+          "SYNT": 218,
+          "CERA": 47,
+          "GLAS": 45,
+          "STON": 146,
+          "CRYS": 52,
+          "MIXD": 30
+        },
+        "finalMaterialBySpecies": {
+          "HUMAN": {
+            "METL": 20,
+            "NONE": 125,
+            "CERA": 10,
+            "SYNT": 35,
+            "STON": 21,
+            "GLAS": 12,
+            "CRYS": 5,
+            "WOOD": 11,
+            "TEMP": 6,
+            "MIXD": 5
+          },
+          "ELF": {
+            "WOOD": 12,
+            "NONE": 109,
+            "SYNT": 43,
+            "CRYS": 11,
+            "STON": 28,
+            "MIXD": 4,
+            "GLAS": 5,
+            "TEMP": 10,
+            "CERA": 9,
+            "METL": 19
+          },
+          "DWARF": {
+            "NONE": 114,
+            "METL": 19,
+            "STON": 31,
+            "SYNT": 38,
+            "CRYS": 8,
+            "CERA": 7,
+            "TEMP": 16,
+            "WOOD": 6,
+            "MIXD": 7,
+            "GLAS": 4
+          },
+          "WINGED_KIN": {
+            "TEMP": 12,
+            "NONE": 125,
+            "SYNT": 37,
+            "MIXD": 6,
+            "METL": 22,
+            "WOOD": 8,
+            "STON": 27,
+            "CRYS": 7,
+            "GLAS": 4,
+            "CERA": 2
+          },
+          "DEMONKIN": {
+            "SYNT": 39,
+            "METL": 20,
+            "GLAS": 15,
+            "NONE": 123,
+            "CERA": 4,
+            "CRYS": 8,
+            "STON": 18,
+            "WOOD": 9,
+            "MIXD": 3,
+            "TEMP": 11
+          },
+          "DRAGONKIN": {
+            "NONE": 126,
+            "SYNT": 26,
+            "STON": 21,
+            "TEMP": 13,
+            "METL": 20,
+            "CRYS": 13,
+            "CERA": 15,
+            "MIXD": 5,
+            "WOOD": 6,
+            "GLAS": 5
+          }
+        },
+        "materialCommitmentRate": 0.5186666666666667,
+        "materialEntropyBitsOverall": 2.4906056144452107,
+        "materialEntropyBitsBySpecies": {
+          "HUMAN": 2.43799706999139,
+          "ELF": 2.5705459619586,
+          "DWARF": 2.5118876469973213,
+          "WINGED_KIN": 2.357211973674686,
+          "DEMONKIN": 2.4317902771807054,
+          "DRAGONKIN": 2.4715051711910636
+        },
+        "pFinalGivenHint": {
+          "WOOD": {
+            "hintRuns": 126,
+            "sameMaterial": 6,
+            "probability": 0.047619047619047616
+          },
+          "CRYS": {
+            "hintRuns": 111,
+            "sameMaterial": 4,
+            "probability": 0.036036036036036036
+          },
+          "STON": {
+            "hintRuns": 134,
+            "sameMaterial": 15,
+            "probability": 0.11194029850746269
+          },
+          "GLAS": {
+            "hintRuns": 111,
+            "sameMaterial": 8,
+            "probability": 0.07207207207207207
+          },
+          "METL": {
+            "hintRuns": 115,
+            "sameMaterial": 9,
+            "probability": 0.0782608695652174
+          }
+        },
+        "pFinalGivenFirstManifestation": {
+          "METL": {
+            "manifestationRuns": 199,
+            "sameMaterial": 23,
+            "probability": 0.11557788944723618
+          },
+          "WOOD": {
+            "manifestationRuns": 327,
+            "sameMaterial": 16,
+            "probability": 0.04892966360856269
+          },
+          "CERA": {
+            "manifestationRuns": 161,
+            "sameMaterial": 6,
+            "probability": 0.037267080745341616
+          },
+          "CRYS": {
+            "manifestationRuns": 210,
+            "sameMaterial": 13,
+            "probability": 0.06190476190476191
+          },
+          "STON": {
+            "manifestationRuns": 205,
+            "sameMaterial": 24,
+            "probability": 0.11707317073170732
+          },
+          "GLAS": {
+            "manifestationRuns": 197,
+            "sameMaterial": 3,
+            "probability": 0.015228426395939087
+          },
+          "TEMP": {
+            "manifestationRuns": 158,
+            "sameMaterial": 7,
+            "probability": 0.04430379746835443
+          }
+        },
+        "firstManifestationFamilyCounts": {
+          "METL": 199,
+          "WOOD": 327,
+          "CERA": 161,
+          "CRYS": 210,
+          "STON": 205,
+          "GLAS": 197,
+          "TEMP": 158
+        },
+        "firstManifestationFamilyShare": {
+          "METL": 0.13658201784488674,
+          "WOOD": 0.2244337680164722,
+          "CERA": 0.11050102951269733,
+          "CRYS": 0.1441317776252574,
+          "STON": 0.14070006863417983,
+          "GLAS": 0.13520933424845574,
+          "TEMP": 0.10844200411805079
+        },
+        "firstManifestationAgeByFamily": {
+          "METL": {
+            "mean": 18.889447236180903,
+            "median": 18,
+            "runs": 199
+          },
+          "WOOD": {
+            "mean": 15.663608562691131,
+            "median": 13,
+            "runs": 327
+          },
+          "CERA": {
+            "mean": 19.540372670807454,
+            "median": 19,
+            "runs": 161
+          },
+          "CRYS": {
+            "mean": 18.642857142857142,
+            "median": 18,
+            "runs": 210
+          },
+          "STON": {
+            "mean": 18.565853658536586,
+            "median": 18,
+            "runs": 205
+          },
+          "GLAS": {
+            "mean": 18.908629441624367,
+            "median": 18,
+            "runs": 197
+          },
+          "TEMP": {
+            "mean": 21.018987341772153,
+            "median": 20,
+            "runs": 158
+          }
+        },
+        "noManifestationRate": 0.028666666666666667,
+        "multipleManifestationBeforeCommitmentRate": 0.8833333333333333,
+        "averageHintAge": 9.458961474036851,
+        "averageFirstManifestationAge": 18.38984214138641,
+        "averageCommitmentAge": 33.37017994858612,
+        "talentActivationRate": {
+          "T1023": 0,
+          "T1013": 0,
+          "T1015": 0
+        },
+        "talentActivationAverageAge": {
+          "T1023": null,
+          "T1013": null,
+          "T1015": null
+        },
+        "endingDistribution": {
+          "END-FAM-002": 86,
+          "END-TMP-001": 68,
+          "END-MED-001": 301,
+          "END-ARC-001": 36,
+          "END-FIN-002": 63,
+          "END-REL-001": 98,
+          "END-FAM-001": 71,
+          "END-LEG-001": 48
+        },
+        "distinctEndingsObserved": 8,
+        "distinctEndingsInRegistry": 24,
+        "endingCoverageShare": 0.3333333333333333,
+        "hiddenEndingRate": 0,
+        "rareEndingRate": 0.21530479896238652,
+        "finalStatMeans": {
+          "CHR": 5.086,
+          "INT": 18.582666666666668,
+          "STR": 1.9806666666666666,
+          "MNY": 3.0286666666666666,
+          "SPR": 40.498666666666665,
+          "FIX": 26.47
+        },
+        "finalFixPercentiles": {
+          "p50": 27,
+          "p90": 45,
+          "p99": 51,
+          "max": 55
+        },
+        "guardrails": [
+          {
+            "id": "fallback-share",
+            "severity": "warning",
+            "message": "Age-25+ fallback share 28.2% exceeds the warning threshold 5.0% (target 2.0%)."
+          },
+          {
+            "id": "ending-age-share-18-24",
+            "severity": "warning",
+            "message": "Ending age band 18-24: observed 31.0% vs target 18-22%."
+          },
+          {
+            "id": "ending-age-share-25-34",
+            "severity": "warning",
+            "message": "Ending age band 25-34: observed 18.5% vs target 35-40%."
+          },
+          {
+            "id": "ending-age-share-35-44",
+            "severity": "warning",
+            "message": "Ending age band 35-44: observed 1.9% vs target 20-25%."
+          },
+          {
+            "id": "ending-age-share-45-54",
+            "severity": "warning",
+            "message": "Ending age band 45-54: observed 0.0% vs target 8-12%."
+          },
+          {
+            "id": "ending-age-share-55-64",
+            "severity": "warning",
+            "message": "Ending age band 55-64: observed 0.0% vs target 4-7%."
+          },
+          {
+            "id": "ending-age-share-65+",
+            "severity": "warning",
+            "message": "Ending age band 65+: observed 48.5% vs target 2-5%."
+          },
+          {
+            "id": "nonterminal-rate",
+            "severity": "warning",
+            "message": "729/1500 runs (48.6%) reached the diagnostic maximum age without an ending."
+          }
+        ]
+      },
+      "spc": {
+        "completedRuns": 771,
+        "noncompletedRuns": 729,
+        "spcEventsInCompleted": 1339,
+        "spcEventsInNoncompleted": 814,
+        "spcPerCompletedRun": 1.7367055771725033,
+        "spcPerNoncompletedRun": 1.1165980795610426,
+        "runsWithAnySpc": 1496,
+        "anySpcRate": 0.9973333333333333
+      },
+      "factionSeeds": {
+        "anyContactRuns": 484,
+        "anyContactRate": 0.32266666666666666,
+        "meanFirstContactAge": 19.981404958677686,
+        "byFaction": {
+          "DMMS": 68,
+          "Everlasting Mutual": 104,
+          "Meridian": 81,
+          "CRI": 99,
+          "Black Ledger": 63,
+          "Last Posture": 130
+        },
+        "meanFirstContactAgeByFaction": {
+          "DMMS": 17.705882352941178,
+          "Everlasting Mutual": 20.951923076923077,
+          "Meridian": 19.617283950617285,
+          "CRI": 20.858585858585858,
+          "Black Ledger": 22.714285714285715,
+          "Last Posture": 19.26153846153846
+        }
+      }
+    }
+  ],
+  "neutralHuman": {
+    "runs": 2000,
+    "species": "HUMAN",
+    "allocationPolicy": "BALANCED_RANDOM_FILL",
+    "metrics": {
+      "runs": 2000,
+      "completed": 1164,
+      "nonterminal": 836,
+      "coverageErrors": 0,
+      "completedRate": 0.582,
+      "nonterminalRate": 0.418,
+      "coverageErrorRate": 0,
+      "averageRunLengthYears": 76.234,
+      "averageEndingAge": 43.08247422680412,
+      "medianEndingAge": 28,
+      "endingAgeP10": 21,
+      "endingAgeP90": 68,
+      "endingAgeHistogram": {
+        "18-24": 407,
+        "65+": 500,
+        "25-34": 226,
+        "55-64": 1,
+        "35-44": 24,
+        "45-54": 6
+      },
+      "endingAgeShareByTargetBucket": [
+        {
+          "band": "18-24",
+          "observedShare": 0.34965635738831613,
+          "targetMin": 0.18,
+          "targetMax": 0.22,
+          "withinTarget": false
+        },
+        {
+          "band": "25-34",
+          "observedShare": 0.19415807560137457,
+          "targetMin": 0.35,
+          "targetMax": 0.4,
+          "withinTarget": false
+        },
+        {
+          "band": "35-44",
+          "observedShare": 0.020618556701030927,
+          "targetMin": 0.2,
+          "targetMax": 0.25,
+          "withinTarget": false
+        },
+        {
+          "band": "45-54",
+          "observedShare": 0.005154639175257732,
+          "targetMin": 0.08,
+          "targetMax": 0.12,
+          "withinTarget": false
+        },
+        {
+          "band": "55-64",
+          "observedShare": 0.000859106529209622,
+          "targetMin": 0.04,
+          "targetMax": 0.07,
+          "withinTarget": false
+        },
+        {
+          "band": "65+",
+          "observedShare": 0.42955326460481097,
+          "targetMin": 0.02,
+          "targetMax": 0.05,
+          "withinTarget": false
+        }
+      ],
+      "channelCountsByAgeBand": {
+        "0-5": {
+          "ORD": 11014,
+          "INS": 986,
+          "TRN": 0,
+          "SPC": 0
+        },
+        "6-11": {
+          "ORD": 10033,
+          "INS": 1967,
+          "TRN": 0,
+          "SPC": 0
+        },
+        "12-17": {
+          "ORD": 8611,
+          "INS": 2123,
+          "TRN": 1181,
+          "SPC": 85
+        },
+        "18-24": {
+          "ORD": 6906,
+          "INS": 2935,
+          "TRN": 2117,
+          "SPC": 1172
+        },
+        "25-34": {
+          "ORD": 6508,
+          "INS": 3804,
+          "TRN": 3788,
+          "SPC": 225
+        },
+        "35-44": {
+          "ORD": 7294,
+          "INS": 5326,
+          "TRN": 944,
+          "SPC": 0
+        },
+        "45-54": {
+          "ORD": 10241,
+          "INS": 3106,
+          "TRN": 37,
+          "SPC": 0
+        },
+        "55-64": {
+          "ORD": 11709,
+          "INS": 1646,
+          "TRN": 6,
+          "SPC": 0
+        },
+        "65+": {
+          "ORD": 46609,
+          "INS": 2095,
+          "TRN": 0,
+          "SPC": 0
+        }
+      },
+      "familyCountsByAgeBand": {
+        "0-5": {
+          "ORD/FAM": 4154,
+          "ORD/HEA": 1391,
+          "ORD/GEN": 2155,
+          "ORD/SOC": 1533,
+          "ORD/HOU": 1781,
+          "INS/CIV": 986
+        },
+        "6-11": {
+          "ORD/SOC": 3193,
+          "ORD/EDU": 6840,
+          "INS/EDU": 1967
+        },
+        "12-17": {
+          "ORD/EDU": 5679,
+          "ORD/SOC": 2932,
+          "INS/EDU": 1314,
+          "INS/FIN": 809,
+          "TRN/WOOD": 367,
+          "SPC/SECR": 85,
+          "TRN/CRYS": 140,
+          "TRN/CERA": 145,
+          "TRN/TEMP": 117,
+          "TRN/METL": 141,
+          "TRN/STON": 137,
+          "TRN/GLAS": 134
+        },
+        "18-24": {
+          "TRN/METL": 336,
+          "INS/REL": 1110,
+          "TRN/TEMP": 234,
+          "ORD/HOU": 1067,
+          "SPC/SECR": 1172,
+          "TRN/STON": 326,
+          "ORD/EDU": 261,
+          "ORD/SOC": 1098,
+          "INS/ACA": 709,
+          "ORD/CAR": 1725,
+          "ORD/HEA": 1022,
+          "ORD/FAM": 411,
+          "INS/MED": 604,
+          "ORD/CIV": 1238,
+          "TRN/WOOD": 326,
+          "TRN/CERA": 300,
+          "INS/MUS": 304,
+          "TRN/GLAS": 312,
+          "TRN/CRYS": 283,
+          "INS/COR": 108,
+          "INS/FIN": 84,
+          "ORD/FIN": 84,
+          "INS/LEG": 13,
+          "INS/CIV": 3
+        },
+        "25-34": {
+          "ORD/SOC": 1091,
+          "TRN/TEMP": 566,
+          "TRN/CRYS": 534,
+          "TRN/WOOD": 562,
+          "ORD/FAM": 606,
+          "TRN/CERA": 542,
+          "ORD/HEA": 817,
+          "ORD/CAR": 2012,
+          "TRN/GLAS": 528,
+          "INS/LEG": 245,
+          "ORD/CIV": 794,
+          "INS/MUS": 442,
+          "TRN/STON": 537,
+          "INS/FIN": 620,
+          "ORD/HOU": 942,
+          "INS/REL": 230,
+          "INS/CIV": 260,
+          "TRN/METL": 513,
+          "INS/ACA": 1088,
+          "INS/MED": 669,
+          "SPC/SECR": 225,
+          "INS/COR": 245,
+          "ORD/FIN": 246,
+          "TRN/SYNT": 6,
+          "INS/ARC": 5
+        },
+        "35-44": {
+          "TRN/CERA": 59,
+          "INS/MUS": 270,
+          "INS/REL": 188,
+          "ORD/CIV": 223,
+          "ORD/HOU": 1044,
+          "ORD/SOC": 2219,
+          "ORD/GEN": 1366,
+          "ORD/FAM": 1402,
+          "INS/FIN": 372,
+          "ORD/CAR": 705,
+          "INS/ACA": 1365,
+          "INS/CIV": 642,
+          "ORD/FIN": 335,
+          "TRN/TEMP": 573,
+          "INS/MED": 1652,
+          "INS/LEG": 536,
+          "TRN/GLAS": 59,
+          "INS/COR": 251,
+          "TRN/CRYS": 48,
+          "TRN/STON": 60,
+          "INS/ARC": 50,
+          "TRN/WOOD": 59,
+          "TRN/METL": 51,
+          "TRN/SYNT": 26,
+          "TRN/MIXD": 9
+        },
+        "45-54": {
+          "ORD/HEA": 1973,
+          "ORD/FAM": 3223,
+          "ORD/SOC": 1848,
+          "INS/CIV": 836,
+          "INS/REL": 108,
+          "ORD/CAR": 2124,
+          "ORD/GEN": 1073,
+          "INS/COR": 131,
+          "INS/FIN": 1043,
+          "INS/LEG": 359,
+          "INS/MED": 415,
+          "INS/ACA": 141,
+          "INS/MUS": 37,
+          "TRN/MIXD": 36,
+          "INS/ARC": 36,
+          "TRN/TEMP": 1
+        },
+        "55-64": {
+          "INS/CIV": 1335,
+          "ORD/CAR": 2288,
+          "ORD/FAM": 2573,
+          "INS/FIN": 294,
+          "ORD/HEA": 1831,
+          "ORD/SOC": 2181,
+          "ORD/GEN": 2836,
+          "INS/MUS": 1,
+          "TRN/MIXD": 6,
+          "INS/MED": 10,
+          "INS/LEG": 6
+        },
+        "65+": {
+          "ORD/FAM": 1407,
+          "INS/CIV": 1140,
+          "ORD/SOC": 9479,
+          "ORD/GEN": 35723,
+          "INS/MED": 955
+        }
+      },
+      "totalEventYears": 152468,
+      "spcEventYears": 1482,
+      "spcShare": 0.009720072408636567,
+      "mandatoryEventYears": 1169,
+      "mandatoryUsageRate": 0.2925,
+      "endingShare65Plus": 0.42955326460481097,
+      "factionContactRate": {
+        "DMMS": 0.045,
+        "Everlasting Mutual": 0.082,
+        "Meridian": 0.064,
+        "CRI": 0.0785,
+        "Black Ledger": 0.0615,
+        "Last Posture": 0.094
+      },
+      "factionClimaxRate": {
+        "DMMS": 0.027,
+        "Everlasting Mutual": 0.0615,
+        "Meridian": 0.0605,
+        "CRI": 0.0575,
+        "Black Ledger": 0.035,
+        "Last Posture": 0.0745
+      },
+      "endingCountsByFaction": {
+        "CRI": 115,
+        "Last Posture": 149,
+        "Meridian": 121,
+        "Everlasting Mutual": 123,
+        "DMMS": 54,
+        "Black Ledger": 70
+      },
+      "endingCountsByRouteFamily": {
+        "faction:CRI": 115,
+        "ORD/FAM": 215,
+        "INS/MED": 313,
+        "faction:Last Posture": 149,
+        "faction:Meridian": 121,
+        "faction:Everlasting Mutual": 123,
+        "INS/MUS": 1,
+        "faction:DMMS": 54,
+        "faction:Black Ledger": 70,
+        "TRN/TEMP": 3
+      },
+      "endingAgeByRouteFamily": {
+        "faction:CRI": {
+          "mean": 25.643478260869564,
+          "median": 25,
+          "runs": 115
+        },
+        "ORD/FAM": {
+          "mean": 67.46511627906976,
+          "median": 67,
+          "runs": 215
+        },
+        "INS/MED": {
+          "mean": 65.55591054313099,
+          "median": 68,
+          "runs": 313
+        },
+        "faction:Last Posture": {
+          "mean": 24.107382550335572,
+          "median": 24,
+          "runs": 149
+        },
+        "faction:Meridian": {
+          "mean": 21.024793388429753,
+          "median": 21,
+          "runs": 121
+        },
+        "faction:Everlasting Mutual": {
+          "mean": 22.32520325203252,
+          "median": 22,
+          "runs": 123
+        },
+        "INS/MUS": {
+          "mean": 55,
+          "median": 55,
+          "runs": 1
+        },
+        "faction:DMMS": {
+          "mean": 23.537037037037038,
+          "median": 23,
+          "runs": 54
+        },
+        "faction:Black Ledger": {
+          "mean": 26.3,
+          "median": 26,
+          "runs": 70
+        },
+        "TRN/TEMP": {
+          "mean": 42,
+          "median": 44,
+          "runs": 3
+        }
+      },
+      "scheduleExpiryByRouteFamily": {
+        "ORD/FAM": 1315,
+        "INS/MUS": 116,
+        "INS/REL": 199,
+        "INS/CIV": 909,
+        "faction:DMMS": 20,
+        "INS/FIN": 235,
+        "INS/MED": 1115,
+        "TRN/TEMP": 503,
+        "INS/COR": 170,
+        "INS/ACA": 210,
+        "faction:Everlasting Mutual": 30,
+        "faction:Black Ledger": 40,
+        "INS/ARC": 83,
+        "faction:CRI": 20,
+        "TRN/SYNT": 39,
+        "faction:Meridian": 5,
+        "faction:Last Posture": 18
+      },
+      "mandatoryIncidenceByRouteFamily": {
+        "INS/MED": 585
+      },
+      "fallbackShareByAgeBandActive": {
+        "0-5": {
+          "fallbackYears": 0,
+          "activeYears": 12000,
+          "share": 0
+        },
+        "6-11": {
+          "fallbackYears": 0,
+          "activeYears": 12000,
+          "share": 0
+        },
+        "12-17": {
+          "fallbackYears": 0,
+          "activeYears": 12000,
+          "share": 0
+        },
+        "18-24": {
+          "fallbackYears": 0,
+          "activeYears": 13130,
+          "share": 0
+        },
+        "25-34": {
+          "fallbackYears": 0,
+          "activeYears": 14325,
+          "share": 0
+        },
+        "35-44": {
+          "fallbackYears": 0,
+          "activeYears": 13564,
+          "share": 0
+        },
+        "45-54": {
+          "fallbackYears": 0,
+          "activeYears": 13384,
+          "share": 0
+        },
+        "55-64": {
+          "fallbackYears": 2836,
+          "activeYears": 13361,
+          "share": 0.2122595614100741
+        },
+        "65+": {
+          "fallbackYears": 25166,
+          "activeYears": 48704,
+          "share": 0.5167132063074902
+        }
+      },
+      "meanFixAtCommitment": 25.00596252129472,
+      "meanFixAtEnding": 25.121134020618555,
+      "fallbackYears": 28002,
+      "fallbackUseRate": 0.18365821024739618,
+      "fallbackYearsAge25Plus": 28002,
+      "fallbackShareAge25Plus": 0.2709748591999071,
+      "pre25FallbackYears": 0,
+      "pre25CoverageDefectRate": 0,
+      "pre25CoverageDefectAges": {},
+      "pre25EmergencyReuseYears": 0,
+      "routeEntryRate": 0.915,
+      "routeEntryCountsByRoute": {
+        "ROUTE_REL_INTEREST": 1407,
+        "ROUTE_ACA_RESEARCH": 1022,
+        "ROUTE_CAR_MATERIAL_EXPOSURE": 679,
+        "ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY": 655,
+        "ROUTE_FAM_PLACEMENT": 1147,
+        "ROUTE_FAM_DIRECTIVE": 643,
+        "ROUTE_MUS_INTEREST": 933,
+        "ROUTE_MUS_APPRAISED": 69,
+        "ROUTE_CIV_SERVICE": 1160,
+        "ROUTE_CIV_MEMORIAL": 913,
+        "ROUTE_REL_CLAIM": 201,
+        "ROUTE_FAM_LATE_LEGACY": 981,
+        "ROUTE_COR_EMPLOYEE": 601,
+        "ROUTE_FIN_VALUED": 765,
+        "ROUTE_MED_SCREENED": 1053,
+        "ROUTE_FIN_SECURED_DEBT": 237,
+        "ROUTE_CIV_REBRANDED": 810,
+        "ROUTE_ACA_SPECIALIZATION": 606,
+        "ROUTE_ACA_MATERIALS": 333,
+        "ROUTE_ACA_MATERIALS_EXPOSED": 327,
+        "ROUTE_MED_CONTROLLED_HARDENING": 585,
+        "ROUTE_MED_PRESERVATION_CONSULT": 753,
+        "ROUTE_MED_CONTROLLED_HARDENING_STAGE2": 585,
+        "ROUTE_MED_LATE_CONTINUITY": 670,
+        "ROUTE_LEG_STATUS_CASE": 232,
+        "ROUTE_LEG_STATUS_RESOLVED": 232,
+        "ROUTE_MED_DIRECTIVE": 347,
+        "ROUTE_TEMP_STUDY": 510,
+        "ROUTE_COR_PRESERVATION_PLAN": 179,
+        "ROUTE_COR_CONTRACT": 174,
+        "ROUTE_ACA_CONTINUITY": 272,
+        "ROUTE_ACA_CONTINUITY_EXPOSED": 272,
+        "ROUTE_ACA_TENURE_TRACK": 210,
+        "ROUTE_ACA_TENURE_REVIEW": 210,
+        "ROUTE_MUS_MIXED_OPTION": 51,
+        "ROUTE_ARC_STRUCTURAL": 83,
+        "ROUTE_MED_SYNTH_OPTION": 71,
+        "ROUTE_ACA_POLICY": 1,
+        "ROUTE_ACA_POLICY_EXPOSED": 1
+      },
+      "routeClimaxRate": 0.582,
+      "routeClimaxCountsByEvent": {
+        "EVT-SPC-SECR-0009": 115,
+        "EVT-ORD-FAM-0011": 215,
+        "EVT-INS-MED-0012": 285,
+        "EVT-SPC-SECR-0012": 149,
+        "EVT-SPC-SECR-0008": 121,
+        "EVT-SPC-SECR-0010": 123,
+        "EVT-INS-MUS-0005": 1,
+        "EVT-SPC-SECR-0007": 54,
+        "EVT-SPC-SECR-0011": 70,
+        "EVT-INS-MED-0003": 28,
+        "EVT-TRN-TEMP-0002": 3
+      },
+      "routeAbandonmentRate": 0.6695,
+      "expiredScheduleCount": 5027,
+      "expiredSchedulesByEvent": {
+        "EVT-ORD-FAM-0004": 638,
+        "EVT-INS-MUS-0003": 68,
+        "EVT-INS-REL-0003": 199,
+        "EVT-INS-CIV-0006": 909,
+        "EVT-SPC-SECR-0007": 20,
+        "EVT-ORD-FAM-0011": 677,
+        "EVT-INS-FIN-0005": 235,
+        "EVT-INS-MED-0003": 789,
+        "EVT-TRN-TEMP-0002": 503,
+        "EVT-INS-MED-0012": 326,
+        "EVT-INS-COR-0003": 170,
+        "EVT-INS-ACA-0005": 210,
+        "EVT-SPC-SECR-0010": 30,
+        "EVT-SPC-SECR-0011": 40,
+        "EVT-INS-ARC-0002": 83,
+        "EVT-SPC-SECR-0009": 20,
+        "EVT-TRN-SYNT-0001": 39,
+        "EVT-SPC-SECR-0008": 5,
+        "EVT-INS-MUS-0005": 48,
+        "EVT-SPC-SECR-0012": 18
+      },
+      "priorityCollisionRate": 0.0625,
+      "priorityCollisionYears": 177,
+      "scheduleDisplacementCount": 177,
+      "scheduleDisplacementPerRun": 0.0885,
+      "finalMaterialDistribution": {
+        "TEMP": 118,
+        "CERA": 60,
+        "NONE": 826,
+        "SYNT": 350,
+        "GLAS": 68,
+        "STON": 223,
+        "WOOD": 68,
+        "CRYS": 55,
+        "MIXD": 51,
+        "METL": 181
+      },
+      "finalMaterialBySpecies": {
+        "HUMAN": {
+          "TEMP": 118,
+          "CERA": 60,
+          "NONE": 826,
+          "SYNT": 350,
+          "GLAS": 68,
+          "STON": 223,
+          "WOOD": 68,
+          "CRYS": 55,
+          "MIXD": 51,
+          "METL": 181
+        },
+        "ELF": {},
+        "DWARF": {},
+        "WINGED_KIN": {},
+        "DEMONKIN": {},
+        "DRAGONKIN": {}
+      },
+      "materialCommitmentRate": 0.587,
+      "materialEntropyBitsOverall": 2.635452416945226,
+      "materialEntropyBitsBySpecies": {
+        "HUMAN": 2.635452416945226,
+        "ELF": 0,
+        "DWARF": 0,
+        "WINGED_KIN": 0,
+        "DEMONKIN": 0,
+        "DRAGONKIN": 0
+      },
+      "pFinalGivenHint": {},
+      "pFinalGivenFirstManifestation": {
+        "METL": {
+          "manifestationRuns": 248,
+          "sameMaterial": 34,
+          "probability": 0.13709677419354838
+        },
+        "STON": {
+          "manifestationRuns": 245,
+          "sameMaterial": 31,
+          "probability": 0.12653061224489795
+        },
+        "WOOD": {
+          "manifestationRuns": 502,
+          "sameMaterial": 32,
+          "probability": 0.06374501992031872
+        },
+        "GLAS": {
+          "manifestationRuns": 223,
+          "sameMaterial": 11,
+          "probability": 0.04932735426008968
+        },
+        "CRYS": {
+          "manifestationRuns": 235,
+          "sameMaterial": 9,
+          "probability": 0.03829787234042553
+        },
+        "CERA": {
+          "manifestationRuns": 251,
+          "sameMaterial": 13,
+          "probability": 0.05179282868525897
+        },
+        "TEMP": {
+          "manifestationRuns": 188,
+          "sameMaterial": 10,
+          "probability": 0.05319148936170213
+        }
+      },
+      "firstManifestationFamilyCounts": {
+        "METL": 248,
+        "STON": 245,
+        "WOOD": 502,
+        "GLAS": 223,
+        "CRYS": 235,
+        "CERA": 251,
+        "TEMP": 188
+      },
+      "firstManifestationFamilyShare": {
+        "METL": 0.13107822410147993,
+        "STON": 0.12949260042283298,
+        "WOOD": 0.2653276955602537,
+        "GLAS": 0.1178646934460888,
+        "CRYS": 0.12420718816067654,
+        "CERA": 0.13266384778012685,
+        "TEMP": 0.09936575052854123
+      },
+      "firstManifestationAgeByFamily": {
+        "METL": {
+          "mean": 18.758064516129032,
+          "median": 18,
+          "runs": 248
+        },
+        "STON": {
+          "mean": 18.97142857142857,
+          "median": 18,
+          "runs": 245
+        },
+        "WOOD": {
+          "mean": 15.549800796812749,
+          "median": 13,
+          "runs": 502
+        },
+        "GLAS": {
+          "mean": 18.771300448430495,
+          "median": 18,
+          "runs": 223
+        },
+        "CRYS": {
+          "mean": 18.66808510638298,
+          "median": 18,
+          "runs": 235
+        },
+        "CERA": {
+          "mean": 18.788844621513945,
+          "median": 18,
+          "runs": 251
+        },
+        "TEMP": {
+          "mean": 20.5531914893617,
+          "median": 20,
+          "runs": 188
+        }
+      },
+      "noManifestationRate": 0.054,
+      "multipleManifestationBeforeCommitmentRate": 0.864,
+      "averageHintAge": null,
+      "averageFirstManifestationAge": 18.107293868921776,
+      "averageCommitmentAge": 32.158432708688245,
+      "talentActivationRate": {},
+      "talentActivationAverageAge": {},
+      "endingDistribution": {
+        "END-TMP-001": 118,
+        "END-FAM-002": 124,
+        "END-MED-001": 434,
+        "END-REL-001": 149,
+        "END-FIN-002": 123,
+        "END-FAM-001": 91,
+        "END-MUS-004": 1,
+        "END-ARC-001": 54,
+        "END-FIN-001": 70
+      },
+      "distinctEndingsObserved": 9,
+      "distinctEndingsInRegistry": 24,
+      "endingCoverageShare": 0.375,
+      "hiddenEndingRate": 0,
+      "rareEndingRate": 0.23024054982817868,
+      "finalStatMeans": {
+        "CHR": 7.0165,
+        "INT": 18.0285,
+        "STR": 2.827,
+        "MNY": 2.5295,
+        "SPR": 37.494,
+        "FIX": 25.8435
+      },
+      "finalFixPercentiles": {
+        "p50": 26,
+        "p90": 45,
+        "p99": 51,
+        "max": 60
+      },
+      "guardrails": [
+        {
+          "id": "fallback-share",
+          "severity": "warning",
+          "message": "Age-25+ fallback share 27.1% exceeds the warning threshold 5.0% (target 2.0%)."
+        },
+        {
+          "id": "ending-age-share-18-24",
+          "severity": "warning",
+          "message": "Ending age band 18-24: observed 35.0% vs target 18-22%."
+        },
+        {
+          "id": "ending-age-share-25-34",
+          "severity": "warning",
+          "message": "Ending age band 25-34: observed 19.4% vs target 35-40%."
+        },
+        {
+          "id": "ending-age-share-35-44",
+          "severity": "warning",
+          "message": "Ending age band 35-44: observed 2.1% vs target 20-25%."
+        },
+        {
+          "id": "ending-age-share-45-54",
+          "severity": "warning",
+          "message": "Ending age band 45-54: observed 0.5% vs target 8-12%."
+        },
+        {
+          "id": "ending-age-share-55-64",
+          "severity": "warning",
+          "message": "Ending age band 55-64: observed 0.1% vs target 4-7%."
+        },
+        {
+          "id": "ending-age-share-65+",
+          "severity": "warning",
+          "message": "Ending age band 65+: observed 43.0% vs target 2-5%."
+        },
+        {
+          "id": "nonterminal-rate",
+          "severity": "warning",
+          "message": "836/2000 runs (41.8%) reached the diagnostic maximum age without an ending."
+        }
+      ]
+    },
+    "probe": {
+      "ages": [
+        18,
+        19,
+        20
+      ],
+      "observations": 5941,
+      "observationsByAge": {
+        "18": 2000,
+        "19": 1990,
+        "20": 1951
+      },
+      "unpromptedByFamily": {
+        "METL": 148,
+        "TEMP": 47,
+        "STON": 146,
+        "GLAS": 140,
+        "CERA": 146,
+        "CRYS": 125,
+        "WOOD": 131
+      },
+      "unpromptedProbabilityByFamily": {
+        "METL": 0.024911631038545698,
+        "TEMP": 0.007911126073051675,
+        "STON": 0.02457498737586265,
+        "GLAS": 0.0235650563878135,
+        "CERA": 0.02457498737586265,
+        "CRYS": 0.021040228917690626,
+        "WOOD": 0.022050159905739775
+      },
+      "unpromptedTotal": 883,
+      "unpromptedProbability": 0.14862817707456658,
+      "promptedTotal": 105,
+      "eligibleFamiliesByAge": {
+        "18": {
+          "mean": 13.7305,
+          "min": 13,
+          "max": 14,
+          "samples": 2000
+        },
+        "19": {
+          "mean": 12.892964824120604,
+          "min": 12,
+          "max": 14,
+          "samples": 1990
+        },
+        "20": {
+          "mean": 14.770886724756535,
+          "min": 13,
+          "max": 17,
+          "samples": 1951
+        }
+      },
+      "eligibleFamiliesByAgeChannel": {
+        "18": {
+          "ORD": 5.7305,
+          "INS": 1,
+          "TRN": 6,
+          "SPC": 1
+        },
+        "19": {
+          "ORD": 5.3,
+          "INS": 0.7628140703517587,
+          "TRN": 5.830150753768844,
+          "SPC": 1
+        },
+        "20": {
+          "ORD": 4.433111225012814,
+          "INS": 2.6940030753459765,
+          "TRN": 6.643772424397745,
+          "SPC": 1
+        }
+      },
+      "familyEligibilityCounts": {
+        "ORD/EDU": 2769,
+        "ORD/CAR": 5941,
+        "TRN/WOOD": 5750,
+        "TRN/CRYS": 5804,
+        "ORD/HOU": 5430,
+        "TRN/STON": 5768,
+        "TRN/METL": 5771,
+        "TRN/GLAS": 5757,
+        "ORD/CIV": 5741,
+        "INS/REL": 4669,
+        "ORD/HEA": 5386,
+        "ORD/SOC": 5390,
+        "TRN/CERA": 5763,
+        "SPC/SECR": 5941,
+        "INS/MED": 1951,
+        "INS/ACA": 1903,
+        "TRN/TEMP": 1951,
+        "INS/COR": 251
+      },
+      "eligibleEventsByAge": {
+        "18": 19.609,
+        "19": 18.578391959798996,
+        "20": 22.1009738595592
+      }
+    }
+  },
+  "requiredBaselineMetrics": [
+    "completion/nonterminal rate",
+    "ending age buckets",
+    "median ending age",
+    "ending route/faction breakdown",
+    "faction contact rate by faction",
+    "faction climax rate by faction",
+    "FIX distribution and mean FIX at commitment/ending",
+    "commitment rate and age",
+    "SPC share",
+    "fallback share by age band conditional on still active",
+    "schedule expiry by route/faction",
+    "mandatory-route incidence by route family",
+    "distinct ending coverage"
+  ],
+  "explicitlySkippedThisPatch": [
+    "LOW/MID/HIGH threshold sweep",
+    "family-weight A/B",
+    "allocation-policy three-way comparison",
+    "T1027 sensitivity sweep"
+  ],
+  "retentionPolicy": {
+    "notDropped": true,
+    "rerunWhen": [
+      "a future patch materially changes global FIX thresholds or FIX budget",
+      "family drafting rules or content density change substantially",
+      "talent/allocation behavior changes",
+      "T1027 or anomalous route balance is being frozen",
+      "a large pre-H2 or balance-freeze regression pass is run"
+    ]
+  },
+  "stopCondition": "After tests and these compact diagnostics, stop for design review. Do not open H2 or tune creative content automatically."
+}

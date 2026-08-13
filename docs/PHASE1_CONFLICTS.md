@@ -19,6 +19,60 @@
 > This document is retained as the Phase-1 record. New conflicts are recorded in
 > `PHASE1_1_FINDINGS.md`.
 
+> ### Phase 1.2 status (2026-08-13)
+>
+> | Conflict | Status after Phase 1.2 patch |
+> |---|---|
+> | C-6 endings unreachable | Still closed as stated; the replacement ending-age problem is now tracked as **Q-27** with fresh measurements in [`PHASE1_2_FINDINGS.md`](PHASE1_2_FINDINGS.md) §1 |
+> | C-7 SPC near-unreachable | **CLOSED** — six `SPC/SECR` faction seeds make SPC reachable in 53.4% of runs with no anomalous talent |
+> | C-7 `AEVT` / `ACH` / `TMS` unused | Still open; no Phase 1.2 content references them |
+>
+> One **new** conflict was found while integrating the Phase 1.2 patch: **P12-C1**
+> below. It is a content-integrity conflict, not a schema conflict.
+
+---
+
+## P12-C1 — Batch 006 re-used an event ID already published in Batch 005
+
+**Files.** `SOLID_STATE_EVENT_BATCH_006_v0.1.json` vs
+`SOLID_STATE_EVENT_BATCH_005_v0.2.json`.
+
+**Conflict.** Batch 006 shipped a new event with `id: "EVT-INS-ACA-0011"`. That
+ID was already **published** in Batch 005, where the existing event also
+self-references it in its own `exclude` string. Event IDs are the corpus's
+primary key: the loader's cross-batch duplicate check refused to load the corpus
+at all, so no simulation could run until this was resolved.
+
+The patch's own `PHASE1_2_PATCH_VALIDATION_REPORT.md` states *"Duplicate Batch
+006 IDs: 0"*, which is accurate — the check was performed **within** Batch 006
+only, and so could not see the collision with an earlier batch.
+
+**What the engine does.** `src/engine/content/load.ts` validates event IDs across
+the whole corpus and raises `ContentValidationError: duplicate event id
+EVT-INS-ACA-0011`. It does not silently take the last definition or merge them.
+
+**Resolution applied — the smallest possible, and reported rather than assumed.**
+The **published** Batch 005 event keeps `EVT-INS-ACA-0011`; published IDs are
+immutable, and renumbering it would have invalidated its own `exclude`
+self-reference. The **new, unpublished** Batch 006 event was renumbered to the
+next free ID in its family, `EVT-INS-ACA-0012`. The diff is exactly two lines:
+
+```diff
+-      "id": "EVT-INS-ACA-0011",
++      "id": "EVT-INS-ACA-0012",
+```
+
+No prose, condition, effect, flag, schedule or designer note was touched, and no
+other event in the corpus references the ID, so the change is fully isolated. The
+renumbering is asserted in `tests/phase1_2-acceptance.test.ts` ("renumbered only
+the colliding new event, leaving the published one intact") and recorded in
+`docs/ENGINE_CHANGES.md`.
+
+**For design.** If `EVT-INS-ACA-0012` is not the intended ID, say so and it will
+be changed — but the published Batch 005 ID should not move. It would also be
+worth extending the patch-side validation to check new IDs against the whole
+published corpus rather than within the new batch only.
+
 
 Filed under the conflict protocol in `SOLID_STATE_CODING_AGENT_HANDOFF_v0.1.md` §6
 and the return-to-design triggers in `SOLID_STATE_AGENTS_v0.2.md`.

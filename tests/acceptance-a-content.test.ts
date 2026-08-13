@@ -23,8 +23,8 @@ describe('A. Content loading', () => {
   const content = loadDefaultContent();
 
   it('loads all current event JSON batches', () => {
-    expect(content.batches.length).toBe(5);
-    expect(content.events.length).toBe(138);
+    expect(content.batches.length).toBe(6);
+    expect(content.events.length).toBe(156);
     const ids = content.batches.map((b) => b.batchId).sort();
     expect(ids).toEqual([
       'EVENT_BATCH_001',
@@ -32,11 +32,14 @@ describe('A. Content loading', () => {
       'EVENT_BATCH_003',
       'EVENT_BATCH_004',
       'EVENT_BATCH_005',
+      'EVENT_BATCH_006',
     ]);
   });
 
-  it('loads the Phase 1.1 registries', () => {
-    expect(content.routeTags.size).toBe(31);
+  it('loads the Phase 1.1 / 1.2 registries', () => {
+    // 31 Phase-1.1 tags + 6 Phase-1.2 faction tags.
+    expect(content.routeTags.size).toBe(37);
+    expect(content.factions.size).toBe(6);
     expect(content.refinementTags.size).toBeGreaterThan(0);
     expect(content.balance.version).toBe('0.2');
     // Q-26: no passive FIX drift is authorized.
@@ -198,7 +201,7 @@ describe('A. Content loading', () => {
   it('keeps generated Markdown byte-for-byte identical to a fresh render', () => {
     const dir = path.join(CONTENT_ROOT, 'events');
     const batches = readdirSync(dir).filter((n) => n.endsWith('.json')).sort();
-    expect(batches.length).toBe(5);
+    expect(batches.length).toBe(6);
     for (const name of batches) {
       const json = JSON.parse(readFileSync(path.join(dir, name), 'utf8')) as RawBatch;
       const expected = readFileSync(path.join(dir, name.replace(/\.json$/, '.md')), 'utf8');

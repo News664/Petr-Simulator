@@ -15,7 +15,8 @@
     "mirror:check": "tsx src/cli/mirror.ts check",
     "simulate": "tsx src/cli/simulate.ts",
     "verify": "npm run typecheck && npm run validate && npm run mirror:check && npm run test",
-    "experiment": "tsx src/cli/experiment.ts"
+    "experiment": "tsx src/cli/experiment.ts",
+    "diagnostic": "tsx src/cli/phase1_2.ts"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

@@ -66,6 +66,13 @@ export interface SimulationOptions {
   strictCoverage?: boolean;
   /** Optional per-year observer for tests and tracing. */
   onYear?: (occurrence: EventOccurrence, state: RunState) => void;
+  /**
+   * Optional observer for the draft-time state, called before the year's event
+   * is selected. Diagnostics that need pre-event state (eligibility snapshots,
+   * "was there already matching evidence?") read it here; `onYear` runs after
+   * effects and flags have been applied.
+   */
+  onBeforeYear?: (state: RunState) => void;
 }
 
 interface YearSelection {
@@ -147,6 +154,7 @@ function trackMaterialFlag(state: RunState, flag: string): void {
 /** Resolves one year. Returns the ending record when the year is terminal. */
 function resolveYear(state: RunState, content: ContentBundle, rng: Rng, options: SimulationOptions): EventOccurrence {
   expireSchedules(state);
+  options.onBeforeYear?.(state);
 
   const selection = selectYearEvent(state, content, rng);
   const event = selection.event;
@@ -190,7 +198,10 @@ function resolveYear(state: RunState, content: ContentBundle, rng: Rng, options:
     if (state.material !== 'NONE' && state.material !== next) {
       if (!state.priorMaterials.includes(state.material)) state.priorMaterials.push(state.material);
     }
-    if (state.material === 'NONE') state.diagnostics.commitmentAge = state.age;
+    if (state.material === 'NONE') {
+      state.diagnostics.commitmentAge = state.age;
+      state.diagnostics.fixAtCommitment = state.stats.FIX;
+    }
     state.material = next;
   }
 

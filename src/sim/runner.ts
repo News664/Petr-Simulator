@@ -1,5 +1,5 @@
 import type { ContentBundle } from '../engine/content/load.js';
-import { runSimulation, type RunResult } from '../engine/simulation.js';
+import { runSimulation, type RunResult, type SimulationOptions } from '../engine/simulation.js';
 import type { AllocationPolicy, SetupPolicy } from '../engine/setup.js';
 import { SPECIES_IDS, type SpeciesId } from '../engine/types.js';
 import { aggregate, type MetricsSummary } from './metrics.js';
@@ -17,6 +17,8 @@ export interface ScenarioRunOptions {
   maxAge?: number;
   /** Retain full run results. Off by default to keep memory flat at high run counts. */
   keepRuns?: boolean;
+  /** Per-year observers for targeted diagnostics that need in-run state. */
+  hooks?: Pick<SimulationOptions, 'onBeforeYear' | 'onYear'>;
 }
 
 export interface ScenarioReport {
@@ -65,7 +67,12 @@ export function runScenario(
       allocation: options.allocation ?? { kind: 'seeded_random' },
     };
 
-    results.push(runSimulation(runSeed(options.baseSeed, scenario.id, index), content, policy, { maxAge }));
+    results.push(
+      runSimulation(runSeed(options.baseSeed, scenario.id, index), content, policy, {
+        maxAge,
+        ...options.hooks,
+      }),
+    );
   }
 
   const metrics = aggregate(content, results);

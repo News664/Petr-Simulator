@@ -1,0 +1,94 @@
+{
+  "version": "0.1",
+  "canonical": true,
+  "designStatus": "PHASE1_2_INITIAL_FACTION_LAYER",
+  "rules": {
+    "stateModel": "discrete_flags_only",
+    "numericReputationMeter": false,
+    "playerChoosesFaction": false,
+    "contactDoesNotEqualMembership": true,
+    "automaticMaterialBiasFromFaction": false,
+    "alignmentStyleFactionSystem": "DEFERRED",
+    "notes": "Factions are persistent named sources of events, obligations and route intersections. Existing social-route and material rules remain authoritative."
+  },
+  "factions": [
+    {
+      "id": "FCT-DMMS",
+      "name_en": "Department of Mobility and Material Status",
+      "shortName": "DMMS",
+      "kind": "state_regulator",
+      "routeTag": "dmms",
+      "flagPrefix": "FAC_DMMS_",
+      "flags": [
+        "FAC_DMMS_CONTACT"
+      ],
+      "entryAgeMin": 16,
+      "intent": "Administrative classification, compliance, licensing and bureaucratic failure. Contact can begin in late school without implying employment or allegiance."
+    },
+    {
+      "id": "FCT-EVERLASTING",
+      "name_en": "Everlasting Mutual",
+      "shortName": "Everlasting Mutual",
+      "kind": "insurer",
+      "routeTag": "everlasting",
+      "flagPrefix": "FAC_EVERLASTING_",
+      "flags": [
+        "FAC_EVERLASTING_CONTACT"
+      ],
+      "entryAgeMin": 18,
+      "intent": "Insurance, actuarial incentives, claims and financial pressure around future Permanent Form."
+    },
+    {
+      "id": "FCT-MERIDIAN",
+      "name_en": "Meridian Preservation Group",
+      "shortName": "Meridian",
+      "kind": "commercial_preservation",
+      "routeTag": "meridian",
+      "flagPrefix": "FAC_MERIDIAN_",
+      "flags": [
+        "FAC_MERIDIAN_CONTACT"
+      ],
+      "entryAgeMin": 17,
+      "intent": "Consumer preservation, image/status marketing, subscription maintenance and commercially accelerated permanence."
+    },
+    {
+      "id": "FCT-CRI",
+      "name_en": "Continuity Research Institute",
+      "shortName": "CRI",
+      "kind": "research",
+      "routeTag": "continuity_institute",
+      "flagPrefix": "FAC_CRI_",
+      "flags": [
+        "FAC_CRI_CONTACT"
+      ],
+      "entryAgeMin": 18,
+      "intent": "Paid studies, transformation exposure, temporal research and research-institution consequences."
+    },
+    {
+      "id": "FCT-BLACK-LEDGER",
+      "name_en": "Black Ledger Cooperative",
+      "shortName": "Black Ledger",
+      "kind": "underground_finance",
+      "routeTag": "black_ledger",
+      "flagPrefix": "FAC_BLACK_LEDGER_",
+      "flags": [
+        "FAC_BLACK_LEDGER_CONTACT"
+      ],
+      "entryAgeMin": 18,
+      "intent": "Underground brokerage of future-form rights, questionable collateral, off-book preservation finance and criminal-adjacent contracts."
+    },
+    {
+      "id": "FCT-LAST-POSTURE",
+      "name_en": "Order of the Last Posture",
+      "shortName": "Last Posture",
+      "kind": "cult_religious",
+      "routeTag": "last_posture",
+      "flagPrefix": "FAC_LAST_POSTURE_",
+      "flags": [
+        "FAC_LAST_POSTURE_CONTACT"
+      ],
+      "entryAgeMin": 16,
+      "intent": "Public-facing stillness/ceremonial practice that can develop into a permanence cult route. Contact is not automatic belief or membership."
+    }
+  ]
+}

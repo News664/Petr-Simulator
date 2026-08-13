@@ -1,6 +1,6 @@
 # SOLID STATE — Open Questions Register
 
-## Version 0.2 — the official decision list (Phase 1 + Phase 1.1)
+## Version 0.3 — the official decision list (Phase 1 + Phase 1.1 + Phase 1.2)
 
 This file is the **single authoritative list of everything the coding agent could
 not decide alone**. Anything discussed in a chat log but not written here is not
@@ -9,9 +9,15 @@ official.
 **Phase 1.1 update (decisions dated 2026-08-13).** The design resolutions in
 [`PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md) have
 been merged into the Resolution blocks below; that file is the input record, not
-a second register. Four questions remain deliberately open: **Q-14, Q-23, Q-24,
-Q-25**. Measured outcomes are in
+a second register. Measured outcomes are in
 [`PHASE1_1_FINDINGS.md`](PHASE1_1_FINDINGS.md).
+
+**Phase 1.2 update (decisions dated 2026-08-13).** The design resolutions in
+[`PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md) have
+been merged the same way, adding **Q-27** and a `_Phase 1.2 outcome_` line to
+Q-02, Q-10, Q-14, Q-19, Q-22, Q-23 and Q-24. Measured outcomes are in
+[`PHASE1_2_FINDINGS.md`](PHASE1_2_FINDINGS.md). Four questions remain
+deliberately open: **Q-14, Q-23, Q-25, Q-27**; **Q-24** is now resolved.
 
 Every open question has a stable ID (`Q-nn`). Resolve one by editing its
 **Resolution** block in place — set `Status`, write the decision, and note which
@@ -66,9 +72,10 @@ or rewrite registries without a decision here.**
 | [Q-21](#q-21) | How are `END-ANO-001` / `END-ANO-002` reached? | Content | no | `RESOLVED` |
 | [Q-22](#q-22) | Should first manifestation be 52% WOOD and pinned to 18? | Content | no | `RESOLVED` |
 | [Q-23](#q-23) | Is a 35% adult fallback share acceptable? | Content | no | **`OPEN`** / monitor |
-| [Q-24](#q-24) | Is T1017's activation profile intended? | Balance | no | **`OPEN`** / monitor |
+| [Q-24](#q-24) | Is T1017's activation profile intended? | Balance | no | `RESOLVED` (Phase 1.2) |
 | [Q-25](#q-25) | What is the achievements registry, for `ACH[id]`? | Design | no | **`OPEN`** / deferred |
 | [Q-26](#q-26) | Should FIX drift passively with age? | Balance | no | `RESOLVED` |
+| [Q-27](#q-27) | How should the ending-age distribution be shaped? | Content | **yes** | **`OPEN`** (content shape resolved, 25–34 gap new) |
 
 ---
 
@@ -195,6 +202,9 @@ answer determines whether B is a fix or a patch.
 > _Files changed_: Batch 005; `SOLID_STATE_PHASE1_1_EXPERIMENT_MATRIX_v0.1.json`; `src/sim/experiments.ts`.
 > _Outcome_: **Swept, not frozen.** Completion: LOW 64.0%, MID 47.7%, HIGH 35.8%, ORIGINAL_REFERENCE 9.9% (4 000 runs each). A new problem is now visible: endings arrive far too late in every profile — see [`PHASE1_1_FINDINGS.md`](PHASE1_1_FINDINGS.md) finding 2 and the follow-up question raised there. Design still picks the profile.
 > _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: Do **not** select LOW/MID/HIGH and do **not** globally change existing climax thresholds in this patch. Route-specific low gates authored in Batch 006 are intentional where an external institution causes conversion without high spontaneous FIX. No sweep was run.
+> _Phase 1.2 outcome_: Under **authored current thresholds** the new content moves the distribution without any threshold change: completion 60.2%, mean FIX at commitment 28.4, mean FIX at ending 29.0, final FIX p50/p90/p99 = 29/48/55. The remaining misses are structural rather than numeric — see [`PHASE1_2_FINDINGS.md`](PHASE1_2_FINDINGS.md) §1.1. Thresholds stay unfrozen and the sweep harness stays available.
 
 ---
 
@@ -493,6 +503,9 @@ written.
 > _Files changed_: Balance Constants v0.2 `familyWeightMode: uniform`; `src/engine/drafting.ts`.
 > _Outcome_: **A/B measured, baseline unchanged.** At MID: uniform 49.1% completion / 2.78 bits material entropy; `sum_of_event_weights` 51.2% / 2.86 bits. The two are close, so nothing forces a change. Family mix differs mildly (density weighting lifts INS/MED and TRN/STON). The baseline was not switched.
 > _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: **Closed.** Retain `channel -> uniform eligible family -> weighted event`. Do not rerun the A/B for this small patch; the tool stays available for future large content additions or drafting-rule changes.
+> _Phase 1.2 outcome_: The rule now has a visible consequence worth design's attention. `EVT-SPC-TLNT-0001` is the only member of `SPC/TLNT` and is unlocked by T1023; under uniform family weighting that single event carries the same family base weight (1.0) as the six-event `SPC/SECR` family, so it absorbs ~half of all SPC draws and measurably crowds out faction seeds — faction contact falls 38.5% → 32.3% in the arm that holds T1023. This is the specified rule working as written, not a defect. No change was made. See [`PHASE1_2_FINDINGS.md`](PHASE1_2_FINDINGS.md) §4.
 
 ---
 
@@ -590,6 +603,9 @@ the total FIX budget.
 > _Files changed_: Talent Registry v1.1 leaves `start_fix_bonus` blank; `content/balance/SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json` keeps the diagnostic value; `src/sim/experiments.ts::withT1027StartFix`.
 > _Outcome_: **Swept, still open.** Completion in the anomalous scenario at MID: 76.4% (5), 86.0% (8), 91.4% (10), 94.2% (12), 98.2% (15). Even +5 makes the talent close to an auto-completion; mean commitment age falls 36.0 → 32.7 across the range. Design picks a value — the engine does not.
 > _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: **OPEN / DEFER.** No T1027 sweep in Phase 1.2 and no starting-FIX bonus frozen. When the baseline economy stabilizes, rerun T1027 in isolation rather than bundled with T1028/T1030.
+> _Phase 1.2 outcome_: Not measured — `t1027_sensitivity` was deliberately skipped. `withT1027StartFix` and the matrix entry are retained unchanged and still run via `npm run experiment -- --only t1027_sensitivity`.
 
 ---
 
@@ -710,6 +726,9 @@ column until content exists, so the budget is explicit rather than absorbed.
 > _Files changed_: Batch 005 (8 SPC events).
 > _Outcome_: **Present but very thin.** SPC share of event-years: 0.00% (no-talents), 0.43% (uniform-three), 5.01% (anomalous-talents). Almost all SPC content gates on anomalous route flags, so a run without those talents effectively never sees the channel despite SPC carrying up to 13% of the neutral channel budget. Flagged in findings as a follow-up.
 > _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: SPC remains canonical. Batch 006 adds six broadly reachable `SPC/SECR` faction seeds. Run a dedicated T1023 diagnostic, but do **not** create a large standalone SPC filler batch.
+> _Phase 1.2 outcome_: **Reachability fixed.** SPC now reaches 53.4% of baseline runs (1.34% of event-years) without any anomalous talent, against 0.43% of event-years in Phase 1.1's comparable scenario. In the dedicated arms: control (no T1023) 38.5% of runs see SPC; with T1023, 99.7%. SPC events per completed run 1.41 baseline / 1.20 control / 1.74 with T1023. No filler batch was authored.
 
 ---
 
@@ -777,6 +796,9 @@ authored intent.
 > _Files changed_: Batch 005 (6 adolescent manifestation events).
 > _Outcome_: **Fixed.** Neutral HUMAN / no talents / no material evidence (4 000 runs): WOOD 24.8%, CERA 13.8%, STON 13.4%, METL 13.0%, GLAS 12.7%, CRYS 12.7%, TEMP 9.7%. Well under the 50% failure line. WOOD keeps an earlier mean age (15.5 vs 18.7–20.6), which matches the intended small age-window advantage.
 > _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: No content change. The remaining structural WOOD lead is considered fixed. Add only the inexpensive neutral-Human age-18–20 manifestation diagnostic.
+> _Phase 1.2 outcome_: **Still fixed, and the 18–20 window is close to flat.** Conditional on a window-year with `MAT=NONE` and no matching prior evidence (5 941 observations), P(unprompted manifestation) is METL 2.49%, CERA 2.46%, STON 2.46%, GLAS 2.36%, WOOD 2.21%, CRYS 2.10%, TEMP 0.79% — six families within 14.2–16.8% of the unprompted total. TEMP's lower rate tracks its eligibility (`TRN/TEMP` eligible in 32.8% of window-years vs 96.8–97.7% for the others), not a weighting bias. Whole-run first-manifestation WOOD share is 26.5% neutral / 23.0% species-stratified.
 
 ---
 
@@ -802,13 +824,16 @@ before authoring more late-life content.**
 > _Files changed_: No content change in this patch.
 > _Outcome_: **Re-measured, still high.** Age-25+ fallback share is 24.0–29.5% across threshold profiles and 25.7–26.2% in the base scenarios (7.1% in the anomalous scenario, where runs end early). Improved from ~35% but far above the 5% warning line. Above the addendum's ">10% → return to design" threshold, so this stays with design rather than being patched here.
 > _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: 24–30% is not acceptable, but do **not** bulk-author generic filler. Batch 006 faction follow-ups add meaningful adult density. The next report must break fallback down by age band and report it conditional on runs still active in each band.
+> _Phase 1.2 outcome_: **The requested breakdown localizes the problem completely.** Conditional on the run still being active: 0.0% fallback at every band from 0–5 through **45–54**, then 21.3% at 55–64 and 51.8% at 65+. The 26.7% aggregate age-25+ figure is produced entirely by the 55+ tail. **There is no adult content-density problem between 25 and 54**, so filler would be the wrong response; the 55+ share is a symptom of Q-27 — runs that should have ended at 25–44 are still walking through a pool never authored for a 120-year life. Stays open pending Q-27.
 
 ---
 
 <a id="q-24"></a>
 ## Q-24 — Is T1017's activation profile intended?
 
-**Owner** Balance · **Status** `OPEN` · **Evidence** [`PHASE1_FINDINGS.md §8`](PHASE1_FINDINGS.md)
+**Owner** Balance · **Status** `RESOLVED` (Phase 1.2) · **Evidence** [`PHASE1_FINDINGS.md §8`](PHASE1_FINDINGS.md)
 
 `T1017 Late Bloomer` (`AGE>=35 & CHR<=5`) activates at an **average age of
 91.2** — far past any intended life span — because `CHR<=5` is usually only
@@ -823,6 +848,10 @@ Also downstream of Q-02; re-measure after that resolves.
 > _Files changed_: No content change in this patch.
 > _Outcome_: **Re-measured.** T1017 activation is now 37% (balanced), 37% (min-max), 51% (archetype), with mean activation ages 96.2 / 70.4 / 67.1. Still far past a plausible life span under balanced fill, but markedly better under player-like builds — which is itself evidence that the Phase-1 reading was an allocation artifact. Stays open pending the frozen ending economy.
 > _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: **RESOLVED FOR NEXT TEST.** Change only the age floor: `AGE>=35 & CHR<=5` → `AGE>=25 & CHR<=5`. Keep the CHR threshold and the +4 effect unchanged, to isolate whether the old age floor was the main bottleneck. Revisit the CHR threshold later only if activation is still implausibly late once the ending economy improves.
+> _Files changed_: `content/registries/SOLID_STATE_TALENT_REGISTRY_v1.2.csv` (T1017 row only); v1.1 moved to `content/superseded/`.
+> _Phase 1.2 outcome_: **The age floor was the bottleneck.** Activation is 42.6% at a mean activation age of **49.7**, against 67.1–96.2 in Phase 1.1. The talent now fires inside a plausible life span, so the question it was opened for is answered. The CHR threshold and effect were not touched.
 
 ---
 
@@ -878,9 +907,68 @@ Closely coupled to Q-02; decide together.
 
 ---
 
+<a id="q-27"></a>
+## Q-27 — How should the ending-age distribution be shaped?
+
+**Owner** Content · **Blocking** yes · **Status** `OPEN` (content-shape decision resolved; a new gap is now measured) · **Evidence** [`PHASE1_2_FINDINGS.md §1`](PHASE1_2_FINDINGS.md)
+
+Phase 1.1 measured endings arriving far too late: 74.7% at 65+ against a 2–5%
+target, and the 18–24 band unreachable because the earliest climax in the corpus
+opened at 25. Phase 1.2 is design's answer to that.
+
+**Options considered by design** (recorded in
+[`PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md)):
+treat it as a global FIX-threshold problem, or as a content-shape problem.
+Design chose content shape.
+
+**Engine today** Nothing in the engine sets ending age. It comes from event age
+windows, schedule `offsetYears` / `windowYears`, and `include` /
+`validityCondition` gates in canonical content.
+
+> **Resolution** — _status_: **RESOLVED FOR PHASE 1.2 CONTENT SHAPE; numeric balance remains open**
+> _Decision_: The missing 18–34 endings are primarily a **content-shape** problem, not a global FIX-threshold problem. Introduce short/sudden young-adult paths driven by bureaucracy, insurance/finance, commercial preservation, experiments, underground finance and cult/religious activity. Faction contact may begin at 16+ where age-appropriate, but no canonical Permanent Form ending may occur before 18. Some paths may transform a protagonist at relatively low FIX because the conversion is externally imposed rather than a spontaneous biological culmination. Other paths use repeated faction follow-ups to raise FIX over several years and mature in 25–34, which remains the intended modal window. Late-life endings remain a small survivor wave requiring meaningful prior route history, never a universal cheapest catch-all. Do not use passive age-based FIX drift.
+> _Files changed_: `SOLID_STATE_EVENT_BATCH_006_v0.1.json` (18 events: 6 faction seeds, 6 low-gate faction climaxes, 6 adult faction follow-ups); `SOLID_STATE_EVENT_BATCH_005_v0.2.json` (2 late-life entries made history-specific); `SOLID_STATE_FACTION_REGISTRY_v0.1.json`; `SOLID_STATE_ROUTE_TAG_REGISTRY_v1.1.json`. The two late-life climax `FIX>=40` gates were **not** changed.
+> _Outcome_: **Both ends moved as intended; the middle did not.** 18–24 went 0.0% → **31.5%** (target 18–22%, now overshooting) and 65+ went 74.7% → **37.8%** (target 2–5%). But 25–34, the intended modal window, is now the largest miss at **17.7%** against 35–40%, and the ending landscape is bimodal: every faction route lands at a median age of 22–25, `INS/MED` and `ORD/FAM` land at 67–68, and almost nothing occupies 26–60.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md
+
+### Still open: why the faction ladder does not reach 25–34
+
+The mechanism is fully determined by the authored content and is reproducible
+from `reports/phase1_2-diagnostic.md`:
+
+1. Faction seeds have age windows 16–24; mean age at first contact is **20.0**.
+2. Each seed schedules its climax at `offsetYears` **1–2**.
+3. The climax gates are low by design (`FIX>=8` / `FIX>=10` / `FIX>=12`, or
+   `MNY<=3/5`) and are satisfied immediately in most runs.
+4. The adult follow-ups that were meant to raise FIX over several years all open
+   at **age 23** — one to three years *after* the median climax has already
+   fired.
+
+Faction contacts resolve into 1 169 climaxes and 292 expired schedules out of
+~1 608 contacts, so the slow path is almost never taken. **Faction contact is
+behaving as a 1–3 year fuse, not as a multi-year route.**
+
+**Smallest content-shaped levers, for design to choose between** — none applied:
+
+| Option | Change | Trade-off |
+|---|---|---|
+| A | Widen faction climax `offsetYears` (e.g. 1–2 → 4–8) | One field per seed; pushes the whole faction wave later, may overshoot into 35–44 |
+| B | Add a follow-up flag to the climax `validityCondition` | Forces the ladder to be climbed; risks more expiries if the follow-up is not drafted in the window |
+| C | Lower the follow-up age floor below the climax's earliest fire age | Smallest edit; makes the ladder reachable without changing when the climax may fire |
+
+**Also for review:** the two `FIX>=40` late-life climaxes now supply 42.1% of all
+endings at a median age of 67–68. Whether they should require more prior route
+history is a separate decision, and was deliberately not made here.
+
+**Also for review:** the faction layer, introduced as lightweight context, now
+supplies **48.6%** of all endings.
+
+---
+
 ## Change log for this file
 
 | Date | Change |
 |---|---|
 | 2026-08-12 | Created at Phase-1 handoff with Q-01 … Q-26 |
 | 2026-08-13 | Phase 1.1: merged `PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md`. 22 questions RESOLVED; Q-14, Q-23, Q-24, Q-25 deliberately remain open. Outcomes measured against the Phase 1.1 content and reported in `PHASE1_1_FINDINGS.md`. |
+| 2026-08-13 | Phase 1.2: merged `PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md`. Added **Q-27**; added a `_Phase 1.2 outcome_` line to Q-02, Q-10, Q-14, Q-19, Q-22, Q-23, Q-24. **Q-24 is now RESOLVED.** Q-14, Q-23, Q-25 and Q-27 remain open. Outcomes measured against the Phase 1.2 content and reported in `PHASE1_2_FINDINGS.md`. |

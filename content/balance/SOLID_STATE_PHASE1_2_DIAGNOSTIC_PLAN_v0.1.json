@@ -1,0 +1,88 @@
+{
+  "version": "0.1",
+  "status": "PHASE1_2_COMPACT_DIAGNOSTIC",
+  "purpose": "Measure the content-shape effect of Batch 006 without rerunning unrelated Phase 1.1 matrices.",
+  "baseline": {
+    "runs": 4000,
+    "speciesMode": "STRATIFY_EQUALLY_BY_SPECIES",
+    "talentScenario": "UNIFORM_RANDOM_THREE_COMPATIBLE_DIAGNOSTIC",
+    "allocationPolicy": "ARCHETYPE_SET",
+    "familyWeightMode": "uniform",
+    "thresholdMode": "AUTHORED_CURRENT_CONTENT",
+    "pre25CoveragePolicy": "strict"
+  },
+  "targetedDiagnostics": [
+    {
+      "id": "T1023_SPC_COMPARE",
+      "runsPerArm": 1500,
+      "arms": [
+        {
+          "name": "control",
+          "talents": [
+            "T1013",
+            "T1015",
+            "T1004"
+          ]
+        },
+        {
+          "name": "main_character",
+          "talents": [
+            "T1023",
+            "T1013",
+            "T1015"
+          ]
+        }
+      ],
+      "report": [
+        "SPC event-year share",
+        "SPC events per completed/noncompleted run",
+        "faction seed incidence",
+        "ending-age buckets"
+      ]
+    },
+    {
+      "id": "NEUTRAL_HUMAN_MANIFEST_18_20",
+      "runs": 2000,
+      "species": "HUMAN",
+      "talents": [],
+      "allocationPolicy": "BALANCED_RANDOM_FILL",
+      "report": [
+        "P(manifestation family | AGE 18-20, MAT=NONE, no matching material evidence)",
+        "eligible family counts at ages 18,19,20",
+        "mean manifestation age by family"
+      ]
+    }
+  ],
+  "requiredBaselineMetrics": [
+    "completion/nonterminal rate",
+    "ending age buckets",
+    "median ending age",
+    "ending route/faction breakdown",
+    "faction contact rate by faction",
+    "faction climax rate by faction",
+    "FIX distribution and mean FIX at commitment/ending",
+    "commitment rate and age",
+    "SPC share",
+    "fallback share by age band conditional on still active",
+    "schedule expiry by route/faction",
+    "mandatory-route incidence by route family",
+    "distinct ending coverage"
+  ],
+  "explicitlySkippedThisPatch": [
+    "LOW/MID/HIGH threshold sweep",
+    "family-weight A/B",
+    "allocation-policy three-way comparison",
+    "T1027 sensitivity sweep"
+  ],
+  "retentionPolicy": {
+    "notDropped": true,
+    "rerunWhen": [
+      "a future patch materially changes global FIX thresholds or FIX budget",
+      "family drafting rules or content density change substantially",
+      "talent/allocation behavior changes",
+      "T1027 or anomalous route balance is being frozen",
+      "a large pre-H2 or balance-freeze regression pass is run"
+    ]
+  },
+  "stopCondition": "After tests and these compact diagnostics, stop for design review. Do not open H2 or tune creative content automatically."
+}

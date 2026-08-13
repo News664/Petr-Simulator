@@ -1,6 +1,6 @@
 # SOLID STATE — Engine Behaviour Log
 
-## Version 0.2 — Phase 1 + Phase 1.1
+## Version 0.3 — Phase 1 + Phase 1.1 + Phase 1.2
 
 Every point where the engine's behaviour was **decided, corrected, or made
 stricter** during Phase-1 implementation, with the reason and the test that pins
@@ -13,10 +13,15 @@ and need no design input.
 
 **No creative content was changed.** All files under `content/events/`,
 `content/registries/` and `content/balance/` are byte-identical to their source
-artifact — snapshot v0.7 for Batches 001–004, and Phase 1.1 patch v0.1 for
-Batch 005, the v1.1/v1.2 registries, Balance Constants v0.2, the experiment
-matrix and `tools/SOLID_STATE_CONTENT_TOOL_v0.2.py`. Superseded files are kept
-under `content/superseded/` and are never loaded at runtime.
+artifact — snapshot v0.7 for Batches 001–004, Phase 1.1 patch v0.1 for Batch 005
+v0.1, the v1.1/v1.2 registries, Balance Constants v0.2, the experiment matrix and
+`tools/SOLID_STATE_CONTENT_TOOL_v0.2.py`, and Phase 1.2 patch v0.1 for Batch 006,
+Batch 005 v0.2, the Faction Registry, Route Tag Registry v1.1, Talent Registry
+v1.2 and the diagnostic plan. The single exception is the two-line event-ID
+renumbering forced by a cross-batch collision, reported as
+[`PHASE1_CONFLICTS.md` P12-C1](PHASE1_CONFLICTS.md) and recorded as E-25 below.
+Superseded files are kept under `content/superseded/` and are never loaded at
+runtime.
 
 ---
 
@@ -95,6 +100,64 @@ one. A single-batch root would fail for reasons unrelated to the test.
 Note that a prefix may legitimately be a complete flag name
 (`MAT_MANIFEST_TEMP` for the `temporal` tag) — the shape check accepts any valid
 flag identifier, not only ones ending in `_`.
+
+## E-23 — Factions are a validated registry, not a mechanic
+
+The Faction Registry is loaded and cross-checked like any other registry, but it
+adds **no drafting stage, no meter and no new scalar**. A faction's influence
+reaches the engine only through its `routeTag`, via the ordinary Route Tag
+Registry path, so the existing "at most one route-favor scalar per event" rule
+still holds however many faction tags an event carries.
+
+The registry's design rules are pinned as literals in the Zod schema
+(`stateModel: 'discrete_flags_only'`, `numericReputationMeter: false`,
+`playerChoosesFaction: false`, `contactDoesNotEqualMembership: true`,
+`automaticMaterialBiasFromFaction: false`,
+`alignmentStyleFactionSystem: 'DEFERRED'`), so a future registry cannot introduce
+a reputation meter or a player faction choice without failing validation and
+forcing a design decision first.
+
+Cross-validation additionally requires that every `FAC_*` flag used anywhere in
+canonical content belongs to exactly one registered faction, that each faction's
+`routeTag` exists and carries its `flagPrefix`, and that faction context never
+biases a material family. `tests/phase1_2-acceptance.test.ts` asserts the last
+point behaviourally: setting every faction flag leaves `familyEvidenceScalar`
+unchanged for all seven Transformation families.
+
+## E-24 — `onBeforeYear`, so diagnostics can read draft-time state
+
+`onYear` fires after effects, flags, material and schedules are applied, which
+makes questions like *"was there already matching material evidence when this
+manifestation happened?"* unanswerable from it. `SimulationOptions.onBeforeYear`
+fires immediately before the year's event is selected.
+
+It is an observer only — it receives the state, cannot alter selection, and is
+unset in every non-diagnostic path. The Phase 1.2 neutral-Human probe uses it to
+snapshot pre-event flags and to count the eligible draft pool at ages 18–20.
+
+## E-25 — Batch 006 re-used a published event ID; the new event was renumbered
+
+Batch 006 shipped `EVT-INS-ACA-0011`, an ID already published in Batch 005 (where
+the existing event self-references it in its own `exclude`). Cross-batch
+duplicate detection refused to load the corpus.
+
+The published ID was kept and the **new, unpublished** event was renumbered to
+`EVT-INS-ACA-0012` — a two-line diff touching nothing but the `id`. Reported in
+full as [`PHASE1_CONFLICTS.md` P12-C1](PHASE1_CONFLICTS.md) rather than silently
+worked around, and asserted in `tests/phase1_2-acceptance.test.ts`.
+
+## E-26 — Registry Markdown mirrors are generated, and checked byte-for-byte
+
+`src/engine/content/registryMirror.ts` renders the Route Tag and Talent registry
+`.md` mirrors from their canonical JSON/CSV, and `npm run mirror:check` now
+verifies both alongside the event batches. The renderers were validated against
+the existing hand-authored v1.0/v1.1 mirrors before being used to produce the
+v1.1/v1.2 ones, so the mirror invariant is machine-checked rather than trusted.
+
+One formatting nuance was found that way: within the Talent mirror's
+unlock/redirect column, values inside a single field are separated by `;`, but
+the two fields are joined with `; `. Only T1022 populates both, which is why the
+difference is invisible everywhere else.
 
 ---
 
@@ -332,3 +395,4 @@ Listed so their absence is not mistaken for an oversight.
 |---|---|
 | 2026-08-12 | Created at Phase-1 handoff with E-01 … E-18 |
 | 2026-08-13 | Phase 1.1 patch integrated. Adapter shrunk to two diagnostic entries; E-19 … E-22 added. E-01, E-02, E-03, E-05 … E-13, E-17 are now canonical data rather than engine decisions. |
+| 2026-08-13 | Phase 1.2 patch integrated: Faction Registry v0.1, Batch 006, Batch 005 v0.2, Route Tag Registry v1.1, Talent Registry v1.2, the compact diagnostic plan. E-23 … E-26 added. One content conflict found and reported (`PHASE1_CONFLICTS.md` P12-C1). |

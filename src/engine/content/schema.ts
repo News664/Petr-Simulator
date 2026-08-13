@@ -210,7 +210,51 @@ export const speciesRegistrySchema = z
   })
   .strict();
 
-/** Route Tag Registry v1.0. */
+/**
+ * Faction Registry v0.1.
+ *
+ * Factions are a lightweight authored context: discrete flags only, no
+ * reputation/alignment meter, no player faction choice. The schema pins those
+ * rules so a future registry cannot quietly introduce them.
+ */
+export const factionRegistrySchema = z
+  .object({
+    version: z.string(),
+    canonical: z.boolean().optional(),
+    designStatus: z.string().optional(),
+    rules: z
+      .object({
+        stateModel: z.literal('discrete_flags_only'),
+        numericReputationMeter: z.literal(false),
+        playerChoosesFaction: z.literal(false),
+        contactDoesNotEqualMembership: z.literal(true),
+        automaticMaterialBiasFromFaction: z.literal(false),
+        alignmentStyleFactionSystem: z.literal('DEFERRED'),
+        notes: z.string().optional(),
+      })
+      .strict(),
+    factions: z
+      .array(
+        z
+          .object({
+            id: z.string().regex(/^FCT-[A-Z0-9-]+$/, 'malformed faction id'),
+            name_en: z.string().min(1),
+            shortName: z.string().min(1),
+            kind: z.string().min(1),
+            routeTag: z.string().min(1),
+            flagPrefix: z.string().regex(/^FAC_[A-Z0-9_]*_$/, 'faction flag prefix must be FAC_..._'),
+            flags: z.array(z.string().regex(/^FAC_[A-Z0-9_]+$/)).min(1),
+            entryAgeMin: z.number().int().min(0),
+            intent: z.string(),
+          })
+          .strict(),
+      )
+      .min(1),
+    notes: z.array(z.string()).optional(),
+  })
+  .strict();
+
+/** Route Tag Registry v1.0 / v1.1. */
 export const routeTagRegistrySchema = z
   .object({
     version: z.string(),

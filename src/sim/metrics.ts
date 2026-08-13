@@ -103,6 +103,24 @@ export interface MetricsSummary {
   mandatoryUsageRate: number;
   /** Phase 1.1: share of completed runs ending at 65 or later. */
   endingShare65Plus: number;
+
+  /** Phase 1.2 faction layer. */
+  factionContactRate: Record<string, number>;
+  factionClimaxRate: Record<string, number>;
+  endingCountsByFaction: Record<string, number>;
+  endingCountsByRouteFamily: Record<string, number>;
+  /** When each route family's endings actually land. Explains band shortfalls. */
+  endingAgeByRouteFamily: Record<string, { mean: number | null; median: number | null; runs: number }>;
+  scheduleExpiryByRouteFamily: Record<string, number>;
+  mandatoryIncidenceByRouteFamily: Record<string, number>;
+  /**
+   * Fallback share per age band, conditional on the run still being active in
+   * that band. A run that ended at 30 contributes nothing to the 45-54 band.
+   */
+  fallbackShareByAgeBandActive: Record<string, { fallbackYears: number; activeYears: number; share: number }>;
+  /** Mean FIX at Material Commitment and at the ending. */
+  meanFixAtCommitment: number | null;
+  meanFixAtEnding: number | null;
   fallbackYears: number;
   fallbackUseRate: number;
   fallbackYearsAge25Plus: number;
@@ -185,6 +203,35 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
   let mandatoryEventYears = 0;
   let runsUsingMandatory = 0;
   let fallbackYears = 0;
+  const factionContact: Record<string, number> = {};
+  const factionClimax: Record<string, number> = {};
+  const endingCountsByFaction: Record<string, number> = {};
+  const endingCountsByRouteFamily: Record<string, number> = {};
+  const endingAgesByRouteFamily: Record<string, number[]> = {};
+  const scheduleExpiryByRouteFamily: Record<string, number> = {};
+  const mandatoryIncidenceByRouteFamily: Record<string, number> = {};
+  const bandFallback: Record<string, { fallbackYears: number; activeYears: number }> = {};
+  for (const band of bands) bandFallback[band.label] = { fallbackYears: 0, activeYears: 0 };
+  const fixAtCommitment: number[] = [];
+  const fixAtEnding: number[] = [];
+
+  // Faction flag -> faction short name, for attribution.
+  const factionByFlag = new Map<string, string>();
+  const factionTagToName = new Map<string, string>();
+  for (const faction of content.factions.values()) {
+    for (const flag of faction.flags) factionByFlag.set(flag, faction.shortName);
+    factionTagToName.set(faction.routeTag, faction.shortName);
+  }
+  /** Attributes an event to a faction (if any) or otherwise to its channel/family. */
+  const routeFamilyOf = (eventId: string): string => {
+    const gameEvent = content.eventsById.get(eventId);
+    if (!gameEvent) return 'unknown';
+    for (const tag of gameEvent.routeTags) {
+      const name = factionTagToName.get(tag);
+      if (name) return `faction:${name}`;
+    }
+    return `${gameEvent.channel}/${gameEvent.family}`;
+  };
   let fallbackYearsAge25Plus = 0;
   let pre25FallbackYears = 0;
   let eventYearsAge25Plus = 0;
@@ -236,7 +283,14 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
     totalEventYears += state.history.length;
 
     let usedMandatory = false;
+    const mandatoryFamilies = new Set<string>();
     for (const occurrence of state.history) {
+      const activeBand = bandFor(bands, occurrence.age);
+      if (activeBand) {
+        bandFallback[activeBand.label]!.activeYears += 1;
+        if (occurrence.source === 'fallback') bandFallback[activeBand.label]!.fallbackYears += 1;
+      }
+      if (occurrence.selectionMode === 'mandatory_only') mandatoryFamilies.add(routeFamilyOf(occurrence.eventId));
       if (occurrence.channel === 'SPC') spcEventYears += 1;
       if (occurrence.selectionMode === 'mandatory_only') {
         mandatoryEventYears += 1;
@@ -256,6 +310,21 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
     }
 
     if (usedMandatory) runsUsingMandatory += 1;
+    for (const family of mandatoryFamilies) increment(mandatoryIncidenceByRouteFamily, family);
+
+    // Faction contact and climax attribution.
+    const contacted = new Set<string>();
+    for (const flag of state.flags) {
+      const name = factionByFlag.get(flag);
+      if (name) contacted.add(name);
+    }
+    for (const name of contacted) increment(factionContact, name);
+
+    for (const expired of diagnostics.expiredSchedules) {
+      increment(scheduleExpiryByRouteFamily, routeFamilyOf(expired.eventId));
+    }
+
+    if (diagnostics.fixAtCommitment !== null) fixAtCommitment.push(diagnostics.fixAtCommitment);
     pre25EmergencyReuseYears += diagnostics.emergencyReuseAges.length;
 
     if (diagnostics.routeEntries.length > 0) runsWithRouteEntry += 1;
@@ -314,6 +383,15 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
       case 'ended': {
         completed += 1;
         const ending = result.outcome.ending;
+        fixAtEnding.push(state.stats.FIX);
+        const family = routeFamilyOf(ending.sourceEventId);
+        increment(endingCountsByRouteFamily, family);
+        (endingAgesByRouteFamily[family] ??= []).push(ending.endingAge);
+        if (family.startsWith('faction:')) {
+          const name = family.slice('faction:'.length);
+          increment(endingCountsByFaction, name);
+          increment(factionClimax, name);
+        }
         endingAges.push(ending.endingAge);
         const band = bandFor(bands, ending.endingAge);
         if (band) increment(endingAgeHistogram, band.label);
@@ -488,6 +566,35 @@ export function aggregate(content: ContentBundle, results: RunResult[]): Metrics
     mandatoryEventYears,
     mandatoryUsageRate: rate(runsUsingMandatory),
     endingShare65Plus: completed === 0 ? 0 : endingAges.filter((age) => age >= 65).length / completed,
+
+    factionContactRate: Object.fromEntries(
+      [...content.factions.values()].map((f) => [f.shortName, rate(factionContact[f.shortName] ?? 0)]),
+    ),
+    factionClimaxRate: Object.fromEntries(
+      [...content.factions.values()].map((f) => [f.shortName, rate(factionClimax[f.shortName] ?? 0)]),
+    ),
+    endingCountsByFaction,
+    endingCountsByRouteFamily,
+    endingAgeByRouteFamily: Object.fromEntries(
+      Object.entries(endingAgesByRouteFamily).map(([family, ages]) => [
+        family,
+        { mean: mean(ages), median: median(ages), runs: ages.length },
+      ]),
+    ),
+    scheduleExpiryByRouteFamily,
+    mandatoryIncidenceByRouteFamily,
+    fallbackShareByAgeBandActive: Object.fromEntries(
+      Object.entries(bandFallback).map(([label, counts]) => [
+        label,
+        {
+          fallbackYears: counts.fallbackYears,
+          activeYears: counts.activeYears,
+          share: counts.activeYears === 0 ? 0 : counts.fallbackYears / counts.activeYears,
+        },
+      ]),
+    ),
+    meanFixAtCommitment: mean(fixAtCommitment),
+    meanFixAtEnding: mean(fixAtEnding),
     fallbackYears,
     fallbackUseRate: totalEventYears === 0 ? 0 : fallbackYears / totalEventYears,
     fallbackYearsAge25Plus,

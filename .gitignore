@@ -2,7 +2,7 @@ node_modules/
 dist/
 *.tsbuildinfo
 .DS_Store
-# Generated simulation output. The two Phase-1 deliverable reports are tracked;
+# Generated simulation output. The phase deliverable reports are tracked;
 # ad-hoc runs are not.
 reports/*
 !reports/.gitkeep
@@ -10,4 +10,6 @@ reports/*
 !reports/monte-carlo.md
 !reports/phase1_1-experiments.json
 !reports/phase1_1-experiments.md
+!reports/phase1_2-diagnostic.json
+!reports/phase1_2-diagnostic.md
 scratch/
