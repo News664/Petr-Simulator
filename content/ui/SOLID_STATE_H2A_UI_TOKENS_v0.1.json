@@ -1,0 +1,70 @@
+{
+  "version": "0.1",
+  "name": "Institutional Dark",
+  "principles": [
+    "bureaucratic rather than cyberpunk",
+    "darkly comic rather than horror",
+    "restrained modern-fantasy institutional interface",
+    "information-dense but calm",
+    "paper/certificate moments contrast with the dark application shell"
+  ],
+  "color": {
+    "bg": "#101214",
+    "bgElevated": "#171A1D",
+    "panel": "#1D2125",
+    "panelHover": "#242A2F",
+    "border": "#343B41",
+    "borderStrong": "#505960",
+    "text": "#ECE9E1",
+    "textMuted": "#A9A69E",
+    "textDim": "#777B7E",
+    "accent": "#B7A36A",
+    "accentStrong": "#D1BC7A",
+    "positive": "#82A98C",
+    "negative": "#B9786D",
+    "info": "#829EAA",
+    "paper": "#E9E2D2",
+    "paperText": "#272621",
+    "paperMuted": "#6E695F"
+  },
+  "typography": {
+    "ui": "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    "record": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace",
+    "certificate": "Georgia, 'Times New Roman', serif"
+  },
+  "radiusPx": {
+    "small": 4,
+    "medium": 8,
+    "large": 12
+  },
+  "spacePx": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48
+  ],
+  "motionMs": {
+    "fast": 120,
+    "normal": 220,
+    "eventReveal": 280
+  },
+  "playback": {
+    "oneXIntervalMs": 1000,
+    "twoXIntervalMs": 500
+  },
+  "breakpointsPx": {
+    "mobile": 640,
+    "tablet": 900,
+    "wide": 1200
+  },
+  "constraints": [
+    "Do not use neon gradients or glossy sci-fi styling.",
+    "Do not expose internal channel/family/route/FIX labels in normal player mode.",
+    "Do not use faction reputation bars.",
+    "Do not show a life-progress percentage because maximum life length is unknown.",
+    "Use CSS/system fonts only in H2A; no downloaded font dependency."
+  ]
+}

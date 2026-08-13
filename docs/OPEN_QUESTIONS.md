@@ -1008,6 +1008,12 @@ supplies **48.6%** of all endings.
 >
 > **The Black Ledger edit produced no observable change.** `MNY<=1 & MAT!=NONE` still fired 0 sudden endings, because it needs a committed material at ages 19–29 and the mean commitment age is 35.7. The gate that blocks it is `MAT!=NONE`, not the money threshold.
 
+### H2A transition — two follow-up condition corrections
+
+> _H2A pre-UI decision_: two condition-only corrections accepted from the Phase 1.3.1 analysis, applied before UI integration. **`EVT-SPC-SECR-0024`** `INT>=8 | SPR>=8 | TLT[T1010]` → `TLT[T1010] | (INT>=8 & SPR>=6)`, making Last Posture's *escalation* safe exit consistent with the disposition gate Phase 1.3.1 already corrected — the second filter that kept the faction at 1 COMMITTED in 180 contacts. **`EVT-SPC-SECR-0017`** `MNY<=1 & MAT!=NONE` → `MNY<=0 & MAT!=NONE`, reverting the Phase 1.3.1 money relaxation that measurably did nothing, so the retained LOW/MID/HIGH sweep can cleanly measure whether earlier Material Commitment alone makes the originally authored Black Ledger catastrophe reachable.
+> _Files changed_: `SOLID_STATE_EVENT_BATCH_007_v0.3.json` — two `when` strings, nothing else. Content fingerprint `f802a2524d2a16ab418bb7fe810a002335d94584d40614fcefbd061526f3d3a9`.
+> _Measurement_: **none, by instruction.** No Monte Carlo was run for these two edits. Deterministic validation, the mirror check and the full test suite passed, and goldens were regenerated for the fingerprint change. **This does not close Q-27** — nothing was measured, so nothing is claimed.
+
 **Still open, restated for Phase 1.4:** where do 18–34 endings come from now that
 the faction layer is deliberately non-terminal for 90% of contacts? Three
 directions, none applied:
@@ -1091,5 +1097,6 @@ late-life year with anything but the generic quiet-year fallback.
 | 2026-08-12 | Created at Phase-1 handoff with Q-01 … Q-26 |
 | 2026-08-13 | Phase 1.1: merged `PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md`. 22 questions RESOLVED; Q-14, Q-23, Q-24, Q-25 deliberately remain open. Outcomes measured against the Phase 1.1 content and reported in `PHASE1_1_FINDINGS.md`. |
 | 2026-08-13 | Phase 1.2: merged `PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md`. Added **Q-27**; added a `_Phase 1.2 outcome_` line to Q-02, Q-10, Q-14, Q-19, Q-22, Q-23, Q-24. **Q-24 is now RESOLVED.** Q-14, Q-23, Q-25 and Q-27 remain open. Outcomes measured against the Phase 1.2 content and reported in `PHASE1_2_FINDINGS.md`. |
+| 2026-08-13 | H2A UI foundation: two pre-UI condition corrections recorded under Q-27 as an H2A transition note, unmeasured by instruction. No question changed status. |
 | 2026-08-13 | Phase 1.3.1: merged `PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md`. **P13-C1 CLOSED** and the derived Content Tool v0.3 / Route Tag Registry v1.2 ratified as canonical; the dangling "P13-C2" reference in `PHASE1_CONFLICTS.md` corrected (no such section ever existed). Four condition-only Batch 007 edits applied under Q-27. No question changed status. Outcomes in `PHASE1_3_1_FINDINGS.md`. |
 | 2026-08-13 | Phase 1.3: merged `PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md`. Added **Q-28** (RESOLVED), **Q-29** (open, direction only) and **Q-30** (RESOLVED); added `_Phase 1.3_` blocks to Q-23 and Q-27; ratified the P12-C1 duplicate-ID resolution. **H2A recorded as the next project milestone and its gate opened.** Q-14, Q-23, Q-25, Q-27 and Q-29 remain open. Outcomes measured against the Phase 1.3 content and reported in `PHASE1_3_FINDINGS.md`. |

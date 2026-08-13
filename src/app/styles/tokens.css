@@ -1,0 +1,51 @@
+/* Generated from content/ui/SOLID_STATE_H2A_UI_TOKENS_v0.1.json — Institutional Dark.
+   Keep in sync with that file; it is the authority for H2A visual tokens. */
+:root {
+  --bg: #101214;
+  --bg-elevated: #171a1d;
+  --panel: #1d2125;
+  --panel-hover: #242a2f;
+  --border: #343b41;
+  --border-strong: #505960;
+  --text: #ece9e1;
+  --text-muted: #a9a69e;
+  --text-dim: #777b7e;
+  --accent: #b7a36a;
+  --accent-strong: #d1bc7a;
+  --positive: #82a98c;
+  --negative: #b9786d;
+  --info: #829eaa;
+  --paper: #e9e2d2;
+  --paper-text: #272621;
+  --paper-muted: #6e695f;
+
+  --font-ui: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-record: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-certificate: Georgia, 'Times New Roman', serif;
+
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --radius-l: 12px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --motion-fast: 120ms;
+  --motion-normal: 220ms;
+  --motion-reveal: 280ms;
+
+  --app-max-width: 1220px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-normal: 0ms;
+    --motion-reveal: 0ms;
+  }
+}

@@ -17,3 +17,4 @@ reports/*
 !reports/phase1_3_1-targeted-sanity.json
 !reports/phase1_3_1-targeted-sanity.md
 scratch/
+dist/

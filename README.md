@@ -1,4 +1,4 @@
-# SOLID STATE — Headless Simulation Engine (Phase 1.3)
+# SOLID STATE — Simulation Engine + H2A Browser Playable
 
 Deterministic, headless TypeScript simulation engine for **Solid State**, built
 against the `SOLID_STATE_PROJECT_SNAPSHOT_v0.7` contracts plus
@@ -14,8 +14,9 @@ This repository contains the engine, its tests, and the Monte Carlo /
 experiment / diagnostic CLIs satisfying
 `SOLID_STATE_PHASE1_ACCEPTANCE_TESTS_v0.1.md` **and**
 `SOLID_STATE_PHASE1_1_ACCEPTANCE_ADDENDUM_v0.1.md`. There is no UI: gate H2 is
-not open yet: Phase 1.3 evaluates the H2A gate and **stops** there, pending
-design review.
+H2A is **open**, and the first browser-playable build now lives in `src/app`
+alongside the headless CLIs — see
+[`docs/H2A_UI_FOUNDATION_REPORT.md`](docs/H2A_UI_FOUNDATION_REPORT.md).
 
 ## Read these first
 
@@ -46,7 +47,9 @@ design review.
 | [`docs/PHASE1_2_FINDINGS.md`](docs/PHASE1_2_FINDINGS.md) | Phase 1.2 results |
 | [`docs/PHASE1_3_FINDINGS.md`](docs/PHASE1_3_FINDINGS.md) | Phase 1.3 results |
 | [`docs/PHASE1_3_1_FINDINGS.md`](docs/PHASE1_3_1_FINDINGS.md) | **Phase 1.3.1 micro-calibration results — read this first** |
-| [`docs/H2A_GATE_DECISION.md`](docs/H2A_GATE_DECISION.md) | **The H2A blocker checklist and gate status** |
+| [`docs/H2A_GATE_DECISION.md`](docs/H2A_GATE_DECISION.md) | The H2A blocker checklist and gate status |
+| [`docs/H2A_UI_FOUNDATION_REPORT.md`](docs/H2A_UI_FOUNDATION_REPORT.md) | **The browser build — how to run it, what it enforces, what is missing** |
+| [`docs/ui/`](docs/ui) | H2A product spec, browser technical contract, playtest protocol, agents addendum |
 | [`docs/spec/SOLID_STATE_FACTION_SYSTEM_SPEC_v0.2.md`](docs/spec/SOLID_STATE_FACTION_SYSTEM_SPEC_v0.2.md) | The faction rules: lifecycle FSM, orthogonal roles, safe exits, no meter |
 | [`reports/phase1_3_1-targeted-sanity.md`](reports/phase1_3_1-targeted-sanity.md) | **Phase 1.3.1 targeted sanity — the current measurements** |
 | [`reports/phase1_3-sanity.md`](reports/phase1_3-sanity.md) | Phase 1.3 sanity diagnostic — pre-1.3.1 corpus |
@@ -74,16 +77,24 @@ which were derived mechanically from the instruction text
 
 ```bash
 npm install
-npm run verify        # typecheck + content validation + mirror check + tests
+npm run verify        # typecheck + content + mirrors + browser snapshot + tests
+
+npm run dev           # H2A browser app at http://localhost:5173
+npm run build         # production bundle into dist/
+npm run preview       # serve the production bundle
 ```
+
+Append `?dev=1` (or use `npm run dev`) for the developer inspector and the
+explicit-seed field.
 
 Individual steps:
 
 ```bash
-npm run typecheck     # tsc --noEmit
-npm run validate      # load and cross-validate all canonical content
-npm run mirror:check  # assert batch Markdown is the exact render of batch JSON
-npm test              # 295 tests: acceptance A-P, Phase-1.1/1.2/1.3, golden runs
+npm run typecheck             # tsc --noEmit
+npm run validate              # load and cross-validate all canonical content
+npm run mirror:check          # assert batch Markdown is the exact render of batch JSON
+npm run content:browser:check # assert the generated browser snapshot is not stale
+npm test                      # 320 tests: acceptance A-P, Phase-1.1/1.2/1.3, H2A, golden runs
 ```
 
 ## Monte Carlo simulator
@@ -190,8 +201,11 @@ src/sim/                  Monte Carlo scenarios, metrics, report renderer
 src/sim/experiments.ts    reversible threshold / family-mode / T1027 overrides (retained)
 src/sim/phase1_2.ts       compact diagnostic plan, SPC split, faction seeds, manifestation probe
 src/sim/phase1_3.ts       sanity plan, streaming faction-lifecycle accumulator
+src/engine/preview.ts     setup preview: same seed, species roll and draft the run will use
+src/engine/playback.ts    one deterministic life captured as immutable annual frames
+src/app/                  H2A React app — screens, reducer, i18n, inspector, generated snapshot
 src/cli/                  validate / mirror / simulate / experiment / diagnostic / sanity entry points
-tests/                    acceptance A-P, Phase-1.1/1.2/1.3, golden runs, setup
+tests/                    acceptance A-P, Phase-1.1/1.2/1.3, H2A bridge + UI, golden runs
 reports/                  generated simulation output
 ```
 
@@ -254,9 +268,16 @@ UPDATE_GOLDEN=1 npm test -- tests/golden-runs.test.ts
 
 ## Status
 
-Phase 1.3 integration is complete: 186 events across 7 batches, 38 route tags,
-6 factions with a lifecycle FSM, all Markdown mirrors byte-for-byte, 295 tests
-passing, and the 5 000-run sanity diagnostic run and reported.
+Phase 1.3 integration is complete and the **H2A browser foundation is in**: 186
+events across 7 batches, 38 route tags, 6 factions with a lifecycle FSM, all
+Markdown mirrors byte-for-byte, **320 tests passing**, a production Vite build,
+and the 5 000-run sanity diagnostic run and reported.
+
+The browser never loads the Node content loader: a generated snapshot carries the
+canonical fingerprint verbatim, `npm run content:browser:check` fails if it goes
+stale, and tests prove a hydrated bundle produces byte-identical runs. Playback is
+precomputed once at `BEGIN LIFE`, so pause and 1×/2× can only change when a frame
+is revealed — never what it contains.
 
 **H2A is OPEN.** All eleven hard correctness blockers pass — see
 [`docs/H2A_GATE_DECISION.md`](docs/H2A_GATE_DECISION.md). Across 5 000 runs there
