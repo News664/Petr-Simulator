@@ -33,10 +33,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Node 22, not 20. The test suite's jsdom environment (jsdom 30 -> undici 8)
+      # calls `markAsUncloneable` from node:worker_threads, which does not exist
+      # before Node 22.10; on Node 20 the jsdom tests fail to load and `verify`
+      # exits 1. jsdom 30 declares Node 20 unsupported in its own engines field.
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies

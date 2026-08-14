@@ -5,7 +5,7 @@
   "description": "SOLID STATE — browser game and the deterministic simulation engine behind it.",
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=22.22.2"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
