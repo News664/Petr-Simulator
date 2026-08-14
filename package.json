@@ -2,7 +2,7 @@
   "name": "solid-state-engine",
   "version": "0.1.0",
   "private": true,
-  "description": "Deterministic headless simulation engine for SOLID STATE (Phase 1 / Gate H1).",
+  "description": "SOLID STATE — browser game and the deterministic simulation engine behind it.",
   "type": "module",
   "engines": {
     "node": ">=20"

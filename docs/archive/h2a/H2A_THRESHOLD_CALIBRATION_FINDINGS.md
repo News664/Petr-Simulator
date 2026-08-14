@@ -1,9 +1,15 @@
 # SOLID STATE — H2A Threshold Calibration Findings
 
+> **Note (Part B, 2026-08-14):** the generated report this document was
+> written from is no longer tracked in git — it measured an earlier corpus.
+> The conclusions below are unchanged. See
+> [`reports/REPORT_INDEX.md`](../../../reports/REPORT_INDEX.md) for what it measured and the command
+> that regenerates it.
+
 **Analysis only.** Nothing here selects, freezes, interpolates or writes a
 threshold profile. Canonical FIX gates were not edited. Decisions stay in
-[`OPEN_QUESTIONS.md`](OPEN_QUESTIONS.md); the generated data is in
-[`reports/h2a-threshold-calibration.md`](../reports/h2a-threshold-calibration.md)
+[`OPEN_QUESTIONS.md`](../../OPEN_QUESTIONS.md); the generated data is in
+[`reports/h2a-threshold-calibration.md`](../../../reports/REPORT_INDEX.md)
 and `reports/h2a-threshold-calibration.json`.
 
 | Field | Value |
@@ -332,7 +338,7 @@ untouched and remains the record of that experiment.
   a causal claim and it does not control for age, which is its most obvious
   confounder.
 - The first human playtest (5 lives) is recorded in
-  [`docs/ui/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md`](ui/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md).
+  [`docs/ui/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md`](../h2a/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md).
   It is qualitative evidence that motivated this measurement. Its 1-in-5
   completion rate is **not** an estimate of the population rate.
 

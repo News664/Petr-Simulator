@@ -2,6 +2,12 @@
 
 ## Version 0.1 — for the post-H1 design review
 
+> **Note (Part B, 2026-08-14):** the generated report this document was
+> written from is no longer tracked in git — it measured an earlier corpus.
+> The conclusions below are unchanged. See
+> [`reports/REPORT_INDEX.md`](../reports/REPORT_INDEX.md) for what it measured and the command
+> that regenerates it.
+
 > **Decisions arising from this document are tracked in [`OPEN_QUESTIONS.md`](OPEN_QUESTIONS.md).** Resolve them there, not here.
 
 
