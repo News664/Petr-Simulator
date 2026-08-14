@@ -134,9 +134,12 @@ describe('Phase 1.2 — faction registry integrity', () => {
 });
 
 describe('Phase 1.2 — content deltas', () => {
-  it('kept the two late-life FIX>=40 gates unchanged', () => {
-    expect(content.eventsById.get('EVT-INS-MED-0012')!.include).toContain('FIX>=40');
-    expect(content.eventsById.get('EVT-ORD-FAM-0011')!.include).toContain('FIX>=40');
+  it('kept the two late-life gates at the working canonical value', () => {
+    // H2B.1A made LOW the working canonical balance, so `climax_late` is 36.
+    // Neither event's gate was touched by any content patch since Phase 1.2 —
+    // only the profile-wide mechanical rewrite moved them.
+    expect(content.eventsById.get('EVT-INS-MED-0012')!.include).toContain('FIX>=36');
+    expect(content.eventsById.get('EVT-ORD-FAM-0011')!.include).toContain('FIX>=36');
   });
 
   it('made the late-life entries history-specific rather than universal', () => {
@@ -270,7 +273,7 @@ describe('Phase 1.2 — compact diagnostic harness', () => {
     // The Phase 1.2 baseline is AUTHORED_CURRENT_CONTENT: the diagnostic must
     // read the same bundle the tests do, with no derived rewrite.
     expect(content.contentVersion).not.toContain('threshold=');
-    expect(content.eventsById.get('EVT-INS-MED-0012')!.include).toContain('FIX>=40');
+    expect(content.eventsById.get('EVT-INS-MED-0012')!.include).toContain('FIX>=36');
   });
 
   it('splits SPC by outcome and attributes faction seeds', () => {

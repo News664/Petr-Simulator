@@ -1,0 +1,119 @@
+{
+  "version": "0.1",
+  "name": "H2B.1A Working Balance & Timing",
+  "baselineDecision": {
+    "workingProfile": "LOW",
+    "status": "PROVISIONAL_CANONICAL_H2B_WORKING_BALANCE",
+    "notFinalFreeze": true,
+    "values": {
+      "commitment_standard": 28,
+      "climax_temporal": 34,
+      "climax_medical": 36,
+      "climax_standard": 40,
+      "climax_anomalous": 36,
+      "climax_late": 36
+    },
+    "sourceAssignments": "content/balance/SOLID_STATE_PHASE1_1_EXPERIMENT_MATRIX_v0.1.json"
+  },
+  "endingAgePolicy": {
+    "round2Blocker": false,
+    "statement": "The current LOW+Batch008 age shape is acceptable for Human Playtest Round 2. Improve coherence/timing when possible, but do not increase overall lethality solely to force the original age buckets.",
+    "laterLever": "Earlier faction influence/contact may be explored later; not in H2B.1A."
+  },
+  "corrections": [
+    {
+      "id": "A-01",
+      "target": "EVT-INS-FIN-2002",
+      "change": "Replace the broad MNY>=6 clean settlement with TLT[T1013] | MNY>=10. Recovery from the rescue itself must not erase the obligation."
+    },
+    {
+      "id": "A-02",
+      "target": "EVT-INS-FIN-2001 -> EVT-INS-FIN-2002",
+      "change": "If the obligation survives the follow-up, schedule new maturation event EVT-INS-FIN-2004 3-5 years later, roughly ages 25-31. It may add +8 to +12 FIX and/or commit exactly one clearly evidenced material; ambiguous/no evidence must not choose arbitrarily. Feed the existing finance route/climax; no new ending."
+    },
+    {
+      "id": "A-03",
+      "target": "Black Ledger engaged/escalation chain",
+      "change": "Once a relief/collateral event creates debtor/obligation state, escalation depends on that obligation plus FIX/material evidence, not on remaining poor. Wealth/legal talent may still permit genuine pre-COMMITTED opt-out."
+    },
+    {
+      "id": "A-04",
+      "target": "Basic Continuity Insurance",
+      "change": "Add data-driven post-event trigger: AGE>=18 & STR<=-3 with no active/recent review schedules EVT-INS-MED-2001 next year. Widen review coverage through supported old age. Trigger schedules a review, never an ending."
+    },
+    {
+      "id": "A-05",
+      "target": "EVT-INS-MED-2002",
+      "change": "Order: STR>=3 recovery; STR<=-3 expedited; TLT[T1015] | (MNY>=10 & INT>=12) exceptional independent treatment; fallback covered stabilization."
+    },
+    {
+      "id": "A-06",
+      "target": "EVT-INS-MED-2003",
+      "change": "Order: STR>=3 recovery; TLT[T1015] | (MNY>=10 & INT>=12) exceptional alternative; existing MAT benefit; single clear manifestation benefit; ambiguous/no evidence SYNT."
+    },
+    {
+      "id": "A-07",
+      "target": "Basic Continuity material selection",
+      "change": "Preserve MAT if committed. If MAT=NONE and exactly one clear manifestation exists, may stabilize that family. If none/ambiguous, SYNT. Never arbitrary first-match."
+    },
+    {
+      "id": "A-08",
+      "target": "EVT-INS-ARC-2002 / 2003",
+      "change": "T1024/T1013 negotiate self-owned structural continuation instead of automatic exit; high MNY can remain clean buyout. Add ROUTE_ARC_SELF_OWNED and use it to reach END-LEG-002."
+    },
+    {
+      "id": "A-09",
+      "target": "EVT-ORD-FIN-2003",
+      "change": "Tighten genuine lottery eligibility to MNY<=0; keep once-per-run LOW, no FIX, no hidden drawback."
+    },
+    {
+      "id": "A-10",
+      "target": "Route Tag Registry",
+      "change": "Add metadata-only relocation tag and apply to literal residence-change events/variants. No flag prefix/drafting Favor. Replace analyst relocation list."
+    },
+    {
+      "id": "A-11",
+      "target": "EVT-ORD-GEN-0004",
+      "change": "Prose-only age-1 wording fix supplied in design spec."
+    },
+    {
+      "id": "A-12",
+      "target": "Stat ecology",
+      "change": "Generate contributor audit for CHR/INT/SPR by age band. Do not mass-edit stat effects in H2B.1A."
+    }
+  ],
+  "focusedRegression": {
+    "newRuns": 3000,
+    "sameSeed": "h2b1a_timing",
+    "species": "stratified",
+    "talents": "uniform-three compatible",
+    "allocation": "ARCHETYPE_SET",
+    "familyWeight": "uniform",
+    "maxAge": 120,
+    "reference": "Use committed H2B Batch008 findings as reference unless exact prepatch in-process comparison is already cheap.",
+    "doNotRun": [
+      "LOW/MID/HIGH sweep",
+      "family weight A/B",
+      "allocation comparison",
+      "T1027",
+      "T1023",
+      "neutral manifestation"
+    ]
+  },
+  "round2Review": {
+    "hard": [
+      "all correctness counters zero",
+      "single-active-faction invariant",
+      "tests/build/browser snapshot pass",
+      "no pre18 ending/commitment"
+    ],
+    "soft": [
+      "completion broadly playable (~45-70 useful review band)",
+      "65+ not survivor dominant",
+      "broad ending coverage",
+      "maturation observable",
+      "extreme STR review exposure rises dramatically"
+    ],
+    "explicitNonBlocker": "35-44 may remain the largest ending bucket."
+  }
+}

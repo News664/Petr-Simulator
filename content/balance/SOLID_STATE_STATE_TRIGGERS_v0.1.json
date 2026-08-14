@@ -1,0 +1,28 @@
+{
+  "version": "0.1",
+  "canonical": true,
+  "purpose": "Smallest generic data-driven state-trigger facility. A trigger observes ordinary run state at the end of a year and, when its condition holds, enqueues an authored future event. It is not a meter: nothing is stored, no numeric value accumulates, and the condition grammar is unchanged.",
+  "rules": [
+    "A trigger may only schedule an authored event that already exists in the corpus.",
+    "offsetYears must be at least 1, so a trigger can never produce a second visible event in the same year.",
+    "A trigger never produces an ending, never changes stats, flags, material or faction state, and never selects a variant.",
+    "Duplicate suppression is mandatory: a trigger does not fire while its target is already pending, while suppressWhile holds, or once the target's repeat policy is exhausted.",
+    "Every trigger is declared here in canonical data. The engine hard-codes none of them."
+  ],
+  "triggers": [
+    {
+      "id": "BASIC_CONTINUITY_REVIEW",
+      "when": "AGE>=18 & STR<=-3",
+      "suppressWhile": "FLAG[PRESS_STR_REVIEW] | FLAG[PRESS_STR_PERSISTENT]",
+      "schedule": {
+        "eventId": "EVT-INS-MED-2001",
+        "offsetYears": 1,
+        "windowYears": 2,
+        "priority": "scheduled",
+        "priorityOrder": 25,
+        "validityCondition": "STR<=1 & !FLAG[PRESS_STR_REVIEW]"
+      },
+      "notes": "H2B.1A A-04. An adult at STR<=-3 with no active or pending review gets one scheduled for the following year. Coverage does not stop at 69; the reviewed events carry no upper age bound. The trigger schedules a review and never an ending."
+    }
+  ]
+}

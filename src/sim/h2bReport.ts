@@ -2,7 +2,7 @@ import type { ContentBundle } from '../engine/content/load.js';
 import { VISIBLE_STATS, type VisibleStat } from '../engine/types.js';
 import type { H2aArmTelemetry, StatSnapshot } from './h2aThresholdTelemetry.js';
 import type { H2bTelemetry } from './h2bDiagnostic.js';
-import { RELOCATION_VARIANTS } from './h2bDiagnostic.js';
+import { RELOCATION_TAG } from './h2bDiagnostic.js';
 import type { MetricsSummary } from './metrics.js';
 import type { FactionSummary } from './phase1_3.js';
 import { num, pct, table } from './report.js';
@@ -302,11 +302,11 @@ export function renderH2bReport(content: ContentBundle, payload: H2bPayload): st
   out.push('## 5. Housing and relocation');
   out.push('');
   out.push(
-    'Housing is attributed by the canonical `housing` route tag. **Relocation is not a canonical tag**: the ' +
-      'registry has no `relocation` entry, so the diagnostic declares an explicit variant list ' +
-      `(${RELOCATION_VARIANTS.length} variants across ${new Set(RELOCATION_VARIANTS.map(([id]) => id)).size} events) ` +
-      'in `src/sim/h2bDiagnostic.ts`. That list is an analyst classification, not content — a canonical ' +
-      '`relocation` metadata tag would replace it and is recommended for a later patch.',
+    'Housing is attributed by the canonical `housing` route tag, and a literal change of address by the ' +
+      `canonical \`${RELOCATION_TAG}\` metadata tag added in H2B.1A (A-10). Both are read from the corpus; the ` +
+      'analyst variant list the H2B run relied on is gone. The tag is event-level, so one variant of ' +
+      '`EVT-ORD-HOU-2002` that is a move cannot be expressed separately from its non-move sibling — recorded as ' +
+      'a conflict rather than patched around.',
   );
   out.push('');
   out.push(
@@ -564,6 +564,163 @@ export function renderH2bReport(content: ContentBundle, payload: H2bPayload): st
           ),
     );
     out.push('');
+  }
+
+  // -------------------------------------------------------------------------
+  out.push('## 10. Financial maturation (A-01 / A-02)');
+  out.push('');
+  out.push(
+    'A rescue removes the vulnerability that made the offer attractive. It does not remove the lien. The buyout ' +
+      'is now `TLT[T1013] | MNY>=10`; everything else keeps the obligation and matures into `EVT-INS-FIN-2004`.',
+  );
+  out.push('');
+  out.push(
+    table(
+      ['Arm', 'Rescue', 'Follow-up', 'Bought out', 'Obligation survived', 'Maturation', 'Mean maturation age', 'Finance climax'],
+      arms.map((arm) => {
+        const f = arm.h2b.finance;
+        return [
+          `**${arm.label}**`,
+          String(f.rescueRuns),
+          String(f.followUpRuns),
+          `${f.buyoutRuns} (${pct(f.followUpRuns === 0 ? 0 : f.buyoutRuns / f.followUpRuns)})`,
+          String(f.obligationSurvivedRuns),
+          `${f.maturationRuns} (${pct(f.maturationRate)})`,
+          num(f.meanMaturationAge, 1),
+          String(f.financeClimaxRuns),
+        ];
+      }),
+    ),
+  );
+  out.push('');
+  for (const arm of arms) {
+    const f = arm.h2b.finance;
+    out.push(`**${arm.label}** — maturation branches and committed material`);
+    out.push('');
+    out.push(
+      f.maturationBranches.length === 0
+        ? '_Never reached._'
+        : table(
+            ['Branch', 'Runs', 'Share'],
+            f.maturationBranches.map((b) => [`\`${b.label}\``, String(b.runs), pct(b.share)]),
+          ),
+    );
+    out.push('');
+    const materials = Object.entries(f.maturationCommittedMaterials).sort((a, b) => b[1] - a[1]);
+    out.push(
+      materials.length === 0
+        ? '_No material outcome recorded._'
+        : table(['Outcome', 'Runs'], materials.map(([m, n]) => [m, String(n)])),
+    );
+    out.push('');
+    const endings = Object.entries(f.financeEndings).sort((a, b) => b[1] - a[1]);
+    out.push(
+      endings.length === 0
+        ? '_No secured-debt ending observed._'
+        : table(['Ending (secured-debt runs)', 'Runs'], endings.map(([m, n]) => [`\`${m}\``, String(n)])),
+    );
+    out.push('');
+  }
+
+  out.push('## 11. Black Ledger (A-03)');
+  out.push('');
+  out.push(
+    'Escalation now depends on the DEBTOR obligation plus FIX/material evidence rather than on the protagonist ' +
+      'remaining poor. Wealth and Property Lawyer still permit a genuine pre-COMMITTED opt-out.',
+  );
+  out.push('');
+  out.push(
+    table(
+      ['Arm', 'Contact', 'ENGAGED', 'COMMITTED', 'OPTED_OUT', 'CLOSED', 'Endings', 'Mean COMMITTED age', 'DEBTOR at escalation'],
+      arms.map((arm) => {
+        const b = arm.h2b.blackLedger;
+        return [
+          `**${arm.label}**`,
+          String(b.contactRuns),
+          String(b.engagedRuns),
+          `${b.committedRuns} (${pct(b.committedRate)})`,
+          String(b.optedOutRuns),
+          String(b.closedRuns),
+          `${b.endingRuns} (${pct(b.endingRate)})`,
+          num(b.meanCommittedAge, 1),
+          String(b.debtorAtEscalationRuns),
+        ];
+      }),
+    ),
+  );
+  out.push('');
+
+  out.push('## 12. State triggers (A-04)');
+  out.push('');
+  out.push(
+    'Data-driven triggers declared in `content/balance/SOLID_STATE_STATE_TRIGGERS_v0.1.json`. A trigger may only ' +
+      'enqueue an authored future event, never an ending, and duplicate suppression means one pending review at a ' +
+      'time. Nothing is stored between years.',
+  );
+  out.push('');
+  for (const arm of arms) {
+    const t = arm.h2b.stateTriggers;
+    const ids = Object.keys(t.firings).sort();
+    out.push(`**${arm.label}**`);
+    out.push('');
+    out.push(
+      ids.length === 0
+        ? '_No trigger fired._'
+        : table(
+            ['Trigger', 'Firings', 'Runs', 'Mean age', 'Max firings in one run'],
+            ids.map((id) => [
+              `\`${id}\``,
+              String(t.firings[id] ?? 0),
+              String(t.runsTriggered[id] ?? 0),
+              num(t.meanFiringAge[id] ?? null, 1),
+              String(t.maxFiringsInOneRun[id] ?? 0),
+            ]),
+          ),
+    );
+    out.push('');
+    const s65 = arm.h2b.extremeStrSurvivors;
+    out.push(
+      `65+ survivors that ever sat at STR ≤ −3: **${s65.survivorsEverExtreme}**, of which ` +
+        `**${s65.survivorsWithReview}** saw a Continuity Review (**${pct(s65.coverage)}**).`,
+    );
+    out.push('');
+  }
+
+  out.push('## 13. Stat contributor audit (A-12)');
+  out.push('');
+  out.push(
+    'Ranked authored CHR / INT / SPR contributors by event variant, age band and total magnitude. ' +
+      '**Report only — no stat effect was edited in H2B.1A.** This is the input to the later Stat Ecology ' +
+      'correction.',
+  );
+  out.push('');
+  for (const arm of arms) {
+    const audit = arm.h2b.statContributors;
+    out.push(`### ${arm.label}`);
+    out.push('');
+    for (const stat of ['CHR', 'INT', 'SPR']) {
+      for (const bandLabel of audit.ageBands) {
+        const cell = audit.byStat[stat]?.[bandLabel];
+        if (!cell || (cell.positive.length === 0 && cell.negative.length === 0)) continue;
+        out.push(`**${stat} · ages ${bandLabel}**`);
+        out.push('');
+        const rows = [...cell.positive.slice(0, 8), ...cell.negative.slice(0, 8)];
+        out.push(
+          table(
+            ['Event', 'Variant', 'Δ', 'Occurrences', 'Total magnitude', 'Text'],
+            rows.map((row) => [
+              `\`${row.eventId}\``,
+              String(row.variantIndex + 1),
+              `${row.delta > 0 ? '+' : ''}${row.delta}`,
+              String(row.occurrences),
+              `${row.totalMagnitude > 0 ? '+' : ''}${row.totalMagnitude}`,
+              row.textExcerpt.replace(/\|/g, '\\|'),
+            ]),
+          ),
+        );
+        out.push('');
+      }
+    }
   }
 
   return out.join('\n');

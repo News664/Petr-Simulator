@@ -25,7 +25,8 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "lint:content": "tsx src/cli/lint.ts",
-    "h2b:diagnostic": "tsx src/cli/h2b-diagnostic.ts"
+    "h2b:diagnostic": "tsx src/cli/h2b-diagnostic.ts",
+    "h2b1a": "tsx src/cli/h2b1a-regression.ts"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^7.0.1",

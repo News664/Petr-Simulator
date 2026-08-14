@@ -475,6 +475,37 @@ the flags already present.
 
 ---
 
+## E-32 — Data-driven state triggers
+
+**Source.** H2B.1A instruction 3 / correction A-04.
+
+**Rule.** A trigger declared in `content/balance/SOLID_STATE_STATE_TRIGGERS_v0.1.json`
+re-evaluates an ordinary condition against ordinary run state once per year,
+after the year's event has fully resolved, and enqueues an authored future event
+when it holds.
+
+**Where it lives.** `src/engine/triggers.ts` (`applyStateTriggers`), called from
+`resolveYear` as step 12b; `stateTriggerRegistrySchema` in
+`src/engine/content/schema.ts`; `ContentBundle.stateTriggers`; diagnostics in
+`RunDiagnostics.stateTriggerFirings`.
+
+**Not a meter.** Nothing is stored and nothing accumulates — the trigger's `when`
+is re-derived from the same `conditionContext` conditions already use, and the
+grammar gains no new syntax. The engine hard-codes no trigger.
+
+**Guarantees, each enforced rather than asserted:**
+
+- *future authored events only* — the target must exist in the corpus (checked at
+  load) and `offsetYears >= 1` (schema plus a load-time check);
+- *no duplicates* — quiet while the target is already pending, while
+  `suppressWhile` holds, or once the target's repeat policy is exhausted;
+- *one visible event per year* — a trigger only enqueues; the annual loop still
+  emits exactly one entry;
+- *never terminal* — a trigger cannot set stats, flags, material, faction state
+  or an ending, and cannot choose a variant.
+
+---
+
 # 4. Deliberately *not* implemented
 
 Listed so their absence is not mistaken for an oversight.
@@ -501,6 +532,7 @@ Listed so their absence is not mistaken for an oversight.
 | 2026-08-12 | Created at Phase-1 handoff with E-01 … E-18 |
 | 2026-08-13 | Phase 1.1 patch integrated. Adapter shrunk to two diagnostic entries; E-19 … E-22 added. E-01, E-02, E-03, E-05 … E-13, E-17 are now canonical data rather than engine decisions. |
 | 2026-08-13 | Phase 1.2 patch integrated: Faction Registry v0.1, Batch 006, Batch 005 v0.2, Route Tag Registry v1.1, Talent Registry v1.2, the compact diagnostic plan. E-23 … E-26 added. One content conflict found and reported (`PHASE1_CONFLICTS.md` P12-C1). |
+| 2026-08-14 | H2B.1A: LOW written into canonical content as the working balance (31 gates; experiment matrix and reversible profiles preserved). **One engine facility added — E-32, data-driven state triggers.** Route Tag Registry v1.3 (`relocation`), Batch 008 v0.2 with `EVT-INS-FIN-2004`, batches 001–007 rebumped. New `npm run h2b1a` regression runner. |
 | 2026-08-14 | H2B Batch 008 integrated: Ending Registry v1.2 (`END-MED-003`), Event Batch 008 (28 events), Batch 002 v0.3 / 004 v0.3 / 005 v0.4 / 007 v0.4 patched, `content/patches/*`. **One engine rule added — E-31, the single active personalized faction.** New content lints (`src/engine/content/lint.ts`, `npm run lint:content`, wired into `verify`) and the H2B diagnostic (`src/sim/h2bDiagnostic.ts`, `src/sim/h2bReport.ts`, `src/cli/h2b-diagnostic.ts`). No threshold frozen; LOW stays a reversible derived profile. |
 | 2026-08-14 | H2A UX micro-patch + threshold calibration: **no engine change.** The calibration adds measurement modules only (`src/sim/h2aThresholdTelemetry.ts`, `src/sim/h2aThresholdReport.ts`, `src/cli/h2a-threshold.ts`) and reuses the retained Phase 1.1 reversible threshold rewrite. The UX patch is application-layer; playback cadence moved out of `App.tsx` into the canonical UI tokens. |
 | 2026-08-13 | Phase 1.3 patch integrated: Content Schema v0.4, Faction Registry v0.2, Batch 007, Batch 006 v0.2, Batch 005 v0.3, Route Tag Registry v1.2, content tool v0.3, the sanity plan. E-27 … E-30 added. Two missing-input conflicts found and reported (`PHASE1_CONFLICTS.md` P13-C1). |

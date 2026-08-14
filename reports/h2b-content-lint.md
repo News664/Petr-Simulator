@@ -2,11 +2,11 @@
 
 Generated from canonical content. **Reports only** — no lint rewrites prose.
 
-Content fingerprint: `30bc4280bffd848ece939fb8ceb2ddd3715bd3d7e026ab5d81f657ed70fd1bf5`
+Content fingerprint: `8638e2e1ebd977878d09c28c1d554d7b85e2174f24fcf7aa568df018541d214e`
 
 ## 1. All-female prose lint
 
-Scanned **644** canonical player-facing English strings across events, endings, talents, species and factions for standalone male-coded terms. Designer notes are authoring commentary and are out of scope. Matching is case-insensitive and word-bounded, so `Human`, `woman` and `management` cannot false-positive.
+Scanned **661** canonical player-facing English strings across events, endings, talents, species and factions for standalone male-coded terms. Designer notes are authoring commentary and are out of scope. Matching is case-insensitive and word-bounded, so `Human`, `woman` and `management` cannot false-positive.
 
 **PASS — 0 findings.**
 
@@ -48,7 +48,7 @@ Include: `TRUE`
 
 Include: `TRUE`
 
-- `TRUE` — Another year is mostly spent growing, falling down, asking questions, and being told not to touch things.
+- `TRUE` — Another year is mostly spent growing, falling down, making demands with increasing precision, and being told not to touch things.
   - effects: INT +1, STR +1
 
 ### `EVT-ORD-HEA-0003` — ORD/HEA, ages 1–4, random, NORMAL
@@ -78,9 +78,9 @@ Authored variant deltas counted statically over the corpus. An event contributes
 | CHR | 39 | +58 | 3 | -4 |
 | INT | 71 | +99 | 2 | -3 |
 | STR | 33 | +55 | 7 | -7 |
-| MNY | 92 | +160 | 61 | -86 |
-| SPR | 120 | +142 | 139 | -152 |
-| FIX | 111 | +544 | 0 | 0 |
+| MNY | 101 | +176 | 62 | -87 |
+| SPR | 121 | +143 | 140 | -153 |
+| FIX | 128 | +674 | 0 | 0 |
 
 **No visible stat is strictly monotonic** — every one has at least one authored negative delta.
 
@@ -133,9 +133,9 @@ Authored variant deltas counted statically over the corpus. An event contributes
 | 0-5 | 3 | +3 | 3 | -3 |
 | 6-11 | 0 | +0 | 0 | 0 |
 | 12-17 | 2 | +2 | 2 | -2 |
-| 18-24 | 78 | +143 | 40 | -61 |
-| 25-34 | 76 | +139 | 48 | -73 |
-| 35-44 | 57 | +98 | 45 | -65 |
+| 18-24 | 79 | +144 | 40 | -61 |
+| 25-34 | 85 | +155 | 49 | -74 |
+| 35-44 | 58 | +99 | 45 | -65 |
 | 45-54 | 11 | +16 | 15 | -23 |
 | 55-64 | 5 | +5 | 6 | -12 |
 | 65+ | 2 | +2 | 3 | -9 |
@@ -147,9 +147,9 @@ Authored variant deltas counted statically over the corpus. An event contributes
 | 0-5 | 9 | +9 | 0 | 0 |
 | 6-11 | 4 | +4 | 4 | -4 |
 | 12-17 | 5 | +5 | 18 | -18 |
-| 18-24 | 72 | +89 | 96 | -108 |
-| 25-34 | 78 | +98 | 107 | -119 |
-| 35-44 | 62 | +83 | 87 | -95 |
+| 18-24 | 73 | +90 | 96 | -108 |
+| 25-34 | 79 | +99 | 108 | -120 |
+| 35-44 | 63 | +84 | 87 | -95 |
 | 45-54 | 31 | +35 | 28 | -29 |
 | 55-64 | 25 | +27 | 9 | -9 |
 | 65+ | 18 | +19 | 3 | -3 |

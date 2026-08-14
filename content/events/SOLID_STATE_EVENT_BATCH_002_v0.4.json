@@ -1,0 +1,1585 @@
+{
+  "batchId": "EVENT_BATCH_002",
+  "version": "0.4",
+  "languageStatus": {
+    "en": "canonical_draft",
+    "zh-TW": "reserved_empty"
+  },
+  "notes": "Second content batch. Adds Stone/Metal/Glass/Crystal commitment, Museum and Medical climaxes, Temporal fixation, Architectural route, mid-life preservation culture, and 45+ mobile-survivor content. Revised to follow soft-evidence drafting: ordinary material commitment events use NORMAL local weight rather than HIGH.",
+  "events": [
+    {
+      "id": "EVT-TRN-STON-0001",
+      "channel": "TRN",
+      "family": "STON",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "include": "MAT=NONE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "FLAG[MAT_HINT_STON]",
+          "text": {
+            "en": "A patch of skin at your shoulder hardens into smooth stone and slowly softens again. The clinic marks your old school screening as 'retrospectively useful.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 2,
+            "SPR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_STON"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A patch of skin at your shoulder hardens into smooth stone and slowly softens again. The clinic calls it a reversible structural episode.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 2,
+            "SPR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_STON"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Stone manifestation. Does not commit material."
+    },
+    {
+      "id": "EVT-TRN-STON-0002",
+      "channel": "TRN",
+      "family": "STON",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [
+        "commitment"
+      ],
+      "include": "MAT=NONE & FLAG[MAT_MANIFEST_STON] & FIX>=28",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPECIES=DWARF",
+          "text": {
+            "en": "The stone at your shoulder stops softening and spreads across your upper arm. The specialist calls the density 'excellent,' then remembers this is a medical appointment.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 3,
+            "SPR": -1,
+            "FIX": 7
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "STON",
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The stone at your shoulder stops softening and spreads across your upper arm. Your file is updated from 'episode' to 'conversion.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 2,
+            "SPR": -1,
+            "FIX": 7
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "STON",
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Stone Material Commitment."
+    },
+    {
+      "id": "EVT-TRN-METL-0001",
+      "channel": "TRN",
+      "family": "METL",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "finance"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "include": "MAT=NONE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "FLAG[MAT_HINT_METL] | TLT[T1021]",
+          "text": {
+            "en": "Metal objects begin clinging weakly to your forearms. A doctor asks you to stop demonstrating this with clinic stationery.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "STR": 1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_METL"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A metallic sheen appears beneath your skin whenever you are tired. The clinic adds 'avoid strong magnets' to your otherwise normal discharge notes.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1,
+            "SPR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_METL"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Metal manifestation; Magnetic Personality gets a literal interaction."
+    },
+    {
+      "id": "EVT-TRN-METL-0002",
+      "channel": "TRN",
+      "family": "METL",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "finance"
+      ],
+      "materialTags": [
+        "commitment"
+      ],
+      "include": "MAT=NONE & FLAG[MAT_MANIFEST_METL] & FIX>=28",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPECIES=DRAGONKIN",
+          "text": {
+            "en": "The metallic sheen becomes permanent and dense. A valuation service contacts you before the specialist does.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "STR": 2,
+            "SPR": -1,
+            "FIX": 7
+          },
+          "addFlags": [
+            "ROUTE_FIN_VALUED"
+          ],
+          "removeFlags": [],
+          "setMaterialCommitment": "METL",
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The metallic layer beneath your skin becomes permanent. Your physician assures you the alloy is medically ordinary.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 2,
+            "SPR": -1,
+            "FIX": 7
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "METL",
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Metal Material Commitment; Dragonkin can attract financial attention."
+    },
+    {
+      "id": "EVT-TRN-GLAS-0001",
+      "channel": "TRN",
+      "family": "GLAS",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "include": "MAT=NONE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPECIES=DEMONKIN | FLAG[MAT_HINT_GLAS]",
+          "text": {
+            "en": "A dark glassy patch forms around one wrist and reflects light like polished obsidian. The clinic's scanner labels it 'decorative interference.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 2,
+            "SPR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_GLAS"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A translucent glassy patch forms around one wrist and fades only slightly. The clinic gives you protective sleeves and a brochure on glare.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_GLAS"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Glass/obsidian manifestation."
+    },
+    {
+      "id": "EVT-TRN-GLAS-0002",
+      "channel": "TRN",
+      "family": "GLAS",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "museum"
+      ],
+      "materialTags": [
+        "commitment"
+      ],
+      "include": "MAT=NONE & FLAG[MAT_MANIFEST_GLAS] & FIX>=28",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPECIES=DEMONKIN",
+          "text": {
+            "en": "The dark glass at your wrist stops fading and spreads in a clean obsidian surface. The specialist describes the finish as 'unusually successful' and apologizes.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 2,
+            "STR": 1,
+            "SPR": -1,
+            "FIX": 7
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "GLAS",
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The glassy patch at your wrist becomes permanent and begins spreading. Your chart now includes a section titled 'breakage planning.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "STR": 1,
+            "SPR": -1,
+            "FIX": 7
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "GLAS",
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Glass Material Commitment."
+    },
+    {
+      "id": "EVT-TRN-CRYS-0002",
+      "channel": "TRN",
+      "family": "CRYS",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "museum"
+      ],
+      "materialTags": [
+        "commitment"
+      ],
+      "include": "MAT=NONE & FLAG[MAT_MANIFEST_CRYS] & FIX>=28",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1018]",
+          "text": {
+            "en": "The crystalline lines stop receding and lock into a permanent lattice. The specialist asks whether you have a museum contact before discussing treatment.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 3,
+            "SPR": -1,
+            "FIX": 7
+          },
+          "addFlags": [
+            "ROUTE_MUS_INTEREST"
+          ],
+          "removeFlags": [],
+          "setMaterialCommitment": "CRYS",
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The crystalline lines stop receding and lock into a permanent lattice. The clinic upgrades your condition from 'cosmetic' to 'structural.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 2,
+            "SPR": -1,
+            "FIX": 7
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "CRYS",
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Crystal commitment completes the manifestation begun in Batch 001."
+    },
+    {
+      "id": "EVT-INS-MUS-0002",
+      "channel": "INS",
+      "family": "MUS",
+      "age": {
+        "min": 24,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "museum"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_MUS_INTEREST] & MAT!=NONE & !FLAG[ROUTE_MUS_APPRAISED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT=WOOD",
+          "text": {
+            "en": "A conservator examines the grain developing across your body and discusses humidity control with unusual enthusiasm.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_MUS_APPRAISED"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MUS-0003",
+              "offsetYears": 3,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_MUS_APPRAISED] & MAT!=NONE"
+            }
+          ]
+        },
+        {
+          "when": "MAT=CRYS",
+          "text": {
+            "en": "A curator dims the room before examining your crystalline structure. The museum's research department requests a copy of your medical file.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "INT": 1
+          },
+          "addFlags": [
+            "ROUTE_MUS_APPRAISED"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MUS-0003",
+              "offsetYears": 3,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_MUS_APPRAISED] & MAT!=NONE"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A museum appraiser evaluates your developing Permanent Form. The appointment ends with more measurements than explanations.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1
+          },
+          "addFlags": [
+            "ROUTE_MUS_APPRAISED"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MUS-0003",
+              "offsetYears": 3,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_MUS_APPRAISED] & MAT!=NONE"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Museum appraisal schedules a later climax while adapting to committed material."
+    },
+    {
+      "id": "EVT-INS-MUS-0003",
+      "channel": "INS",
+      "family": "MUS",
+      "age": {
+        "min": 27,
+        "max": 54
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "museum",
+        "legal",
+        "academic"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "include": "FLAG[ROUTE_MUS_APPRAISED] & MAT!=NONE & FIX>=40",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT=CRYS & FLAG[ROUTE_ACA_RESEARCH]",
+          "text": {
+            "en": "Your final crystallization is transferred into the museum's research archive. The catalogue describes you as both a person and a storage medium.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MUS-003"
+        },
+        {
+          "when": "TLT[T1024] | TLT[T1013]",
+          "text": {
+            "en": "The museum completes your preservation under a custody agreement that leaves ownership legally yours. The gift shop remains disappointed.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-LEG-001",
+          "endingOverrides": {
+            "location": "museum",
+            "socialMeaning": "self-owned museum display",
+            "autonomy": "Represented"
+          }
+        },
+        {
+          "when": "TLT[T1007] | TLT[T1018]",
+          "text": {
+            "en": "The museum completes your preservation and places you on permanent display. The condition report praises the finish before mentioning your name.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MUS-001"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The museum completes your preservation and transfers you to long-term conservation. Your file is marked 'excellent condition, routine maintenance.'",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MUS-002"
+        }
+      ],
+      "designerNotes": "Museum climax with crystal-academic, legal, display, and conservation variants."
+    },
+    {
+      "id": "EVT-INS-ACA-0001",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 20,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "academic",
+        "medical"
+      ],
+      "materialTags": [],
+      "include": "INT>=8 & !FLAG[ROUTE_ACA_RESEARCH]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1020]",
+          "text": {
+            "en": "A continuity researcher recruits you after you describe a place you have never visited with uncomfortable accuracy.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ACA_RESEARCH"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A research institute recruits you for a study on Permanent Form continuity. The consent form is longer than the published paper.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "MNY": 1
+          },
+          "addFlags": [
+            "ROUTE_ACA_RESEARCH"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Academic route seed; useful for Crystal Archivist and future hidden routes."
+    },
+    {
+      "id": "EVT-INS-MED-0002",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 25,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "midlife"
+      ],
+      "materialTags": [],
+      "include": "FIX>=40 & !FLAG[ROUTE_MED_PRESERVATION_CONSULT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1017]",
+          "text": {
+            "en": "A preservation specialist calls your condition 'an opportunity to choose the timing.' The brochure calls this proactive aging.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "MNY": -1
+          },
+          "addFlags": [
+            "ROUTE_MED_PRESERVATION_CONSULT"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-0003",
+              "offsetYears": 2,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_MED_PRESERVATION_CONSULT]"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A preservation specialist recommends planning for Permanent Form before the decision becomes medically urgent. The brochure uses the phrase 'future-proofing.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "MNY": -1
+          },
+          "addFlags": [
+            "ROUTE_MED_PRESERVATION_CONSULT"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-0003",
+              "offsetYears": 2,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_MED_PRESERVATION_CONSULT]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Medical preservation consultation can lead to a deliberate mid-life ending."
+    },
+    {
+      "id": "EVT-INS-MED-0003",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 27,
+        "max": 49
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "midlife",
+        "finance"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "include": "FLAG[ROUTE_MED_PRESERVATION_CONSULT] & FIX>=36",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT=NONE & TLT[T1026]",
+          "text": {
+            "en": "You undergo the lowest-cost permanent preservation the clinic can legally advertise. The synthetic result is durable, standardized, and very definitely yours according to page fourteen.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "SYNT",
+          "schedules": [],
+          "endingId": "END-MED-002"
+        },
+        {
+          "when": "MAT=NONE",
+          "text": {
+            "en": "You decide that waiting for a worse condition would be inefficient. The clinic preserves you in a custom synthetic form while the promotional discount still applies.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "SYNT",
+          "schedules": [],
+          "endingId": "END-MED-001"
+        },
+        {
+          "when": "TLT[T1026]",
+          "text": {
+            "en": "The clinic completes permanent preservation using your existing material condition and the cheapest compatible maintenance plan. Both technically work.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MED-002"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You schedule permanent preservation before further aging complicates the procedure. The clinic calls the result your final version.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MED-001"
+        }
+      ],
+      "designerNotes": "Deliberate preservation climax. Can create Synthetic commitment only when no prior material exists."
+    },
+    {
+      "id": "EVT-ORD-SOC-0003",
+      "channel": "ORD",
+      "family": "SOC",
+      "age": {
+        "min": 35,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 4,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "midlife",
+        "social",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "CHR>=8",
+          "text": {
+            "en": "Several friends begin discussing whether they should preserve themselves 'before anything starts to sag.' You are asked for recommendations.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "CHR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Someone in your social circle announces a mid-life preservation consultation. Everyone reacts as though she bought an expensive car.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Mid-life crisis humor without forcing the protagonist into a route."
+    },
+    {
+      "id": "EVT-INS-COR-0004",
+      "channel": "INS",
+      "family": "COR",
+      "age": {
+        "min": 35,
+        "max": 49
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "corporate",
+        "midlife"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_COR_EMPLOYEE]",
+      "exclude": "EVT[EVT-INS-COR-0004]",
+      "variants": [
+        {
+          "when": "MNY>=8",
+          "text": {
+            "en": "Your company offers an Executive Final Form package. The presentation spends twenty minutes on legacy and thirty seconds on immobility.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_MED_PRESERVATION_CONSULT"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-0003",
+              "offsetYears": 2,
+              "windowYears": 4,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_MED_PRESERVATION_CONSULT]"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your company launches an Executive Final Form package. You are not senior enough for the premium materials, but HR adds you to the mailing list.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Corporate mid-life preservation marketing."
+    },
+    {
+      "id": "EVT-TRN-TEMP-0001",
+      "channel": "TRN",
+      "family": "TEMP",
+      "age": {
+        "min": 20,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "temporal",
+        "academic",
+        "medical"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "include": "MAT=NONE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1019]",
+          "text": {
+            "en": "For eleven seconds, everything except you appears to stop moving. The emergency department classifies this as successful spontaneous stabilization.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "FIX": 6
+          },
+          "addFlags": [
+            "MAT_MANIFEST_TEMP"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "For eleven seconds, your reflection stops moving before you do. The clinic files the incident under temporal fixation and asks whether it happens often.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -2,
+            "FIX": 6
+          },
+          "addFlags": [
+            "MAT_MANIFEST_TEMP"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Temporal manifestation; no commitment yet."
+    },
+    {
+      "id": "EVT-INS-ACA-0002",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 22,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "academic",
+        "temporal"
+      ],
+      "materialTags": [],
+      "include": "FLAG[MAT_MANIFEST_TEMP] & !FLAG[ROUTE_TEMP_STUDY]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "INT>=8",
+          "text": {
+            "en": "The Continuity Research Institute invites you into a temporal study. The equipment is cutting-edge; the consent form still uses last year's logo.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 2,
+            "MNY": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_TEMP_STUDY"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-TRN-TEMP-0002",
+              "offsetYears": 3,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_TEMP_STUDY] & MAT=NONE"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Continuity Research Institute invites you into a temporal study. You are classified as a participant, not an equipment fault.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_TEMP_STUDY"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-TRN-TEMP-0002",
+              "offsetYears": 3,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_TEMP_STUDY] & MAT=NONE"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Schedules temporal climax."
+    },
+    {
+      "id": "EVT-TRN-TEMP-0002",
+      "channel": "TRN",
+      "family": "TEMP",
+      "age": {
+        "min": 25,
+        "max": 54
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "temporal",
+        "academic",
+        "legal",
+        "finance"
+      ],
+      "materialTags": [
+        "commitment",
+        "ending"
+      ],
+      "include": "FLAG[ROUTE_TEMP_STUDY] & MAT=NONE & FIX>=34",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1024]",
+          "text": {
+            "en": "The Institute's stabilization field locks you outside ordinary time. Your advance directive survives the procedure better than the laboratory clock.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "TEMP",
+          "schedules": [],
+          "endingId": "END-TMP-001",
+          "endingOverrides": {
+            "ownership": "Self",
+            "autonomy": "Represented"
+          }
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Institute's stabilization field locks you outside ordinary time. The experiment is declared complete after everyone else has waited several hours.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "TEMP",
+          "schedules": [],
+          "endingId": "END-TMP-001"
+        }
+      ],
+      "designerNotes": "Temporal commitment and ending occur together; default awareness is Suspended."
+    },
+    {
+      "id": "EVT-ORD-CAR-0003",
+      "channel": "ORD",
+      "family": "CAR",
+      "age": {
+        "min": 45,
+        "max": 59
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 4,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "career",
+        "baseline",
+        "survivor"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "FLAG[ROUTE_COR_EMPLOYEE]",
+          "text": {
+            "en": "You become one of the longest-mobile employees in your department. HR sends a congratulatory card and a preservation brochure in the same envelope.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Another working year passes without permanent conversion. A younger colleague asks whether this is intentional.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable later-career survivor content."
+    },
+    {
+      "id": "EVT-ORD-HEA-0001",
+      "channel": "ORD",
+      "family": "HEA",
+      "age": {
+        "min": 45,
+        "max": 64
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 5,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "medical",
+        "baseline",
+        "survivor"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "FIX>=60",
+          "text": {
+            "en": "A routine checkup confirms that you remain mobile despite increasingly unconvincing statistics. The doctor changes the subject to maintenance planning.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": -1,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A routine checkup finds nothing immediately alarming. The doctor congratulates you on continued mobility as though you personally arranged it.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": -1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Aging can affect STR without turning old age into the main ending mechanism."
+    },
+    {
+      "id": "EVT-INS-FIN-0003",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 50,
+        "max": 69
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "finance",
+        "survivor"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "EVT[EVT-INS-FIN-0003]",
+      "variants": [
+        {
+          "when": "MNY>=8",
+          "text": {
+            "en": "Your insurer offers a longevity discount for remaining mobile past its original model. The discount is smaller than the fee for recalculating the model.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your insurer requests confirmation that you are still capable of movement. The form includes a checkbox labeled 'surprisingly, yes.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Late mobility treated as an actuarial anomaly."
+    },
+    {
+      "id": "EVT-INS-CIV-0002",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 55,
+        "max": 74
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "civic",
+        "survivor"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "EVT[EVT-INS-CIV-0002]",
+      "variants": [
+        {
+          "when": "AGE>=65",
+          "text": {
+            "en": "A government survey classifies you as an Older Mobile Citizen. The category was introduced recently enough that the website still redirects incorrectly.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A government survey asks why you remain mobile past the national median conversion age. 'No particular reason' is not one of the listed answers.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Survivor worldbuilding; does not imply exact public statistics."
+    },
+    {
+      "id": "EVT-ORD-SOC-0004",
+      "channel": "ORD",
+      "family": "SOC",
+      "age": {
+        "min": 60,
+        "max": null
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 5,
+      "repeatMaxCount": null,
+      "routeTags": [
+        "social",
+        "baseline",
+        "survivor"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPR>=8",
+          "text": {
+            "en": "You attend another reunion and are once again the only person who arrives under her own power. Someone saves you the chair with the best view of everyone else.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You attend another reunion and are once again the only person who arrives under her own power. Nobody knows whether this is admirable or inconvenient.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable 60+ social baseline so late survivors still have life content."
+    },
+    {
+      "id": "EVT-ORD-GEN-0002",
+      "channel": "ORD",
+      "family": "GEN",
+      "age": {
+        "min": 35,
+        "max": 54
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 5,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "baseline",
+        "midlife"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You reorganize part of your life for reasons that feel important at the time. No institution manages to monetize this immediately.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "MNY": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Ordinary mid-life baseline distinct from the fallback and from preservation culture."
+    },
+    {
+      "id": "EVT-INS-MED-0004",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 45,
+        "max": 69
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "survivor"
+      ],
+      "materialTags": [],
+      "include": "MAT!=NONE & FIX>=50",
+      "exclude": "EVT[EVT-INS-MED-0004]",
+      "variants": [
+        {
+          "when": "STR>=8",
+          "text": {
+            "en": "A specialist notes that your committed material has remained unusually stable while you are still mobile. The report calls this 'functionally inconvenient but clinically impressive.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A specialist notes that your committed material is progressing slowly enough to preserve mobility for now. Your next appointment is scheduled optimistically.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "FIX": 2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Allows some committed-material protagonists to remain mobile into later ages."
+    },
+    {
+      "id": "EVT-INS-ARC-0001",
+      "channel": "INS",
+      "family": "ARC",
+      "age": {
+        "min": 25,
+        "max": 49
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "architectural",
+        "industrial"
+      ],
+      "materialTags": [],
+      "include": "(MAT=STON | MAT=METL) & STR>=8 & !FLAG[ROUTE_ARC_STRUCTURAL]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPECIES=DWARF",
+          "text": {
+            "en": "A structural contractor offers you consulting work after seeing your material condition. The accessibility meeting is held at a table designed for Humans.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ARC_STRUCTURAL"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ARC-0002",
+              "offsetYears": 4,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_ARC_STRUCTURAL] & (MAT=STON | MAT=METL)"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A structural contractor asks whether your developing material could qualify for a long-term installation program. The brochure calls it vocational continuity.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ARC_STRUCTURAL"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ARC-0002",
+              "offsetYears": 4,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_ARC_STRUCTURAL] & (MAT=STON | MAT=METL)"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Architectural route seed for Stone/Metal commitments."
+    },
+    {
+      "id": "EVT-INS-ARC-0002",
+      "channel": "INS",
+      "family": "ARC",
+      "age": {
+        "min": 29,
+        "max": 54
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "architectural",
+        "industrial",
+        "legal"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "include": "FLAG[ROUTE_ARC_STRUCTURAL] & (MAT=STON | MAT=METL) & FIX>=40",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1024] | TLT[T1013]",
+          "text": {
+            "en": "Your conversion is incorporated into the new structure under a contract preserving legal ownership of the Permanent Form. The building owner calls this administratively inconvenient.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-LEG-002",
+          "endingOverrides": {
+            "ownership": "Self",
+            "autonomy": "Represented"
+          }
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your conversion is completed as part of the new structure. The final inspection lists you between load-bearing supports and fire exits.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ARC-001"
+        }
+      ],
+      "designerNotes": "Architectural climax; legal talent can produce a fixture/personhood contradiction."
+    }
+  ]
+}

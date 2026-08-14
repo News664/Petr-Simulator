@@ -14,6 +14,7 @@ import {
 import { createRun, type SetupPolicy } from './setup.js';
 import { applyStatEffects, recordOccurrence } from './state.js';
 import { evaluateThresholdTalents } from './talents.js';
+import { applyStateTriggers } from './triggers.js';
 import type {
   EventOccurrence,
   GameEvent,
@@ -279,6 +280,11 @@ function resolveYear(state: RunState, content: ContentBundle, rng: Rng, options:
   // Step 12: threshold talents, after the event is fully resolved. A talent that
   // fires here cannot retroactively change this year's variant.
   evaluateThresholdTalents(state, content);
+
+  // Step 12b (H2B.1A): data-driven state triggers, evaluated against the state
+  // the year actually ended in. They may only enqueue a future authored event,
+  // so this cannot add a second visible entry for this age.
+  applyStateTriggers(state, content);
 
   options.onYear?.(occurrence, state);
   return occurrence;

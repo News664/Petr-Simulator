@@ -252,6 +252,7 @@ export function emptyDiagnostics(): RunState['diagnostics'] {
     coverageDefectAges: [],
     emergencyReuseAges: [],
     talentActivations: [],
+    stateTriggerFirings: [],
     firstManifestationFamily: null,
     firstManifestationAge: null,
     manifestationFamilies: [],

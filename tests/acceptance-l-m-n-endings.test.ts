@@ -156,7 +156,7 @@ describe('M. Ending resolution', () => {
         expect(content.endings.has(v.endingId), `${gameEvent.id} -> ${v.endingId}`).toBe(true);
       }
     }
-    expect(endingVariants).toBe(73);
+    expect(endingVariants).toBe(80);
   });
 
   it('preserves the current material in the Ending Record', () => {

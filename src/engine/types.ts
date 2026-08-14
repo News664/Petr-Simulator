@@ -190,6 +190,23 @@ export interface GameEvent {
   sourceBatchId: string;
 }
 
+/**
+ * A data-driven state trigger. H2B.1A.
+ *
+ * Observes ordinary run state at the end of a year and enqueues an authored
+ * future event. It stores nothing and accumulates nothing — see
+ * `src/engine/triggers.ts`.
+ */
+export interface StateTrigger {
+  id: string;
+  /** Condition on ordinary run state. No new grammar. */
+  when: string;
+  /** Optional condition that keeps the trigger quiet while it holds. */
+  suppressWhile?: string;
+  schedule: ScheduleSpec;
+  notes?: string;
+}
+
 export interface EventBatch {
   batchId: string;
   version: string;
@@ -483,6 +500,8 @@ export interface RunDiagnostics {
   /** Ages rescued by the diagnostic pre-25 baseline reuse policy, if enabled. */
   emergencyReuseAges: number[];
   talentActivations: { talentId: string; age: number }[];
+  /** Schedules created by a data-driven state trigger rather than by an event. */
+  stateTriggerFirings: { triggerId: string; age: number; eventId: string }[];
   firstManifestationFamily: string | null;
   firstManifestationAge: number | null;
   manifestationFamilies: string[];

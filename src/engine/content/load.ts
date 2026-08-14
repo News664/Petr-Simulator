@@ -21,6 +21,7 @@ import {
   type Material,
   type RefinementTagDef,
   type RouteTagDef,
+  type StateTrigger,
   type SpeciesDef,
   type SpeciesId,
   type TalentDef,
@@ -35,6 +36,7 @@ import {
 } from './balance.js';
 import { parseCsvRecords } from './csv.js';
 import {
+  stateTriggerRegistrySchema,
   eventBatchSchema,
   factionRegistrySchema,
   routeTagRegistrySchema,
@@ -56,6 +58,7 @@ export interface ContentPaths {
   factionRegistry: string;
   balanceConstants: string;
   balanceAdapters: string;
+  stateTriggers: string;
 }
 
 /** Phase 1.1 canonical paths. Superseded registries live in content/superseded/. */
@@ -65,10 +68,11 @@ export function defaultContentPaths(root: string = CONTENT_ROOT): ContentPaths {
     speciesRegistry: path.join(root, 'registries', 'SOLID_STATE_SPECIES_REGISTRY_v1.2.json'),
     talentRegistry: path.join(root, 'registries', 'SOLID_STATE_TALENT_REGISTRY_v1.2.csv'),
     endingRegistry: path.join(root, 'registries', 'SOLID_STATE_ENDING_REGISTRY_v1.2.csv'),
-    routeTagRegistry: path.join(root, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.2.json'),
+    routeTagRegistry: path.join(root, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.3.json'),
     factionRegistry: path.join(root, 'registries', 'SOLID_STATE_FACTION_REGISTRY_v0.2.json'),
     balanceConstants: path.join(root, 'balance', 'SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.2.json'),
     balanceAdapters: path.join(root, 'balance', 'SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json'),
+    stateTriggers: path.join(root, 'balance', 'SOLID_STATE_STATE_TRIGGERS_v0.1.json'),
   };
 }
 
@@ -107,6 +111,8 @@ export interface ContentBundle {
   endings: Map<string, EndingDef>;
   balance: BalanceConstants;
   adapters: BalanceAdapters;
+  /** H2B.1A data-driven state triggers. Declared in canonical data, never in code. */
+  stateTriggers: StateTrigger[];
   /** Content fingerprint: identical content + seed must produce identical runs. */
   contentVersion: string;
   sourceFiles: { path: string; sha256: string }[];
@@ -871,6 +877,17 @@ function validateCrossReferences(
       issues.push(`route tag ${tag}: faction tags must not allow Transformation event favor`);
     }
   }
+  // H2B.1A: a state trigger may only schedule an authored event that exists,
+  // and only into a future year.
+  for (const trigger of bundle.stateTriggers ?? []) {
+    if (!eventsById.has(trigger.schedule.eventId)) {
+      issues.push(`state trigger ${trigger.id}: schedules unknown event ${trigger.schedule.eventId}`);
+    }
+    if (trigger.schedule.offsetYears < 1) {
+      issues.push(`state trigger ${trigger.id}: offsetYears must be at least 1`);
+    }
+  }
+
   validateFactionContent(bundle, issues);
 
   // Ending Registry v1.1 awareness integrity (Acceptance Addendum section 5).
@@ -950,8 +967,11 @@ export function loadContent(paths: ContentPaths = defaultContentPaths()): Conten
   const endings = loadEndings(paths.endingRegistry, issues, sourceFiles);
   const balance = loadJsonWithSchema(paths.balanceConstants, balanceConstantsSchema, 'balance constants', issues, sourceFiles);
   const adaptersRaw = loadJsonWithSchema(paths.balanceAdapters, balanceAdaptersSchema, 'balance adapters', issues, sourceFiles);
+  const triggersRaw = loadJsonWithSchema(paths.stateTriggers, stateTriggerRegistrySchema, 'state triggers', issues, sourceFiles);
 
-  if (issues.length > 0 || !balance || !adaptersRaw || !factionRules) throw new ContentValidationError(issues);
+  if (issues.length > 0 || !balance || !adaptersRaw || !triggersRaw || !factionRules) {
+    throw new ContentValidationError(issues);
+  }
 
   const adapters = normalizeAdapters(adaptersRaw);
   const events = batches.flatMap((b) => b.events);
@@ -971,6 +991,7 @@ export function loadContent(paths: ContentPaths = defaultContentPaths()): Conten
     endings,
     balance,
     adapters,
+    stateTriggers: triggersRaw.triggers,
   };
   validateCrossReferences(partial, issues);
   if (issues.length > 0) throw new ContentValidationError(issues);

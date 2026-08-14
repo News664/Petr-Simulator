@@ -1,0 +1,1598 @@
+{
+  "batchId": "EVENT_BATCH_001",
+  "version": "0.4",
+  "languageStatus": {
+    "en": "canonical_draft",
+    "zh-TW": "reserved_empty"
+  },
+  "notes": "First content batch, revised with explicit repeatability/fallback policy. JSON is canonical; Markdown is generated deterministically and MUST NOT be hand-edited. Revised to follow soft-evidence drafting: ordinary material commitment events use NORMAL local weight rather than HIGH.",
+  "events": [
+    {
+      "id": "EVT-INS-CIV-0001",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 0,
+        "max": 3
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "family",
+        "civic"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "EVT[EVT-INS-CIV-0001]",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your birth certificate includes a blank for expected post-mobility material. Your parents leave it empty; the clerk circles it in red.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Early worldbuilding. SPR +1 represents a comparatively stable early household response, not infant psychology literally.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-ORD-FAM-0001",
+      "channel": "ORD",
+      "family": "FAM",
+      "age": {
+        "min": 2,
+        "max": 5
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "family"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "EVT[EVT-ORD-FAM-0001]",
+      "variants": [
+        {
+          "when": "MNY<=3",
+          "text": {
+            "en": "Your family learns to stretch every household budget. You learn that 'temporary' furniture can last nine years.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your family replaces the living-room furniture. The old sofa is sold to a preservation clinic as 'lightly used support equipment.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "MNY in childhood means household resources.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-ORD-EDU-0001",
+      "channel": "ORD",
+      "family": "EDU",
+      "age": {
+        "min": 6,
+        "max": 8
+      },
+      "selectionMode": "random",
+      "weightClass": "HIGH",
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "EVT[EVT-ORD-EDU-0001]",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You start school. Your first timetable includes mathematics, language, and Basic Post-Mobility Etiquette.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Establishes education as normalized institutional exposure.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-INS-EDU-0001",
+      "channel": "INS",
+      "family": "EDU",
+      "age": {
+        "min": 7,
+        "max": 10
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "EVT[EVT-INS-EDU-0001]",
+      "variants": [
+        {
+          "when": "SPR<=3",
+          "text": {
+            "en": "Solidification Safety Week ends with a smiling traffic-cone mascot and a mandatory quiz. You fail the section titled 'Remain Calm.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Solidification Safety Week ends with a smiling traffic-cone mascot and a mandatory quiz. Everyone receives a certificate for remaining mobile.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Black-humor school event; no harmful transformation.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-INS-EDU-0002",
+      "channel": "INS",
+      "family": "EDU",
+      "age": {
+        "min": 8,
+        "max": 11
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [
+        "hint"
+      ],
+      "include": "!FLAG[EDU_MATERIAL_SCREENED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPECIES=ELF",
+          "text": {
+            "en": "A school material-resonance screening reports an unusual affinity for wood. Your parents receive a brochure titled 'Probably Nothing.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 1
+          },
+          "addFlags": [
+            "EDU_MATERIAL_SCREENED",
+            "MAT_HINT_WOOD"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=DWARF",
+          "text": {
+            "en": "A school material-resonance screening reports unusually strong stone affinity. The counselor calls this 'career-relevant.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 1
+          },
+          "addFlags": [
+            "EDU_MATERIAL_SCREENED",
+            "MAT_HINT_STON"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=WINGED_KIN",
+          "text": {
+            "en": "A school material-resonance screening finds a bright crystalline response. The form has no checkbox for wings interfering with the scanner.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 1
+          },
+          "addFlags": [
+            "EDU_MATERIAL_SCREENED",
+            "MAT_HINT_CRYS"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=DEMONKIN",
+          "text": {
+            "en": "A school material-resonance screening produces a dark glass-like reading. The machine prints 'RETEST' three times and gives up.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 1
+          },
+          "addFlags": [
+            "EDU_MATERIAL_SCREENED",
+            "MAT_HINT_GLAS"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=DRAGONKIN",
+          "text": {
+            "en": "A school material-resonance screening detects a strong metallic response. The finance club asks whether the result is taxable.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 1
+          },
+          "addFlags": [
+            "EDU_MATERIAL_SCREENED",
+            "MAT_HINT_METL"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A school material-resonance screening finds nothing remarkable. Your parents are told that this is not a guarantee.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [
+            "EDU_MATERIAL_SCREENED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Species-flavored hints only; no Material Commitment.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-ORD-EDU-0002",
+      "channel": "ORD",
+      "family": "EDU",
+      "age": {
+        "min": 9,
+        "max": 12
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "EVT[EVT-ORD-EDU-0002]",
+      "variants": [
+        {
+          "when": "INT>=7",
+          "text": {
+            "en": "You score unusually well on a standardized aptitude test. Several adults immediately make this your responsibility.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 2,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You complete a standardized aptitude test. The report confidently predicts a profession that will not exist by the time you graduate.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Stat growth plus gifted-child pressure.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-INS-EDU-0003",
+      "channel": "INS",
+      "family": "EDU",
+      "age": {
+        "min": 13,
+        "max": 16
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "EVT[EVT-INS-EDU-0003]",
+      "variants": [
+        {
+          "when": "SPECIES=DWARF",
+          "text": {
+            "en": "Your career counselor recommends construction before asking what you enjoy. You had written 'marine biology.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=WINGED_KIN",
+          "text": {
+            "en": "Your career counselor recommends ceremonial public service because you have wings. You ask whether accounting is still available.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=DEMONKIN",
+          "text": {
+            "en": "Your career counselor asks whether you have considered contract law. You have not yet said anything about contracts.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=DRAGONKIN",
+          "text": {
+            "en": "Your career counselor suggests finance because of your 'natural relationship with value.' The phrase remains in your school record.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "MNY": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=ELF",
+          "text": {
+            "en": "Your career counselor suggests conservation, forestry, or 'something tasteful.' You ask what that means and receive no useful answer.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your career counselor uses an algorithm to recommend your future. It recommends 'flexibility.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Species stereotypes as Human-centered institutional comedy.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-TRN-WOOD-0001",
+      "channel": "TRN",
+      "family": "WOOD",
+      "age": {
+        "min": 12,
+        "max": 17
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "include": "MAT=NONE",
+      "exclude": "EVT[EVT-TRN-WOOD-0001]",
+      "variants": [
+        {
+          "when": "FLAG[MAT_HINT_WOOD]",
+          "text": {
+            "en": "Two fingers turn wooden during an exam and return to normal before lunch. The school nurse finds the old screening result and writes 'consistent.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1,
+            "SPR": -1,
+            "FIX": 2
+          },
+          "addFlags": [
+            "MAT_MANIFEST_WOOD"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Two fingers turn wooden during an exam and return to normal before lunch. The school nurse gives you a late-pass and a leaflet.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1,
+            "SPR": -1,
+            "FIX": 2
+          },
+          "addFlags": [
+            "MAT_MANIFEST_WOOD"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Minor reversible under-18 manifestation. Never commits material.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-INS-FIN-0001",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 16,
+        "max": 17
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "education",
+        "finance"
+      ],
+      "materialTags": [],
+      "include": "!FLAG[EDU_STUDENT_INSURED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY<=3",
+          "text": {
+            "en": "Your school offers subsidized student transformation insurance. The affordable plan excludes 'aesthetic continuity.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1
+          },
+          "addFlags": [
+            "EDU_STUDENT_INSURED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your school offers student transformation insurance. The introductory rate expires the day you turn eighteen.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1
+          },
+          "addFlags": [
+            "EDU_STUDENT_INSURED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Sets up adulthood as an insurance threshold.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-ORD-EDU-0003",
+      "channel": "ORD",
+      "family": "EDU",
+      "age": {
+        "min": 17,
+        "max": 19
+      },
+      "selectionMode": "random",
+      "weightClass": "HIGH",
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [],
+      "include": "!FLAG[EDU_GRADUATED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "INT>=8",
+          "text": {
+            "en": "You graduate with excellent marks. Several institutions congratulate you by sending forms.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "MNY": 1
+          },
+          "addFlags": [
+            "EDU_GRADUATED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You graduate. Your school returns your mobility deposit after deducting an administrative fee.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "EDU_GRADUATED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Can occur at 17 or 18/19; still nonterminal.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-ORD-CAR-0001",
+      "channel": "ORD",
+      "family": "CAR",
+      "age": {
+        "min": 18,
+        "max": 24
+      },
+      "selectionMode": "random",
+      "weightClass": "HIGH",
+      "routeTags": [
+        "corporate"
+      ],
+      "materialTags": [],
+      "include": "!FLAG[ROUTE_COR_EMPLOYEE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1014]",
+          "text": {
+            "en": "You land your first serious office job. Management calls you 'high potential' before learning where the supply closet is.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 3,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_COR_EMPLOYEE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You land your first serious office job. The employee handbook has fourteen pages on Permanent Form and two on vacation.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_COR_EMPLOYEE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Soft Corporate route entry.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-INS-COR-0001",
+      "channel": "INS",
+      "family": "COR",
+      "age": {
+        "min": 20,
+        "max": 29
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "corporate",
+        "medical"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_COR_EMPLOYEE] & !FLAG[ROUTE_COR_PRESERVATION_PLAN]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your employer adds permanent-preservation coverage to the benefits package. HR calls it a retention initiative.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1
+          },
+          "addFlags": [
+            "ROUTE_COR_PRESERVATION_PLAN"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-COR-0002",
+              "offsetYears": 4,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_COR_EMPLOYEE] & FLAG[ROUTE_COR_PRESERVATION_PLAN]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Schedules later contract review while allowing intervening ordinary life.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-TRN-WOOD-0002",
+      "channel": "TRN",
+      "family": "WOOD",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "include": "MAT=NONE",
+      "exclude": "EVT[EVT-TRN-WOOD-0002]",
+      "variants": [
+        {
+          "when": "FLAG[MAT_HINT_WOOD] | FLAG[MAT_MANIFEST_WOOD]",
+          "text": {
+            "en": "Fine wood grain appears along your forearms. A doctor asks whether anyone ever followed up on your childhood screening.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1,
+            "SPR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_WOOD"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Fine wood grain appears along your forearms and fades only partially. The clinic describes this as 'persistent but presently decorative.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1,
+            "SPR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_WOOD"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Adult manifestation; still no commitment.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-TRN-CRYS-0001",
+      "channel": "TRN",
+      "family": "CRYS",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "include": "MAT=NONE",
+      "exclude": "EVT[EVT-TRN-CRYS-0001]",
+      "variants": [
+        {
+          "when": "FLAG[MAT_HINT_CRYS]",
+          "text": {
+            "en": "Thin crystalline lines appear beneath your skin. Your old school screening is suddenly considered medically relevant.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_CRYS"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Thin crystalline lines appear beneath your skin. The clinic asks you not to stand near direct showroom lighting.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_CRYS"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Crystal manifestation counterpart; future batch should add crystal commitment.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-INS-MED-0001",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 20,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [],
+      "include": "!FLAG[ROUTE_MED_SCREENED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "FIX>=60",
+          "text": {
+            "en": "An adult Fixation screening returns a result the physician rereads twice. She schedules the discussion before explaining the number.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -2
+          },
+          "addFlags": [
+            "ROUTE_MED_SCREENED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "FIX>=35",
+          "text": {
+            "en": "An adult Fixation screening comes back elevated. The physician calls it manageable, then gives you three specialist referrals.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_MED_SCREENED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "An adult Fixation screening finds nothing urgent. The clinic recommends repeating it forever.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "ROUTE_MED_SCREENED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Player never sees exact FIX; text communicates band.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-INS-MUS-0001",
+      "channel": "INS",
+      "family": "MUS",
+      "age": {
+        "min": 22,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "routeTags": [
+        "museum"
+      ],
+      "materialTags": [],
+      "include": "!FLAG[ROUTE_MUS_INTEREST]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1018]",
+          "text": {
+            "en": "A curator tells you that you have 'exceptional preservation potential.' This is apparently a compliment.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1
+          },
+          "addFlags": [
+            "ROUTE_MUS_INTEREST"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "CHR>=8",
+          "text": {
+            "en": "A museum curator asks whether you have ever considered long-term preservation. You had been asking for directions.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1
+          },
+          "addFlags": [
+            "ROUTE_MUS_INTEREST"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A museum survey asks how you would feel about being displayed after Permanent Form. The final option is 'No strong preference.'",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [
+            "ROUTE_MUS_INTEREST"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Soft Museum route seed. No player response choice.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-INS-FIN-0002",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 24,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "routeTags": [
+        "finance"
+      ],
+      "materialTags": [],
+      "include": "!FLAG[ROUTE_FIN_VALUED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPECIES=DRAGONKIN",
+          "text": {
+            "en": "A lender adds a projected Permanent Form valuation to your application. The number is higher than your current net worth.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_FIN_VALUED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "MAT=CRYS | MAT=METL",
+          "text": {
+            "en": "A lender adds your projected Permanent Form to the collateral model. Your interest rate improves.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2
+          },
+          "addFlags": [
+            "ROUTE_FIN_VALUED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A lender offers a future-form valuation as part of your application. You decline to ask how they estimated it.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_FIN_VALUED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Establishes body valuation without immediately creating debt route climax.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-INS-COR-0002",
+      "channel": "INS",
+      "family": "COR",
+      "age": {
+        "min": 24,
+        "max": 39
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "corporate",
+        "legal"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_COR_EMPLOYEE] & FLAG[ROUTE_COR_PRESERVATION_PLAN]",
+      "exclude": "FLAG[ROUTE_COR_CONTRACT]",
+      "variants": [
+        {
+          "when": "TLT[T1013] | TLT[T1024]",
+          "text": {
+            "en": "Your employer sends a preservation contract. You notice the ownership clause before HR finishes saying 'standard language.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "MNY": 1
+          },
+          "addFlags": [
+            "ROUTE_COR_CONTRACT",
+            "ROUTE_COR_LEGAL_REVIEW"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-COR-0003",
+              "offsetYears": 3,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_COR_CONTRACT] & MAT!=NONE"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your employer sends a preservation contract. The signature page is much shorter than the section on display rights.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2
+          },
+          "addFlags": [
+            "ROUTE_COR_CONTRACT"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-COR-0003",
+              "offsetYears": 3,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_COR_CONTRACT] & MAT!=NONE"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Automatic variant; contract review changes later ending outcome potential.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-TRN-WOOD-0003",
+      "channel": "TRN",
+      "family": "WOOD",
+      "age": {
+        "min": 25,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [
+        "commitment"
+      ],
+      "include": "MAT=NONE & FLAG[MAT_MANIFEST_WOOD] & FIX>=28",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1027]",
+          "text": {
+            "en": "The grain in your arms deepens into permanent hardwood. A hairline split appears at the wrist before the doctor finishes saying 'stable.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 2,
+            "SPR": -2,
+            "FIX": 8
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "WOOD",
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The grain in your arms deepens into permanent hardwood. The specialist changes your file from 'manifestation' to 'structural conversion.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 2,
+            "SPR": -1,
+            "FIX": 7
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "WOOD",
+          "schedules": []
+        }
+      ],
+      "designerNotes": "First explicit material-commitment event in the content set.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-INS-COR-0003",
+      "channel": "INS",
+      "family": "COR",
+      "age": {
+        "min": 27,
+        "max": 49
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "routeTags": [
+        "corporate",
+        "legal"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "include": "FLAG[ROUTE_COR_CONTRACT] & MAT!=NONE & FIX>=40",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "FLAG[ROUTE_COR_LEGAL_REVIEW] | TLT[T1024]",
+          "text": {
+            "en": "Your condition finally activates the preservation contract. The company completes the conversion, but the revised paperwork leaves the Permanent Form legally yours.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-LEG-001",
+          "endingOverrides": {
+            "location": "corporate headquarters",
+            "socialMeaning": "employee; self-owned corporate display",
+            "autonomy": "Represented"
+          }
+        },
+        {
+          "when": "TLT[T1026]",
+          "text": {
+            "en": "Your condition finally activates the preservation benefit. The low-cost procedure works exactly as advertised, which turns out to be a carefully chosen sentence.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-COR-002"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your condition finally activates the preservation contract. By Monday, your new position is in the lobby.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-COR-001"
+        }
+      ],
+      "designerNotes": "First full route climax. Material is inherited from MAT; no material replacement.",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1
+    },
+    {
+      "id": "EVT-ORD-FAM-0002",
+      "channel": "ORD",
+      "family": "FAM",
+      "age": {
+        "min": 0,
+        "max": 5
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 2,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "family",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A relative remarks on how much you have grown. The family record updates your height and leaves Material Status blank.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable early-childhood baseline. Safe character development; no fixation or material commitment."
+    },
+    {
+      "id": "EVT-ORD-EDU-0004",
+      "channel": "ORD",
+      "family": "EDU",
+      "age": {
+        "min": 6,
+        "max": 11
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 2,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "education",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "INT>=8",
+          "text": {
+            "en": "Another school year ends with excellent marks. The school recommends an enrichment program and three additional forms.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Another school year passes. You learn several useful things and one officially approved definition of 'permanent.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable primary-school baseline."
+    },
+    {
+      "id": "EVT-ORD-SOC-0001",
+      "channel": "ORD",
+      "family": "SOC",
+      "age": {
+        "min": 6,
+        "max": 11
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 3,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "social",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You make a friend at school. You agree that neither of you wants to become part of the assembly hall.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "CHR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable social baseline with ordinary character development."
+    },
+    {
+      "id": "EVT-ORD-EDU-0005",
+      "channel": "ORD",
+      "family": "EDU",
+      "age": {
+        "min": 12,
+        "max": 17
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 2,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "education",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPR<=3",
+          "text": {
+            "en": "Exam season arrives again. Your school reminds students that stress-related mineral symptoms do not excuse late submissions.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Exam season arrives again. You study hard enough to recognize several questions from last year's officially different exam.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable adolescent baseline; no actual damaging transformation."
+    },
+    {
+      "id": "EVT-ORD-SOC-0002",
+      "channel": "ORD",
+      "family": "SOC",
+      "age": {
+        "min": 12,
+        "max": 17
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 3,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "social",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You spend more time with classmates after school. Someone starts a rumor about everyone's future Permanent Form; yours is inaccurate but flattering.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable adolescent social baseline."
+    },
+    {
+      "id": "EVT-ORD-CAR-0002",
+      "channel": "ORD",
+      "family": "CAR",
+      "age": {
+        "min": 18,
+        "max": 24
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 2,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "career",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY<=3",
+          "text": {
+            "en": "You take temporary work to cover expenses. The contract is short enough that its post-mobility clause is almost funny.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You spend another year learning how work actually functions. This knowledge is not included in the employee handbook.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable early-adult baseline. Ensures 18-24 has ordinary content even without route entry."
+    },
+    {
+      "id": "EVT-ORD-HOU-0001",
+      "channel": "ORD",
+      "family": "HOU",
+      "age": {
+        "min": 18,
+        "max": 24
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 3,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "baseline",
+        "housing",
+        "relocation"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY<=2",
+          "text": {
+            "en": "You move somewhere cheaper. The lease prohibits structural incorporation without written permission from the landlord.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You move to a slightly better place. The building manager points out the freight elevator 'for future accessibility.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable early-adult housing baseline."
+    },
+    {
+      "id": "EVT-ORD-GEN-0001",
+      "channel": "ORD",
+      "family": "GEN",
+      "age": {
+        "min": 25,
+        "max": null
+      },
+      "selectionMode": "fallback_only",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": null,
+      "routeTags": [
+        "baseline",
+        "fallback"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Nothing particularly unusual happens this year. Several institutions remind you that this does not constitute a guarantee.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Last-resort fallback only. Forbidden before age 25 and never participates in normal weighted drafting."
+    }
+  ]
+}

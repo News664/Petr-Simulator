@@ -452,9 +452,12 @@ describe('Phase 1.3 — invariants across full runs', () => {
 });
 
 describe('Phase 1.3 — content deltas', () => {
-  it('still leaves the two late-life FIX>=40 climax gates alone', () => {
-    expect(content.eventsById.get('EVT-INS-MED-0012')!.include).toContain('FIX>=40');
-    expect(content.eventsById.get('EVT-ORD-FAM-0011')!.include).toContain('FIX>=40');
+  it('still leaves the two late-life climax gates at the working canonical value', () => {
+    // H2B.1A made LOW the working canonical balance, so `climax_late` is 36.
+    // Neither event's gate was touched by any content patch since Phase 1.2 —
+    // only the profile-wide mechanical rewrite moved them.
+    expect(content.eventsById.get('EVT-INS-MED-0012')!.include).toContain('FIX>=36');
+    expect(content.eventsById.get('EVT-ORD-FAM-0011')!.include).toContain('FIX>=36');
   });
 
   it('tightened the late-life entries into conjunctions of prior route history', () => {

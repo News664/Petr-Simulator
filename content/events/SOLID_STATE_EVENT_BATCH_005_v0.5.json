@@ -1,0 +1,1477 @@
+{
+  "batchId": "EVENT_BATCH_005",
+  "version": "0.5",
+  "languageStatus": {
+    "en": "canonical_draft",
+    "zh-TW": "reserved_empty"
+  },
+  "notes": "Phase 1.1 targeted design-resolution batch. Adds varied ages 0-5 coverage, competing adolescent manifestations, visible event-driven FIX chains, canonical SPC content, two anomalous endings, three committed mandatory sequences (medical + two anomalous), and dedicated 65+ ending routes. No passive FIX drift.",
+  "events": [
+    {
+      "id": "EVT-ORD-FAM-0008",
+      "channel": "ORD",
+      "family": "FAM",
+      "age": {
+        "min": 0,
+        "max": 2
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "family"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You learn the household by voices, footsteps, and furniture. A relative labels every sharp corner 'pre-mobility safe.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Early childhood variety. One-time; adds scheduling slack without leaning on repeats."
+    },
+    {
+      "id": "EVT-ORD-HEA-0003",
+      "channel": "ORD",
+      "family": "HEA",
+      "age": {
+        "min": 1,
+        "max": 4
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "health"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A routine pediatric checkup confirms that you are developing normally. The mobility milestone chart has a final column nobody discusses.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Ordinary childhood health; no FIX."
+    },
+    {
+      "id": "EVT-ORD-SOC-0009",
+      "channel": "ORD",
+      "family": "SOC",
+      "age": {
+        "min": 2,
+        "max": 5
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "social"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You make a first friend and immediately establish several rules that neither of you remembers the next week.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Non-institutional early social life."
+    },
+    {
+      "id": "EVT-ORD-HOU-0003",
+      "channel": "ORD",
+      "family": "HOU",
+      "age": {
+        "min": 0,
+        "max": 5
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "housing"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY<=3",
+          "text": {
+            "en": "Around your arrival and early growth, your household rearranges rooms to make more space without buying much. Several pieces of furniture acquire a second career.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your household keeps rearranging rooms around your early growth. The adults discover that storage is a permanent condition.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Household-resource childhood event."
+    },
+    {
+      "id": "EVT-ORD-FAM-0009",
+      "channel": "ORD",
+      "family": "FAM",
+      "age": {
+        "min": 2,
+        "max": 5
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "family"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "An older relative teaches you a family habit that will outlast several appliances and at least one government form.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Warm family contrast."
+    },
+    {
+      "id": "EVT-ORD-GEN-0004",
+      "channel": "ORD",
+      "family": "GEN",
+      "age": {
+        "min": 1,
+        "max": 5
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 3,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "baseline"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Another year is mostly spent growing, falling down, making demands with increasing precision, and being told not to touch things.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1,
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Lightly repeatable childhood development; supplementary safety, not the main pool."
+    },
+    {
+      "id": "EVT-TRN-STON-0003",
+      "channel": "TRN",
+      "family": "STON",
+      "age": {
+        "min": 13,
+        "max": 17
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "refinementTags": [
+        "STON_FINE"
+      ],
+      "include": "MAT=NONE",
+      "exclude": "EVT[EVT-TRN-STON-0003]",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A pale mineral patch forms along your forearm during a school day and softens again by evening. The nurse records it under 'temporary structural symptoms.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "MAT_MANIFEST_STON"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Reversible adolescent manifestation. No commitment; designed to remove accidental Wood dominance."
+    },
+    {
+      "id": "EVT-TRN-METL-0003",
+      "channel": "TRN",
+      "family": "METL",
+      "age": {
+        "min": 13,
+        "max": 17
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "refinementTags": [
+        "METL_INDUSTRIAL"
+      ],
+      "include": "MAT=NONE",
+      "exclude": "EVT[EVT-TRN-METL-0003]",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A metallic sheen spreads across two knuckles during class and fades before dinner. A magnet sticks weakly enough to become a bad party trick.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "MAT_MANIFEST_METL"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Reversible adolescent manifestation. No commitment; designed to remove accidental Wood dominance."
+    },
+    {
+      "id": "EVT-TRN-CRYS-0003",
+      "channel": "TRN",
+      "family": "CRYS",
+      "age": {
+        "min": 13,
+        "max": 17
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "refinementTags": [
+        "CRYS_DELICATE"
+      ],
+      "include": "MAT=NONE",
+      "exclude": "EVT[EVT-TRN-CRYS-0003]",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Fine crystal lines appear beneath your skin for several hours, catching the classroom lights before dissolving again.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "MAT_MANIFEST_CRYS"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Reversible adolescent manifestation. No commitment; designed to remove accidental Wood dominance."
+    },
+    {
+      "id": "EVT-TRN-GLAS-0003",
+      "channel": "TRN",
+      "family": "GLAS",
+      "age": {
+        "min": 13,
+        "max": 17
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "refinementTags": [],
+      "include": "MAT=NONE",
+      "exclude": "EVT[EVT-TRN-GLAS-0003]",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A glassy patch appears at your wrist after a stressful afternoon and slowly turns back to skin. The school nurse recommends sleeves and less staring.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "MAT_MANIFEST_GLAS"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Reversible adolescent manifestation. No commitment; designed to remove accidental Wood dominance."
+    },
+    {
+      "id": "EVT-TRN-CERA-0003",
+      "channel": "TRN",
+      "family": "CERA",
+      "age": {
+        "min": 13,
+        "max": 17
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "refinementTags": [],
+      "include": "MAT=NONE",
+      "exclude": "EVT[EVT-TRN-CERA-0003]",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Two fingertips take on a smooth ceramic surface during an exam and return to normal by the next morning.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "MAT_MANIFEST_CERA"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Reversible adolescent manifestation. No commitment; designed to remove accidental Wood dominance."
+    },
+    {
+      "id": "EVT-TRN-TEMP-0003",
+      "channel": "TRN",
+      "family": "TEMP",
+      "age": {
+        "min": 13,
+        "max": 17
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "refinementTags": [],
+      "include": "MAT=NONE",
+      "exclude": "EVT[EVT-TRN-TEMP-0003]",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "For several seconds during class, your hand stops halfway through writing while everything else continues. The timestamp on your tablet disagrees with you.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "MAT_MANIFEST_TEMP"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Reversible adolescent manifestation. No commitment; designed to remove accidental Wood dominance."
+    },
+    {
+      "id": "EVT-ORD-CAR-0006",
+      "channel": "ORD",
+      "family": "CAR",
+      "age": {
+        "min": 20,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "career",
+        "industrial"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "!FLAG[ROUTE_CAR_MATERIAL_EXPOSURE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You take a job around industrial preservation materials. The safety briefing treats slow cumulative hardening as an occupational inconvenience.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "FIX": 2
+          },
+          "addFlags": [
+            "ROUTE_CAR_MATERIAL_EXPOSURE"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-ORD-CAR-0007",
+              "offsetYears": 1,
+              "windowYears": 1,
+              "priority": "scheduled",
+              "priorityOrder": 5,
+              "validityCondition": "FLAG[ROUTE_CAR_MATERIAL_EXPOSURE]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Start of a visible three-year occupational FIX chain."
+    },
+    {
+      "id": "EVT-ORD-CAR-0007",
+      "channel": "ORD",
+      "family": "CAR",
+      "age": {
+        "min": 21,
+        "max": 36
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "career",
+        "industrial"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_CAR_MATERIAL_EXPOSURE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your annual occupational screening finds small but measurable fixation changes. The company upgrades your protective equipment one fiscal year late.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "FIX": 3,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-ORD-CAR-0008",
+              "offsetYears": 1,
+              "windowYears": 1,
+              "priority": "scheduled",
+              "priorityOrder": 5,
+              "validityCondition": "FLAG[ROUTE_CAR_MATERIAL_EXPOSURE]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Second year of occupational exposure; player can perceive why FIX rises."
+    },
+    {
+      "id": "EVT-ORD-CAR-0008",
+      "channel": "ORD",
+      "family": "CAR",
+      "age": {
+        "min": 22,
+        "max": 37
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "career",
+        "industrial"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_CAR_MATERIAL_EXPOSURE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A second screening confirms cumulative hardening, and you are reassigned away from direct exposure. The new desk is farther from the machinery and closer to the forms.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "FIX": 3,
+            "SPR": 1
+          },
+          "addFlags": [
+            "ROUTE_CAR_MATERIAL_EXPOSURE_HISTORY"
+          ],
+          "removeFlags": [
+            "ROUTE_CAR_MATERIAL_EXPOSURE"
+          ],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Occupational chain resolves after cumulative +8 FIX across visible years."
+    },
+    {
+      "id": "EVT-INS-MED-0008",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 22,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "MAT=NONE & FIX>=20 & !FLAG[ROUTE_MED_CONTROLLED_HARDENING]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A specialist starts a controlled-hardening course: a little tissue is deliberately stabilized each year to reduce the risk of an uncontrolled conversion.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "FIX": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_MED_CONTROLLED_HARDENING",
+            "ROUTE_MED_PRESERVATION_CONSULT"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-0009",
+              "offsetYears": 1,
+              "windowYears": 1,
+              "priority": "mandatory",
+              "priorityOrder": 20,
+              "validityCondition": "FLAG[ROUTE_MED_CONTROLLED_HARDENING]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Hard-route entry. FIX rises because of an explicit treatment course, not passive age."
+    },
+    {
+      "id": "EVT-INS-MED-0009",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 23,
+        "max": 46
+      },
+      "selectionMode": "mandatory_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_MED_CONTROLLED_HARDENING]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The second stabilization session fixes a wider band of tissue. Your physician calls the progression controlled, which is more reassuring than it sounds.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 3,
+            "STR": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_MED_CONTROLLED_HARDENING_STAGE2"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-0010",
+              "offsetYears": 1,
+              "windowYears": 1,
+              "priority": "mandatory",
+              "priorityOrder": 20,
+              "validityCondition": "FLAG[ROUTE_MED_CONTROLLED_HARDENING_STAGE2]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Mandatory year 2 of the controlled-hardening route."
+    },
+    {
+      "id": "EVT-INS-MED-0010",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 24,
+        "max": 47
+      },
+      "selectionMode": "mandatory_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_MED_CONTROLLED_HARDENING_STAGE2]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The final planned stabilization session leaves the process clearly advanced but predictable. The clinic now treats permanent preservation as the next stage rather than an emergency.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 4,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-0003",
+              "offsetYears": 1,
+              "windowYears": 5,
+              "priority": "climax",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[ROUTE_MED_PRESERVATION_CONSULT]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Mandatory year 3. Schedules the existing medical climax; threshold is tested via Phase 1.1 profiles."
+    },
+    {
+      "id": "EVT-INS-ACA-0011",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 24,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "academic",
+        "materials",
+        "research"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_ACA_MATERIALS] & !EVT[EVT-INS-ACA-0011]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A comparative-material study requires repeated proximity to active conversion chambers. Your monitoring badge records more than the ethics application predicted.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 2,
+            "FIX": 3,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Academic route-specific FIX source; visible exposure rather than age drift."
+    },
+    {
+      "id": "EVT-INS-ARC-0003",
+      "channel": "INS",
+      "family": "ARC",
+      "age": {
+        "min": 25,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "architectural",
+        "industrial"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_ARC_STRUCTURAL] & !EVT[EVT-INS-ARC-0003]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A long structural inspection keeps you around active curing compounds and preservation sealants. Your next material screening is noticeably less boring.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "FIX": 3,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Architectural/industrial route-specific FIX source."
+    },
+    {
+      "id": "EVT-SPC-ANO-0001",
+      "channel": "SPC",
+      "family": "ANO",
+      "age": {
+        "min": 25,
+        "max": 59
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "anomalous",
+        "talent"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "TLT[T1028] & MAT!=NONE & !FLAG[ROUTE_ANO_OBJECT_CONTINUITY]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A continuity test finds that small changes to your committed material do not interrupt your sense of identity. The researchers stop calling the result a calibration error.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "FIX": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ANO_OBJECT_CONTINUITY"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-ANO-0002",
+              "offsetYears": 1,
+              "windowYears": 1,
+              "priority": "mandatory",
+              "priorityOrder": 30,
+              "validityCondition": "FLAG[ROUTE_ANO_OBJECT_CONTINUITY]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Object Permanence hidden-route entry; starts a committed sequence."
+    },
+    {
+      "id": "EVT-SPC-ANO-0002",
+      "channel": "SPC",
+      "family": "ANO",
+      "age": {
+        "min": 26,
+        "max": 61
+      },
+      "selectionMode": "mandatory_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "anomalous",
+        "talent",
+        "research"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_ANO_OBJECT_CONTINUITY] & MAT!=NONE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A controlled repair replaces a small part of your committed body. You remain unmistakably yourself before, during, and after the procedure.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 2,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-ANO-0003",
+              "offsetYears": 1,
+              "windowYears": 4,
+              "priority": "climax",
+              "priorityOrder": 30,
+              "validityCondition": "FLAG[ROUTE_ANO_OBJECT_CONTINUITY] & MAT!=NONE & FIX>=36"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Mandatory continuation proving continuity through alteration."
+    },
+    {
+      "id": "EVT-SPC-ANO-0003",
+      "channel": "SPC",
+      "family": "ANO",
+      "age": {
+        "min": 27,
+        "max": 65
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "anomalous",
+        "talent"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_ANO_OBJECT_CONTINUITY] & MAT!=NONE & FIX>=36",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your final conversion completes under continuous observation. Later repairs alter the object without producing any detectable break in the person.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ANO-001"
+        }
+      ],
+      "designerNotes": "Canonical route to Object Permanence. Threshold participates in the Phase 1.1 profile sweep."
+    },
+    {
+      "id": "EVT-SPC-ANO-0004",
+      "channel": "SPC",
+      "family": "ANO",
+      "age": {
+        "min": 25,
+        "max": 59
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "anomalous",
+        "talent"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "TLT[T1029] & MAT!=NONE & !FLAG[ROUTE_ANO_SOUL_ESCAPE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A continuity examination records an impossible mismatch: your Permanent Form markers intensify while every spiritual measure points somewhere slightly else.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "FIX": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ANO_SOUL_ESCAPE"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-ANO-0005",
+              "offsetYears": 1,
+              "windowYears": 1,
+              "priority": "mandatory",
+              "priorityOrder": 30,
+              "validityCondition": "FLAG[ROUTE_ANO_SOUL_ESCAPE]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Soul Cannot Harden hidden-route entry."
+    },
+    {
+      "id": "EVT-SPC-ANO-0005",
+      "channel": "SPC",
+      "family": "ANO",
+      "age": {
+        "min": 26,
+        "max": 61
+      },
+      "selectionMode": "mandatory_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "anomalous",
+        "talent",
+        "religious"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_ANO_SOUL_ESCAPE] & MAT!=NONE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A second test confirms that the body's conversion and the self's location are no longer moving together. Three departments argue over which result is the anomaly.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 2,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-ANO-0006",
+              "offsetYears": 1,
+              "windowYears": 4,
+              "priority": "climax",
+              "priorityOrder": 30,
+              "validityCondition": "FLAG[ROUTE_ANO_SOUL_ESCAPE] & MAT!=NONE & FIX>=36"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Mandatory continuation for displaced-awareness outcome."
+    },
+    {
+      "id": "EVT-SPC-ANO-0006",
+      "channel": "SPC",
+      "family": "ANO",
+      "age": {
+        "min": 27,
+        "max": 65
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "anomalous",
+        "talent",
+        "religious"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_ANO_SOUL_ESCAPE] & MAT!=NONE & FIX>=36",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your body reaches its final Permanent Form. Whatever refused to harden is no longer inside it when the paperwork arrives.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ANO-002"
+        }
+      ],
+      "designerNotes": "Canonical route to Soul Cannot Harden. Threshold participates in Phase 1.1 sweep."
+    },
+    {
+      "id": "EVT-SPC-REIN-0001",
+      "channel": "SPC",
+      "family": "REIN",
+      "age": {
+        "min": 18,
+        "max": 54
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "reincarnation"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "TLT[T1020] | TMS>=2",
+      "exclude": "EVT[EVT-SPC-REIN-0001]",
+      "variants": [
+        {
+          "when": "TLT[T1020]",
+          "text": {
+            "en": "A place you have never visited feels familiar enough that you remember where a staircase should be. It is there.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "SPC_REIN_ECHO"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A routine moment carries the shape of a memory from a life you cannot quite name. It passes before you can decide whether that is comforting.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "SPC_REIN_ECHO"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "First canonical reincarnation/special-channel content."
+    },
+    {
+      "id": "EVT-SPC-TLNT-0001",
+      "channel": "SPC",
+      "family": "TLNT",
+      "age": {
+        "min": 18,
+        "max": 49
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "talent"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "TLT[T1023]",
+      "exclude": "EVT[EVT-SPC-TLNT-0001]",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Three unrelated institutions contact you on the same day about three unrelated mistakes that all happen to involve you. None admits coordination.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "CHR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Gives Main Character Syndrome direct SPC content without choosing a route."
+    },
+    {
+      "id": "EVT-INS-MED-0011",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 65,
+        "max": 89
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "survivor"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FIX>=25 & FLAG[ROUTE_MED_PRESERVATION_CONSULT] & (FLAG[ROUTE_MED_DIRECTIVE] | FLAG[ROUTE_MED_SYNTH_OPTION]) & !FLAG[ROUTE_MED_LATE_CONTINUITY]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A longevity clinic notes that remaining mobile at your age has become medically unusual. It opens a continuity plan designed for people who outlived the earlier planning assumptions.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "MNY": -1
+          },
+          "addFlags": [
+            "ROUTE_MED_LATE_CONTINUITY"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-0012",
+              "offsetYears": 2,
+              "windowYears": 8,
+              "priority": "climax",
+              "priorityOrder": 10,
+              "validityCondition": "FLAG[ROUTE_MED_LATE_CONTINUITY] & FIX>=36"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Phase 1.2: late-life medical entry is survivor/history-specific rather than a universal age-65 catch-all. FIX thresholds are intentionally unchanged pending the next content-shape diagnostic."
+    },
+    {
+      "id": "EVT-INS-MED-0012",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 67,
+        "max": 99
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "survivor"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_MED_LATE_CONTINUITY] & FIX>=36",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT=NONE & TLT[T1026]",
+          "text": {
+            "en": "The late-life continuity plan completes with a low-cost synthetic preservation package. You outlive the clinic's original actuarial table and become somebody else's maintenance problem.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "setMaterialCommitment": "SYNT",
+          "endingId": "END-MED-002"
+        },
+        {
+          "when": "MAT=NONE",
+          "text": {
+            "en": "The late-life continuity plan completes in a custom synthetic form. The clinic describes the procedure as a successful transition from exceptional longevity to predictable permanence.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "setMaterialCommitment": "SYNT",
+          "endingId": "END-MED-001"
+        },
+        {
+          "when": "TLT[T1026]",
+          "text": {
+            "en": "The clinic completes preservation using your existing material condition and the least expensive compatible maintenance plan.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MED-002"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The clinic completes your final preservation using the material trajectory you carried into old age. The longevity department finally closes your case.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MED-001"
+        }
+      ],
+      "designerNotes": "Late-life medical climax. Threshold participates in Phase 1.1 profile sweep."
+    },
+    {
+      "id": "EVT-ORD-FAM-0010",
+      "channel": "ORD",
+      "family": "FAM",
+      "age": {
+        "min": 65,
+        "max": 89
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "family",
+        "survivor"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_FAM_PLACEMENT] & FLAG[ROUTE_FAM_DIRECTIVE] & !FLAG[ROUTE_FAM_LATE_LEGACY]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your family starts treating future placement as an inheritance question rather than a medical one. Younger relatives discover that everyone remembers the old conversations differently.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "ROUTE_FAM_LATE_LEGACY"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-ORD-FAM-0011",
+              "offsetYears": 2,
+              "windowYears": 10,
+              "priority": "climax",
+              "priorityOrder": 10,
+              "validityCondition": "FLAG[ROUTE_FAM_LATE_LEGACY] & MAT!=NONE & FIX>=36"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Phase 1.2: late-life family legacy requires an earlier authored family-placement history. No late-life FIX threshold is changed in this patch."
+    },
+    {
+      "id": "EVT-ORD-FAM-0011",
+      "channel": "ORD",
+      "family": "FAM",
+      "age": {
+        "min": 67,
+        "max": 105
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "family",
+        "survivor"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_FAM_LATE_LEGACY] & MAT!=NONE & FIX>=36",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT=STON | MAT=CERA | MAT=WOOD | MAT=METL",
+          "text": {
+            "en": "Your final conversion is completed under the family's old placement plan. The garden is rearranged one last time to make room for someone who has already been part of it for decades.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-FAM-002"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your final Permanent Form returns to the family home under the legacy plan. Several generations inherit the responsibility at once.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-FAM-001"
+        }
+      ],
+      "designerNotes": "Late-life family climax. Threshold participates in Phase 1.1 profile sweep."
+    }
+  ]
+}

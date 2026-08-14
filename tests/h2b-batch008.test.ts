@@ -6,8 +6,10 @@ import { factionSlotAllows, isEligible } from '../src/engine/eligibility.js';
 import { activeFaction, applyFactionTransition, factionState } from '../src/engine/factions.js';
 import { createRun, type SetupPolicy } from '../src/engine/setup.js';
 import { runSimulation } from '../src/engine/simulation.js';
+import { applyStateTriggers } from '../src/engine/triggers.js';
 import { SPECIES_IDS, type FactionDef, type GameEvent } from '../src/engine/types.js';
-import { gatingStatOf, H2B_BATCH_ID, rescueBand, RELOCATION_VARIANTS } from '../src/sim/h2bDiagnostic.js';
+import { loadExperimentMatrix } from '../src/sim/experiments.js';
+import { gatingStatOf, H2B_BATCH_ID, rescueBand, RELOCATION_TAG } from '../src/sim/h2bDiagnostic.js';
 
 /**
  * H2B — Batch 008, the single-active-faction rule and the content lints.
@@ -38,11 +40,12 @@ function blankRun() {
 }
 
 describe('H2B — Batch 008 integration', () => {
-  it('loads 28 new events and the new ending', () => {
+  it('loads the H2B batch and the new ending', () => {
     const batch = content.batches.find((b) => b.batchId === H2B_BATCH_ID);
     expect(batch).toBeDefined();
-    expect(batch!.events.length).toBe(28);
-    expect(content.events.length).toBe(214);
+    // 28 Batch 008 blueprints plus the H2B.1A financial maturation event.
+    expect(batch!.events.length).toBe(29);
+    expect(content.events.length).toBe(215);
     expect(content.endings.has('END-MED-003')).toBe(true);
     expect(content.endings.get('END-MED-003')!.title_en).toBe('Benefit Approved');
   });
@@ -211,6 +214,142 @@ describe('H2B — single active personalized faction', () => {
   });
 });
 
+describe('H2B.1A — working canonical balance and state triggers', () => {
+  it('applied LOW to every gate-assigned event and its schedule validity terms', () => {
+    const LOW: Record<string, number> = {
+      commitment_standard: 28,
+      climax_temporal: 34,
+      climax_medical: 36,
+      climax_standard: 40,
+      climax_anomalous: 36,
+      climax_late: 36,
+    };
+    const matrix = loadExperimentMatrix();
+    const expected = new Map<string, number>();
+    for (const [gate, ids] of Object.entries(matrix.gateAssignments)) {
+      for (const id of ids) expected.set(id, LOW[gate]!);
+    }
+    for (const [eventId, threshold] of expected) {
+      const event = content.eventsById.get(eventId)!;
+      const own = /FIX\s*>=\s*(\d+)/.exec(event.include);
+      if (own) expect(Number(own[1]), eventId).toBe(threshold);
+    }
+    // Both gate sites move together: no schedule may still point at an old value.
+    for (const event of content.events) {
+      for (const variant of event.variants) {
+        for (const schedule of variant.schedules) {
+          const threshold = expected.get(schedule.eventId);
+          if (threshold === undefined) continue;
+          const found = /FIX\s*>=\s*(\d+)/.exec(schedule.validityCondition);
+          if (found) expect(Number(found[1]), `${event.id} -> ${schedule.eventId}`).toBe(threshold);
+        }
+      }
+    }
+  });
+
+  it('loads the state-trigger registry as canonical data, not code', () => {
+    expect(content.stateTriggers.length).toBeGreaterThan(0);
+    for (const trigger of content.stateTriggers) {
+      // Authored future events only.
+      expect(content.eventsById.has(trigger.schedule.eventId)).toBe(true);
+      expect(trigger.schedule.offsetYears).toBeGreaterThanOrEqual(1);
+    }
+    const review = content.stateTriggers.find((t) => t.id === 'BASIC_CONTINUITY_REVIEW');
+    expect(review).toBeDefined();
+    expect(review!.schedule.eventId).toBe('EVT-INS-MED-2001');
+  });
+
+  it('fires the continuity review from state alone, and refuses to duplicate it', () => {
+    const state = blankRun();
+    state.age = 30;
+    state.stats.STR = -5;
+
+    applyStateTriggers(state, content);
+    const queued = state.schedules.filter((p) => p.eventId === 'EVT-INS-MED-2001');
+    expect(queued.length).toBe(1);
+    // A trigger may only reach a future year, so it cannot add a second visible
+    // entry for this age.
+    expect(queued[0]!.earliestAge).toBeGreaterThan(state.age);
+    expect(state.diagnostics.stateTriggerFirings.length).toBe(1);
+
+    // Already pending: the trigger stays quiet.
+    applyStateTriggers(state, content);
+    expect(state.schedules.filter((p) => p.eventId === 'EVT-INS-MED-2001').length).toBe(1);
+
+    // Suppressed while a review is already open.
+    const suppressed = blankRun();
+    suppressed.age = 40;
+    suppressed.stats.STR = -5;
+    suppressed.flags.add('PRESS_STR_REVIEW');
+    applyStateTriggers(suppressed, content);
+    expect(suppressed.schedules.length).toBe(0);
+
+    // Below the trigger's own condition it does nothing at all.
+    const healthy = blankRun();
+    healthy.age = 40;
+    healthy.stats.STR = 4;
+    applyStateTriggers(healthy, content);
+    expect(healthy.schedules.length).toBe(0);
+  });
+
+  it('never records two trigger firings for the same target in consecutive years', () => {
+    for (let i = 0; i < 120; i++) {
+      const result = runSimulation(`h2b1a-trigger-${i}`, content, diagnostic);
+      const perEvent = new Map<string, number[]>();
+      for (const firing of result.state.diagnostics.stateTriggerFirings) {
+        const ages = perEvent.get(firing.eventId) ?? [];
+        ages.push(firing.age);
+        perEvent.set(firing.eventId, ages);
+      }
+      for (const ages of perEvent.values()) {
+        const sorted = [...ages].sort((a, b) => a - b);
+        for (let a = 1; a < sorted.length; a++) expect(sorted[a]! - sorted[a - 1]!).toBeGreaterThan(1);
+      }
+    }
+  });
+
+  it('keeps one visible event per year even when a trigger fires', () => {
+    for (let i = 0; i < 60; i++) {
+      const result = runSimulation(`h2b1a-cadence-${i}`, content, diagnostic);
+      const ages = result.state.history.map((o) => o.age);
+      for (let a = 0; a < ages.length; a++) expect(ages[a]).toBe(a);
+    }
+  });
+
+  it('never lets an ambiguous manifestation pick a material in the new chains', () => {
+    for (const eventId of ['EVT-INS-FIN-2004', 'EVT-INS-MED-2003']) {
+      const event = content.eventsById.get(eventId)!;
+      for (const variant of event.variants) {
+        if (!variant.setMaterialCommitment) continue;
+        if (variant.when === 'TRUE') {
+          // Only the STR chain's explicit synthetic fallback may commit on TRUE.
+          expect(eventId).toBe('EVT-INS-MED-2003');
+          expect(variant.setMaterialCommitment).toBe('SYNT');
+          continue;
+        }
+        // Otherwise the branch must positively assert its own family and
+        // exclude every other one.
+        const family = variant.setMaterialCommitment;
+        expect(variant.when).toContain(`FLAG[MAT_MANIFEST_${family}]`);
+        expect(variant.when).toContain('!FLAG[MAT_MANIFEST_');
+      }
+    }
+  });
+
+  it('keeps the A-01/A-03/A-09 corrections', () => {
+    // Recovery no longer cancels the obligation.
+    expect(eventById('EVT-INS-FIN-2002').variants[0]!.when).toBe('TLT[T1013] | MNY>=10');
+    // Black Ledger escalation follows the obligation, not continued poverty.
+    const escalation = eventById('EVT-SPC-SECR-0023').variants[1]!;
+    expect(escalation.when).toContain('FAC_BLACK_LEDGER_ROLE_DEBTOR');
+    expect(escalation.when).not.toContain('MNY');
+    // The lottery is a genuine escape valve at the very bottom only.
+    expect(eventById('EVT-ORD-FIN-2003').include).toContain('MNY<=0');
+    // Architectural self-ownership is reached by flag, not by talent at the climax.
+    expect(eventById('EVT-INS-ARC-2003').variants[0]!.when).toBe('FLAG[ROUTE_ARC_SELF_OWNED]');
+  });
+});
+
 describe('H2B — content lints', () => {
   it('finds no male-coded player-facing prose', () => {
     const result = genderLint(content);
@@ -253,12 +392,17 @@ describe('H2B — diagnostic classifications', () => {
     expect(gatingStatOf('TRUE')).toBeNull();
   });
 
-  it('only classifies real, existing variants as relocations', () => {
-    for (const [eventId, index] of RELOCATION_VARIANTS) {
-      const event = content.eventsById.get(eventId);
-      expect(event, `${eventId} missing`).toBeDefined();
-      expect(event!.variants[index], `${eventId} variant ${index} missing`).toBeDefined();
-      expect(event!.routeTags).toContain('housing');
-    }
+  it('reads relocation from the canonical route tag, and every tagged event is housing', () => {
+    expect(content.routeTags.has(RELOCATION_TAG)).toBe(true);
+    // A-10: metadata only — no flag prefix, no favor, no transformation influence.
+    const def = content.routeTags.get(RELOCATION_TAG)!;
+    expect(def.kind).toBe('metadata');
+    expect(def.flagPrefixes).toEqual([]);
+    expect(def.activeEventFavor).toBe(false);
+    expect(def.allowTransformationEventFavor).toBe(false);
+
+    const tagged = content.events.filter((event) => event.routeTags.includes(RELOCATION_TAG));
+    expect(tagged.length).toBeGreaterThan(0);
+    for (const event of tagged) expect(event.routeTags).toContain('housing');
   });
 });

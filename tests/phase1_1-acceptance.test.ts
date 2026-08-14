@@ -149,7 +149,7 @@ describe('2. Route tag registry integrity', () => {
 
   it('has no duplicate registered tags and well-formed prefixes', () => {
     const raw = JSON.parse(
-      readFileSync(path.join(CONTENT_ROOT, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.2.json'), 'utf8'),
+      readFileSync(path.join(CONTENT_ROOT, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.3.json'), 'utf8'),
     ) as { tags: { tag: string; flagPrefixes: string[] }[] };
     const tags = raw.tags.map((t) => t.tag);
     expect(new Set(tags).size).toBe(tags.length);
@@ -644,8 +644,10 @@ describe('9. FIX threshold experiment', () => {
           }
         }
       }
-      // The base bundle is untouched.
-      expect(content.eventsById.get('EVT-INS-ACA-0005')!.include).toContain('FIX>=55');
+      // The base bundle is untouched by the reversible rewrite. Its own gate is
+      // the working canonical value (LOW `climax_standard` = 40 since H2B.1A),
+      // not whichever profile the loop last applied.
+      expect(content.eventsById.get('EVT-INS-ACA-0005')!.include).toContain('FIX>=40');
     }
   });
 

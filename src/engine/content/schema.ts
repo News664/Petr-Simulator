@@ -189,6 +189,28 @@ export const gameEventSchema = z
     }
   });
 
+/** H2B.1A state-trigger registry. */
+export const stateTriggerRegistrySchema = z
+  .object({
+    version: z.string(),
+    canonical: z.boolean().optional(),
+    purpose: z.string().optional(),
+    rules: z.array(z.string()).optional(),
+    triggers: z.array(
+      z
+        .object({
+          id: z.string().regex(/^[A-Z][A-Z0-9_]*$/),
+          when: conditionString,
+          suppressWhile: conditionString.optional(),
+          // A trigger must schedule a future year, never the current one.
+          schedule: scheduleSpecSchema,
+          notes: z.string().optional(),
+        })
+        .strict(),
+    ),
+  })
+  .strict();
+
 export const eventBatchSchema = z
   .object({
     batchId: z.string().min(1),

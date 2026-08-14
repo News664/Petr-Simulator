@@ -1,0 +1,1696 @@
+{
+  "batchId": "EVENT_BATCH_004",
+  "version": "0.4",
+  "languageStatus": {
+    "en": "canonical_draft",
+    "zh-TW": "reserved_empty"
+  },
+  "notes": "Fourth content batch. Completes the ~100-event first slice with additional ordinary-life density, Ceramic and Synthetic progression, Academic endings, explicit Mixed Media transition, post-commitment medical directives, and late-mobile survivor content. Academic route revised so tenure follows an interdisciplinary research specialization rather than acting as the route's entire identity.",
+  "events": [
+    {
+      "id": "EVT-ORD-FAM-0006",
+      "channel": "ORD",
+      "family": "FAM",
+      "age": {
+        "min": 0,
+        "max": 5
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "family"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY<=3",
+          "text": {
+            "en": "Before you are old enough to notice, your family keeps a hand-me-down stroller in service. Its warranty excludes future structural conversion, which nobody remembers purchasing.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your family discovers how quickly baby supplies become the wrong size. The receipts are kept longer than the useful sizing labels.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "STR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Additional early-childhood family density."
+    },
+    {
+      "id": "EVT-ORD-EDU-0006",
+      "channel": "ORD",
+      "family": "EDU",
+      "age": {
+        "min": 6,
+        "max": 11
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "education"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "CHR>=7",
+          "text": {
+            "en": "You are cast as a statue in the school play because you can stand still convincingly. The costume department considers this excellent foreshadowing.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You join an after-school club and discover that adults will supervise almost any activity if it produces a certificate.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Ordinary school development with mild setting humor."
+    },
+    {
+      "id": "EVT-ORD-EDU-0007",
+      "channel": "ORD",
+      "family": "EDU",
+      "age": {
+        "min": 12,
+        "max": 17
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 3,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "education",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "INT>=8",
+          "text": {
+            "en": "You take an advanced elective. The teacher warns that university credit is transferable but post-mobility credit is jurisdiction-dependent.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 2,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You take an elective mostly because your friends are there. It becomes unexpectedly useful several years later.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Repeatable adolescent education density."
+    },
+    {
+      "id": "EVT-ORD-HEA-0002",
+      "channel": "ORD",
+      "family": "HEA",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 4,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "health",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "STR<=4",
+          "text": {
+            "en": "You attempt to get into better shape. Progress is slow, measurable, and not accepted by your insurer as a material-risk intervention.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 2,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You become temporarily serious about exercise. Your body responds better than your schedule does.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Ordinary adult health event unrelated to fixation."
+    },
+    {
+      "id": "EVT-ORD-SOC-0007",
+      "channel": "ORD",
+      "family": "SOC",
+      "age": {
+        "min": 18,
+        "max": 29
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 3,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "social",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "CHR>=8",
+          "text": {
+            "en": "Dating becomes easier than deciding what to write under 'long-term mobility expectations.' You leave the field blank.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": 1,
+            "MNY": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You go on a few dates. One person asks about your future Permanent Form before asking what music you like.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": 1,
+            "MNY": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Young-adult social life; no route commitment."
+    },
+    {
+      "id": "EVT-ORD-CAR-0004",
+      "channel": "ORD",
+      "family": "CAR",
+      "age": {
+        "min": 24,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 4,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "career",
+        "baseline"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "INT>=8 & MNY<=5",
+          "text": {
+            "en": "You change jobs for better pay. The new employer promises a 'modern approach to mobility continuity,' which means a newer PDF.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 3,
+            "INT": 1,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your work becomes more complicated without becoming more important. You are compensated for one of these changes.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Career progression independent of the dedicated Corporate route."
+    },
+    {
+      "id": "EVT-ORD-HOU-0002",
+      "channel": "ORD",
+      "family": "HOU",
+      "age": {
+        "min": 25,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 5,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "baseline",
+        "housing",
+        "relocation"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT=STON | MAT=METL",
+          "text": {
+            "en": "You move homes and discover that the lease now asks for your projected floor-loading requirements. The agent calls this standard accessibility planning.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -2,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You move homes. Half your possessions fit perfectly in boxes designed for something else.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -2,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Ordinary housing remains relevant after material commitment."
+    },
+    {
+      "id": "EVT-ORD-SOC-0008",
+      "channel": "ORD",
+      "family": "SOC",
+      "age": {
+        "min": 40,
+        "max": 59
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 5,
+      "repeatMaxCount": 2,
+      "routeTags": [
+        "social",
+        "baseline",
+        "midlife"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT!=NONE",
+          "text": {
+            "en": "An old friend asks how your material condition is progressing, then spends the rest of the evening talking about her divorce. You appreciate the change of subject.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "MNY": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You reconnect with an old friend. Both of you have acquired enough paperwork to compare notes.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "MNY": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Midlife friendship density."
+    },
+    {
+      "id": "EVT-ORD-CAR-0005",
+      "channel": "ORD",
+      "family": "CAR",
+      "age": {
+        "min": 55,
+        "max": 74
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "career",
+        "survivor"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY>=8",
+          "text": {
+            "en": "You consider retirement. The pension portal assumes you entered Permanent Form years ago and asks you to correct your status by mail.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "MNY": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Retirement planning begins to sound less hypothetical. Your advisor has to reopen a spreadsheet tab labeled 'still mobile.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Late-career survivor event."
+    },
+    {
+      "id": "EVT-ORD-GEN-0003",
+      "channel": "ORD",
+      "family": "GEN",
+      "age": {
+        "min": 70,
+        "max": null
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 4,
+      "repeatMaxCount": null,
+      "routeTags": [
+        "baseline",
+        "survivor"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Another year passes while you remain mobile. This is no longer remarkable to you, which makes it increasingly remarkable to everyone else.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Real late-life baseline distinct from fallback-only quiet year."
+    },
+    {
+      "id": "EVT-TRN-CERA-0001",
+      "channel": "TRN",
+      "family": "CERA",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "museum"
+      ],
+      "materialTags": [
+        "manifestation"
+      ],
+      "include": "MAT=NONE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "CHR>=7",
+          "text": {
+            "en": "A smooth porcelain-like patch appears along your collarbone and resists every moisturizer you own. The clinic compliments the finish before examining it.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 2,
+            "STR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_CERA"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A pale ceramic patch appears along your collarbone and gives a faint tap when touched. The clinic advises against testing this repeatedly.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "STR": -1,
+            "SPR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_MANIFEST_CERA"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Ceramic/porcelain manifestation; remains soft evidence."
+    },
+    {
+      "id": "EVT-TRN-CERA-0002",
+      "channel": "TRN",
+      "family": "CERA",
+      "age": {
+        "min": 23,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "museum"
+      ],
+      "materialTags": [
+        "commitment"
+      ],
+      "include": "MAT=NONE & FLAG[MAT_MANIFEST_CERA] & FIX>=28",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1018]",
+          "text": {
+            "en": "The ceramic surface stops receding and spreads with an unusually clean porcelain finish. A curator requests photographs before your physician finishes the diagnosis.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 3,
+            "STR": -1,
+            "SPR": -1,
+            "FIX": 7
+          },
+          "addFlags": [
+            "ROUTE_MUS_INTEREST"
+          ],
+          "removeFlags": [],
+          "setMaterialCommitment": "CERA",
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The ceramic surface stops receding and becomes structurally permanent. Your chart adds a warning about impact resistance.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "STR": -1,
+            "SPR": -1,
+            "FIX": 7
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "CERA",
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Ceramic Material Commitment; NORMAL weight follows soft-evidence rule."
+    },
+    {
+      "id": "EVT-INS-MED-0005",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 20,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [
+        "synthetic"
+      ],
+      "include": "MAT=NONE & FIX>=30 & !FLAG[ROUTE_MED_SYNTH_OPTION]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "STR<=4",
+          "text": {
+            "en": "A specialist suggests a synthetic stabilization scaffold before your symptoms become structural. The premium model has a better warranty than your phone.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": 1
+          },
+          "addFlags": [
+            "ROUTE_MED_SYNTH_OPTION"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-TRN-SYNT-0001",
+              "offsetYears": 2,
+              "windowYears": 5,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_MED_SYNTH_OPTION] & MAT=NONE"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A specialist offers synthetic stabilization as one possible way to contain your Fixation. The brochure has separate pages for economy, archival, and bespoke finishes.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1
+          },
+          "addFlags": [
+            "ROUTE_MED_SYNTH_OPTION"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-TRN-SYNT-0001",
+              "offsetYears": 2,
+              "windowYears": 5,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_MED_SYNTH_OPTION] & MAT=NONE"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Synthetic is a medical route option, not synonymous with cheapness."
+    },
+    {
+      "id": "EVT-TRN-SYNT-0001",
+      "channel": "TRN",
+      "family": "SYNT",
+      "age": {
+        "min": 22,
+        "max": 44
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical"
+      ],
+      "materialTags": [
+        "commitment"
+      ],
+      "include": "FLAG[ROUTE_MED_SYNTH_OPTION] & MAT=NONE & FIX>=28",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY>=8",
+          "text": {
+            "en": "You undergo bespoke synthetic stabilization. The resulting material is custom-matched, medically durable, and expensive enough to have its own financing department.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 2,
+            "STR": 2,
+            "MNY": -3,
+            "FIX": 6
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "SYNT",
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You undergo synthetic stabilization. The material integrates cleanly and is described as 'standard grade,' which the clinic insists is not the same as cheap.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 2,
+            "MNY": -1,
+            "FIX": 6
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "setMaterialCommitment": "SYNT",
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Nonterminal Synthetic Material Commitment."
+    },
+    {
+      "id": "EVT-INS-ACA-0003",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 24,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "academic",
+        "career"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_ACA_RESEARCH] & FLAG[ROUTE_ACA_SPECIALIZATION] & !FLAG[ROUTE_ACA_TENURE_TRACK]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "FLAG[ROUTE_ACA_MATERIALS] & INT>=10",
+          "text": {
+            "en": "After years of publishing across material-conversion fields, your institute places you on tenure track. Your teaching load now includes a course called Comparative Permanence.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ACA_TENURE_TRACK"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ACA-0004",
+              "offsetYears": 4,
+              "windowYears": 5,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_ACA_TENURE_TRACK]"
+            }
+          ]
+        },
+        {
+          "when": "FLAG[ROUTE_ACA_CONTINUITY] & INT>=10",
+          "text": {
+            "en": "Your work on continuity and suspended awareness earns you a tenure-track position. The university asks you not to describe the field as 'philosophy with laboratory accidents.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ACA_TENURE_TRACK"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ACA-0004",
+              "offsetYears": 4,
+              "windowYears": 5,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_ACA_TENURE_TRACK]"
+            }
+          ]
+        },
+        {
+          "when": "FLAG[ROUTE_ACA_POLICY] & INT>=10",
+          "text": {
+            "en": "Your post-mobile governance research earns you a tenure-track position shared between departments that disagree about which one employs you.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ACA_TENURE_TRACK"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ACA-0004",
+              "offsetYears": 4,
+              "windowYears": 5,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_ACA_TENURE_TRACK]"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your institute offers a long-term research appointment. The contract uses the phrase 'subject to continued mobility' in two different senses.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ACA_TENURE_TRACK"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ACA-0004",
+              "offsetYears": 4,
+              "windowYears": 5,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_ACA_TENURE_TRACK]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Tenure is a career consequence after substantive research specialization, not the Academic route's defining feature."
+    },
+    {
+      "id": "EVT-INS-ACA-0004",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 28,
+        "max": 54
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "academic",
+        "career"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_ACA_TENURE_TRACK]",
+      "exclude": "FLAG[ROUTE_ACA_TENURE_REVIEW]",
+      "variants": [
+        {
+          "when": "INT>=10",
+          "text": {
+            "en": "Your tenure review succeeds. The university officially describes your position as permanent and everyone avoids commenting on the wording.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "SPR": 2
+          },
+          "addFlags": [
+            "ROUTE_ACA_TENURE_REVIEW"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ACA-0005",
+              "offsetYears": 2,
+              "windowYears": 8,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_ACA_TENURE_REVIEW] & MAT!=NONE & FIX>=40"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your tenure review produces a conditional extension and six pages of feedback. One page concerns your future material status.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ACA_TENURE_REVIEW"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ACA-0006",
+              "offsetYears": 2,
+              "windowYears": 8,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_ACA_TENURE_REVIEW] & MAT!=NONE & FIX>=40"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Automatic academic branch schedules one of two climax families."
+    },
+    {
+      "id": "EVT-INS-ACA-0005",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 30,
+        "max": 64
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "academic"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "include": "FLAG[ROUTE_ACA_TENURE_REVIEW] & MAT!=NONE & FIX>=40",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "FLAG[ROUTE_ACA_MATERIALS]",
+          "text": {
+            "en": "Your final conversion is completed on university grounds beside laboratories studying half a dozen other possible outcomes. The faculty directory lists your field as Comparative Permanence and your office as the courtyard.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ACA-001"
+        },
+        {
+          "when": "FLAG[ROUTE_ACA_CONTINUITY]",
+          "text": {
+            "en": "Your final conversion is completed on university grounds after a career spent asking what survives transformation. Your title remains Professor; the answer to your research question remains more carefully worded.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ACA-001"
+        },
+        {
+          "when": "FLAG[ROUTE_ACA_POLICY]",
+          "text": {
+            "en": "Your final conversion is completed on university grounds after years of writing about post-mobile status. The university immediately consults your own publications to decide how to classify you.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ACA-001"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your final conversion is completed on university grounds. The faculty directory changes your office number to the courtyard and leaves your title unchanged.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ACA-001"
+        }
+      ],
+      "designerNotes": "Tenure ending adapts to the research history that produced it."
+    },
+    {
+      "id": "EVT-INS-ACA-0006",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 30,
+        "max": 64
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "academic",
+        "medical"
+      ],
+      "materialTags": [
+        "ending"
+      ],
+      "include": "FLAG[ROUTE_ACA_TENURE_REVIEW] & MAT!=NONE & FIX>=40",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "FLAG[ROUTE_ACA_MATERIALS]",
+          "text": {
+            "en": "Your final conversion occurs during a comparative-material project. The paper gains an unexpected first-person dataset and a much longer ethics appendix.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ACA-002"
+        },
+        {
+          "when": "FLAG[ROUTE_ACA_CONTINUITY]",
+          "text": {
+            "en": "Your final conversion occurs during the continuity study that has occupied most of your career. The paper's discussion section becomes considerably less hypothetical.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ACA-002"
+        },
+        {
+          "when": "FLAG[ROUTE_ACA_POLICY]",
+          "text": {
+            "en": "Your final conversion occurs while your team is studying post-mobile classification. The case study is published before the agencies involved finish deciding which dataset you belong in.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ACA-002"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your final conversion occurs during the project that has occupied most of your career. The paper is revised to include the principal investigator as a result.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ACA-002"
+        }
+      ],
+      "designerNotes": "Peer-Reviewed Permanence adapts to materials, continuity, or policy research."
+    },
+    {
+      "id": "EVT-INS-MUS-0004",
+      "channel": "INS",
+      "family": "MUS",
+      "age": {
+        "min": 28,
+        "max": 54
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "museum",
+        "restoration"
+      ],
+      "materialTags": [
+        "transition",
+        "mixed"
+      ],
+      "include": "FLAG[ROUTE_MUS_APPRAISED] & MAT!=NONE & MAT!=MIXD & !FLAG[ROUTE_MUS_MIXED_OPTION]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1027]",
+          "text": {
+            "en": "Conservators propose reinforcing your developing fractures with a second material. The treatment plan uses the phrase 'visible repair as biography.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "MNY": -1
+          },
+          "addFlags": [
+            "ROUTE_MUS_MIXED_OPTION"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-TRN-MIXD-0001",
+              "offsetYears": 2,
+              "windowYears": 5,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_MUS_MIXED_OPTION] & MAT!=NONE & MAT!=MIXD"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Conservators propose a second-material reinforcement to improve long-term stability. The treatment is introduced as both medical care and mixed-media conservation.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1,
+            "MNY": -1
+          },
+          "addFlags": [
+            "ROUTE_MUS_MIXED_OPTION"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-TRN-MIXD-0001",
+              "offsetYears": 2,
+              "windowYears": 5,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_MUS_MIXED_OPTION] & MAT!=NONE & MAT!=MIXD"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Explicit path toward mixed material; never happens accidentally."
+    },
+    {
+      "id": "EVT-TRN-MIXD-0001",
+      "channel": "TRN",
+      "family": "MIXD",
+      "age": {
+        "min": 30,
+        "max": 59
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "museum",
+        "restoration"
+      ],
+      "materialTags": [
+        "transition",
+        "mixed",
+        "commitment"
+      ],
+      "include": "FLAG[ROUTE_MUS_MIXED_OPTION] & MAT!=NONE & MAT!=MIXD",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The reinforcement procedure permanently integrates a second material into your body. Your file now requires both a physician and a conservator to sign the same page.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 2,
+            "SPR": -1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "MAT_PREVIOUS_RECORDED"
+          ],
+          "removeFlags": [],
+          "setMaterialCommitment": "MIXD",
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MUS-0005",
+              "offsetYears": 2,
+              "windowYears": 6,
+              "priority": "climax",
+              "validityCondition": "MAT=MIXD & FLAG[ROUTE_MUS_APPRAISED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Explicit authored transition to MIXD. Implementation should preserve prior material(s) in ending metadata before overwriting MAT."
+    },
+    {
+      "id": "EVT-INS-MUS-0005",
+      "channel": "INS",
+      "family": "MUS",
+      "age": {
+        "min": 32,
+        "max": 64
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "museum",
+        "restoration"
+      ],
+      "materialTags": [
+        "mixed",
+        "ending"
+      ],
+      "include": "MAT=MIXD & FLAG[ROUTE_MUS_APPRAISED] & FIX>=40",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your final preservation is catalogued as mixed media. The museum lists your component materials in a more prominent font than your biography.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MUS-004"
+        }
+      ],
+      "designerNotes": "Mixed Media ending."
+    },
+    {
+      "id": "EVT-INS-MED-0007",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 30,
+        "max": 54
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "legal"
+      ],
+      "materialTags": [],
+      "include": "MAT!=NONE & !FLAG[ROUTE_MED_DIRECTIVE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1024] | TLT[T1013]",
+          "text": {
+            "en": "A clinic asks you to file maintenance directives for your committed material. Your lawyer turns the one-page form into a small constitutional document.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "MNY": -1
+          },
+          "addFlags": [
+            "ROUTE_MED_DIRECTIVE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A clinic asks you to file maintenance preferences for your committed material. 'Do not polish without consent' is already a standard checkbox.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "ROUTE_MED_DIRECTIVE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Ordinary institutional response after material commitment; reinforces autonomy themes without ending."
+    },
+    {
+      "id": "EVT-ORD-FAM-0007",
+      "channel": "ORD",
+      "family": "FAM",
+      "age": {
+        "min": 45,
+        "max": 69
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 5,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "family",
+        "baseline",
+        "survivor"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MAT!=NONE",
+          "text": {
+            "en": "A younger relative asks whether your committed material means you will stop aging soon. You discover that nobody in the family has a consistent answer.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A younger relative asks why you are still mobile. You give a simpler answer than the insurance industry would.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Later-life family content."
+    },
+    {
+      "id": "EVT-INS-CIV-0009",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 65,
+        "max": null
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "civic",
+        "survivor"
+      ],
+      "materialTags": [],
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "AGE>=80",
+          "text": {
+            "en": "Your identity card renewal is escalated because the system assumes anyone your age has a fixed location. You are asked to prove that you can still leave the office.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "INT": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your identity card renewal requires an additional mobility declaration. The clerk says the form is mostly used for historical records.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Late-life bureaucracy."
+    },
+    {
+      "id": "EVT-INS-ACA-0007",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 22,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "academic",
+        "research"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_ACA_RESEARCH] & !FLAG[ROUTE_ACA_SPECIALIZATION]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1020] | MAT=TEMP | FLAG[MAT_MANIFEST_TEMP]",
+          "text": {
+            "en": "Your research shifts toward continuity of identity: temporal suspension, memory, and the awkward question of what still counts as a person when experience stops.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ACA_SPECIALIZATION",
+            "ROUTE_ACA_CONTINUITY"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ACA-0009",
+              "offsetYears": 2,
+              "windowYears": 4,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_ACA_CONTINUITY]"
+            }
+          ]
+        },
+        {
+          "when": "TLT[T1013] | TLT[T1024] | FLAG[ROUTE_LEG_STATUS_CASE]",
+          "text": {
+            "en": "Your research shifts toward post-mobile governance: ownership, personhood, tax status, and why four agencies can classify the same statue differently.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 2,
+            "MNY": 1
+          },
+          "addFlags": [
+            "ROUTE_ACA_SPECIALIZATION",
+            "ROUTE_ACA_POLICY"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ACA-0010",
+              "offsetYears": 2,
+              "windowYears": 4,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_ACA_POLICY]"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your institute places you in a comparative materials program. You rotate through stone, crystal, glass, synthetic, wood, ceramic, metal, and temporal labs before anyone asks which field you meant to study.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ACA_SPECIALIZATION",
+            "ROUTE_ACA_MATERIALS"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ACA-0008",
+              "offsetYears": 2,
+              "windowYears": 4,
+              "priority": "scheduled",
+              "validityCondition": "FLAG[ROUTE_ACA_MATERIALS]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Academic route becomes an intersection amplifier. Specialization is automatic, based on life state/talents, not a player choice."
+    },
+    {
+      "id": "EVT-INS-ACA-0008",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 24,
+        "max": 49
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "academic",
+        "research",
+        "materials"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_ACA_MATERIALS]",
+      "exclude": "FLAG[ROUTE_ACA_MATERIALS_EXPOSED]",
+      "variants": [
+        {
+          "when": "MAT!=NONE",
+          "text": {
+            "en": "Your comparative-material rotation becomes personal when your own committed material is added to a teaching demonstration. You spend the semester comparing it with six ways your body could have gone instead.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 3,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ACA_MATERIALS_EXPOSED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You complete a comparative-material rotation involving crystallization, petrification, synthetic stabilization, ceramic conversion, metallization, wood growth, and temporal fixation. None of them is treated as the unusual one.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 3,
+            "FIX": 2
+          },
+          "addFlags": [
+            "ROUTE_ACA_MATERIALS_EXPOSED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Exposure to many transformation systems without selecting a material. FIX +2 represents research exposure/risk, not a material hint."
+    },
+    {
+      "id": "EVT-INS-ACA-0009",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 24,
+        "max": 49
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "academic",
+        "research",
+        "continuity"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_ACA_CONTINUITY]",
+      "exclude": "FLAG[ROUTE_ACA_CONTINUITY_EXPOSED]",
+      "variants": [
+        {
+          "when": "TLT[T1028] | TLT[T1029]",
+          "text": {
+            "en": "A continuity experiment produces data nobody can reconcile with the control group. Your colleagues become much more interested in your personal history.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 3,
+            "SPR": -2
+          },
+          "addFlags": [
+            "ROUTE_ACA_CONTINUITY_EXPOSED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You work on studies comparing unconscious Permanent Forms, temporal suspension, intermittent awareness reports, and claims nobody has managed to reproduce.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 3,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ACA_CONTINUITY_EXPOSED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Creates explicit research space for Awareness/continuity without making ordinary statues conscious."
+    },
+    {
+      "id": "EVT-INS-ACA-0010",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 24,
+        "max": 49
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "academic",
+        "research",
+        "legal",
+        "finance",
+        "civic"
+      ],
+      "materialTags": [],
+      "include": "FLAG[ROUTE_ACA_POLICY]",
+      "exclude": "FLAG[ROUTE_ACA_POLICY_EXPOSED]",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your policy project compares self-owned Permanent Citizens, museum custody, secured debt, sacred-property claims, and fixtures attached to land. The dataset has no category that everyone agrees is impossible.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 3,
+            "MNY": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ACA_POLICY_EXPOSED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Makes Academia a bridge into Legal/Finance/Civic/Religious content."
+    }
+  ]
+}

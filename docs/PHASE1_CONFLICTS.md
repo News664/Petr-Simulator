@@ -47,6 +47,99 @@
 
 ---
 
+> ### H2B.1A status (2026-08-14)
+>
+> LOW is now the working canonical H2B balance (31 FIX gates rewritten
+> mechanically, historical profile machinery preserved), and corrections
+> A-01 … A-11 all applied with **zero source mismatches**. Four consequences are
+> recorded below as **H2B1A-C1 … H2B1A-C4**. None was tuned away: two follow
+> directly from frozen design instructions, one is a measurement, one is a schema
+> limit.
+
+---
+
+## H2B1A-C1 — Unbounded Continuity Review coverage moved 18 points of endings into 65+
+
+**Files.** `H2B1A_TIMING_DESIGN_v0.1.md` (*"Coverage does not stop at 69"*) vs the
+measured 3 000-run regression.
+
+**Observation.** Removing the age caps from `EVT-INS-MED-2001/2002/2003` achieved
+exactly what A-04 asked — extreme-STR review exposure rose from **12.0% to 100%**
+and long survivors sitting at STR ≤ −3 with no review fell from **1 218 to 0**.
+It also created a late-life ending pathway:
+
+| Measure | H2B | H2B.1A |
+|---|---|---|
+| `END-MED-003 Benefit Approved` endings | 18 | **470** (15.7% of runs) |
+| Mean review age | 43.8 | **83.5** |
+| 65+ share of completed endings | 8.7% | **26.9%** |
+| Mean commitment age | 34.9 | **41.4** (median 36) |
+
+The mean/median commitment split is the same effect: the median barely moved,
+and the mean is dragged by a long tail of covered stabilizations after 80.
+
+**Not fixed.** Capping or down-weighting the benefit chain in old age would undo
+the coverage requirement that produced it, and the timing design forbids tuning
+lethality to chase age buckets. The options are design's: cap the chain at some
+age, reduce its late-life weight, or accept a late-life insurance ending as
+canonical.
+
+---
+
+## H2B1A-C2 — `EVT-INS-MED-2002`'s independent-treatment branch is now unreachable
+
+**Observation.** A-05 fixed the ordering problem the H2B run found (the expedited
+`STR<=-3` branch went from 0 firings to **335, 29.6%**), but tightening the
+independent-treatment gate to `TLT[T1015] | (MNY>=10 & INT>=12)` and placing it
+third means it now never fires: the expedited branch above it absorbs the extreme
+cases and covered stabilization takes the rest (69.8%). The same is true of
+`EVT-INS-MED-2003`'s equivalent branch.
+
+**Not fixed.** Both conditions and both orderings are specified exactly in the
+timing design. Reported so design can decide whether the exceptional escape is
+meant to be this rare or whether the gate is too tight.
+
+---
+
+## H2B1A-C3 — The financial maturation lands on ambiguous evidence 60.9% of the time
+
+**Observation.** `EVT-INS-FIN-2004` fires in 156 runs at mean age 25.8. Its branch
+split:
+
+| Outcome | Runs | Share |
+|---|---|---|
+| already committed (`MAT!=NONE`) | 9 | 5.8% |
+| exactly one clear manifestation → commits it | 52 | 33.3% |
+| ambiguous or absent evidence → no commitment | **95** | **60.9%** |
+
+The design requires that ambiguous evidence never picks a material, and it does
+not. But the maturation therefore usually resolves as fees rather than as the
+collateral revaluation it was written for, because by age 25–31 most runs either
+have several manifestations or none.
+
+**Not fixed.** Loosening the evidence rule is exactly what A-02 forbids. Widening
+the age window is a design call.
+
+---
+
+## H2B1A-C4 — One relocation variant cannot be expressed by an event-level tag
+
+**Observation.** A-10 added the metadata-only `relocation` route tag and it
+replaced the analyst list: the diagnostic now reads the corpus. Route tags are
+event-level, so the four events whose every variant is a move are tagged
+(`EVT-ORD-HOU-0001`, `-0002`, `-2001`, `-2005`).
+
+`EVT-ORD-HOU-2002` is split: variant 1 (*"You rent a cheaper room in a shared
+flat"*) is a move and variant 2 (*"A new flatmate explains…"*) is not. Tagging the
+event would over-count; not tagging it under-counts. It is **not tagged**, so the
+reported relocation count is conservative by that one variant.
+
+**Recommendation.** Split `EVT-ORD-HOU-2002` into two events in a later content
+patch, or add variant-level tags to the schema. Not done here: both are content
+or schema changes beyond H2B.1A.
+
+---
+
 > ### H2B status (2026-08-14)
 >
 > The 28 Batch 008 blueprints, the 13 existing-event patches and the Ending

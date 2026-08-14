@@ -21,5 +21,7 @@ reports/*
 !reports/h2b-batch008-diagnostic.json
 !reports/h2b-batch008-diagnostic.md
 !reports/h2b-content-lint.md
+!reports/h2b1a-regression.json
+!reports/h2b1a-regression.md
 scratch/
 dist/

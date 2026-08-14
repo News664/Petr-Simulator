@@ -23,26 +23,14 @@ import { VISIBLE_STATS, type RunState, type VisibleStat } from '../engine/types.
 export const H2B_BATCH_ID = 'EVENT_BATCH_008';
 
 /**
- * Variants that are a literal change of address.
+ * A literal change of address is now canonical data.
  *
- * The Route Tag Registry has a `housing` tag but no `relocation` tag, and the
- * H2B plan asks for moves to be counted separately from housing. Classification
- * therefore has to come from somewhere; it is declared here, explicitly, as an
- * analyst list rather than being inferred from English text at runtime — and it
- * is reported as such. A canonical `relocation` metadata tag would replace this
- * and is recommended for a later content patch.
+ * H2B.1A A-10 added the metadata-only `relocation` route tag to the Route Tag
+ * Registry, so the diagnostic reads the corpus instead of carrying an analyst
+ * list. The tag is event-level, which the schema supports; the one case it
+ * cannot express is recorded as a conflict rather than patched around here.
  */
-export const RELOCATION_VARIANTS: readonly (readonly [string, number])[] = [
-  ['EVT-ORD-HOU-0001', 0], // "You move somewhere cheaper."
-  ['EVT-ORD-HOU-0001', 1], // "You move to a slightly better place."
-  ['EVT-ORD-HOU-0002', 0], // "You move homes and discover..."
-  ['EVT-ORD-HOU-0002', 1], // "You move homes."
-  ['EVT-ORD-HOU-2001', 0], // employer accommodation taken up
-  ['EVT-ORD-HOU-2001', 1], // employer accommodation taken up
-  ['EVT-ORD-HOU-2002', 0], // "You rent a cheaper room in a shared flat."
-  ['EVT-ORD-HOU-2005', 0], // subsidized insurance-compliant unit taken up
-  ['EVT-ORD-HOU-2005', 1], // "You move into a unit certified..."
-];
+export const RELOCATION_TAG = 'relocation';
 
 /** The Basic Continuity Insurance chain, in order. */
 export const STR_INSURANCE_CHAIN = {
@@ -50,6 +38,15 @@ export const STR_INSURANCE_CHAIN = {
   decision: 'EVT-INS-MED-2002',
   outcome: 'EVT-INS-MED-2003',
   ending: 'END-MED-003',
+} as const;
+
+/** The financial-obligation maturation chain (H2B.1A A-02). */
+export const FINANCE_MATURATION = {
+  rescue: 'EVT-INS-FIN-2001',
+  followUp: 'EVT-INS-FIN-2002',
+  maturation: 'EVT-INS-FIN-2004',
+  climax: 'EVT-INS-FIN-0005',
+  routeFlag: 'ROUTE_FIN_SECURED_DEBT',
 } as const;
 
 /** The housing-to-architecture route. */
@@ -60,6 +57,7 @@ export const STRUCTURAL_HOUSING = {
   offerFlag: 'ROUTE_ARC_HOUSING_PROGRAM',
   committedFlag: 'ROUTE_ARC_STRUCTURAL',
   lapsedFlag: 'ROUTE_ARC_HOUSING_HISTORY',
+  selfOwnedFlag: 'ROUTE_ARC_SELF_OWNED',
 } as const;
 
 /**
@@ -190,6 +188,59 @@ export interface FactionExclusivityTelemetry {
   expiredEscalationSchedules: Record<string, number>;
 }
 
+export interface StatContributorRow {
+  eventId: string;
+  variantIndex: number;
+  textExcerpt: string;
+  delta: number;
+  occurrences: number;
+  totalMagnitude: number;
+}
+
+/** A-12: ranked contributors per stat, per age band. */
+export interface StatContributorAudit {
+  ageBands: string[];
+  /** stat -> age band -> { positive, negative } ranked by total magnitude. */
+  byStat: Record<string, Record<string, { positive: StatContributorRow[]; negative: StatContributorRow[] }>>;
+}
+
+export interface FinanceMaturationTelemetry {
+  rescueRuns: number;
+  followUpRuns: number;
+  buyoutRuns: number;
+  obligationSurvivedRuns: number;
+  maturationRuns: number;
+  maturationRate: number;
+  meanMaturationAge: number | null;
+  /** Maturation branch split, by the material it did or did not commit. */
+  maturationBranches: { label: string; runs: number; share: number }[];
+  maturationCommittedMaterials: Record<string, number>;
+  financeClimaxRuns: number;
+  financeEndings: Record<string, number>;
+}
+
+export interface BlackLedgerTelemetry {
+  contactRuns: number;
+  engagedRuns: number;
+  committedRuns: number;
+  optedOutRuns: number;
+  closedRuns: number;
+  committedRate: number;
+  endingRuns: number;
+  endingRate: number;
+  endings: Record<string, number>;
+  meanCommittedAge: number | null;
+  /** Runs holding the DEBTOR obligation role at the escalation. */
+  debtorAtEscalationRuns: number;
+}
+
+export interface StateTriggerTelemetry {
+  firings: Record<string, number>;
+  runsTriggered: Record<string, number>;
+  meanFiringAge: Record<string, number | null>;
+  maxFiringsInOneRun: Record<string, number>;
+}
+
 export interface AgeStratifiedRiskRow {
   ageBand: string;
   stat: VisibleStat;
@@ -209,6 +260,12 @@ export interface H2bTelemetry {
   strInsurance: StrInsuranceTelemetry;
   housing: HousingRelocationTelemetry;
   factions: FactionExclusivityTelemetry;
+  statContributors: StatContributorAudit;
+  finance: FinanceMaturationTelemetry;
+  blackLedger: BlackLedgerTelemetry;
+  stateTriggers: StateTriggerTelemetry;
+  /** Extreme-STR review exposure among runs that survive past 65. */
+  extremeStrSurvivors: { survivorsEverExtreme: number; survivorsWithReview: number; coverage: number | null };
   /** Low-stat risk split by adult life stage, so old-age censoring cannot invert it. */
   ageStratifiedRisk: AgeStratifiedRiskRow[];
   riskHorizonYears: number;
@@ -246,6 +303,19 @@ function band(value: number): string {
 }
 
 /** Adult life stages for the age-stratified risk table. */
+/** A-12 reports these three stats. */
+const CONTRIBUTOR_STATS: readonly VisibleStat[] = ['CHR', 'INT', 'SPR'];
+
+/** A-12 age bands, which are coarser than the risk stages on purpose. */
+const CONTRIBUTOR_BANDS = ['0-17', '18-34', '35-64', '65+'] as const;
+
+function contributorBand(age: number): string {
+  if (age <= 17) return '0-17';
+  if (age <= 34) return '18-34';
+  if (age <= 64) return '35-64';
+  return '65+';
+}
+
 const ADULT_STAGES: { label: string; min: number; max: number }[] = [
   { label: '18-24', min: 18, max: 24 },
   { label: '25-34', min: 25, max: 34 },
@@ -278,7 +348,7 @@ interface VariantBucket {
  */
 export class H2bAccumulator {
   private readonly newEventIds: string[];
-  private readonly relocation = new Set(RELOCATION_VARIANTS.map(([id, index]) => `${id}:${index}`));
+  private readonly relocationEventIds: Set<string>;
   private readonly housingEventIds: Set<string>;
 
   private runs = 0;
@@ -323,6 +393,42 @@ export class H2bAccumulator {
   private readonly structuralEndings: Record<string, number> = {};
   private readonly structuralEndingAges: number[] = [];
 
+  // A-12 stat contributors: `${stat}|${band}|${eventId}|${variantIndex}` -> counters.
+  private readonly contributors = new Map<string, { delta: number; occurrences: number }>();
+
+  // Finance maturation
+  private financeRescue = 0;
+  private financeFollowUp = 0;
+  private financeBuyout = 0;
+  private financeObligationSurvived = 0;
+  private financeMaturation = 0;
+  private readonly financeMaturationAges: number[] = [];
+  private readonly financeMaturationBranch = new Map<number, number>();
+  private readonly financeMaturationMaterials: Record<string, number> = {};
+  private financeClimax = 0;
+  private readonly financeEndings: Record<string, number> = {};
+
+  // Black Ledger
+  private blContact = 0;
+  private blEngaged = 0;
+  private blCommitted = 0;
+  private blOptedOut = 0;
+  private blClosed = 0;
+  private blEnding = 0;
+  private readonly blEndings: Record<string, number> = {};
+  private readonly blCommittedAges: number[] = [];
+  private blDebtorAtEscalation = 0;
+
+  // State triggers
+  private readonly triggerFirings: Record<string, number> = {};
+  private readonly triggerRuns: Record<string, number> = {};
+  private readonly triggerAges: Record<string, number[]> = {};
+  private readonly triggerMaxInRun: Record<string, number> = {};
+
+  // Extreme-STR exposure among 65+ survivors
+  private survivorsEverExtreme = 0;
+  private survivorsWithReview = 0;
+
   // Factions
   private simultaneousViolations = 0;
   private maxSimultaneous = 0;
@@ -355,6 +461,9 @@ export class H2bAccumulator {
       .sort();
     this.housingEventIds = new Set(
       content.events.filter((event) => event.routeTags.includes('housing')).map((event) => event.id),
+    );
+    this.relocationEventIds = new Set(
+      content.events.filter((event) => event.routeTags.includes(RELOCATION_TAG)).map((event) => event.id),
     );
     this.housingDeltas = {} as Record<VisibleStat, number>;
     for (const stat of VISIBLE_STATS) this.housingDeltas[stat] = 0;
@@ -404,6 +513,10 @@ export class H2bAccumulator {
     this.addStrInsurance(state, endingAge, endingId);
     this.addHousing(state);
     this.addFactions(state);
+    this.addStatContributors(state);
+    this.addFinance(state, result);
+    this.addBlackLedger(state, result);
+    this.addStateTriggers(state);
     this.addAgeStratifiedRisk(state, endingAge, commitmentAge, lastObservedAge);
   }
 
@@ -511,6 +624,10 @@ export class H2bAccumulator {
       if (sawReview) this.extremeLowStrWithReview += 1;
       else if (extremeLate) this.longSurvivorExtremeNoReview += 1;
     }
+    if (extremeLate) {
+      this.survivorsEverExtreme += 1;
+      if (sawReview) this.survivorsWithReview += 1;
+    }
   }
 
   private addHousing(state: RunState): void {
@@ -530,7 +647,7 @@ export class H2bAccumulator {
         }
         this.housingFix += variant.effects.FIX ?? 0;
       }
-      if (this.relocation.has(`${occurrence.eventId}:${occurrence.variantIndex}`)) relocations += 1;
+      if (this.relocationEventIds.has(occurrence.eventId)) relocations += 1;
     }
     if (occurrences > 0) {
       this.housingRuns += 1;
@@ -608,6 +725,111 @@ export class H2bAccumulator {
     for (const expired of state.diagnostics.expiredSchedules) {
       if (!/^EVT-SPC-SECR-00(19|2[0-4])$/.test(expired.eventId)) continue;
       this.expiredEscalations[expired.eventId] = (this.expiredEscalations[expired.eventId] ?? 0) + 1;
+    }
+  }
+
+  /** A-12: authored CHR/INT/SPR deltas attributed to the age band they fired in. */
+  private addStatContributors(state: RunState): void {
+    for (const occurrence of state.history) {
+      const event = this.content.eventsById.get(occurrence.eventId);
+      const variant = event?.variants[occurrence.variantIndex];
+      if (!event || !variant) continue;
+      const bandLabel = contributorBand(occurrence.age);
+      for (const stat of CONTRIBUTOR_STATS) {
+        const delta = variant.effects[stat];
+        if (delta === undefined || delta === 0) continue;
+        const key = `${stat}|${bandLabel}|${event.id}|${occurrence.variantIndex}`;
+        const bucket = this.contributors.get(key) ?? { delta, occurrences: 0 };
+        bucket.occurrences += 1;
+        this.contributors.set(key, bucket);
+      }
+    }
+  }
+
+  /** A-01 / A-02: does the obligation survive the rescue, and does it mature? */
+  private addFinance(state: RunState, result: RunResult): void {
+    let sawFollowUp = false;
+    let buyout = false;
+    for (const occurrence of state.history) {
+      switch (occurrence.eventId) {
+        case FINANCE_MATURATION.rescue:
+          this.financeRescue += 1;
+          break;
+        case FINANCE_MATURATION.followUp:
+          sawFollowUp = true;
+          // Variant 0 is the A-01 buyout; every other branch keeps the lien.
+          if (occurrence.variantIndex === 0) buyout = true;
+          break;
+        case FINANCE_MATURATION.maturation: {
+          this.financeMaturation += 1;
+          this.financeMaturationAges.push(occurrence.age);
+          const index = occurrence.variantIndex;
+          this.financeMaturationBranch.set(index, (this.financeMaturationBranch.get(index) ?? 0) + 1);
+          const variant = this.content.eventsById.get(occurrence.eventId)?.variants[index];
+          const material = variant?.setMaterialCommitment;
+          const label = material ?? (index === 0 ? 'already committed' : 'ambiguous — none');
+          this.financeMaturationMaterials[label] = (this.financeMaturationMaterials[label] ?? 0) + 1;
+          break;
+        }
+        case FINANCE_MATURATION.climax:
+          this.financeClimax += 1;
+          break;
+        default:
+          break;
+      }
+    }
+    if (sawFollowUp) {
+      this.financeFollowUp += 1;
+      if (buyout) this.financeBuyout += 1;
+      else this.financeObligationSurvived += 1;
+    }
+    if (result.outcome.kind === 'ended' && state.flags.has(FINANCE_MATURATION.routeFlag)) {
+      const id = result.outcome.ending.endingId;
+      this.financeEndings[id] = (this.financeEndings[id] ?? 0) + 1;
+    }
+  }
+
+  /** A-03: escalation should follow the obligation role, not continued poverty. */
+  private addBlackLedger(state: RunState, result: RunResult): void {
+    const faction = this.content.factions.get('FCT-BLACK-LEDGER');
+    if (!faction) return;
+    const transitions = state.diagnostics.factionTransitions.filter((r) => r.factionId === faction.id);
+    if (transitions.length === 0 && !everContacted(state.flags, faction)) return;
+    this.blContact += 1;
+    const firstAt = new Map<string, number>();
+    for (const record of transitions) {
+      if (!firstAt.has(record.to)) firstAt.set(record.to, record.age);
+    }
+    if (firstAt.has('ENGAGED')) this.blEngaged += 1;
+    const committedAge = firstAt.get('COMMITTED');
+    if (committedAge !== undefined) {
+      this.blCommitted += 1;
+      this.blCommittedAges.push(committedAge);
+      if (transitions.some((r) => r.addedRoles.includes('DEBTOR'))) this.blDebtorAtEscalation += 1;
+    }
+    if (firstAt.has('OPTED_OUT')) this.blOptedOut += 1;
+    if (firstAt.has('CLOSED')) this.blClosed += 1;
+    if (result.outcome.kind === 'ended') {
+      const source = this.content.eventsById.get(result.outcome.ending.sourceEventId);
+      if (source?.factionIds.includes(faction.id)) {
+        this.blEnding += 1;
+        const id = result.outcome.ending.endingId;
+        this.blEndings[id] = (this.blEndings[id] ?? 0) + 1;
+      }
+    }
+  }
+
+  /** A-04: how often the data-driven trigger actually had to step in. */
+  private addStateTriggers(state: RunState): void {
+    const perRun: Record<string, number> = {};
+    for (const firing of state.diagnostics.stateTriggerFirings) {
+      this.triggerFirings[firing.triggerId] = (this.triggerFirings[firing.triggerId] ?? 0) + 1;
+      (this.triggerAges[firing.triggerId] ??= []).push(firing.age);
+      perRun[firing.triggerId] = (perRun[firing.triggerId] ?? 0) + 1;
+    }
+    for (const [id, count] of Object.entries(perRun)) {
+      this.triggerRuns[id] = (this.triggerRuns[id] ?? 0) + 1;
+      if (count > (this.triggerMaxInRun[id] ?? 0)) this.triggerMaxInRun[id] = count;
     }
   }
 
@@ -799,9 +1021,94 @@ export class H2bAccumulator {
       }
     }
 
+    const byStat: StatContributorAudit['byStat'] = {};
+    for (const stat of CONTRIBUTOR_STATS) {
+      byStat[stat] = {};
+      for (const bandLabel of CONTRIBUTOR_BANDS) {
+        byStat[stat]![bandLabel] = { positive: [], negative: [] };
+      }
+    }
+    for (const [key, bucket] of this.contributors) {
+      const [stat, bandLabel, eventId, variantIndexRaw] = key.split('|');
+      const variantIndex = Number(variantIndexRaw);
+      const variant = this.content.eventsById.get(eventId!)?.variants[variantIndex];
+      const row: StatContributorRow = {
+        eventId: eventId!,
+        variantIndex,
+        textExcerpt: excerpt(variant?.text.en ?? ''),
+        delta: bucket.delta,
+        occurrences: bucket.occurrences,
+        totalMagnitude: bucket.delta * bucket.occurrences,
+      };
+      const cell = byStat[stat!]?.[bandLabel!];
+      if (!cell) continue;
+      (bucket.delta > 0 ? cell.positive : cell.negative).push(row);
+    }
+    for (const stat of CONTRIBUTOR_STATS) {
+      for (const bandLabel of CONTRIBUTOR_BANDS) {
+        const cell = byStat[stat]![bandLabel]!;
+        cell.positive.sort((a, b) => b.totalMagnitude - a.totalMagnitude);
+        cell.negative.sort((a, b) => a.totalMagnitude - b.totalMagnitude);
+      }
+    }
+
+    const maturationEvent = this.content.eventsById.get(FINANCE_MATURATION.maturation);
+    const finance: FinanceMaturationTelemetry = {
+      rescueRuns: this.financeRescue,
+      followUpRuns: this.financeFollowUp,
+      buyoutRuns: this.financeBuyout,
+      obligationSurvivedRuns: this.financeObligationSurvived,
+      maturationRuns: this.financeMaturation,
+      maturationRate: rate(this.financeMaturation),
+      meanMaturationAge: mean(this.financeMaturationAges),
+      maturationBranches: [...this.financeMaturationBranch.entries()]
+        .sort((a, b) => a[0] - b[0])
+        .map(([index, runs]) => ({
+          label: maturationEvent?.variants[index]?.when ?? `variant ${index + 1}`,
+          runs,
+          share: this.financeMaturation === 0 ? 0 : runs / this.financeMaturation,
+        })),
+      maturationCommittedMaterials: { ...this.financeMaturationMaterials },
+      financeClimaxRuns: this.financeClimax,
+      financeEndings: { ...this.financeEndings },
+    };
+
+    const blackLedger: BlackLedgerTelemetry = {
+      contactRuns: this.blContact,
+      engagedRuns: this.blEngaged,
+      committedRuns: this.blCommitted,
+      optedOutRuns: this.blOptedOut,
+      closedRuns: this.blClosed,
+      committedRate: rate(this.blCommitted),
+      endingRuns: this.blEnding,
+      endingRate: rate(this.blEnding),
+      endings: { ...this.blEndings },
+      meanCommittedAge: mean(this.blCommittedAges),
+      debtorAtEscalationRuns: this.blDebtorAtEscalation,
+    };
+
+    const stateTriggers: StateTriggerTelemetry = {
+      firings: { ...this.triggerFirings },
+      runsTriggered: { ...this.triggerRuns },
+      meanFiringAge: Object.fromEntries(
+        Object.entries(this.triggerAges).map(([id, ages]) => [id, mean(ages)]),
+      ),
+      maxFiringsInOneRun: { ...this.triggerMaxInRun },
+    };
+
     return {
       runs: this.runs,
       runYears: this.runYears,
+      statContributors: { ageBands: [...CONTRIBUTOR_BANDS], byStat },
+      finance,
+      blackLedger,
+      stateTriggers,
+      extremeStrSurvivors: {
+        survivorsEverExtreme: this.survivorsEverExtreme,
+        survivorsWithReview: this.survivorsWithReview,
+        coverage:
+          this.survivorsEverExtreme === 0 ? null : this.survivorsWithReview / this.survivorsEverExtreme,
+      },
       newEvents,
       rescueBandTotals,
       strInsurance,

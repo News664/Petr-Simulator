@@ -14,6 +14,7 @@ import type {
   SpeciesDef,
   SpeciesId,
   TalentDef,
+  StateTrigger,
 } from '../types.js';
 
 /**
@@ -51,6 +52,7 @@ export interface BrowserContentSnapshot {
   endings: EndingDef[];
   balance: BalanceConstants;
   adapters: BalanceAdapters;
+  stateTriggers: StateTrigger[];
 }
 
 /** Serialises a loaded bundle. Node-side only; the output is plain JSON. */
@@ -75,6 +77,7 @@ export function toBrowserSnapshot(content: ContentBundle): BrowserContentSnapsho
     endings: [...content.endings.values()],
     balance: content.balance,
     adapters: content.adapters,
+    stateTriggers: content.stateTriggers,
   };
 }
 
@@ -126,6 +129,7 @@ export function hydrateBrowserSnapshot(snapshot: BrowserContentSnapshot): Conten
     endings: new Map(snapshot.endings.map((def) => [def.id, def])),
     balance: snapshot.balance,
     adapters: snapshot.adapters,
+    stateTriggers: snapshot.stateTriggers,
     contentVersion: snapshot.contentVersion,
     sourceFiles: snapshot.sourceFiles,
   };

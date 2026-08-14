@@ -24,7 +24,7 @@ describe('A. Content loading', () => {
 
   it('loads all current event JSON batches', () => {
     expect(content.batches.length).toBe(8);
-    expect(content.events.length).toBe(214);
+    expect(content.events.length).toBe(215);
     const ids = content.batches.map((b) => b.batchId).sort();
     expect(ids).toEqual([
       'EVENT_BATCH_001',
@@ -39,8 +39,9 @@ describe('A. Content loading', () => {
   });
 
   it('loads the Phase 1.1 / 1.2 / 1.3 registries', () => {
-    // 31 Phase-1.1 tags + 6 Phase-1.2 faction tags + Phase-1.3 `faction_news`.
-    expect(content.routeTags.size).toBe(38);
+    // 31 Phase-1.1 tags + 6 Phase-1.2 faction tags + Phase-1.3 `faction_news`
+    // + H2B.1A `relocation`.
+    expect(content.routeTags.size).toBe(39);
     expect(content.factions.size).toBe(6);
     expect(content.refinementTags.size).toBeGreaterThan(0);
     expect(content.balance.version).toBe('0.2');
@@ -100,7 +101,7 @@ describe('A. Content loading', () => {
 
   const canonicalBatch = (): RawBatch =>
     JSON.parse(
-      readFileSync(path.join(CONTENT_ROOT, 'events', 'SOLID_STATE_EVENT_BATCH_001_v0.3.json'), 'utf8'),
+      readFileSync(path.join(CONTENT_ROOT, 'events', 'SOLID_STATE_EVENT_BATCH_001_v0.4.json'), 'utf8'),
     ) as RawBatch;
 
   it('loads the full corpus through the throwaway-root harness unchanged', () => {
