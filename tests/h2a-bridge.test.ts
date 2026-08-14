@@ -12,7 +12,7 @@ import {
 import { loadDefaultContent, REPO_ROOT } from '../src/engine/content/load.js';
 import { computePlayback } from '../src/engine/playback.js';
 import { previewPlayerSetup } from '../src/engine/preview.js';
-import { createRun, type SetupPolicy } from '../src/engine/setup.js';
+import { chooseCompatibleTalents, createRun, type SetupPolicy } from '../src/engine/setup.js';
 import { runSimulation } from '../src/engine/simulation.js';
 import { VISIBLE_STATS, type VisibleStat } from '../src/engine/types.js';
 
@@ -145,7 +145,9 @@ describe('H2A — setup preview matches the final run', () => {
       expect(new Set(preview.draftedTalents).size).toBe(10);
 
       // The final run uses the real player policy: seeded species, fixed talents.
-      const chosen = preview.draftedTalents.slice(0, 3);
+      // The UI refuses an incompatible pair, so the test picks the way an
+      // auto-picking player would rather than blindly taking the first three.
+      const chosen = chooseCompatibleTalents(node, preview.draftedTalents);
       const allocation = spreadPoints(preview.allocationPoints);
 
       const { setup } = createRun(seed, node, {
@@ -170,7 +172,7 @@ describe('H2A — setup preview matches the final run', () => {
   it('reproduces a life exactly from contentVersion + seed + choices', () => {
     const seed = 'reproduce-me';
     const preview = previewPlayerSetup(seed, node);
-    const chosen = preview.draftedTalents.slice(0, 3);
+    const chosen = chooseCompatibleTalents(node, preview.draftedTalents);
     const allocation = spreadPoints(preview.allocationPoints);
 
     const policy: SetupPolicy = {

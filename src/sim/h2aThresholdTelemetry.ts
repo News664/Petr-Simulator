@@ -117,6 +117,20 @@ export function loadCalibrationPlan(file?: string): CalibrationPlan {
 // Shapes
 // ---------------------------------------------------------------------------
 
+/**
+ * The slice of a calibration plan the accumulator actually reads.
+ *
+ * `CalibrationPlan` satisfies this structurally, so the H2A runner passes its
+ * plan straight through. Later diagnostics that want the same visible-stat,
+ * event-frequency, housing and faction telemetry supply their own config
+ * instead of having to fake a whole H2A plan.
+ */
+export interface TelemetryConfig {
+  statTelemetry: { snapshotAges: number[]; includeFinal: boolean };
+  eventFrequencyTelemetry: { topEventCount: number };
+  lowStatRiskTelemetry: { ageMinimum: number; horizonsYears: number[] };
+}
+
 export interface StatDistribution {
   /** Runs contributing a value to this snapshot. Always printed as the denominator. */
   activeRuns: number;
@@ -429,7 +443,7 @@ export class H2aTelemetryAccumulator {
 
   constructor(
     private readonly content: ContentBundle,
-    plan: CalibrationPlan,
+    plan: TelemetryConfig,
   ) {
     this.snapshotAges = [...plan.statTelemetry.snapshotAges].sort((a, b) => a - b);
     this.topEventCount = plan.eventFrequencyTelemetry.topEventCount;
@@ -494,7 +508,7 @@ export class H2aTelemetryAccumulator {
     }
   }
 
-  private snapshotLabels(plan: CalibrationPlan): string[] {
+  private snapshotLabels(plan: TelemetryConfig): string[] {
     const labels = this.snapshotAges.map((age) => (age === 0 ? 'start (post-setup)' : `age ${age}`));
     if (plan.statTelemetry.includeFinal) labels.push(FINAL_LABEL);
     return labels;

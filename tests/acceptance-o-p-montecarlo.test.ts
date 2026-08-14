@@ -249,9 +249,9 @@ describe('P. Required Monte Carlo metrics', () => {
   });
 
   it('reports ending distribution and distinct ending coverage', () => {
-    expect(m.distinctEndingsInRegistry).toBe(24);
+    expect(m.distinctEndingsInRegistry).toBe(25);
     expect(m.distinctEndingsObserved).toBe(Object.keys(m.endingDistribution).length);
-    expect(m.endingCoverageShare).toBeCloseTo(m.distinctEndingsObserved / 24, 10);
+    expect(m.endingCoverageShare).toBeCloseTo(m.distinctEndingsObserved / m.distinctEndingsInRegistry, 10);
     expect(m.rareEndingRate).toBeGreaterThanOrEqual(0);
     expect(m.hiddenEndingRate).toBeGreaterThanOrEqual(0);
   });

@@ -23,8 +23,8 @@ describe('A. Content loading', () => {
   const content = loadDefaultContent();
 
   it('loads all current event JSON batches', () => {
-    expect(content.batches.length).toBe(7);
-    expect(content.events.length).toBe(186);
+    expect(content.batches.length).toBe(8);
+    expect(content.events.length).toBe(214);
     const ids = content.batches.map((b) => b.batchId).sort();
     expect(ids).toEqual([
       'EVENT_BATCH_001',
@@ -34,6 +34,7 @@ describe('A. Content loading', () => {
       'EVENT_BATCH_005',
       'EVENT_BATCH_006',
       'EVENT_BATCH_007',
+      'EVENT_BATCH_008',
     ]);
   });
 
@@ -65,7 +66,7 @@ describe('A. Content loading', () => {
   });
 
   it('loads the Ending Registry', () => {
-    expect(content.endings.size).toBe(24);
+    expect(content.endings.size).toBe(25);
     expect(content.endings.get('END-ACA-001')?.title_en).toBe('Tenure');
     expect(content.endings.get('END-ANO-001')?.hidden).toBe(true);
     expect(content.endings.get('END-COR-001')?.hidden).toBe(false);
@@ -202,7 +203,7 @@ describe('A. Content loading', () => {
   it('keeps generated Markdown byte-for-byte identical to a fresh render', () => {
     const dir = path.join(CONTENT_ROOT, 'events');
     const batches = readdirSync(dir).filter((n) => n.endsWith('.json')).sort();
-    expect(batches.length).toBe(7);
+    expect(batches.length).toBe(8);
     for (const name of batches) {
       const json = JSON.parse(readFileSync(path.join(dir, name), 'utf8')) as RawBatch;
       const expected = readFileSync(path.join(dir, name.replace(/\.json$/, '.md')), 'utf8');

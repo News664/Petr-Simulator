@@ -18,5 +18,8 @@ reports/*
 !reports/phase1_3_1-targeted-sanity.md
 !reports/h2a-threshold-calibration.json
 !reports/h2a-threshold-calibration.md
+!reports/h2b-batch008-diagnostic.json
+!reports/h2b-batch008-diagnostic.md
+!reports/h2b-content-lint.md
 scratch/
 dist/

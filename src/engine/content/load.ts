@@ -64,7 +64,7 @@ export function defaultContentPaths(root: string = CONTENT_ROOT): ContentPaths {
     eventsDir: path.join(root, 'events'),
     speciesRegistry: path.join(root, 'registries', 'SOLID_STATE_SPECIES_REGISTRY_v1.2.json'),
     talentRegistry: path.join(root, 'registries', 'SOLID_STATE_TALENT_REGISTRY_v1.2.csv'),
-    endingRegistry: path.join(root, 'registries', 'SOLID_STATE_ENDING_REGISTRY_v1.1.csv'),
+    endingRegistry: path.join(root, 'registries', 'SOLID_STATE_ENDING_REGISTRY_v1.2.csv'),
     routeTagRegistry: path.join(root, 'registries', 'SOLID_STATE_ROUTE_TAG_REGISTRY_v1.2.json'),
     factionRegistry: path.join(root, 'registries', 'SOLID_STATE_FACTION_REGISTRY_v0.2.json'),
     balanceConstants: path.join(root, 'balance', 'SOLID_STATE_BALANCE_CONSTANTS_PROVISIONAL_v0.2.json'),

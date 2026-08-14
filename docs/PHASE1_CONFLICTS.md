@@ -47,6 +47,102 @@
 
 ---
 
+> ### H2B status (2026-08-14)
+>
+> The 28 Batch 008 blueprints, the 13 existing-event patches and the Ending
+> Registry patch all integrated with **zero source mismatches** — every patch
+> target's current value matched its patch description exactly, and every
+> blueprint ID, route tag, talent, ending, faction and scheduled target resolved
+> against the live corpus. Four **observations** are recorded below as
+> **H2B-C1 … H2B-C4**. None of them is a packaging error and none was fixed
+> unilaterally: each is a consequence of frozen creative content meeting the
+> live corpus, and each needs a design decision.
+
+---
+
+## H2B-C1 — 88% of adults who reach extreme low STR never see a Continuity Review
+
+**Files.** `SOLID_STATE_BATCH_008_PRESSURE_BLUEPRINT_v0.1.json` (`EVT-INS-MED-2001`)
+vs the H2B diagnostic plan's STR-insurance goal.
+
+**Observation.** The diagnostic plan states that *"no long survivor should
+routinely remain at extreme negative STR without review exposure."* Measured over
+5 000 LOW + Batch 008 runs:
+
+| Measure | Value |
+|---|---|
+| Adult runs that ever sat at STR ≤ −3 | 1 384 (27.7%) |
+| …of which ever opened a Functional Continuity Review | 166 (**12.0%**) |
+| Long survivors (still at STR ≤ −3 at 65+) with no review | **1 218** |
+| Mean review age | 43.8 |
+
+**Cause.** `EVT-INS-MED-2001` is gated `STR<=1` over ages **18–69** and is drafted
+normally. STR is authored to decline in old age, so most extreme-low-STR
+person-years occur *after* the event's window has closed, and a 120-year survivor
+can spend fifty years below −3 with the insurer never opening a file.
+
+**Not fixed.** Widening the age window is a content change beyond the frozen
+blueprint. The design options are (a) raise `EVT-INS-MED-2001`'s `age.max`, (b)
+author a separate late-life review entry, or (c) accept that the benefit is an
+early/mid-life product and say so in the fiction.
+
+---
+
+## H2B-C2 — Six authored branches are unreachable in practice
+
+**Files.** Batch 008 blueprints vs measured 5 000-run behaviour.
+
+**Observation.** Every branch below is legal, validated and never fired:
+
+| Event | Branch | Why |
+|---|---|---|
+| `EVT-INS-EDU-2001` | v2 `MNY>=7`, v3 `TRUE` | v1 `SPR>=7` catches essentially every low-INT run first; the event fires 27 times in 5 000 runs |
+| `EVT-INS-LEG-2001` | v2 `INT<=2 & MNY<=3` | the batch's most predatory branch (+14 FIX) needs INT ≤ 2 **and** MNY ≤ 3 at ages 19–34; the event fires 8 times total |
+| `EVT-INS-MED-2002` | v3 `STR<=-3` (expedited) | v2 `MNY>=8 \| INT>=11 \| TLT[T1015]` precedes it, and two years after a `STR<=1` trigger almost nobody is at −3 yet |
+| `EVT-INS-MED-2003` | v2 independent alternative | same ordering: v1 `STR>=3` absorbs the recoveries |
+| `EVT-INS-ARC-2003` | v1 `TLT[T1024] \| TLT[T1013]` → `END-LEG-002` | all 65 structural endings resolved to `END-ARC-001`; the self-ownership branch needs a specific talent among the 1.3% who reach the climax |
+
+**Not fixed.** Reordering variants or loosening conditions is creative
+rewriting, which this task forbids. Reported so design can decide whether these
+branches are intentionally rare or mis-ordered.
+
+---
+
+## H2B-C3 — Age-semantic note on `EVT-ORD-GEN-0004`
+
+**Observation.** The age-0/1 audit is otherwise clean: all seven events eligible
+at age 0 or 1 are guardian-mediated or passive development, and the two supplied
+prose patches (`EVT-ORD-FAM-0006`, `EVT-ORD-HOU-0003`) resolve the cases the
+Pressure & Tone spec named. One residual concern is raised for review rather than
+rewritten:
+
+> `EVT-ORD-GEN-0004` (ages 1–5): *"Another year is mostly spent growing, falling
+> down, asking questions, and being told not to touch things."*
+
+At age 1 "asking questions" implies speech the preschool-semantics section
+places at 2–3. The event is otherwise correct and its effects (INT +1, STR +1)
+are age-plausible as development. **No replacement prose was invented.**
+
+---
+
+## H2B-C4 — There is no canonical `relocation` route tag
+
+**Observation.** The H2B diagnostic plan asks for *"literal relocation-event
+count separately from housing count."* The Route Tag Registry v1.2 has a
+`housing` metadata tag but nothing that distinguishes a change of address from a
+retrofit, an insurance claim or a roommate.
+
+The diagnostic therefore declares an explicit list of nine relocation *variants*
+across five events in `src/sim/h2bDiagnostic.ts`, reported in the generated
+document as an analyst classification rather than canonical data.
+
+**Recommendation.** Add a `relocation` metadata tag to the Route Tag Registry in
+a later content patch and tag the moving variants, so the split becomes canonical
+and the analyst list can be deleted. Not done here: adding a tag is content, and
+this task forbids content beyond the supplied blueprints.
+
+---
+
 ## P13-C1 — Two inputs the instructions require were not in the patch package
 
 **Files.** `SOLID_STATE_PHASE1_3_PATCH_v0.2.zip` vs `CLAUDE_PHASE1_3_FULL_RUN.txt`.

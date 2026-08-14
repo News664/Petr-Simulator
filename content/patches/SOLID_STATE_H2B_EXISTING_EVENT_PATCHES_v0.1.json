@@ -1,0 +1,65 @@
+{
+  "version": "0.1",
+  "purpose": "Targeted patches to existing canonical events accompanying Batch 008. Exact source matching is mandatory; do not edit unrelated prose/effects.",
+  "patches": [
+    {
+      "id": "EVT-ORD-GEN-0003",
+      "change": "Remove SPR +1 from its sole variant; keep STR -1. Late-life baseline should not farm SPR indefinitely."
+    },
+    {
+      "id": "EVT-ORD-SOC-0004",
+      "change": "Variant SPR>=8: remove SPR +1, keep CHR -1. TRUE fallback retains SPR +1. High-SPR survivors no longer gain SPR from every reunion; lower-SPR survivors can still recover."
+    },
+    {
+      "id": "EVT-ORD-SOC-0008",
+      "change": "Both variants SPR +2 -> SPR +1; repeatMaxCount 3 -> 2. Keep MNY -1."
+    },
+    {
+      "id": "EVT-ORD-GEN-0002",
+      "change": "SPR +2 -> SPR +1; keep MNY -1."
+    },
+    {
+      "id": "EVT-ORD-HOU-0002",
+      "change": "repeatMaxCount 2 -> 1. Preserve prose/effects. New Batch 008 housing events supply variety instead of repeated moves."
+    },
+    {
+      "id": "EVT-ORD-FAM-0006",
+      "change": "Prose-only age-semantic rewrite. MNY<=3: “Before you are old enough to notice, your family keeps a hand-me-down stroller in service. Its warranty excludes future structural conversion, which nobody remembers purchasing.” TRUE: “Your family discovers how quickly baby supplies become the wrong size. The receipts are kept longer than the useful sizing labels.” Effects unchanged."
+    },
+    {
+      "id": "EVT-ORD-HOU-0003",
+      "change": "Prose-only age-semantic rewrite. MNY<=3: “Around your arrival and early growth, your household rearranges rooms to make more space without buying much. Several pieces of furniture acquire a second career.” TRUE: “Your household keeps rearranging rooms around your early growth. The adults discover that storage is a permanent condition.” Effects unchanged."
+    },
+    {
+      "id": "EVT-SPC-SECR-0013",
+      "change": "DMMS immediate-safe-exit condition TLT[T1013] | TLT[T1024] | INT>=8 -> TLT[T1013] | TLT[T1024] | (INT>=9 & SPR>=6). Replace schedule target EVT-SPC-SECR-0019 with EVT-SPC-SECR-2001, preserving offset/window/priority."
+    },
+    {
+      "id": "EVT-SPC-SECR-0014",
+      "change": "Meridian immediate opt-out TLT[T1010] | SPR>=8 -> TLT[T1010] | (SPR>=9 & INT>=7). Replace schedule target EVT-SPC-SECR-0020 with EVT-SPC-SECR-2002."
+    },
+    {
+      "id": "EVT-SPC-SECR-0015",
+      "change": "Replace schedule target EVT-SPC-SECR-0021 with EVT-SPC-SECR-2003. No other disposition branch change."
+    },
+    {
+      "id": "EVT-SPC-SECR-0016",
+      "change": "Replace schedule target EVT-SPC-SECR-0022 with EVT-SPC-SECR-2004. No other disposition branch change."
+    },
+    {
+      "id": "EVT-SPC-SECR-0017",
+      "change": "Replace schedule target EVT-SPC-SECR-0023 with EVT-SPC-SECR-2005. No other disposition branch change."
+    },
+    {
+      "id": "EVT-SPC-SECR-0018",
+      "change": "Last Posture immediate opt-out TLT[T1010] | (INT>=8 & SPR>=6) -> TLT[T1010] | (INT>=9 & SPR>=7). Replace schedule target EVT-SPC-SECR-0024 with EVT-SPC-SECR-2006."
+    }
+  ],
+  "nonChanges": [
+    "Do not change OPTED_OUT/CLOSED terminal semantics.",
+    "Do not add faction UI labels.",
+    "Do not clamp visible stats.",
+    "Do not add passive FIX drift.",
+    "Do not alter material-family evidence rules globally."
+  ]
+}

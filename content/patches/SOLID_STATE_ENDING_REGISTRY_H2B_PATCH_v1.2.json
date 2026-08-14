@@ -1,0 +1,38 @@
+{
+  "patchVersion": "1.2-blueprint",
+  "baseRegistry": "SOLID_STATE_ENDING_REGISTRY_v1.1",
+  "add": [
+    {
+      "id": "END-MED-003",
+      "primary_family": "MED",
+      "title_en": "Benefit Approved",
+      "title_zh_tw": "",
+      "description_en": "Basic Continuity Insurance permanently stabilizes the protagonist after continued mobility is classified as the less economical treatment.",
+      "description_zh_tw": "",
+      "core_routes": [
+        "Medical",
+        "Insurance"
+      ],
+      "allowed_materials": "flexible; standard synthetic when no prior commitment",
+      "typical_forms": "preserved humanoid; stabilized figure; synthetic preserved body",
+      "default_awareness": "Unconscious",
+      "awareness_if_temporal": "Suspended",
+      "allowed_awareness_states": [
+        "Unconscious",
+        "Suspended"
+      ],
+      "authorization_required_states": [],
+      "authorizing_talents": [],
+      "legal_status": "Post-Mobile Citizen or Insured Permanent Citizen",
+      "ownership": "Self or provider custody under benefit terms",
+      "autonomy": "Represented or Restricted",
+      "conversion_consent": "route-derived; often Resigned, Ambiguous, or Impossible in expedited cases",
+      "typical_location": "continuity facility; approved residence; provider placement",
+      "social_meaning": "insured beneficiary; successful continuity claim",
+      "discovery_class": "common",
+      "hidden": false,
+      "designer_notes": "The black humor is that the insurance benefit works exactly as promised. The approval does not cover continued mobility."
+    }
+  ],
+  "note": "Add to the next canonical Ending Registry version. This is distinct from END-MED-002 Cheap Immortality."
+}

@@ -1,0 +1,2339 @@
+{
+  "batchId": "EVENT_BATCH_008",
+  "version": "0.1",
+  "languageStatus": {
+    "en": "canonical_draft",
+    "zh-TW": "reserved_empty"
+  },
+  "notes": "H2B Pressure & Tone batch. 14 pressure/recovery/stat-ecology/rare-high-stat events, 8 housing/structural-life events and 6 faction intermediate touchpoints, converted from the frozen H2B design blueprints. Adds the Basic Continuity Insurance chain (END-MED-003), a housing-to-architecture route and one personalized middle event per faction. LOW is the provisional diagnostic baseline only: no canonical FIX gate is rewritten here.",
+  "events": [
+    {
+      "id": "EVT-INS-MED-2001",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 18,
+        "max": 69
+      },
+      "selectionMode": "random",
+      "weightClass": "HIGH",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "health"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "STR<=1 & !FLAG[PRESS_STR_REVIEW]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your basic insurer opens a Functional Continuity Review after your health score stays below its preferred mobility range. The letter says this is “not a conversion recommendation” in bold.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "PRESS_STR_REVIEW"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-2002",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 25,
+              "validityCondition": "FLAG[PRESS_STR_REVIEW]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Universal Basic Continuity Insurance entry. No painful-disease framing; visible two-year review."
+    },
+    {
+      "id": "EVT-INS-MED-2002",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 20,
+        "max": 71
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "health"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[PRESS_STR_REVIEW]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "STR>=3",
+          "text": {
+            "en": "Your Functional Continuity Review closes after your mobility measurements recover. The insurer congratulates you by removing a benefit you no longer qualify for.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_STR_REVIEW"
+          ],
+          "schedules": []
+        },
+        {
+          "when": "MNY>=8 | INT>=11 | TLT[T1015]",
+          "text": {
+            "en": "You obtain a mobility-preserving treatment outside the basic benefit schedule. It works well enough that the insurer immediately reclassifies it as elective.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 4,
+            "MNY": -4,
+            "FIX": 6
+          },
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_STR_REVIEW"
+          ],
+          "schedules": []
+        },
+        {
+          "when": "STR<=-3",
+          "text": {
+            "en": "The insurer expedites your review. Continued mobility is now classified as the higher-risk treatment option.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "PRESS_STR_PERSISTENT"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-2003",
+              "offsetYears": 1,
+              "windowYears": 1,
+              "priority": "climax",
+              "validityCondition": "FLAG[PRESS_STR_PERSISTENT]"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The insurer approves a covered stabilization course. Your strength improves noticeably; the paperwork notes that the treatment also advances material fixation.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 2,
+            "SPR": 1,
+            "FIX": 12
+          },
+          "addFlags": [
+            "PRESS_STR_PERSISTENT"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-2003",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "climax",
+              "validityCondition": "FLAG[PRESS_STR_PERSISTENT]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Persistent/extreme low STR either recovers or moves toward covered permanence. +12 FIX is intentional under LOW."
+    },
+    {
+      "id": "EVT-INS-MED-2003",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 21,
+        "max": 73
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "finance"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[PRESS_STR_PERSISTENT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "STR>=3",
+          "text": {
+            "en": "The covered stabilization course improves your mobility enough that permanent benefits are no longer medically necessary. The insurer closes the case with visible reluctance.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 1,
+            "SPR": 1,
+            "FIX": 2
+          },
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_STR_REVIEW",
+            "PRESS_STR_PERSISTENT"
+          ],
+          "schedules": []
+        },
+        {
+          "when": "TLT[T1015] | MNY>=9",
+          "text": {
+            "en": "A last independent review finds a mobility-preserving alternative. It is expensive, effective, and excluded from the standard benefit because all three facts are related.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 4,
+            "MNY": -4,
+            "FIX": 6
+          },
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_STR_REVIEW",
+            "PRESS_STR_PERSISTENT"
+          ],
+          "schedules": []
+        },
+        {
+          "when": "MAT!=NONE",
+          "text": {
+            "en": "Your Basic Continuity benefit is approved in full. The insurer permanently stabilizes the material trajectory already in progress and records the procedure as a successful preservation of personhood.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_STR_REVIEW",
+            "PRESS_STR_PERSISTENT"
+          ],
+          "schedules": [],
+          "endingId": "END-MED-003"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your Basic Continuity benefit is approved in full. The approval does not cover continued mobility. Standard synthetic stabilization is performed under the public schedule.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 6
+          },
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_STR_REVIEW",
+            "PRESS_STR_PERSISTENT"
+          ],
+          "schedules": [],
+          "setMaterialCommitment": "SYNT",
+          "endingId": "END-MED-003"
+        }
+      ],
+      "designerNotes": "Graceful permanent outcome for absurdly low/persistent STR. Existing MAT is respected; otherwise public-plan SYNT is explicit."
+    },
+    {
+      "id": "EVT-INS-FIN-2001",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "HIGH",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "finance",
+        "debt"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "MNY<=2 & !FLAG[PRESS_MNY_RESTRUCTURED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "INT>=10",
+          "text": {
+            "en": "A hiring test you nearly ignored turns into a well-paid offer. For once, the financial rescue arrives before anyone asks what your future body is worth.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 4,
+            "SPR": -1,
+            "FIX": 2
+          },
+          "addFlags": [
+            "PRESS_MNY_RESTRUCTURED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TLT[T1009] | TLT[T1013]",
+          "text": {
+            "en": "You negotiate a debt-restructuring plan that is merely unpleasant instead of existential. Several fees disappear after you ask what they are for.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 3,
+            "FIX": 4
+          },
+          "addFlags": [
+            "PRESS_MNY_RESTRUCTURED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A lender offers Mobility-Backed Restructuring: your monthly position improves immediately in exchange for a claim on any commercially realizable Permanent Form. The form describes this as liquidity support.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 5,
+            "SPR": 1,
+            "FIX": 14
+          },
+          "addFlags": [
+            "PRESS_MNY_RESTRUCTURED"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-FIN-2002",
+              "offsetYears": 3,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 20,
+              "validityCondition": "FLAG[PRESS_MNY_RESTRUCTURED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Critical-MNY recovery. Predatory default is +5 MNY/+14 FIX so it can materially advance early commitment."
+    },
+    {
+      "id": "EVT-INS-FIN-2002",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 21,
+        "max": 39
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "finance",
+        "debt"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[PRESS_MNY_RESTRUCTURED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY>=6",
+          "text": {
+            "en": "Your restructuring account reaches the boring part where ordinary money can settle it. You pay the exit fees and keep the future-form clause from becoming useful.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -2,
+            "SPR": 1,
+            "FIX": 2
+          },
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_MNY_RESTRUCTURED"
+          ],
+          "schedules": []
+        },
+        {
+          "when": "MAT!=NONE",
+          "text": {
+            "en": "Your lender updates the collateral schedule to your committed material. The debt balance falls faster than your ownership rights do.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "FIX": 5
+          },
+          "addFlags": [
+            "ROUTE_FIN_SECURED_DEBT"
+          ],
+          "removeFlags": [
+            "PRESS_MNY_RESTRUCTURED"
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-FIN-0005",
+              "offsetYears": 3,
+              "windowYears": 6,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_FIN_SECURED_DEBT] & MAT!=NONE"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your lender extends the restructuring period because your future form is still unclassified. The extension is generous enough to add another page of collateral language.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "FIX": 8
+          },
+          "addFlags": [
+            "ROUTE_FIN_SECURED_DEBT"
+          ],
+          "removeFlags": [
+            "PRESS_MNY_RESTRUCTURED"
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-FIN-0005",
+              "offsetYears": 3,
+              "windowYears": 7,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_FIN_SECURED_DEBT] & MAT!=NONE"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Feeds existing finance ending only after normal material continuity establishes MAT."
+    },
+    {
+      "id": "EVT-ORD-FIN-2003",
+      "channel": "ORD",
+      "family": "FIN",
+      "age": {
+        "min": 18,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "finance"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "MNY<=2 & !FLAG[PRESS_MNY_LUCKY_BREAK]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You buy one municipal lottery ticket because a clerk gives you the wrong change. It wins enough to make several immediate problems become somebody else’s problem.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 4,
+            "SPR": 2
+          },
+          "addFlags": [
+            "PRESS_MNY_LUCKY_BREAK"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Rare genuinely clean escape valve: no catch, no FIX."
+    },
+    {
+      "id": "EVT-INS-CIV-2001",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "civic",
+        "social"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "CHR<=3 & !FLAG[PRESS_CHR_PROGRAM]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY>=7",
+          "text": {
+            "en": "You pay for a professional presentation course after being described as “low-trust-facing” by a customer-service assessment. The phrase is never defined, but the course works.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 4,
+            "MNY": -3
+          },
+          "addFlags": [
+            "PRESS_CHR_PROGRAM"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "INT>=8",
+          "text": {
+            "en": "A public-facing assignment forces you to become much better at reading rooms, forms, and people. Your employer calls the improvement “brand alignment.”",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 3,
+            "MNY": 1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "PRESS_CHR_PROGRAM"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A subsidized Presentation Access Program offers wardrobe, coaching, and “stability enhancement” to citizens with low social-access scores. The results are immediate; so is the fixation monitoring.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 4,
+            "MNY": 2,
+            "FIX": 12
+          },
+          "addFlags": [
+            "PRESS_CHR_PROGRAM"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Low CHR is social access/presentation/prejudice, never objective ugliness. Default institutional rescue +4 CHR/+12 FIX."
+    },
+    {
+      "id": "EVT-INS-EDU-2001",
+      "channel": "INS",
+      "family": "EDU",
+      "age": {
+        "min": 18,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "education",
+        "career"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "INT<=4 & !FLAG[PRESS_INT_RETRAINED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPR>=7",
+          "text": {
+            "en": "You complete an intensive adult-certification course by giving up most of your free evenings for a year. The certificate is unexpectedly useful.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 4,
+            "SPR": -2
+          },
+          "addFlags": [
+            "PRESS_INT_RETRAINED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "MNY>=7",
+          "text": {
+            "en": "You pay for a private retraining program whose advertising is annoying and whose instructors are excellent.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 4,
+            "MNY": -3
+          },
+          "addFlags": [
+            "PRESS_INT_RETRAINED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A workforce agency places you in a fully subsidized “guided competency” program. Your scores improve sharply; the subsidy agreement quietly enrolls you in long-term material-risk monitoring.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 3,
+            "MNY": 2,
+            "FIX": 10
+          },
+          "addFlags": [
+            "PRESS_INT_RETRAINED"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Low-INT recovery without ridicule. Clean routes use another strong stat; public rescue adds substantial FIX."
+    },
+    {
+      "id": "EVT-INS-LEG-2001",
+      "channel": "INS",
+      "family": "LEG",
+      "age": {
+        "min": 19,
+        "max": 34
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "legal",
+        "finance"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "INT<=4 & !FLAG[PRESS_INT_SIMPLIFIED_CONSENT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1013] | TLT[T1024]",
+          "text": {
+            "en": "A provider offers you a “plain-language” continuity agreement. You notice that the plain language has removed the part where ownership changes.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": 1
+          },
+          "addFlags": [
+            "PRESS_INT_SIMPLIFIED_CONSENT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "INT<=2 & MNY<=3",
+          "text": {
+            "en": "A provider offers a one-page continuity agreement designed for “low-complexity consent.” You receive a cash incentive for signing and a much longer material-risk file afterward.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 4,
+            "FIX": 14
+          },
+          "addFlags": [
+            "PRESS_INT_SIMPLIFIED_CONSENT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A provider simplifies your continuity paperwork by deciding which sections are “unlikely to matter.” The signing bonus arrives immediately.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "FIX": 8
+          },
+          "addFlags": [
+            "PRESS_INT_SIMPLIFIED_CONSENT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Paperwork vulnerability. Low INT opens risk; narration does not demean protagonist."
+    },
+    {
+      "id": "EVT-ORD-HEA-2001",
+      "channel": "ORD",
+      "family": "HEA",
+      "age": {
+        "min": 18,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "health",
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "SPR<=2 & !FLAG[PRESS_SPR_CONTINUITY_LEAVE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "CHR>=8",
+          "text": {
+            "en": "Friends organize your schedule for a while with the terrifying efficiency of people who care about you. You recover more than expected.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 4,
+            "MNY": -1
+          },
+          "addFlags": [
+            "PRESS_SPR_CONTINUITY_LEAVE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "MNY>=7",
+          "text": {
+            "en": "You take a real break before exhaustion becomes your permanent personality. It is expensive and effective.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 4,
+            "MNY": -3,
+            "FIX": 1
+          },
+          "addFlags": [
+            "PRESS_SPR_CONTINUITY_LEAVE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your basic insurer approves Continuity Leave: income support, mandatory rest, and a stabilization protocol intended to make future episodes easier to price.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 4,
+            "MNY": 1,
+            "FIX": 12
+          },
+          "addFlags": [
+            "PRESS_SPR_CONTINUITY_LEAVE"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-2004",
+              "offsetYears": 3,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 20,
+              "validityCondition": "FLAG[PRESS_SPR_CONTINUITY_LEAVE]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "SPR is resilience/stress, not psychiatric diagnosis. Institutional rescue is attractive and high-FIX."
+    },
+    {
+      "id": "EVT-INS-MED-2004",
+      "channel": "INS",
+      "family": "MED",
+      "age": {
+        "min": 21,
+        "max": 44
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "medical",
+        "finance"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[PRESS_SPR_CONTINUITY_LEAVE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPR>=5 & FIX<28",
+          "text": {
+            "en": "Your Continuity Leave file closes after the insurer concludes that ordinary life has become statistically defensible again.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_SPR_CONTINUITY_LEAVE"
+          ],
+          "schedules": []
+        },
+        {
+          "when": "TLT[T1010]",
+          "text": {
+            "en": "You refuse the insurer’s long-term stabilization addendum and keep the recovery plan without the permanent-risk rider.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 2,
+            "FIX": 2
+          },
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_SPR_CONTINUITY_LEAVE"
+          ],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The insurer converts your temporary leave into a preservation-planning benefit. The new plan is described as optional in every place except the reimbursement schedule.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1,
+            "FIX": 6
+          },
+          "addFlags": [
+            "ROUTE_MED_PRESERVATION_CONSULT"
+          ],
+          "removeFlags": [
+            "PRESS_SPR_CONTINUITY_LEAVE"
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-MED-0003",
+              "offsetYears": 2,
+              "windowYears": 5,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_MED_PRESERVATION_CONSULT]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Feeds existing medical route instead of directly equating low resilience with a terminal event."
+    },
+    {
+      "id": "EVT-ORD-GEN-2001",
+      "channel": "ORD",
+      "family": "GEN",
+      "age": {
+        "min": 45,
+        "max": 74
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "baseline",
+        "survivor"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "INT>=8 & !FLAG[STAT_INT_OBSOLESCENCE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "INT>=15",
+          "text": {
+            "en": "A professional system you know inside out is replaced by one designed by people who call familiar concepts “legacy behavior.” Some of your expertise stops being transferable overnight.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": -2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "STAT_INT_OBSOLESCENCE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Several procedures you once knew by memory are replaced by new ones. You learn the replacements more slowly than you used to and decide this is allowed.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": -1
+          },
+          "addFlags": [
+            "STAT_INT_OBSOLESCENCE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Creates explainable mid/late INT plateau/slight decline. Not a penalty for being smart and not illness."
+    },
+    {
+      "id": "EVT-INS-COR-2001",
+      "channel": "INS",
+      "family": "COR",
+      "age": {
+        "min": 24,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "corporate",
+        "career"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_COR_EMPLOYEE] & MNY>=6 & (CHR>=15 | INT>=18) & !FLAG[PRESS_COR_RETENTION]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your employer gives you an unusually generous retention award and asks for expanded rights to your professional likeness “in all durable media.” The money arrives before Legal finishes explaining the phrase.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 4,
+            "SPR": 1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "PRESS_COR_RETENTION"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-COR-2002",
+              "offsetYears": 4,
+              "windowYears": 4,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[PRESS_COR_RETENTION]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Rare high-stat surprise chain. Starts as an excellent benefit; eligibility deliberately demanding."
+    },
+    {
+      "id": "EVT-INS-COR-2002",
+      "channel": "INS",
+      "family": "COR",
+      "age": {
+        "min": 28,
+        "max": 45
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "corporate",
+        "legal",
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[PRESS_COR_RETENTION]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1013] | TLT[T1024] | MNY>=10",
+          "text": {
+            "en": "The old retention contract finally reaches its durable-likeness clause. You buy out the provision before it can become more literal.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -3,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_COR_RETENTION"
+          ],
+          "schedules": []
+        },
+        {
+          "when": "FIX>=32 & MAT!=NONE",
+          "text": {
+            "en": "The company exercises the preservation clause attached to your old retention award. Your existing material trajectory becomes a permanent corporate display before anyone can call the contract obsolete.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_COR_RETENTION"
+          ],
+          "schedules": [],
+          "endingId": "END-COR-001"
+        },
+        {
+          "when": "FIX>=32 & MAT=NONE",
+          "text": {
+            "en": "The company exercises the preservation clause attached to your old retention award. Synthetic stabilization turns “durable likeness” into a condition of continued employment.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 6
+          },
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_COR_RETENTION"
+          ],
+          "schedules": [],
+          "setMaterialCommitment": "SYNT",
+          "endingId": "END-COR-002"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The durable-likeness clause expires without becoming useful. Payroll sends you a final residual payment nobody expected you to receive.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [
+            "PRESS_COR_RETENTION"
+          ],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "High stats remain mostly beneficial; permanent branch also requires elevated FIX and has legal/wealth escape."
+    },
+    {
+      "id": "EVT-ORD-HOU-2001",
+      "channel": "ORD",
+      "family": "HOU",
+      "age": {
+        "min": 20,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "housing",
+        "corporate"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_COR_EMPLOYEE] & !FLAG[HOU_EMPLOYER_UNIT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY<=3",
+          "text": {
+            "en": "Your employer offers subsidized accommodation near the office. The rent is excellent because the previous employee still occupies part of the foyer permanently.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 3,
+            "SPR": 1
+          },
+          "addFlags": [
+            "HOU_EMPLOYER_UNIT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your employer offers staff accommodation near the office. The lease includes a separate inventory for residents who can no longer move out themselves.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": 1
+          },
+          "addFlags": [
+            "HOU_EMPLOYER_UNIT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": ""
+    },
+    {
+      "id": "EVT-ORD-HOU-2002",
+      "channel": "ORD",
+      "family": "HOU",
+      "age": {
+        "min": 18,
+        "max": 49
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "housing",
+        "social"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "!FLAG[HOU_PERMANENT_ROOMMATE]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY<=3",
+          "text": {
+            "en": "You rent a cheaper room in a shared flat. One roommate is a woman incorporated into a load-bearing wall; her share of the rent was settled decades ago.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "HOU_PERMANENT_ROOMMATE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A new flatmate explains that the woman built into the living-room wall is legally still a resident, not a fixture. Everyone has learned not to block her view of the television.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "HOU_PERMANENT_ROOMMATE"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": ""
+    },
+    {
+      "id": "EVT-ORD-HOU-2003",
+      "channel": "ORD",
+      "family": "HOU",
+      "age": {
+        "min": 18,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "housing",
+        "species"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "!FLAG[HOU_SPECIES_RETROFIT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPECIES=WINGED_KIN",
+          "text": {
+            "en": "Your building installs wing-clearance markers after three complaints and one broken light fitting. Management bills the work as a premium amenity.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": 1
+          },
+          "addFlags": [
+            "HOU_SPECIES_RETROFIT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=DWARF",
+          "text": {
+            "en": "Your building lowers several control panels and raises the rent for “accessibility modernization.” The elevator buttons remain unchanged.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "HOU_SPECIES_RETROFIT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=DRAGONKIN",
+          "text": {
+            "en": "The landlord adds a thermal-load clause to the lease after learning what counts as normal Dragonkin heating. Your deposit is recalculated with impressive confidence.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": -1
+          },
+          "addFlags": [
+            "HOU_SPECIES_RETROFIT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=DEMONKIN",
+          "text": {
+            "en": "The building finally permits horn-safe doorframes in renovated units. The policy describes this as an aesthetic option.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "MNY": -1
+          },
+          "addFlags": [
+            "HOU_SPECIES_RETROFIT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "SPECIES=ELF",
+          "text": {
+            "en": "The landlord advertises a renovated unit as “Elf-compatible” because it contains real wood trim. You receive no explanation for the surcharge.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1
+          },
+          "addFlags": [
+            "HOU_SPECIES_RETROFIT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your building completes an accessibility retrofit. The notice congratulates Human residents for experiencing no disruption.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [
+            "HOU_SPECIES_RETROFIT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": ""
+    },
+    {
+      "id": "EVT-ORD-HOU-2004",
+      "channel": "ORD",
+      "family": "HOU",
+      "age": {
+        "min": 18,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "housing",
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "MAT=NONE & (FLAG[MAT_MANIFEST_WOOD] | FLAG[MAT_MANIFEST_STON] | FLAG[MAT_MANIFEST_METL] | FLAG[MAT_MANIFEST_GLAS] | FLAG[MAT_MANIFEST_CRYS] | FLAG[MAT_MANIFEST_CERA] | FLAG[MAT_MANIFEST_TEMP]) & !FLAG[HOU_MANIFESTATION_CLAIM]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY<=3",
+          "text": {
+            "en": "A manifestation damages part of your rental unit. Basic housing insurance pays the repair after classifying your body as an “ongoing source condition.”",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "FIX": 4,
+            "SPR": -1
+          },
+          "addFlags": [
+            "HOU_MANIFESTATION_CLAIM"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A manifestation damages part of your rental unit. The landlord accepts that it was not deliberate and sends you the repair invoice anyway.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -2,
+            "SPR": -1
+          },
+          "addFlags": [
+            "HOU_MANIFESTATION_CLAIM"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": ""
+    },
+    {
+      "id": "EVT-ORD-HOU-2005",
+      "channel": "ORD",
+      "family": "HOU",
+      "age": {
+        "min": 23,
+        "max": 54
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "housing",
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "(FIX>=15 | MAT!=NONE) & !FLAG[HOU_INSURANCE_COMPLIANT]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY<=3",
+          "text": {
+            "en": "You qualify for a subsidized insurance-compliant unit with reinforced surfaces and suspiciously generous cancellation terms. The subsidy includes material-status monitoring.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "SPR": 1,
+            "FIX": 6
+          },
+          "addFlags": [
+            "HOU_INSURANCE_COMPLIANT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You move into a unit certified for residents with material-risk histories. The walls are reinforced; the lease is mostly disclaimers.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": 1
+          },
+          "addFlags": [
+            "HOU_INSURANCE_COMPLIANT"
+          ],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": ""
+    },
+    {
+      "id": "EVT-INS-ARC-2001",
+      "channel": "INS",
+      "family": "ARC",
+      "age": {
+        "min": 22,
+        "max": 39
+      },
+      "selectionMode": "random",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "housing",
+        "architectural",
+        "industrial"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "MNY<=3 & (FLAG[MAT_MANIFEST_STON] | FLAG[MAT_MANIFEST_METL] | MAT=STON | MAT=METL) & !FLAG[ROUTE_ARC_HOUSING_PROGRAM]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A municipal housing program offers you a large rent subsidy in exchange for joining a “future structural continuity” pilot. The apartment is excellent. The definition of future is less comforting.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 4,
+            "SPR": 1,
+            "FIX": 12
+          },
+          "addFlags": [
+            "ROUTE_ARC_HOUSING_PROGRAM"
+          ],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ARC-2002",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 25,
+              "validityCondition": "FLAG[ROUTE_ARC_HOUSING_PROGRAM]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Major low-MNY Faustian rescue: +4 MNY/+12 FIX and a housing-to-architecture pathway."
+    },
+    {
+      "id": "EVT-INS-ARC-2002",
+      "channel": "INS",
+      "family": "ARC",
+      "age": {
+        "min": 24,
+        "max": 42
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "housing",
+        "architectural",
+        "industrial",
+        "legal"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_ARC_HOUSING_PROGRAM]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1024] | TLT[T1013] | MNY>=7",
+          "text": {
+            "en": "You exit the structural-continuity pilot before the installation clause becomes binding. The city recovers part of the subsidy with exceptional efficiency.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -2,
+            "SPR": 1
+          },
+          "addFlags": [
+            "ROUTE_ARC_HOUSING_HISTORY"
+          ],
+          "removeFlags": [
+            "ROUTE_ARC_HOUSING_PROGRAM"
+          ],
+          "schedules": []
+        },
+        {
+          "when": "MAT=STON | MAT=METL",
+          "text": {
+            "en": "The housing authority approves your committed material for structural use. Your tenancy agreement is amended into a future installation agreement.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "FIX": 4
+          },
+          "addFlags": [
+            "ROUTE_ARC_STRUCTURAL"
+          ],
+          "removeFlags": [
+            "ROUTE_ARC_HOUSING_PROGRAM"
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ARC-2003",
+              "offsetYears": 2,
+              "windowYears": 4,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_ARC_STRUCTURAL] & (MAT=STON | MAT=METL)"
+            }
+          ]
+        },
+        {
+          "when": "MAT=NONE & FLAG[MAT_MANIFEST_STON] & !FLAG[MAT_MANIFEST_METL]",
+          "text": {
+            "en": "The pilot permanently stabilizes the stone manifestation it was designed around. Your rent remains subsidized; your future floor plan becomes much more specific.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "FIX": 8
+          },
+          "addFlags": [
+            "ROUTE_ARC_STRUCTURAL"
+          ],
+          "removeFlags": [
+            "ROUTE_ARC_HOUSING_PROGRAM"
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ARC-2003",
+              "offsetYears": 2,
+              "windowYears": 4,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_ARC_STRUCTURAL] & MAT=STON"
+            }
+          ],
+          "setMaterialCommitment": "STON"
+        },
+        {
+          "when": "MAT=NONE & FLAG[MAT_MANIFEST_METL] & !FLAG[MAT_MANIFEST_STON]",
+          "text": {
+            "en": "The pilot permanently stabilizes your metallic manifestation into a structural grade. The housing authority calls this successful tenant retention.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "FIX": 8
+          },
+          "addFlags": [
+            "ROUTE_ARC_STRUCTURAL"
+          ],
+          "removeFlags": [
+            "ROUTE_ARC_HOUSING_PROGRAM"
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ARC-2003",
+              "offsetYears": 2,
+              "windowYears": 4,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_ARC_STRUCTURAL] & MAT=METL"
+            }
+          ],
+          "setMaterialCommitment": "METL"
+        },
+        {
+          "when": "MAT=NONE & FLAG[MAT_MANIFEST_STON] & FLAG[MAT_MANIFEST_METL] & SPECIES=DWARF",
+          "text": {
+            "en": "The pilot resolves your mixed manifestation history in favor of stone, citing structural predictability and a species guideline nobody remembers approving.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "FIX": 8,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ARC_STRUCTURAL"
+          ],
+          "removeFlags": [
+            "ROUTE_ARC_HOUSING_PROGRAM"
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ARC-2003",
+              "offsetYears": 2,
+              "windowYears": 4,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_ARC_STRUCTURAL] & MAT=STON"
+            }
+          ],
+          "setMaterialCommitment": "STON"
+        },
+        {
+          "when": "MAT=NONE & FLAG[MAT_MANIFEST_STON] & FLAG[MAT_MANIFEST_METL] & SPECIES=DRAGONKIN",
+          "text": {
+            "en": "The pilot resolves your mixed manifestation history in favor of metal, citing thermal performance and a species guideline written by an insurer.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "FIX": 8,
+            "SPR": -1
+          },
+          "addFlags": [
+            "ROUTE_ARC_STRUCTURAL"
+          ],
+          "removeFlags": [
+            "ROUTE_ARC_HOUSING_PROGRAM"
+          ],
+          "schedules": [
+            {
+              "eventId": "EVT-INS-ARC-2003",
+              "offsetYears": 2,
+              "windowYears": 4,
+              "priority": "climax",
+              "validityCondition": "FLAG[ROUTE_ARC_STRUCTURAL] & MAT=METL"
+            }
+          ],
+          "setMaterialCommitment": "METL"
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The pilot cannot settle on a legally usable structural material. The city keeps the data, you keep the subsidized year, and the installation clause lapses.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "FIX": 5
+          },
+          "addFlags": [
+            "ROUTE_ARC_HOUSING_HISTORY"
+          ],
+          "removeFlags": [
+            "ROUTE_ARC_HOUSING_PROGRAM"
+          ],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Only narrow Stone/Metal evidence can commit material; ambiguous multiple evidence does not default by variant order."
+    },
+    {
+      "id": "EVT-INS-ARC-2003",
+      "channel": "INS",
+      "family": "ARC",
+      "age": {
+        "min": 26,
+        "max": 46
+      },
+      "selectionMode": "climax",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "housing",
+        "architectural",
+        "industrial",
+        "legal"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "include": "FLAG[ROUTE_ARC_STRUCTURAL] & (MAT=STON | MAT=METL) & FIX>=34",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1024] | TLT[T1013]",
+          "text": {
+            "en": "The housing project incorporates your Permanent Form into the building under a contract that preserves legal self-ownership. The property registry marks the arrangement as “nonstandard but load-bearing.”",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-LEG-002",
+          "endingOverrides": {
+            "ownership": "Self",
+            "autonomy": "Represented",
+            "location": "residential building"
+          }
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Your subsidized tenancy converts into permanent structural occupancy. The final inspection lists you between the support system and the accessible entrance.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ARC-001"
+        }
+      ],
+      "designerNotes": "Housing-origin architectural ending, early enough to contribute to 25-34 under LOW."
+    },
+    {
+      "id": "EVT-SPC-SECR-2001",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 20,
+        "max": 34
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "dmms",
+        "civic",
+        "legal"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-DMMS"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_DMMS_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1013] | TLT[T1024] | (INT>=10 & SPR>=7)",
+          "text": {
+            "en": "The same DMMS case number appears on a new envelope. This time you answer every question well enough that the Department closes the active case instead of generating another form.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-DMMS",
+              "to": "CLOSED"
+            }
+          ],
+          "schedules": []
+        },
+        {
+          "when": "MNY<=2 | TLT[T1030]",
+          "text": {
+            "en": "The Department renews your case supervision and waives a filing fee because your record is now classified as “administratively vulnerable.” The waiver creates three new reporting duties.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -1,
+            "FIX": 4
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0019",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_DMMS_STATE_ENGAGED]"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A different DMMS officer reviews the same file and asks for documents the first officer already scanned. Your case survives the staff change.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0019",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_DMMS_STATE_ENGAGED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": ""
+    },
+    {
+      "id": "EVT-SPC-SECR-2002",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 20,
+        "max": 34
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "meridian",
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-MERIDIAN"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_MERIDIAN_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1010] | (SPR>=10 & INT>=7)",
+          "text": {
+            "en": "The Meridian representative who photographed you during the first consultation calls again. You decline the upgraded package and formally terminate the client file.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-MERIDIAN",
+              "to": "OPTED_OUT"
+            }
+          ],
+          "schedules": []
+        },
+        {
+          "when": "CHR>=8 & MNY<=3",
+          "text": {
+            "en": "Meridian offers a sponsored presentation package: better clothes, better photographs, and a stabilization rider that makes the whole thing affordable.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 2,
+            "MNY": 3,
+            "FIX": 10
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0020",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_MERIDIAN_STATE_ENGAGED]"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Meridian updates the photographs from your original consultation and notes that your “preservation marketability” has changed. Nobody explains whether that is good.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "FIX": 3
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0020",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_MERIDIAN_STATE_ENGAGED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": ""
+    },
+    {
+      "id": "EVT-SPC-SECR-2003",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 20,
+        "max": 35
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "continuity_institute",
+        "research",
+        "academic"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-CRI"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_CRI_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1010] & INT>=7",
+          "text": {
+            "en": "CRI sends the third consent revision since your enrollment. You use it as the moment to withdraw, and the Institute keeps only the data it already has.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-CRI",
+              "to": "OPTED_OUT"
+            }
+          ],
+          "schedules": []
+        },
+        {
+          "when": "STR<=3",
+          "text": {
+            "en": "CRI offers to correct the weakness its study keeps measuring. The intervention works; the new protocol also raises your Fixation profile enough to become a publishable footnote.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "STR": 3,
+            "FIX": 10,
+            "MNY": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0021",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_CRI_STATE_ENGAGED]"
+            }
+          ]
+        },
+        {
+          "when": "INT>=8",
+          "text": {
+            "en": "Your CRI coordinator asks you to help interpret your own longitudinal data. You are paid as a consultant for work performed on yourself.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "MNY": 2,
+            "FIX": 4
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0021",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_CRI_STATE_ENGAGED]"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "CRI repeats a test you remember taking years ago. The equipment has changed; the study number has not.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1,
+            "FIX": 3
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0021",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_CRI_STATE_ENGAGED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": ""
+    },
+    {
+      "id": "EVT-SPC-SECR-2004",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 20,
+        "max": 35
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "everlasting",
+        "finance"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-EVERLASTING"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_EVERLASTING_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY>=8 | TLT[T1013]",
+          "text": {
+            "en": "Everlasting reviews the starter policy you stopped thinking about. You can now afford to cancel the continuity rider, so the company processes your opt-out with a retention survey.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-EVERLASTING",
+              "to": "OPTED_OUT"
+            }
+          ],
+          "schedules": []
+        },
+        {
+          "when": "MNY<=2",
+          "text": {
+            "en": "Everlasting grants temporary premium relief. Your monthly finances improve immediately; the policy’s post-mobility settlement section becomes much more specific.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 3,
+            "FIX": 10
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0022",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_EVERLASTING_STATE_ENGAGED]"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Everlasting updates your policy illustration using the same projection from your original application, now labeled “historical baseline.”",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "FIX": 4
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0022",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_EVERLASTING_STATE_ENGAGED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": ""
+    },
+    {
+      "id": "EVT-SPC-SECR-2005",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 20,
+        "max": 34
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "black_ledger",
+        "finance",
+        "debt"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-BLACK-LEDGER"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_BLACK_LEDGER_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1013] | MNY>=7",
+          "text": {
+            "en": "Black Ledger sends a servicing notice on the same account it once called an emergency solution. You clear enough of the balance to terminate the relationship.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -2,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-BLACK-LEDGER",
+              "to": "OPTED_OUT"
+            }
+          ],
+          "schedules": []
+        },
+        {
+          "when": "MNY<=1",
+          "text": {
+            "en": "Black Ledger offers a payment holiday if you sign an updated collateral schedule. Your finances improve dramatically and your projected future body receives its first itemized value.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 4,
+            "FIX": 12
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0023",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_BLACK_LEDGER_STATE_ENGAGED]"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Black Ledger restructures the account again. The new payment is easier; the definition of collateral is not.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 2,
+            "FIX": 6
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0023",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_BLACK_LEDGER_STATE_ENGAGED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": ""
+    },
+    {
+      "id": "EVT-SPC-SECR-2006",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 20,
+        "max": 35
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "last_posture",
+        "religious"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-LAST-POSTURE"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1010] | (INT>=10 & SPR>=8)",
+          "text": {
+            "en": "The woman who first invited you to the Order asks whether you still intend to attend. You give a clear no, and the Order records the withdrawal as a completed posture.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "to": "OPTED_OUT"
+            }
+          ],
+          "schedules": []
+        },
+        {
+          "when": "SPR<=3",
+          "text": {
+            "en": "The Order gives you a room, meals, and several weeks in which nobody asks you to explain why you are tired. By the time you feel better, the ritual schedule has become part of the arrangement.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 4,
+            "MNY": 2,
+            "FIX": 10
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0024",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]"
+            }
+          ]
+        },
+        {
+          "when": "CHR>=8",
+          "text": {
+            "en": "The Order asks you to represent the community at a public ceremony. The attention is flattering enough to make the later posture consultation feel ordinary.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "SPR": 2,
+            "FIX": 4
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0024",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You return to the same quiet hall from the first meeting. Someone remembers where you sat.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 2,
+            "FIX": 5
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0024",
+              "offsetYears": 2,
+              "windowYears": 3,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]"
+            }
+          ]
+        }
+      ],
+      "designerNotes": ""
+    }
+  ]
+}

@@ -109,6 +109,34 @@ export function grantsRouteContext(rules: FactionRules, state: FactionLifecycleS
   return rules.activeContextStates.includes(state);
 }
 
+/**
+ * "Personally active": CONTACTED, ENGAGED or COMMITTED.
+ *
+ * The same three states the registry lists as `activeContextStates`, read here
+ * for the single-active-faction rule. There is no separate list to drift.
+ */
+export function isPersonallyActive(rules: FactionRules, state: FactionLifecycleState): boolean {
+  return grantsRouteContext(rules, state);
+}
+
+/**
+ * The faction the protagonist currently has a personal relationship with, if any.
+ *
+ * H2B single-active-faction rule. At most one faction may be personally active,
+ * which the FSM alone does not enforce — it is a property of *contact*
+ * eligibility, so it is checked where events are selected rather than stored as
+ * state. No meter, no numeric reputation, no new condition syntax.
+ */
+export function activeFaction(
+  flags: ReadonlySet<string>,
+  content: { factions: ReadonlyMap<string, FactionDef>; factionRules: FactionRules },
+): FactionDef | null {
+  for (const faction of content.factions.values()) {
+    if (isPersonallyActive(content.factionRules, factionState(flags, faction))) return faction;
+  }
+  return null;
+}
+
 export interface AppliedTransition {
   factionId: string;
   from: FactionLifecycleState;

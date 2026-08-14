@@ -45,6 +45,17 @@ data in `reports/h2a-threshold-calibration.{json,md}`. The first human playtest
 ([`ui/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md`](ui/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md),
 5 lives) is recorded as **qualitative evidence, not a population estimate**.
 
+**H2B Batch 008 update (measured 2026-08-14, no decisions taken).** The Pressure
+& Tone integration adds **28 events (Batch 008)**, `END-MED-003 Benefit Approved`
+(Ending Registry v1.2), 13 existing-event patches, the single-active-personalized-
+faction engine rule and two new content lints. It adds **evidence only** to
+**Q-02**, **Q-12**, **Q-23**, **Q-27** and **Q-29**. **No question changed
+status**, no threshold profile was frozen — LOW remains a *provisional diagnostic
+baseline* — and Batch 008 was not auto-tuned from the run that introduced it.
+Analysis is in [`H2B_BATCH008_FINDINGS.md`](H2B_BATCH008_FINDINGS.md); four
+observations for design review are **H2B-C1 … H2B-C4** in
+[`PHASE1_CONFLICTS.md`](PHASE1_CONFLICTS.md).
+
 **Next project milestone: H2A.** Phase 1.3 is the final planned headless-only
 content iteration. The H2A human-playtest gate is
 [`docs/spec/SOLID_STATE_H2A_HUMAN_PLAYTEST_GATE_v0.1.md`](spec/SOLID_STATE_H2A_HUMAN_PLAYTEST_GATE_v0.1.md);
@@ -241,6 +252,8 @@ answer determines whether B is a fix or a patch.
 > _Phase 1.2 decision_: Do **not** select LOW/MID/HIGH and do **not** globally change existing climax thresholds in this patch. Route-specific low gates authored in Batch 006 are intentional where an external institution causes conversion without high spontaneous FIX. No sweep was run.
 > _Phase 1.2 outcome_: Under **authored current thresholds** the new content moves the distribution without any threshold change: completion 60.2%, mean FIX at commitment 28.4, mean FIX at ending 29.0, final FIX p50/p90/p99 = 29/48/55. The remaining misses are structural rather than numeric — see [`PHASE1_2_FINDINGS.md`](PHASE1_2_FINDINGS.md) §1.1. Thresholds stay unfrozen and the sweep harness stays available.
 >
+> _H2B Batch 008 (evidence only — this question stays OPEN numerically)_: LOW was re-run as the **provisional design baseline** against the expanded corpus, 5 000 runs, with a 2 500-run current-authored comparator. Completion **55.4%** (LOW+008) against 32.4% (current+008) and 42.5% (LOW alone in H2A). Ending coverage reached **25/25 for the first time**, material entropy rose to **3.054**, and the LOW arm produced **zero guardrail failures** — nonterminal fell to 44.6%, below the 50% line that had made `nonterminal-rate` a failure since Phase 1.1. **But mean Material Commitment age moved only 35.3 → 34.9.** Adding 28 events and a new pressure layer did not move commitment timing any more than rewriting the gates did. The one measured exception is instructive: a +12 FIX bargain landing at mean age 30.8 (`EVT-INS-ARC-2001`) converts to commitment within five years **65.4%** of the time, while a +14 FIX bargain landing at 19.8 (`EVT-INS-FIN-2001`) converts **9.0%** of the time — so the untried lever is *when* large-FIX bargains are offered, not how large they are. **LOW was not frozen**; freezing it on the same run that introduced Batch 008 would confound the two changes.
+
 > _H2A threshold calibration (evidence only — this question stays OPEN numerically)_: the sweep was re-run against the **current** corpus, 3 000 runs per arm, with `CURRENT_AUTHORED` as the control and the Phase 1.1 `ORIGINAL_REFERENCE` deliberately excluded. Completion **25.7% (current) / 42.5% LOW / 33.1% MID / 24.3% HIGH**; commitment **37.6 / 61.4 / 51.2 / 39.8%**; ending coverage **18 / 22 / 24 / 20 of 24**. **The decisive result is negative: mean Material Commitment age is 35.7 / 35.3 / 35.4 / 35.4 — a 0.4-year spread across an 18-point completion range.** Threshold height controls how many lives end, not when. All four arms pass every correctness counter. **No profile was selected, frozen, interpolated or written into content.** Full analysis in [`H2A_THRESHOLD_CALIBRATION_FINDINGS.md`](H2A_THRESHOLD_CALIBRATION_FINDINGS.md); data in `reports/h2a-threshold-calibration.{json,md}`. The retained `reports/phase1_1-experiments.*` are untouched and are not superseded — the two runs use different corpora and different allocation policies.
 
 ---
@@ -595,6 +608,8 @@ such as `MNY<=2` and `STR<=4`, and therefore change which variants fire.
 > _Outcome_: Moved out of the provisional adapter.
 > _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
 >
+> _H2B evidence (no change; stats remain unclamped)_: Batch 008 patched the two largest SPR sources and added an authored INT decline, and a new **stat-curve lint** now fails if a visible stat has no authored negative delta anywhere. Result after the patch: **no visible stat is strictly monotonic in the corpus** — the lint requirement is met. At runtime the picture is more mixed. **STR now matches the intended curve** (drift +2.74 at 18, +6.03 at 35, +3.71 at 65, −0.29 final) and **MNY is no longer a one-way collapse** (final drift +1.63, was −2.01). **SPR improved but is not solved**: positive authored deltas fell 493.7 → **331.5** per 1 000 run-years and drift at 65 fell +30.5 → **+24.9**, yet SPR ≥ 15 still holds for **96.0%** of 65+ survivors (was 98.4%) — the remaining accumulation is spread across ordinary social/family content, not the two patched events. **INT satisfies the lint literally but not in behaviour**: `EVT-ORD-GEN-2001` fires in 49% of runs at −1/−2 against +147 positive deltas per 1 000 run-years, so **100% of runs still end with INT above their start**. No clamp was added and no stat effect was changed beyond the supplied patches.
+
 > _H2A evidence (no change; stats remain unclamped)_: the H2A calibration measured the full visible-stat distribution for the first time, and the unclamped decision now has consequences worth naming before the Pressure & Tone pass. **INT has no negative authored delta anywhere in the corpus** (0.0 per 1 000 run-years), so 100% of runs end with INT higher than they started. **SPR is a late-life runaway**: 493.7 positive authored deltas per 1 000 run-years against 136.7 negative, giving SPR ≥ 15 in **98.4%** of runs still alive at 65. **MNY drifts down** (mean −2.01 from the post-setup start, 51.1% of runs ending at MNY ≤ 2), and housing-tagged events carry **−0.89 MNY per event**. CHR and STR peak around 35–50 and then collapse (48.6% and 66.4% of runs end at ≤ 2). The first human playtest's impressions — "CHR and INT can exceed 15", "MNY and SPR looked flatter or downward" — are qualitative evidence: the first is confirmed, the MNY half of the second is confirmed, and the SPR half is **contradicted** (SPR is flat only until about 40). **No clamp, no stat-effect change and no pressure mechanic was added in this task.** See [`H2A_THRESHOLD_CALIBRATION_FINDINGS.md`](H2A_THRESHOLD_CALIBRATION_FINDINGS.md) §3–§5.
 
 ---
@@ -868,6 +883,8 @@ before authoring more late-life content.**
 > _Phase 1.2 outcome_: **The requested breakdown localizes the problem completely.** Conditional on the run still being active: 0.0% fallback at every band from 0–5 through **45–54**, then 21.3% at 55–64 and 51.8% at 65+. The 26.7% aggregate age-25+ figure is produced entirely by the 55+ tail. **There is no adult content-density problem between 25 and 54**, so filler would be the wrong response; the 55+ share is a symptom of Q-27 — runs that should have ended at 25–44 are still walking through a pool never authored for a 120-year life. Stays open pending Q-27.
 >
 > _Phase 1.3 decision_: **OPEN / MONITOR.** No filler expansion. Lore fallback is for world texture, not a claim that generic fallback is solved. Report both metrics separately.
+> _H2B evidence_: Batch 008 adds 28 events, of which 14 are adult-eligible pressure/recovery events, so the adult pool is materially denser. Under LOW + Batch 008 the age-25+ generic fallback share is unchanged in character — the emptiness is still a late-life phenomenon, and it is still downstream of Q-27 rather than a content-density problem between 25 and 54. See [`H2B_BATCH008_FINDINGS.md`](H2B_BATCH008_FINDINGS.md).
+
 > _Phase 1.3 outcome_: **Reported separately, as required.** Conditional on the run still being active, generic fallback is still **0.0% at every band through 45–54**. At 55–64 generic fallback is **eliminated** (21.3% → 0.0%) and replaced by 12.6% lore. At 65+ generic falls 51.8% → **24.6%** while lore takes **29.6%**, so combined emptiness is essentially unchanged (51.8% → 54.2%). The honest reading: **lore fallback made the late-life years better to read, not fewer.** Still downstream of Q-27.
 
 ---
@@ -1053,6 +1070,27 @@ supplies **48.6%** of all endings.
 >
 > _Analysis, not a decision_: [`H2A_THRESHOLD_CALIBRATION_FINDINGS.md`](H2A_THRESHOLD_CALIBRATION_FINDINGS.md) argues LOW is the most plausible of the four for a provisional playtest profile (completion, route breadth, lowest material determinism), while stating that **no arm is satisfactory** against the plan's own review bands. **Nothing was selected, frozen, interpolated or auto-tuned.**
 
+### H2B Batch 008 — evidence, no decision
+
+> _H2B status_: **STILL OPEN.** Q-27 stays open until design reviews this run.
+>
+> _What was run_: Batch 008 (28 events: 14 pressure/recovery/stat-ecology, 8 housing/structural-life, 6 faction intermediate touchpoints), 13 existing-event patches, `END-MED-003`, and the single-active-faction rule. Primary arm **LOW + Batch 008 at 5 000 runs**; comparator **CURRENT_AUTHORED + Batch 008 at 2 500 runs**. All correctness counters zero in both arms.
+>
+> _Evidence — the ending economy is fixed; the ending-age shape is not._ Shares of completed runs:
+>
+> | Arm | Completion | 18–24 | 25–34 | 35–44 | 45–54 | 55–64 | 65+ |
+> |---|---|---|---|---|---|---|---|
+> | LOW + Batch 008 | **55.4%** | 1.3% | 19.6% | **48.0%** | 20.8% | 1.6% | 8.7% |
+> | CURRENT + Batch 008 | 32.4% | 1.1% | 21.1% | 25.3% | 12.3% | 2.6% | 37.6% |
+>
+> 65+ falls to **8.7%** and the survivor pileup is gone, but **35–44 is still the largest bucket at 48.0%** and 25–34 does not move (16.6% under LOW alone → 19.6%). 18–24 stays at 1.3%.
+>
+> _Evidence — this is the third instrument to reach the same conclusion._ Mean Material Commitment age: 35.7 (untouched corpus) → 35.3 (LOW) → **34.9** (LOW + Batch 008). Threshold height did not move it; corpus volume did not move it. **The 18–34 gap is a commitment-timing problem, and the measured lever is the age at which large-FIX bargains land, not their magnitude** — see the Q-02 block and [`H2B_BATCH008_FINDINGS.md §2`](H2B_BATCH008_FINDINGS.md).
+>
+> _Evidence — new pathways do reach the target decade._ The housing-to-architecture route ends **65 runs (1.3%) at mean age 34.3**, and the new `END-MED-003 Benefit Approved` completes the registry: **ending coverage is 25/25 for the first time.**
+>
+> _Not done_: no threshold frozen, no profile selected, no Batch 008 condition auto-tuned, no canonical FIX gate rewritten.
+
 **Still open, restated for Phase 1.4:** where do 18–34 endings come from now that
 the faction layer is deliberately non-terminal for 90% of contacts? Three
 directions, none applied:
@@ -1109,6 +1147,8 @@ a layer that was not meant to be a primary route.
 > _Phase 1.3.1 decision_: No target frozen. Keep the Phase 1.3 direction — presence may be common, faction-caused endings must stay substantially below 48.6% — and keep sudden faction endings a minority branch. **Do not globally raise faction COMMITTED rates.**
 > _Phase 1.3.1 outcome_: Held. Faction-caused endings **16.7%** of completions (from 15.4%), sudden branch **13.9%** of faction endings (from 6.0%), contact **36.0%** of runs. The four condition edits moved the sudden branch without touching the commitment ladder, exactly as scoped.
 >
+> _H2B evidence (no decision; this question stays OPEN)_: the **single active personalized faction** rule is now an engine eligibility rule — a `contact` event is ineligible while another faction is CONTACTED/ENGAGED/COMMITTED; news and lore are unaffected; entering OPTED_OUT or CLOSED frees the slot from the next annual draft, and the exited faction stays terminal under the unchanged FSM. Measured over 5 000 runs: **maximum simultaneously-active factions 1, zero violations, zero contacts opened while a relationship was still active**, and **69 second contacts opened after a terminal exit** — sequential relationships work. Contact incidence barely moved (35.0% → **33.5%**), so exclusivity did not remove factions from the world. Batch 008's six intermediate touchpoints reach 1.9–6.3% of runs each, and the obvious failure mode — the new middle event pushing the existing escalations past their authored age windows — **did not occur: zero escalation schedules expired.** Faction-caused endings fell to **10.6%** of completions. No numeric target was frozen, no FSM rule changed and no faction UI was added.
+
 > _H2A chain-legibility evidence (no decision; this question stays OPEN)_: measured on the current corpus, 3 000 runs. Any-faction contact **35.0%** of runs, faction-caused endings **16.5%** of completions — the direction still holds. The new number is the **chain length**: a contacted faction gives a life a mean of **2.1–3.1 personalized touchpoints about two years apart**, and three of six factions exit at the very first disposition in more than half of contacts (DMMS **92.4%**, Meridian 59.6%, Last Posture 54.4%). With per-faction contact at 4–9%, a typical life meets one faction, twice. **The escalation path itself is not broken** — after ENGAGED a later touchpoint follows in 99–100% of runs, and after COMMITTED a climax follows in 83–100%. The first human playtest's impression that "faction chains feel disconnected and safe opt-out feels frequent" is therefore **qualitative evidence consistent with the measurement**, not itself a population fact. Faction FSM, conditions and prose were not changed. See [`H2A_THRESHOLD_CALIBRATION_FINDINGS.md`](H2A_THRESHOLD_CALIBRATION_FINDINGS.md) §6.
 
 ---
@@ -1140,5 +1180,6 @@ late-life year with anything but the generic quiet-year fallback.
 | 2026-08-13 | Phase 1.2: merged `PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md`. Added **Q-27**; added a `_Phase 1.2 outcome_` line to Q-02, Q-10, Q-14, Q-19, Q-22, Q-23, Q-24. **Q-24 is now RESOLVED.** Q-14, Q-23, Q-25 and Q-27 remain open. Outcomes measured against the Phase 1.2 content and reported in `PHASE1_2_FINDINGS.md`. |
 | 2026-08-13 | H2A UI foundation: two pre-UI condition corrections recorded under Q-27 as an H2A transition note, unmeasured by instruction. No question changed status. |
 | 2026-08-13 | Phase 1.3.1: merged `PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md`. **P13-C1 CLOSED** and the derived Content Tool v0.3 / Route Tag Registry v1.2 ratified as canonical; the dangling "P13-C2" reference in `PHASE1_CONFLICTS.md` corrected (no such section ever existed). Four condition-only Batch 007 edits applied under Q-27. No question changed status. Outcomes in `PHASE1_3_1_FINDINGS.md`. |
+| 2026-08-14 | H2B Pressure & Tone / Batch 008: integrated 28 blueprint events, `END-MED-003` (Ending Registry v1.2), 13 existing-event patches, the single-active-personalized-faction engine rule and the all-female / age-0-1 / stat-curve lints. Evidence-only additions to **Q-02**, **Q-12**, **Q-23**, **Q-27** and **Q-29**; **no question changed status**, LOW not frozen, Batch 008 not auto-tuned. Four observations for design review recorded as **H2B-C1 … H2B-C4** in `PHASE1_CONFLICTS.md`. Analysis in `H2B_BATCH008_FINDINGS.md`. |
 | 2026-08-14 | H2A UX micro-patch + threshold calibration: evidence-only additions to **Q-02**, **Q-12**, **Q-27** and **Q-29** from the four-arm current-corpus calibration (12 000 runs). **No question changed status**; no threshold profile selected, frozen or interpolated; no canonical content edited. Analysis in `H2A_THRESHOLD_CALIBRATION_FINDINGS.md`, data in `reports/h2a-threshold-calibration.{json,md}`. |
 | 2026-08-13 | Phase 1.3: merged `PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md`. Added **Q-28** (RESOLVED), **Q-29** (open, direction only) and **Q-30** (RESOLVED); added `_Phase 1.3_` blocks to Q-23 and Q-27; ratified the P12-C1 duplicate-ID resolution. **H2A recorded as the next project milestone and its gate opened.** Q-14, Q-23, Q-25, Q-27 and Q-29 remain open. Outcomes measured against the Phase 1.3 content and reported in `PHASE1_3_FINDINGS.md`. |

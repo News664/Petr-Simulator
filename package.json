@@ -14,7 +14,7 @@
     "validate": "tsx src/cli/validate.ts",
     "mirror:check": "tsx src/cli/mirror.ts check",
     "simulate": "tsx src/cli/simulate.ts",
-    "verify": "npm run typecheck && npm run validate && npm run mirror:check && npm run content:browser:check && npm run test",
+    "verify": "npm run typecheck && npm run validate && npm run mirror:check && npm run lint:content && npm run content:browser:check && npm run test",
     "experiment": "tsx src/cli/experiment.ts",
     "diagnostic": "tsx src/cli/phase1_2.ts",
     "sanity": "tsx src/cli/phase1_3.ts",
@@ -23,7 +23,9 @@
     "content:browser:check": "tsx src/cli/build-browser-content.ts check",
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint:content": "tsx src/cli/lint.ts",
+    "h2b:diagnostic": "tsx src/cli/h2b-diagnostic.ts"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^7.0.1",

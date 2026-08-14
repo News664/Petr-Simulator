@@ -1,0 +1,16 @@
+{
+  "version": "0.1",
+  "status": "PROVISIONAL_H2B_DESIGN_BASELINE",
+  "profile": "LOW",
+  "source": "content/balance/SOLID_STATE_PHASE1_1_EXPERIMENT_MATRIX_v0.1.json",
+  "values": {
+    "commitment_standard": 28,
+    "climax_temporal": 34,
+    "climax_medical": 36,
+    "climax_standard": 40,
+    "climax_anomalous": 36,
+    "climax_late": 36
+  },
+  "rule": "Use LOW for Batch 008 authoring and primary diagnostics. Do not yet overwrite canonical event gates with LOW globally. After Batch 008, compare LOW+new-content against current-authored+new-content before final canonicalization.",
+  "rationale": "LOW was the only tested profile near a usable completion rate, restored core route breadth, preserved material guardrails and kept faction endings secondary, while proving threshold height alone cannot move commitment age."
+}

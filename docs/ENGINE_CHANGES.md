@@ -444,6 +444,37 @@ Cross-batch duplicate IDs are also caught, which per-file validation cannot see.
 
 ---
 
+## E-31 — Single active personalized faction
+
+**Source.** `docs/design/SOLID_STATE_H2B_SINGLE_ACTIVE_FACTION_SPEC_v0.1.md`.
+
+**Rule.** A faction is *personally active* while its lifecycle is CONTACTED,
+ENGAGED or COMMITTED — the same three states the Faction Registry already lists
+as `activeContextStates`, read rather than duplicated. A candidate event whose
+`factionInteraction` is `contact` is ineligible while a **different** faction is
+personally active.
+
+**Where it lives.** `factionSlotAllows` in `src/engine/eligibility.ts`, checked
+inside `ineligibleReason` as the new `faction_slot` reason, plus `activeFaction`
+and `isPersonallyActive` in `src/engine/factions.ts`.
+
+**Deliberately narrow.** It gates `contact` events only:
+
+- `personal` and `climax` events for the already-active faction stay eligible,
+  which is what keeps a chain running;
+- `news` and `lore_fallback` are untouched, so the rest of the world keeps
+  talking during a relationship;
+- a `contact` event for the faction that is *already* active is not blocked by
+  its own relationship;
+- entering OPTED_OUT or CLOSED frees the slot from the next annual draft, and
+  the exited faction stays terminal under the **unchanged** FSM.
+
+**Not state.** Nothing is stored, no meter exists, the condition grammar gains no
+faction syntax, and no faction UI was added. It is evaluated fresh each year from
+the flags already present.
+
+---
+
 # 4. Deliberately *not* implemented
 
 Listed so their absence is not mistaken for an oversight.
@@ -470,5 +501,6 @@ Listed so their absence is not mistaken for an oversight.
 | 2026-08-12 | Created at Phase-1 handoff with E-01 … E-18 |
 | 2026-08-13 | Phase 1.1 patch integrated. Adapter shrunk to two diagnostic entries; E-19 … E-22 added. E-01, E-02, E-03, E-05 … E-13, E-17 are now canonical data rather than engine decisions. |
 | 2026-08-13 | Phase 1.2 patch integrated: Faction Registry v0.1, Batch 006, Batch 005 v0.2, Route Tag Registry v1.1, Talent Registry v1.2, the compact diagnostic plan. E-23 … E-26 added. One content conflict found and reported (`PHASE1_CONFLICTS.md` P12-C1). |
+| 2026-08-14 | H2B Batch 008 integrated: Ending Registry v1.2 (`END-MED-003`), Event Batch 008 (28 events), Batch 002 v0.3 / 004 v0.3 / 005 v0.4 / 007 v0.4 patched, `content/patches/*`. **One engine rule added — E-31, the single active personalized faction.** New content lints (`src/engine/content/lint.ts`, `npm run lint:content`, wired into `verify`) and the H2B diagnostic (`src/sim/h2bDiagnostic.ts`, `src/sim/h2bReport.ts`, `src/cli/h2b-diagnostic.ts`). No threshold frozen; LOW stays a reversible derived profile. |
 | 2026-08-14 | H2A UX micro-patch + threshold calibration: **no engine change.** The calibration adds measurement modules only (`src/sim/h2aThresholdTelemetry.ts`, `src/sim/h2aThresholdReport.ts`, `src/cli/h2a-threshold.ts`) and reuses the retained Phase 1.1 reversible threshold rewrite. The UX patch is application-layer; playback cadence moved out of `App.tsx` into the canonical UI tokens. |
 | 2026-08-13 | Phase 1.3 patch integrated: Content Schema v0.4, Faction Registry v0.2, Batch 007, Batch 006 v0.2, Batch 005 v0.3, Route Tag Registry v1.2, content tool v0.3, the sanity plan. E-27 … E-30 added. Two missing-input conflicts found and reported (`PHASE1_CONFLICTS.md` P13-C1). |
