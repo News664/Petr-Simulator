@@ -16,5 +16,7 @@ reports/*
 !reports/phase1_3-sanity.md
 !reports/phase1_3_1-targeted-sanity.json
 !reports/phase1_3_1-targeted-sanity.md
+!reports/h2a-threshold-calibration.json
+!reports/h2a-threshold-calibration.md
 scratch/
 dist/

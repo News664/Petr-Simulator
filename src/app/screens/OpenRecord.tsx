@@ -7,7 +7,7 @@ interface OpenRecordProps {
   devMode: boolean;
   seed: string;
   onNewLife: () => void;
-  onReplay: () => void;
+  onReviewLife: () => void;
 }
 
 /**
@@ -17,7 +17,7 @@ interface OpenRecordProps {
  * ending. Fabricating one here would hide the very finding the playtest needs to
  * surface, so the record simply stays open.
  */
-export function OpenRecord({ reachedAge, devMode, seed, onNewLife, onReplay }: OpenRecordProps) {
+export function OpenRecord({ reachedAge, devMode, seed, onNewLife, onReviewLife }: OpenRecordProps) {
   const { t } = useI18n();
   const [copied, setCopied] = useState(false);
 
@@ -31,8 +31,8 @@ export function OpenRecord({ reachedAge, devMode, seed, onNewLife, onReplay }: O
         <button type="button" className="btn btn--primary" onClick={onNewLife}>
           {t('ending.newLife')}
         </button>
-        <button type="button" className="btn" onClick={onReplay}>
-          {t('ending.replay')}
+        <button type="button" className="btn" onClick={onReviewLife}>
+          {t('ending.review')}
         </button>
         <button
           type="button"

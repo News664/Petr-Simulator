@@ -11,11 +11,13 @@ import { BirthRegistration } from './screens/BirthRegistration.js';
 import { EndingScreen } from './screens/EndingScreen.js';
 import { InitialAssessment } from './screens/InitialAssessment.js';
 import { Landing } from './screens/Landing.js';
+import { LifeReview } from './screens/LifeReview.js';
 import { OpenRecord } from './screens/OpenRecord.js';
 import { Playback } from './screens/Playback.js';
 import { RecordSummary } from './screens/RecordSummary.js';
 import { TalentSelection } from './screens/TalentSelection.js';
 import { createSeed } from './seed.js';
+import { INTERVAL_MS } from './tokens.js';
 import {
   initialState,
   isPlaybackComplete,
@@ -27,9 +29,6 @@ import {
   type Speed,
 } from './state/reducer.js';
 import { clearSession, loadSession, saveSession, type StoredPhase } from './storage.js';
-
-/** Reveal cadence, from the H2A UI tokens. Speed changes timing and nothing else. */
-const INTERVAL_MS: Record<Speed, number> = { 1: 1000, 2: 500 };
 
 function isDevMode(): boolean {
   if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('dev') === '1') {
@@ -55,6 +54,7 @@ const PHASE_TO_STORED: Record<AppState['phase'], StoredPhase | null> = {
   review: 'review',
   playback: 'playback',
   result: 'result',
+  'life-review': 'life-review',
 };
 
 export function App() {
@@ -109,14 +109,17 @@ export function App() {
       preview,
       chosenTalents: session.chosenTalents,
       allocation: session.allocation ?? initialState(CONTENT_VERSION, devMode).allocation,
-      phase: session.phase === 'result' ? 'playback' : session.phase,
+      phase: session.phase === 'result' || session.phase === 'life-review' ? 'playback' : session.phase,
       speed: session.speed,
       paused: session.paused,
     };
     dispatch({ type: 'restore', state: next });
-    if (session.phase === 'playback' || session.phase === 'result') {
+    if (session.phase === 'playback' || session.phase === 'result' || session.phase === 'life-review') {
       beginLife(next, session.revealedFrameIndex, session.paused, session.speed);
+      // A saved review is restored as the static complete timeline, not as a
+      // replayed animation.
       if (session.phase === 'result') dispatch({ type: 'finish-playback' });
+      if (session.phase === 'life-review') dispatch({ type: 'open-life-review' });
     }
   }, [beginLife, devMode]);
 
@@ -180,10 +183,8 @@ export function App() {
     dispatch({ type: 'begin-setup', seed, preview: previewPlayerSetup(seed, browserContent) });
   }, []);
 
-  const replay = useCallback(() => {
-    if (!state.seed) return;
-    beginLife(state, -1, false, state.speed);
-  }, [beginLife, state]);
+  // Review reuses the computed frames; it never re-enters the animated path.
+  const reviewLife = useCallback(() => dispatch({ type: 'open-life-review' }), []);
 
   const newLife = useCallback(() => {
     clearSession();
@@ -259,6 +260,14 @@ export function App() {
         onSetSpeed={(speed) => dispatch({ type: 'set-speed', speed })}
       />
     );
+  } else if (state.phase === 'life-review' && state.life) {
+    screen = (
+      <LifeReview
+        content={browserContent}
+        frames={frames}
+        onBackToOutcome={() => dispatch({ type: 'back-to-outcome' })}
+      />
+    );
   } else if (state.phase === 'result' && state.life) {
     const outcome = state.life.outcome;
     screen =
@@ -269,7 +278,7 @@ export function App() {
           seed={state.seed}
           contentVersion={state.contentVersion}
           onNewLife={newLife}
-          onReplay={replay}
+          onReviewLife={reviewLife}
         />
       ) : outcome.kind === 'nonterminal' ? (
         <OpenRecord
@@ -277,7 +286,7 @@ export function App() {
           devMode={devMode}
           seed={state.seed}
           onNewLife={newLife}
-          onReplay={replay}
+          onReviewLife={reviewLife}
         />
       ) : (
         <section>

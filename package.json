@@ -18,6 +18,7 @@
     "experiment": "tsx src/cli/experiment.ts",
     "diagnostic": "tsx src/cli/phase1_2.ts",
     "sanity": "tsx src/cli/phase1_3.ts",
+    "h2a:threshold": "tsx src/cli/h2a-threshold.ts",
     "content:browser": "tsx src/cli/build-browser-content.ts",
     "content:browser:check": "tsx src/cli/build-browser-content.ts check",
     "dev": "vite",

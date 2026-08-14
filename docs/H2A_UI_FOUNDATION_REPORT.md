@@ -1,6 +1,6 @@
 # SOLID STATE — H2A UI Foundation Report
 
-## Version 0.1 · 2026-08-13
+## Version 0.2 · 2026-08-14
 
 The first human-playable browser build. Simulation rules did not move into React:
 the engine is unchanged except for two additive, browser-facing entry points.
@@ -10,8 +10,8 @@ the engine is unchanged except for two additive, browser-facing entry points.
 | Content fingerprint | `f802a2524d2a16ab418bb7fe810a002335d94584d40614fcefbd061526f3d3a9` |
 | Browser snapshot fingerprint | identical — the snapshot carries the canonical value verbatim |
 | Corpus | 186 events · 7 batches · 38 route tags · 6 factions · 24 endings · 30 talents |
-| Tests | **320 passing**, 16 files (295 pre-existing + 10 bridge + 15 UI) |
-| Production build | `dist/` — 593.57 kB JS (145.15 kB gzip), 9.90 kB CSS, built in 1.8 s |
+| Tests | **340 passing**, 17 files (295 pre-existing + 10 bridge + 23 UI + 12 calibration) |
+| Production build | `dist/` — 596.04 kB JS (145.63 kB gzip), 10.15 kB CSS, built in 1.4 s |
 
 ---
 
@@ -23,7 +23,7 @@ npm run dev                    # http://localhost:5173
 npm run dev -- --host          # from another device
 npm run build && npm run preview
 
-npm run verify                 # typecheck + content + mirrors + snapshot + 320 tests
+npm run verify                 # typecheck + content + mirrors + snapshot + 340 tests
 npm run content:browser        # regenerate the browser snapshot
 npm run content:browser:check   # fail if the committed snapshot is stale
 ```
@@ -209,3 +209,69 @@ Everything else in the H2A gate still passes — see
 [`H2A_GATE_DECISION.md`](H2A_GATE_DECISION.md). No balance question was touched
 and no threshold was chosen; the retained LOW/MID/HIGH calibration remains the
 next separate task.
+
+---
+
+## 9. v0.2 — UX micro-patch after playtest round 1
+
+Driven by
+[`ui/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md`](ui/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md)
+and specified by
+[`ui/SOLID_STATE_H2A_UX_MICRO_PATCH_v0.1.md`](ui/SOLID_STATE_H2A_UX_MICRO_PATCH_v0.1.md).
+**No simulation, RNG or content behaviour changed.**
+
+### Playback cadence — 1000/500 ms → 1300/650 ms
+
+The cadence is canonical data, not a constant in the component. `content/ui/SOLID_STATE_H2A_UI_TOKENS_v0.2.json`
+supersedes v0.1 (moved to `content/superseded/`, following the repository's
+provenance convention), and `src/app/tokens.ts` is the single place the runtime
+reads it:
+
+```ts
+export const INTERVAL_MS: Record<1 | 2, number> = {
+  1: PLAYBACK_TOKENS.oneXIntervalMs,   // 1300
+  2: PLAYBACK_TOKENS.twoXIntervalMs,   //  650
+};
+```
+
+`App.tsx` no longer holds any timing number of its own, and a test asserts both
+values and the exact 2× relationship, so the two can never drift apart silently.
+
+### `REPLAY LIFE` → `REVIEW LIFE`
+
+The animated replay path is gone from the normal player UI. A new `life-review`
+phase renders the **already-computed** `PlaybackLife` in full:
+
+- `revealedFrames()` returns `state.life.frames` unchanged in `life-review`, and
+  the strict revealed prefix in every other phase — so the review cannot leak the
+  future during playback and playback cannot accidentally show it;
+- no timer starts, no `computePlayback` call is made, and the RNG is never
+  touched — a test asserts frame **identity** (`toBe`), not equality, to prove
+  nothing was recomputed;
+- no pause or 1×/2× controls exist in the review;
+- the view scrolls to the final entry on open and marks it `FINAL ENTRY`;
+- `BACK TO OUTCOME` returns to the certificate or the open record, and review
+  works from both the ended and nonterminal result screens;
+- the hidden-state boundary is unchanged and re-asserted: no FIX, event IDs,
+  route flags, schedules or faction lifecycle data appear in the review DOM.
+
+Developer tooling keeps an equivalent reproduction mechanism; only the normal
+player path changed.
+
+### Persistence
+
+`life-review` is a stored phase. A save under the same content fingerprint
+restores **directly into the static review** — not into a replay — and a save
+under a different fingerprint keeps the existing refusal behaviour.
+
+### Localization
+
+English strings added under `lifeReview.*` (`FULL RECORD`, `FINAL ENTRY`,
+`BACK TO OUTCOME`) and `ending.replay` replaced by `ending.review`. The zh-TW
+structure remains declared and unfilled, as before.
+
+### Deferred, by instruction
+
+The certificate redesign and the Pressure & Tone content rewrite were **not**
+started here. The playtest's certificate and tone observations are recorded in
+the playtest document for that later pass.

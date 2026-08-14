@@ -11,7 +11,7 @@ interface EndingScreenProps {
   seed: string;
   contentVersion: string;
   onNewLife: () => void;
-  onReplay: () => void;
+  onReviewLife: () => void;
 }
 
 /**
@@ -27,7 +27,7 @@ export function EndingScreen({
   seed,
   contentVersion,
   onNewLife,
-  onReplay,
+  onReviewLife,
 }: EndingScreenProps) {
   const { t } = useI18n();
   const [copied, setCopied] = useState(false);
@@ -90,8 +90,8 @@ export function EndingScreen({
         <button type="button" className="btn btn--primary" onClick={onNewLife}>
           {t('ending.newLife')}
         </button>
-        <button type="button" className="btn" onClick={onReplay}>
-          {t('ending.replay')}
+        <button type="button" className="btn" onClick={onReviewLife}>
+          {t('ending.review')}
         </button>
         <button type="button" className="btn btn--quiet" onClick={copySeed}>
           {t('ending.copySeed')}

@@ -16,6 +16,7 @@ import {
   revealedFrames,
   type AppState,
 } from '../src/app/state/reducer.js';
+import { INTERVAL_MS, PLAYBACK_TOKENS, UI_TOKENS_VERSION } from '../src/app/tokens.js';
 import { VISIBLE_STATS, type VisibleStat } from '../src/engine/types.js';
 
 /**
@@ -131,6 +132,19 @@ describe('H2A — setup rules', () => {
   });
 });
 
+describe('H2A — playback cadence tokens', () => {
+  it('reads 1300 ms / 650 ms straight from the canonical UI tokens', () => {
+    expect(UI_TOKENS_VERSION).toBe('0.2');
+    expect(PLAYBACK_TOKENS.oneXIntervalMs).toBe(1300);
+    expect(PLAYBACK_TOKENS.twoXIntervalMs).toBe(650);
+    // The runtime consumes the tokens rather than restating them.
+    expect(INTERVAL_MS[1]).toBe(PLAYBACK_TOKENS.oneXIntervalMs);
+    expect(INTERVAL_MS[2]).toBe(PLAYBACK_TOKENS.twoXIntervalMs);
+    // 2x is exactly twice the reveal rate of 1x.
+    expect(INTERVAL_MS[1]).toBe(INTERVAL_MS[2] * 2);
+  });
+});
+
 describe('H2A — playback reveal semantics', () => {
   const life = computePlayback(SEED, content, {
     species: { kind: 'seeded_random' },
@@ -171,6 +185,30 @@ describe('H2A — playback reveal semantics', () => {
     }
   });
 
+  it('opens the whole life at once in review, and only the prefix during playback', () => {
+    let state: AppState = { ...setupState(), phase: 'playback' };
+    state = reducer(state, { type: 'begin-life', life });
+    state = reducer(state, { type: 'reveal-next' });
+    expect(revealedFrames(state)).toHaveLength(1);
+
+    // Review is only reachable once the life exists, and shows every frame.
+    while (!isPlaybackComplete(state)) state = reducer(state, { type: 'reveal-next' });
+    state = reducer(state, { type: 'finish-playback' });
+    const review = reducer(state, { type: 'open-life-review' });
+    expect(review.phase).toBe('life-review');
+    expect(revealedFrames(review)).toHaveLength(life.frames.length);
+    // It reuses the exact frame objects — no recomputation.
+    expect(revealedFrames(review)[0]).toBe(life.frames[0]);
+    expect(review.life).toBe(state.life);
+
+    expect(reducer(review, { type: 'back-to-outcome' }).phase).toBe('result');
+  });
+
+  it('refuses to open review before a life exists', () => {
+    const state: AppState = { ...setupState(), phase: 'review' };
+    expect(reducer(state, { type: 'open-life-review' }).phase).toBe('review');
+  });
+
   it('captures immutable frames rather than references to live state', () => {
     // Early frames must not carry late flags; a shared Set would fail this.
     const first = life.frames[0]!;
@@ -179,6 +217,49 @@ describe('H2A — playback reveal semantics', () => {
     if (last.dev.flags.length > first.dev.flags.length) {
       expect(first.dev.flags).not.toEqual(last.dev.flags);
     }
+  });
+});
+
+describe('H2A — review works from either outcome', () => {
+  /** Finds a seed whose life reaches the requested outcome kind. */
+  function seedWithOutcome(kind: 'ended' | 'nonterminal'): string {
+    for (let i = 0; i < 200; i++) {
+      const seed = `outcome-${kind}-${i}`;
+      const p = previewPlayerSetup(seed, content);
+      const life = computePlayback(seed, content, {
+        species: { kind: 'seeded_random' },
+        talents: { kind: 'fixed', talents: p.draftedTalents.slice(0, 3) },
+        allocation: { kind: 'explicit', allocation: spread(p.allocationPoints) },
+      });
+      if (life.outcome.kind === kind) return seed;
+    }
+    throw new Error(`no seed produced a ${kind} life`);
+  }
+
+  it.each(['ended', 'nonterminal'] as const)('offers a complete static review after a %s life', (kind) => {
+    const seed = seedWithOutcome(kind);
+    const p = previewPlayerSetup(seed, content);
+    const life = computePlayback(seed, content, {
+      species: { kind: 'seeded_random' },
+      talents: { kind: 'fixed', talents: p.draftedTalents.slice(0, 3) },
+      allocation: { kind: 'explicit', allocation: spread(p.allocationPoints) },
+    });
+    expect(life.outcome.kind).toBe(kind);
+
+    let state: AppState = reducer(initialState(content.contentVersion, false), {
+      type: 'begin-setup',
+      seed,
+      preview: p,
+    });
+    state = reducer(state, { type: 'begin-life', life });
+    while (!isPlaybackComplete(state)) state = reducer(state, { type: 'reveal-next' });
+    state = reducer(state, { type: 'finish-playback' });
+    expect(state.phase).toBe('result');
+
+    const review = reducer(state, { type: 'open-life-review' });
+    expect(review.phase).toBe('life-review');
+    expect(revealedFrames(review)).toHaveLength(life.frames.length);
+    expect(reducer(review, { type: 'back-to-outcome' }).phase).toBe('result');
   });
 });
 
@@ -199,6 +280,24 @@ describe('H2A — persistence', () => {
     const loaded = loadSession(content.contentVersion);
     expect(loaded.kind).toBe('ok');
     if (loaded.kind === 'ok') expect(loaded.session.seed).toBe(SEED);
+  });
+
+  it('restores a saved review directly as a static complete timeline', () => {
+    saveSession({
+      storageVersion: 1,
+      contentVersion: content.contentVersion,
+      seed: SEED,
+      phase: 'life-review',
+      chosenTalents: preview.draftedTalents.slice(0, 3),
+      allocation: spread(preview.allocationPoints),
+      revealedFrameIndex: 4,
+      speed: 1,
+      paused: true,
+      locale: 'en',
+    });
+    const loaded = loadSession(content.contentVersion);
+    expect(loaded.kind).toBe('ok');
+    if (loaded.kind === 'ok') expect(loaded.session.phase).toBe('life-review');
   });
 
   it('refuses to resume a record filed under different content', () => {
@@ -294,7 +393,10 @@ describe('H2A — application flow', () => {
 
     // The first frame is revealed by the timer, not synchronously.
     expect(revealedAges()).toHaveLength(0);
-    await advance(1100);
+    // Just under one 1x interval reveals nothing; just over it reveals one.
+    await advance(INTERVAL_MS[1] - 100);
+    expect(revealedAges()).toHaveLength(0);
+    await advance(200);
     await waitFor(() => expect(revealedAges().length).toBeGreaterThan(0));
   });
 
@@ -302,12 +404,12 @@ describe('H2A — application flow', () => {
     const user = await playThroughSetup();
     await user.click(screen.getByRole('button', { name: /BEGIN LIFE/i }));
 
-    await revealTicks(3, 1000);
+    await revealTicks(3, INTERVAL_MS[1]);
     const afterFirst = revealedAges().length;
     expect(afterFirst).toBeGreaterThanOrEqual(3);
 
     await user.click(screen.getByRole('button', { name: /^Pause$/ }));
-    await revealTicks(5, 1000);
+    await revealTicks(5, INTERVAL_MS[1]);
     // Five whole intervals of paused time reveal nothing.
     expect(revealedAges()).toHaveLength(afterFirst);
 
@@ -315,14 +417,14 @@ describe('H2A — application flow', () => {
     await user.click(screen.getByRole('button', { name: '2×' }));
     // At 2x, ticks of 500 ms reveal; the same count of shorter ticks advances
     // the timeline by the same number of years for half the elapsed time.
-    await revealTicks(4, 500);
+    await revealTicks(4, INTERVAL_MS[2]);
     expect(revealedAges().length).toBeGreaterThanOrEqual(afterFirst + 4);
   });
 
   it('hides internal state from the normal-mode DOM', async () => {
     const user = await playThroughSetup();
     await user.click(screen.getByRole('button', { name: /BEGIN LIFE/i }));
-    await revealTicks(6, 1000);
+    await revealTicks(6, INTERVAL_MS[1]);
     expect(revealedAges().length).toBeGreaterThan(2);
 
     const html = document.body.innerHTML;
@@ -335,10 +437,64 @@ describe('H2A — application flow', () => {
     expect(screen.queryByLabelText(/DEVELOPER INSPECTOR/i)).toBeNull();
   });
 
+  /**
+   * Runs a full life to its outcome screen without waiting real time.
+   *
+   * `finishLife` steps the reveal timer until the result screen appears, which is
+   * how a player reaches REVIEW LIFE.
+   */
+  async function finishLife(user: ReturnType<typeof userEvent.setup>): Promise<void> {
+    await user.click(screen.getByRole('button', { name: /BEGIN LIFE/i }));
+    for (let i = 0; i < 200; i++) {
+      if (screen.queryByRole('button', { name: /REVIEW LIFE/i })) return;
+      await advance(INTERVAL_MS[2] + 20);
+      if (i === 0) await user.click(screen.getByRole('button', { name: '2×' }));
+    }
+    throw new Error('life did not reach an outcome screen');
+  }
+
+  it('replaces animated replay with a static full-record review', async () => {
+    const user = await playThroughSetup();
+    await finishLife(user);
+
+    const beforeReview = revealedAges().length;
+    await user.click(screen.getByRole('button', { name: /REVIEW LIFE/i }));
+
+    // Every annual entry is present at once, with no timer involved.
+    const reviewed = revealedAges().length;
+    expect(reviewed).toBeGreaterThan(beforeReview);
+    await advance(INTERVAL_MS[1] * 3);
+    expect(revealedAges()).toHaveLength(reviewed);
+
+    // No playback controls in review.
+    expect(screen.queryByRole('button', { name: /^Pause$/ })).toBeNull();
+    expect(screen.queryByRole('button', { name: /^Resume$/ })).toBeNull();
+    expect(screen.queryByRole('button', { name: '1×' })).toBeNull();
+    expect(screen.queryByRole('button', { name: '2×' })).toBeNull();
+
+    // The final entry is marked, and the outcome is one click away.
+    expect(screen.getAllByText(/FINAL ENTRY/).length).toBe(1);
+    await user.click(screen.getAllByRole('button', { name: /BACK TO OUTCOME/i })[0]!);
+    expect(screen.queryByRole('button', { name: /REVIEW LIFE/i })).not.toBeNull();
+  });
+
+  it('keeps hidden state out of the review DOM', async () => {
+    const user = await playThroughSetup();
+    await finishLife(user);
+    await user.click(screen.getByRole('button', { name: /REVIEW LIFE/i }));
+
+    const html = document.body.innerHTML;
+    expect(html).not.toMatch(/EVT-[A-Z]{3}-/);
+    expect(html).not.toMatch(/ROUTE_[A-Z]/);
+    expect(html).not.toMatch(/FAC_[A-Z]/);
+    expect(html).not.toMatch(/\bFIX\b/);
+    expect(html).not.toMatch(/STATE_(CONTACTED|ENGAGED|COMMITTED|OPTED_OUT|CLOSED)/);
+  });
+
   it('exposes an accessible live region for the newest annual event only', async () => {
     const user = await playThroughSetup();
     await user.click(screen.getByRole('button', { name: /BEGIN LIFE/i }));
-    await revealTicks(3, 1000);
+    await revealTicks(3, INTERVAL_MS[1]);
     expect(revealedAges().length).toBeGreaterThan(1);
 
     const timeline = screen.getByRole('region', { name: /Annual record/i });

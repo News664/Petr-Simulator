@@ -26,17 +26,17 @@ export interface SimulationReport {
   scenarios: ScenarioReport[];
 }
 
-function pct(value: number | null | undefined, digits = 1): string {
+export function pct(value: number | null | undefined, digits = 1): string {
   if (value === null || value === undefined || Number.isNaN(value)) return 'n/a';
   return `${(value * 100).toFixed(digits)}%`;
 }
 
-function num(value: number | null | undefined, digits = 1): string {
+export function num(value: number | null | undefined, digits = 1): string {
   if (value === null || value === undefined || Number.isNaN(value)) return 'n/a';
   return value.toFixed(digits);
 }
 
-function table(headers: string[], rows: string[][]): string {
+export function table(headers: string[], rows: string[][]): string {
   const lines = [`| ${headers.join(' | ')} |`, `|${headers.map(() => '---').join('|')}|`];
   for (const row of rows) lines.push(`| ${row.join(' | ')} |`);
   return lines.join('\n');

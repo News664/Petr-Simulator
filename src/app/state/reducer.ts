@@ -22,7 +22,9 @@ export type Phase =
   | 'allocation'
   | 'review'
   | 'playback'
-  | 'result';
+  | 'result'
+  /** Static, complete-life review. No timer, no reveal, no recomputation. */
+  | 'life-review';
 
 export type Speed = 1 | 2;
 
@@ -89,6 +91,8 @@ export type Action =
   | { type: 'set-paused'; paused: boolean }
   | { type: 'set-speed'; speed: Speed }
   | { type: 'finish-playback' }
+  | { type: 'open-life-review' }
+  | { type: 'back-to-outcome' }
   | { type: 'new-life' }
   | { type: 'set-incompatible-save'; storedContentVersion: string | null }
   | { type: 'set-resumable'; seed: string | null }
@@ -214,6 +218,16 @@ export function reducer(state: AppState, action: Action): AppState {
       return { ...state, phase: 'result' };
     }
 
+    case 'open-life-review':
+      // Review reuses the frames already computed at BEGIN LIFE. It never
+      // re-enters playback, so no timer starts and the RNG is never touched.
+      if (!state.life) return state;
+      return { ...state, phase: 'life-review', paused: true };
+
+    case 'back-to-outcome':
+      if (state.phase !== 'life-review') return state;
+      return { ...state, phase: 'result' };
+
     case 'new-life':
       return {
         ...initialState(state.contentVersion, state.devMode, state.locale),
@@ -246,9 +260,18 @@ export function revealedFrame(state: AppState) {
   return state.life.frames[state.revealedFrameIndex] ?? null;
 }
 
-/** Frames revealed so far. Never includes the unrevealed future. */
+/**
+ * Frames the UI may render.
+ *
+ * During playback this is strictly the revealed prefix, so the component tree is
+ * structurally incapable of showing the future. In `life-review` the life is
+ * already over and every frame has been seen, so the whole timeline is available
+ * at once — that is the difference between the two modes.
+ */
 export function revealedFrames(state: AppState) {
-  if (!state.life || state.revealedFrameIndex < 0) return [];
+  if (!state.life) return [];
+  if (state.phase === 'life-review') return state.life.frames;
+  if (state.revealedFrameIndex < 0) return [];
   return state.life.frames.slice(0, state.revealedFrameIndex + 1);
 }
 

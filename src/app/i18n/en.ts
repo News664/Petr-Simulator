@@ -73,7 +73,7 @@ export const en: Messages = {
   'ending.certificate': 'CERTIFICATE OF PERMANENT STATUS',
   'ending.age': 'Recorded at age {age}',
   'ending.newLife': 'NEW LIFE',
-  'ending.replay': 'REPLAY THIS LIFE',
+  'ending.review': 'REVIEW LIFE',
   'ending.copySeed': 'COPY SEED',
   'ending.seedCopied': 'Reference copied',
   'ending.field.material': 'Primary Material',
@@ -88,6 +88,11 @@ export const en: Messages = {
   'ending.field.socialMeaning': 'Social Meaning',
   'ending.registeredSpecies': 'Registered as',
   'ending.fingerprint': 'Content revision',
+
+  'lifeReview.heading': 'FULL RECORD',
+  'lifeReview.lede': 'The complete annual record, {years} entries. The final entry is marked.',
+  'lifeReview.finalEvent': 'FINAL ENTRY',
+  'lifeReview.backToOutcome': 'BACK TO OUTCOME',
 
   'nonterminal.heading': 'RECORD REMAINS OPEN',
   'nonterminal.body':

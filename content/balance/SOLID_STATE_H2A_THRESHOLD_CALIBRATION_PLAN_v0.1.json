@@ -1,0 +1,183 @@
+{
+  "version": "0.1",
+  "status": "H2A_THRESHOLD_CALIBRATION",
+  "purpose": "Compare current authored FIX gates against retained LOW/MID/HIGH reversible profiles after the first human H2A playtest. Add stat-drift, event-frequency, housing, low-stat risk, and faction-chain telemetry. Do not freeze a profile automatically.",
+  "baseCorpus": "CURRENT_CANONICAL_REPOSITORY_AFTER_H2A_UI_FOUNDATION",
+  "profiles": [
+    {
+      "id": "CURRENT_AUTHORED",
+      "mode": "no_threshold_rewrite",
+      "note": "True current control arm. Do not substitute the old Phase 1.1 ORIGINAL_REFERENCE profile."
+    },
+    {
+      "id": "LOW",
+      "mode": "retained_phase1_1_threshold_profile"
+    },
+    {
+      "id": "MID",
+      "mode": "retained_phase1_1_threshold_profile"
+    },
+    {
+      "id": "HIGH",
+      "mode": "retained_phase1_1_threshold_profile"
+    }
+  ],
+  "sampling": {
+    "runsPerArm": 3000,
+    "speciesMode": "STRATIFY_EQUALLY_BY_SPECIES",
+    "talentScenario": "UNIFORM_RANDOM_THREE_COMPATIBLE_DIAGNOSTIC",
+    "allocationPolicy": "ARCHETYPE_SET",
+    "familyWeightMode": "uniform",
+    "sameBaseSeedAcrossArms": true,
+    "baseSeed": "h2a_threshold_v01",
+    "maxAge": 120
+  },
+  "whyArchetypeAllocation": "The current H2A baseline diagnostics and manual play are closer to player-like concentrated allocations than the old Phase 1.1 BALANCED_RANDOM_FILL threshold experiment. This run is a current H2A calibration, not a replacement for the retained historical experiment.",
+  "requiredCoreMetrics": [
+    "completion and nonterminal rate",
+    "ending count per 1000 runs",
+    "ending-age bucket counts, share of all runs, and share of completed runs",
+    "mean/median/p10/p90 ending age",
+    "ending coverage and ending ID distribution",
+    "ending counts by route family and faction",
+    "material commitment rate",
+    "mean/median material commitment age",
+    "mean FIX at commitment and ending",
+    "final material distribution and material guardrails",
+    "route climax rates",
+    "schedule expiry/displacement/collision metrics",
+    "generic fallback and lore fallback by age band",
+    "pre-25 correctness counters",
+    "faction correctness counters"
+  ],
+  "statTelemetry": {
+    "snapshotAges": [
+      0,
+      18,
+      25,
+      35,
+      50,
+      65
+    ],
+    "includeFinal": true,
+    "visibleStats": [
+      "CHR",
+      "INT",
+      "STR",
+      "MNY",
+      "SPR"
+    ],
+    "perSnapshot": [
+      "active run count",
+      "mean",
+      "median",
+      "p10",
+      "p25",
+      "p75",
+      "p90",
+      "p95",
+      "min",
+      "max",
+      "share <=2",
+      "share <=4",
+      "share >=12",
+      "share >=15",
+      "share >=20"
+    ],
+    "drift": [
+      "mean delta from post-setup starting visible stat at each snapshot age",
+      "mean positive authored delta per 1000 run-years by stat",
+      "mean negative authored delta per 1000 run-years by stat",
+      "share of runs whose final stat is lower/equal/higher than post-setup start"
+    ],
+    "interpretation": "Telemetry only. Do not add visible-stat clamps or pressure rules in this task."
+  },
+  "eventFrequencyTelemetry": {
+    "topEventCount": 25,
+    "report": [
+      "event occurrences per 1000 run-years",
+      "unique-run incidence",
+      "repeat-within-same-run incidence",
+      "mean count among runs where event appears",
+      "maximum count in one run",
+      "repeatPolicy and cooldown/max metadata"
+    ],
+    "housing": [
+      "all events tagged housing",
+      "housing-event run incidence",
+      "housing-event occurrences per 1000 run-years",
+      "runs with 2+ housing events",
+      "top housing event IDs",
+      "aggregate visible-stat deltas caused by housing events, especially MNY and SPR"
+    ],
+    "purpose": "Determine whether the manual 'move home' repetition is a corpus-frequency issue, a single repeatable-event issue, or sampling noise."
+  },
+  "lowStatRiskTelemetry": {
+    "ageMinimum": 18,
+    "bands": [
+      {
+        "id": "critical",
+        "condition": "<=2"
+      },
+      {
+        "id": "vulnerable",
+        "condition": "3..4"
+      },
+      {
+        "id": "ordinary_plus",
+        "condition": ">=5"
+      }
+    ],
+    "horizonsYears": [
+      3,
+      5
+    ],
+    "perStat": [
+      "person-years in each band",
+      "probability of any ending within horizon conditional on band",
+      "probability of Material Commitment within horizon conditional on band",
+      "probability of faction COMMITTED transition within horizon conditional on band"
+    ],
+    "purpose": "Measure whether low visible stats already correlate with danger before authoring a new Visible-Stat Pressure content layer. Do not infer causation from correlation."
+  },
+  "factionChainTelemetry": {
+    "perFaction": [
+      "contact incidence",
+      "ENGAGED incidence",
+      "COMMITTED incidence",
+      "OPTED_OUT incidence",
+      "CLOSED incidence",
+      "faction-caused ending incidence",
+      "personal faction event count per contacted faction-run: exactly 1, exactly 2, 3+",
+      "mean/median years between personal faction events",
+      "share opting out/closing at first disposition",
+      "share reaching escalation after ENGAGED",
+      "share reaching climax after COMMITTED"
+    ],
+    "purpose": "Quantify the human observation that faction chains are hard to perceive and safe exit is frequent. This is a narrative-legibility diagnostic; do not change FSM rules in this run."
+  },
+  "selectionReviewGuardrails": {
+    "automaticSelection": false,
+    "preferredCompletionRateForH2A": "roughly 45-70%, not a final target",
+    "preferredCommitmentRateForH2A": "roughly 45-70%, not a final target",
+    "preferredCommitmentTiming": "late 20s to early 30s",
+    "endingAgePriority": [
+      "25-34 should become a major or largest bucket",
+      "65+ should fall materially from the current survivor-heavy shape",
+      "do not reject a profile solely because 18-24 remains below final target; new adverse pathways are expected to contribute later"
+    ],
+    "materialGuardrailsRemainBindingWarnings": true,
+    "ifNoArmLooksPlausible": "Report that no profile is satisfactory. Do not interpolate, auto-tune, or edit canonical thresholds."
+  },
+  "explicitlyNotRun": [
+    "family-weight A/B",
+    "allocation policy comparison",
+    "T1027 sensitivity sweep",
+    "T1023 targeted comparison",
+    "neutral-Human manifestation diagnostic"
+  ],
+  "retentionPolicy": {
+    "notDropped": true,
+    "note": "All omitted harnesses remain retained for H2B or future relevant regression work."
+  }
+}

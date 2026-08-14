@@ -450,7 +450,7 @@ Listed so their absence is not mistaken for an oversight.
 
 | Not implemented | Reason |
 |---|---|
-| Any React or UI code | H2A is now open, but Phase 1.3 stops before implementation by instruction |
+| ~~Any React or UI code~~ | Superseded: the H2A UI foundation added the browser app. The **engine** is still UI-free — React consumes it through `src/engine/preview.ts`, `src/engine/playback.ts` and the generated browser snapshot, and no simulation rule lives in a component. |
 | 0.5-year cadence | Contract §7 — explicitly forbidden in v1 |
 | Afterform | Contract §26 — not part of the annual timeline; not required for Phase 1 |
 | localStorage persistence | Contract §27 — browser-side, belongs to H2 |
@@ -470,4 +470,5 @@ Listed so their absence is not mistaken for an oversight.
 | 2026-08-12 | Created at Phase-1 handoff with E-01 … E-18 |
 | 2026-08-13 | Phase 1.1 patch integrated. Adapter shrunk to two diagnostic entries; E-19 … E-22 added. E-01, E-02, E-03, E-05 … E-13, E-17 are now canonical data rather than engine decisions. |
 | 2026-08-13 | Phase 1.2 patch integrated: Faction Registry v0.1, Batch 006, Batch 005 v0.2, Route Tag Registry v1.1, Talent Registry v1.2, the compact diagnostic plan. E-23 … E-26 added. One content conflict found and reported (`PHASE1_CONFLICTS.md` P12-C1). |
+| 2026-08-14 | H2A UX micro-patch + threshold calibration: **no engine change.** The calibration adds measurement modules only (`src/sim/h2aThresholdTelemetry.ts`, `src/sim/h2aThresholdReport.ts`, `src/cli/h2a-threshold.ts`) and reuses the retained Phase 1.1 reversible threshold rewrite. The UX patch is application-layer; playback cadence moved out of `App.tsx` into the canonical UI tokens. |
 | 2026-08-13 | Phase 1.3 patch integrated: Content Schema v0.4, Faction Registry v0.2, Batch 007, Batch 006 v0.2, Batch 005 v0.3, Route Tag Registry v1.2, content tool v0.3, the sanity plan. E-27 … E-30 added. Two missing-input conflicts found and reported (`PHASE1_CONFLICTS.md` P13-C1). |

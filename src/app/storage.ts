@@ -15,7 +15,14 @@ import type { VisibleStat } from '../engine/types.js';
 export const STORAGE_NAMESPACE = 'solid-state:h2a:v1';
 export const SESSION_KEY = `${STORAGE_NAMESPACE}:session`;
 
-export type StoredPhase = 'birth' | 'talents' | 'allocation' | 'review' | 'playback' | 'result';
+export type StoredPhase =
+  | 'birth'
+  | 'talents'
+  | 'allocation'
+  | 'review'
+  | 'playback'
+  | 'result'
+  | 'life-review';
 
 export interface StoredSession {
   storageVersion: 1;

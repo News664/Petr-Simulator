@@ -641,3 +641,23 @@ button {
     width: 100vw;
   }
 }
+
+/* ------------------------------------------------------- life review ----- */
+
+.review-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.event-card--final {
+  border-left-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.event-card__final-tag {
+  color: var(--accent);
+  letter-spacing: 0.14em;
+}
