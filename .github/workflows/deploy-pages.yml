@@ -1,0 +1,73 @@
+name: Deploy GitHub Pages
+
+# Publishes the H2A/H2B browser build to GitHub Pages.
+#
+# `main` is the stable/public playtest branch, so this is the only branch that
+# ever deploys — development branches build nothing here. The Pages source is
+# configured in repository settings as "GitHub Actions"; no `gh-pages` branch
+# and no `/docs` publishing is used, and `dist/` is never committed.
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Least privilege: read the repo, write a Pages deployment, mint the OIDC token
+# the deploy action needs. Nothing else.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time. A newer push to `main` cancels the superseded run
+# rather than racing it, so the last commit pushed is the one that ends up live.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Verify and build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Gate. If content validation, mirrors, the browser snapshot check or the
+      # test suite fail, the job fails here and `deploy` never runs.
+      - name: Verify
+        run: npm run verify
+
+      - name: Build
+        run: npm run build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    name: Deploy to Pages
+    # `needs` is what guarantees "never deploy after a verify/build failure":
+    # a failed build job leaves this job skipped.
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

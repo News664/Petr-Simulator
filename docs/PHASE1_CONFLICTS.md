@@ -13,7 +13,7 @@
 > | C-3 awareness prose | **CLOSED** — Ending Registry v1.1 structured columns |
 > | C-4 / C-4a route tag namespaces | **CLOSED** — Route Tag Registry v1.0, including the `academic` TRN rule as a per-tag field |
 > | C-5 ages 0–5 coverage | **CLOSED** — Batch 005; 0% defect rate under strict policy |
-> | C-6 endings unreachable | **CLOSED as stated**, but replaced by a new ending-age-shape problem — see [`PHASE1_1_FINDINGS.md`](PHASE1_1_FINDINGS.md) finding 2 |
+> | C-6 endings unreachable | **CLOSED as stated**, but replaced by a new ending-age-shape problem — see [`PHASE1_1_FINDINGS.md`](archive/phase1/PHASE1_1_FINDINGS.md) finding 2 |
 > | C-7 unreachable content | **PARTIALLY CLOSED** — SPC, `mandatory_only`, END-ANO-001/002 and 65+ endings all now exist and occur; SPC remains near-unreachable without anomalous talents, and `AEVT`/`ACH`/`TMS` are still unused by content |
 >
 > This document is retained as the Phase-1 record. New conflicts are recorded in
@@ -279,7 +279,7 @@ recorded here rather than presented as canonical design.
 > **Status: CLOSED (2026-08-13, Phase 1.3.1).** Design ratifies both derived
 > implementations as canonical and records the gap as a **packaging error, not a
 > design disagreement**
-> ([`PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md)).
+> ([`PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md`](archive/decisions/PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md)).
 > Ratified exactly as built:
 >
 > - Content Tool v0.3 renders and checks `factionIds`, `factionInteraction`,

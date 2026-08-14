@@ -215,9 +215,9 @@ next separate task.
 ## 9. v0.2 — UX micro-patch after playtest round 1
 
 Driven by
-[`ui/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md`](ui/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md)
+[`ui/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md`](../h2a/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md)
 and specified by
-[`ui/SOLID_STATE_H2A_UX_MICRO_PATCH_v0.1.md`](ui/SOLID_STATE_H2A_UX_MICRO_PATCH_v0.1.md).
+[`ui/SOLID_STATE_H2A_UX_MICRO_PATCH_v0.1.md`](../../ui/SOLID_STATE_H2A_UX_MICRO_PATCH_v0.1.md).
 **No simulation, RNG or content behaviour changed.**
 
 ### Playback cadence — 1000/500 ms → 1300/650 ms

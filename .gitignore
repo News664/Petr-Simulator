@@ -2,23 +2,16 @@ node_modules/
 dist/
 *.tsbuildinfo
 .DS_Store
-# Generated simulation output. The phase deliverable reports are tracked;
-# ad-hoc runs are not.
+# Generated simulation output. Only the reports that are current evidence for
+# the working balance are tracked; every other run — including regenerated
+# copies of retired milestone reports — is ad-hoc and stays out of git.
+# See reports/REPORT_INDEX.md for what each retired report was and how to
+# regenerate it. This ignores generated output only: canonical content lives in
+# content/ and human-authored findings live in docs/, neither of which is
+# ignored anywhere in this file.
 reports/*
 !reports/.gitkeep
-!reports/monte-carlo.json
-!reports/monte-carlo.md
-!reports/phase1_1-experiments.json
-!reports/phase1_1-experiments.md
-!reports/phase1_2-diagnostic.json
-!reports/phase1_2-diagnostic.md
-!reports/phase1_3-sanity.json
-!reports/phase1_3-sanity.md
-!reports/phase1_3_1-targeted-sanity.json
-!reports/phase1_3_1-targeted-sanity.md
-!reports/h2a-threshold-calibration.json
-!reports/h2a-threshold-calibration.md
-!reports/h2b-batch008-diagnostic.json
+!reports/REPORT_INDEX.md
 !reports/h2b-batch008-diagnostic.md
 !reports/h2b-content-lint.md
 !reports/h2b1a-regression.json

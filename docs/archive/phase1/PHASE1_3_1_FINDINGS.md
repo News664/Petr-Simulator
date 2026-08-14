@@ -2,7 +2,13 @@
 
 ## Version 0.1 — for design review
 
-> **Decisions arising from this document are tracked in [`OPEN_QUESTIONS.md`](OPEN_QUESTIONS.md).** Resolve them there, not here.
+> **Note (Part B, 2026-08-14):** the generated report this document was
+> written from is no longer tracked in git — it measured an earlier corpus.
+> The conclusions below are unchanged. See
+> [`reports/REPORT_INDEX.md`](../../../reports/REPORT_INDEX.md) for what it measured and the command
+> that regenerates it.
+
+> **Decisions arising from this document are tracked in [`OPEN_QUESTIONS.md`](../../OPEN_QUESTIONS.md).** Resolve them there, not here.
 
 Source data: `reports/phase1_3_1-targeted-sanity.md` / `.json`, produced by
 `npm run sanity -- --plan SOLID_STATE_PHASE1_3_1_TARGETED_SANITY_v0.1.json` —

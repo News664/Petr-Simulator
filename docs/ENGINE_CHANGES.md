@@ -237,7 +237,7 @@ a real namespace" rule was extended to count flags produced by
 
 ## E-01 — The academic route biased the TEMP material family
 
-**Severity** rules violation · **Ratify via** [Q-07a](OPEN_QUESTIONS.md#q-07)
+**Severity** rules violation · **Ratify via** [Q-07a](archive/decisions/DECISION_HISTORY.md#q-07)
 
 `EVENT_DRAFTING_RULES_v0.2` §Comparative Materials states the route *"must not
 favor one specific final material merely because the route is active"*.
@@ -268,7 +268,7 @@ would be a content-side fix. Left to design — see Q-07a.
 
 ## E-02 — Cooldown reading made every run fail at age 5
 
-**Severity** blocking · **Ratify via** [Q-08](OPEN_QUESTIONS.md#q-08)
+**Severity** blocking · **Ratify via** [Q-08](archive/decisions/DECISION_HISTORY.md#q-08)
 
 The first implementation read `repeatCooldownYears` as `AGE - lastAge > C`
 ("C full years must pass"). Under that reading `EVT-ORD-FAM-0002` (cooldown 2)
@@ -287,13 +287,13 @@ chronological year, since the cadence is one visible event per year.
 gaps are `>= cooldown` across 40 seeded runs.
 
 **Note** This fix does *not* resolve the pre-25 coverage defect; it reduces it
-from 100% to 83–85%. See [Q-01](OPEN_QUESTIONS.md#q-01).
+from 100% to 83–85%. See [Q-01](archive/decisions/DECISION_HISTORY.md#q-01).
 
 ---
 
 ## E-03 — Schedule validity as a destruction test suppressed all endings
 
-**Severity** blocking · **Ratify via** [Q-09](OPEN_QUESTIONS.md#q-09)
+**Severity** blocking · **Ratify via** [Q-09](archive/decisions/DECISION_HISTORY.md#q-09)
 
 Contract §14 says a schedule expires when validity "becomes impossible". Read as
 "drop the schedule the first year its condition is false", every canonical climax
@@ -321,7 +321,7 @@ channels would have had total weight 0 and thrown, ending a run that in fact had
 eligible content.
 
 Not reachable today (there are no `SPC` events at all — see
-[Q-19](OPEN_QUESTIONS.md#q-19)), but it would become reachable the moment SPC
+[Q-19](archive/decisions/DECISION_HISTORY.md#q-19)), but it would become reachable the moment SPC
 content is authored.
 
 **Fix** `src/engine/drafting.ts::draftNormalEvent` falls back to uniform
@@ -340,17 +340,17 @@ reversible without touching code.
 
 | ID | Decision | Where | Ratify via |
 |---|---|---|---|
-| E-05 | Family weight = sum of eligible event weights | `familyWeightMode` | [Q-10](OPEN_QUESTIONS.md#q-10) |
-| E-06 | Same-class priority ties break by soonest window close, then creation order; RNG tiebreak unreachable | `src/engine/schedules.ts::rankCandidates` | [Q-11](OPEN_QUESTIONS.md#q-11) |
-| E-07 | Visible stats unclamped; FIX floored at 0 | `statClamp` | [Q-12](OPEN_QUESTIONS.md#q-12) |
-| E-08 | `TMS` = completed prior runs | `src/engine/state.ts::conditionContext` | [Q-13](OPEN_QUESTIONS.md#q-13) |
+| E-05 | Family weight = sum of eligible event weights | `familyWeightMode` | [Q-10](archive/decisions/DECISION_HISTORY.md#q-10) |
+| E-06 | Same-class priority ties break by soonest window close, then creation order; RNG tiebreak unreachable | `src/engine/schedules.ts::rankCandidates` | [Q-11](archive/decisions/DECISION_HISTORY.md#q-11) |
+| E-07 | Visible stats unclamped; FIX floored at 0 | `statClamp` | [Q-12](archive/decisions/DECISION_HISTORY.md#q-12) |
+| E-08 | `TMS` = completed prior runs | `src/engine/state.ts::conditionContext` | [Q-13](archive/decisions/DECISION_HISTORY.md#q-13) |
 | E-09 | Schedule window = `earliest + windowYears`, inclusive | `scheduleWindowSemantics` | — |
-| E-10 | Species tendency tier collisions resolve strongest-tier-wins | `speciesTendencyPrecedence` | [Q-04](OPEN_QUESTIONS.md#q-04) |
-| E-11 | T1027 grants +15 starting FIX; baseline FIX is 0 | `talentAdapters.T1027.startFIX`, `startingFIX.base` | [Q-14](OPEN_QUESTIONS.md#q-14), [Q-16](OPEN_QUESTIONS.md#q-16) |
-| E-12 | T1025 → `RSPECIES = UNREGISTERED`; T1030 → seeded other species | `talentAdapters.*.registeredSpeciesRule` | [Q-15](OPEN_QUESTIONS.md#q-15) |
-| E-13 | `Uncertain` awareness needs no authorization; the other three rare states do | `AUTHORIZATION_REQUIRED_AWARENESS` | [Q-18](OPEN_QUESTIONS.md#q-18) |
+| E-10 | Species tendency tier collisions resolve strongest-tier-wins | `speciesTendencyPrecedence` | [Q-04](archive/decisions/DECISION_HISTORY.md#q-04) |
+| E-11 | T1027 grants +15 starting FIX; baseline FIX is 0 | `talentAdapters.T1027.startFIX`, `startingFIX.base` | [Q-14](OPEN_QUESTIONS.md#q-14), [Q-16](archive/decisions/DECISION_HISTORY.md#q-16) |
+| E-12 | T1025 → `RSPECIES = UNREGISTERED`; T1030 → seeded other species | `talentAdapters.*.registeredSpeciesRule` | [Q-15](archive/decisions/DECISION_HISTORY.md#q-15) |
+| E-13 | `Uncertain` awareness needs no authorization; the other three rare states do | `AUTHORIZATION_REQUIRED_AWARENESS` | [Q-18](archive/decisions/DECISION_HISTORY.md#q-18) |
 | E-14 | Ending Record prose fields resolve to first-listed, or `Unknown` for "route-derived" | `src/engine/endings.ts::resolveRegistryField` | — |
-| E-15 | Talent hook scalars encoded only where the registry states explicit family/channel polarity | `talentAdapters` | [Q-05](OPEN_QUESTIONS.md#q-05) |
+| E-15 | Talent hook scalars encoded only where the registry states explicit family/channel polarity | `talentAdapters` | [Q-05](archive/decisions/DECISION_HISTORY.md#q-05) |
 
 ## E-16 — Deterministic ordering wherever a Set or Map is iterated
 
@@ -400,7 +400,7 @@ real change. Reproducibility is worth the churn.
 
 ## E-17 — Diagnostic pre-25 coverage policy
 
-**Ratify via** [Q-01](OPEN_QUESTIONS.md#q-01)
+**Ratify via** [Q-01](archive/decisions/DECISION_HISTORY.md#q-01)
 
 Added `pre25CoveragePolicy` with two modes. Default `"strict"` is the
 contract-faithful behaviour: an empty pre-25 pool ends the run as a content
@@ -519,9 +519,9 @@ Listed so their absence is not mistaken for an oversight.
 | Achievements / meta-progression | No registry exists — [Q-25](OPEN_QUESTIONS.md#q-25) |
 | `zh-TW` text | Contract §28 — agents must not invent translations; empty strings preserved |
 | Any balance retune | Handoff §7 — provisional constants are simulation inputs, and §Q requires design review first |
-| A FIX drift rule | No canonical field exists — [Q-26](OPEN_QUESTIONS.md#q-26) |
+| A FIX drift rule | No canonical field exists — [Q-26](archive/decisions/DECISION_HISTORY.md#q-26) |
 | `FSTATE[...]` or any faction condition syntax | Content Schema v0.4 forbids it; lifecycle is read through ordinary `FLAG[...]` |
-| Any faction reputation, loyalty, hostility or alignment value | [Q-28](OPEN_QUESTIONS.md#q-28); the registry schema pins `numericReputationMeter: false` |
+| Any faction reputation, loyalty, hostility or alignment value | [Q-28](archive/decisions/DECISION_HISTORY.md#q-28); the registry schema pins `numericReputationMeter: false` |
 
 ---
 

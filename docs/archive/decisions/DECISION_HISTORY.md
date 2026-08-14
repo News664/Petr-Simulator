@@ -1,0 +1,1241 @@
+# SOLID STATE — Decision History (archived full register)
+
+> **This is the archived full text of the Open Questions Register**, frozen at
+> H2B.1A. It is the complete decision record: every question `Q-01 … Q-30` with
+> its evidence, options, trade-offs, engine behaviour, resolution block and every
+> per-milestone decision and outcome line, exactly as accumulated through
+> Phase 1 → Phase 1.3.1 → H2A → H2B.
+>
+> **The live register is [`docs/OPEN_QUESTIONS.md`](../../OPEN_QUESTIONS.md).**
+> Resolve questions there, not here. Nothing in this file should be edited
+> again — it is history. Read it when you need the full trail behind a decision
+> the live register only summarises.
+>
+> Relative links were rewritten when this file moved into `docs/archive/`.
+> Report files that have since been retired are described in
+> [`reports/REPORT_INDEX.md`](../../../reports/REPORT_INDEX.md), which records
+> what each one measured and how to regenerate it.
+
+## Version 0.5 — the official decision list (Phase 1 → Phase 1.3.1)
+
+This file is the **single authoritative list of everything the coding agent could
+not decide alone**. Anything discussed in a chat log but not written here is not
+official.
+
+**Phase 1.1 update (decisions dated 2026-08-13).** The design resolutions in
+[`PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md) have
+been merged into the Resolution blocks below; that file is the input record, not
+a second register. Measured outcomes are in
+[`PHASE1_1_FINDINGS.md`](../phase1/PHASE1_1_FINDINGS.md).
+
+**Phase 1.2 update (decisions dated 2026-08-13).** The design resolutions in
+[`PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md) have
+been merged the same way, adding **Q-27** and a `_Phase 1.2 outcome_` line to
+Q-02, Q-10, Q-14, Q-19, Q-22, Q-23 and Q-24. Measured outcomes are in
+[`PHASE1_2_FINDINGS.md`](../../PHASE1_2_FINDINGS.md).
+
+**Phase 1.3 update (decisions dated 2026-08-13).** The design resolutions in
+[`PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md) add
+**Q-28** (faction FSM), **Q-29** (faction prominence) and **Q-30** (faction
+news / lore fallback), update **Q-27** and **Q-23**, and ratify the P12-C1
+duplicate-ID resolution. Measured outcomes are in
+[`PHASE1_3_FINDINGS.md`](../../PHASE1_3_FINDINGS.md). Five questions remain
+deliberately open: **Q-14, Q-23, Q-25, Q-27, Q-29**.
+
+**Phase 1.3.1 update (decisions dated 2026-08-13).** The micro-calibration
+resolutions in
+[`PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md)
+close **P13-C1** (packaging error; the derived Content Tool v0.3 and Route Tag
+Registry v1.2 are ratified as canonical) and approve four condition-only edits in
+Batch 007 under **Q-27**. Measured outcomes are in
+[`PHASE1_3_1_FINDINGS.md`](../phase1/PHASE1_3_1_FINDINGS.md). No question changed status.
+
+**H2A threshold calibration update (measured 2026-08-14, no decisions taken).**
+The current-corpus four-arm calibration
+(`CURRENT_AUTHORED` / LOW / MID / HIGH, 3 000 runs each) adds **evidence only**
+to **Q-02**, **Q-12**, **Q-27** and **Q-29**. **No question changed status**, no
+threshold profile was selected or frozen, and no canonical content was edited.
+Analysis is in
+[`H2A_THRESHOLD_CALIBRATION_FINDINGS.md`](../h2a/H2A_THRESHOLD_CALIBRATION_FINDINGS.md);
+data in `reports/h2a-threshold-calibration.{json,md}`. The first human playtest
+([`ui/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md`](../h2a/SOLID_STATE_H2A_MANUAL_PLAYTEST_ROUND1_v0.1.md),
+5 lives) is recorded as **qualitative evidence, not a population estimate**.
+
+**H2B.1A update (2026-08-14).** LOW is now the **working canonical H2B balance**
+— applied mechanically to the retained gate assignments and matching schedule
+validity terms, with the historical experiment matrix and reversible profile
+machinery preserved. This is a working balance for Human Playtest Round 2, **not
+the final freeze**, so **Q-02 stays open numerically**. Corrections A-01 … A-11
+are applied, A-04's data-driven state-trigger facility is in place, and the A-12
+contributor audit is generated without editing any stat effect. Evidence-only
+additions to **Q-02**, **Q-12**, **Q-27** and **Q-29**; **no question changed
+status**. Analysis is in [`H2B1A_FINDINGS.md`](../../H2B1A_FINDINGS.md); four
+observations for design review are **H2B1A-C1 … H2B1A-C4** in
+[`PHASE1_CONFLICTS.md`](../../PHASE1_CONFLICTS.md).
+
+**H2B Batch 008 update (measured 2026-08-14, no decisions taken).** The Pressure
+& Tone integration adds **28 events (Batch 008)**, `END-MED-003 Benefit Approved`
+(Ending Registry v1.2), 13 existing-event patches, the single-active-personalized-
+faction engine rule and two new content lints. It adds **evidence only** to
+**Q-02**, **Q-12**, **Q-23**, **Q-27** and **Q-29**. **No question changed
+status**, no threshold profile was frozen — LOW remains a *provisional diagnostic
+baseline* — and Batch 008 was not auto-tuned from the run that introduced it.
+Analysis is in [`H2B_BATCH008_FINDINGS.md`](../../H2B_BATCH008_FINDINGS.md); four
+observations for design review are **H2B-C1 … H2B-C4** in
+[`PHASE1_CONFLICTS.md`](../../PHASE1_CONFLICTS.md).
+
+**Next project milestone: H2A.** Phase 1.3 is the final planned headless-only
+content iteration. The H2A human-playtest gate is
+[`docs/spec/SOLID_STATE_H2A_HUMAN_PLAYTEST_GATE_v0.1.md`](../../spec/SOLID_STATE_H2A_HUMAN_PLAYTEST_GATE_v0.1.md);
+its eleven hard correctness blockers all pass, so **H2A is OPEN**. Balance
+questions below stay open and are explicitly *not* H2A blockers.
+
+Every open question has a stable ID (`Q-nn`). Resolve one by editing its
+**Resolution** block in place — set `Status`, write the decision, and note which
+files change. Do not delete resolved questions; they are the design record.
+
+### How to use this file with another AI tool
+
+Each entry is self-contained: the question, the evidence with file paths, the
+options with trade-offs, what the engine does today, how to change it, and a
+recommendation. An agent should be able to act on a single entry without reading
+the rest of the repository.
+
+When a resolution requires an engine change, the "Engine change required" line
+names the exact file and field. When it requires content or registry authoring,
+that is stated explicitly — **the coding agent will not author creative content
+or rewrite registries without a decision here.**
+
+### Status vocabulary
+
+| Status | Meaning |
+|---|---|
+| `OPEN` | Needs a design decision |
+| `RATIFY` | Engine already behaves a certain way; needs confirmation or correction |
+| `RESOLVED` | Decided — resolution recorded below the entry |
+
+---
+
+## Summary
+
+| ID | Question | Owner | Blocking | Status |
+|---|---|---|---|---|
+| [Q-01](#q-01) | How should ages 0–5 be given coverage slack? | Content | **yes** | `RESOLVED` |
+| [Q-02](#q-02) | How should the FIX economy reach the climax gates? | Balance | **yes** | `RESOLVED` (numbers experimental) |
+| [Q-03](#q-03) | Should any ending be reachable after age 64? | Content | **yes** | `RESOLVED` |
+| [Q-04](#q-04) | How do species tendency labels map to family codes? | Design | no | `RESOLVED` |
+| [Q-05](#q-05) | What polarity do talent channel/family hooks carry? | Design | no | `RESOLVED` |
+| [Q-06](#q-06) | How should `default_awareness` prose be structured? | Design | no | `RESOLVED` |
+| [Q-07](#q-07) | How do route tags map to route flag namespaces? | Design | no | `RESOLVED` |
+| [Q-08](#q-08) | Is `repeatCooldownYears` "at least C" or "more than C"? | Design | no | `RESOLVED` |
+| [Q-09](#q-09) | Is `validityCondition` a fire gate or a destruction test? | Design | no | `RESOLVED` |
+| [Q-10](#q-10) | Should family weight follow content density? | Balance | no | `RESOLVED` (Phase 1.1) |
+| [Q-11](#q-11) | How should same-class priority ties break? | Design | no | `RESOLVED` |
+| [Q-12](#q-12) | Should visible stats be clamped? | Design | no | `RESOLVED` |
+| [Q-13](#q-13) | What does `TMS` mean? | Design | no | `RESOLVED` |
+| [Q-14](#q-14) | How much starting FIX does T1027 grant? | Balance | no | **`OPEN`** / deferred |
+| [Q-15](#q-15) | What registered species do T1025 and T1030 assign? | Design | no | `RESOLVED` |
+| [Q-16](#q-16) | What is the baseline starting FIX? | Balance | no | `RESOLVED` |
+| [Q-17](#q-17) | Is the diagnostic allocation policy player-realistic? | Design | no | `RESOLVED` |
+| [Q-18](#q-18) | Does `Uncertain` awareness require authorization? | Design | no | `RESOLVED` |
+| [Q-19](#q-19) | Should `SPC` channel content exist? | Content | no | `RESOLVED` |
+| [Q-20](#q-20) | Should any route use `mandatory_only`? | Content | no | `RESOLVED` |
+| [Q-21](#q-21) | How are `END-ANO-001` / `END-ANO-002` reached? | Content | no | `RESOLVED` |
+| [Q-22](#q-22) | Should first manifestation be 52% WOOD and pinned to 18? | Content | no | `RESOLVED` |
+| [Q-23](#q-23) | Is a 35% adult fallback share acceptable? | Content | no | **`OPEN`** / monitor |
+| [Q-24](#q-24) | Is T1017's activation profile intended? | Balance | no | `RESOLVED` (Phase 1.2) |
+| [Q-25](#q-25) | What is the achievements registry, for `ACH[id]`? | Design | no | **`OPEN`** / deferred |
+| [Q-26](#q-26) | Should FIX drift passively with age? | Balance | no | `RESOLVED` |
+| [Q-27](#q-27) | How should the ending-age distribution be shaped? | Content | **yes** | **`OPEN`** (two structural iterations done; 18–34 supply now the gap) |
+| [Q-28](#q-28) | What is the faction relationship model? | Design | no | `RESOLVED` |
+| [Q-29](#q-29) | How prominent should factions be? | Balance | no | **`OPEN`** (direction resolved, number not frozen) |
+| [Q-30](#q-30) | Should passive faction news exist, and how? | Content | no | `RESOLVED` |
+
+---
+
+# Tier 1 — blocking the balance freeze
+
+<a id="q-01"></a>
+## Q-01 — How should ages 0–5 be given coverage slack?
+
+**Owner** Content · **Blocking** yes · **Status** `OPEN`
+**Evidence** [`PHASE1_CONFLICTS.md#C-5`](../../PHASE1_CONFLICTS.md) · [`PHASE1_FINDINGS.md §1`](../../PHASE1_FINDINGS.md) · `reports/monte-carlo-strict.md`
+
+Ages 0–5 are six chronological years served by exactly four eligible events
+supplying exactly six event-years:
+
+| Event | Age | Repeat | Max event-years in 0–5 |
+|---|---|---|---:|
+| `EVT-INS-CIV-0001` | 0–3 | once_per_run | 1 |
+| `EVT-ORD-FAM-0001` | 2–5 | once_per_run | 1 |
+| `EVT-ORD-FAM-0006` | 0–5 | once_per_run | 1 |
+| `EVT-ORD-FAM-0002` | 0–5 | repeatable, cooldown 2, max 3 | 3 |
+
+Capacity equals demand with zero margin, and the third occurrence of
+`EVT-ORD-FAM-0002` is reachable only if its first lands on age 0 or 1. Weighted
+drafting has no lookahead, so **83–85% of runs across all five scenarios
+terminate at age 4 or 5** with a content coverage defect.
+
+`SOLID_STATE_CONTENT_AUDIT_v0.2.md` reports "Pre-25 repeatable baseline coverage
+gaps: 0 PASS", which appears to have measured capacity rather than
+schedulability.
+
+**Options**
+
+| # | Option | Trade-off |
+|---|---|---|
+| A | Author 2–3 new repeatable `baseline` ORD/FAM/GEN events covering ages 0–5 | Restores real margin; requires new prose (**recommended**) |
+| B | Lower `EVT-ORD-FAM-0002` cooldown to 1 and raise `repeatMaxCount` | No new prose, but one event carries most of early childhood, and the fit stays exact |
+| C | Widen an existing childhood event's age range to overlap 0–5 | Cheapest; may contradict the event's authored meaning |
+| D | Permit `fallback_only` before age 25 | **Contradicts** Taxonomy v0.2 and Contract §10; listed only to be ruled out |
+
+**Engine today** `pre25CoveragePolicy: "strict"` — reports the defect and stops
+the run, as the taxonomy requires. `--pre25-coverage reuse_baseline_repeatables`
+is a diagnostic-only escape hatch used to produce `reports/monte-carlo.md`; it
+alters no content and never emits a fallback before 25.
+
+**Engine change required** None for A–C. The diagnostic policy should be deleted
+from `content/balance/SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json` once
+this is closed.
+
+**Recommendation** Option A. It is the only option that leaves margin for future
+`include` conditions on childhood events.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Solve the defect with a **broader childhood event pool**, not by increasing reuse of one repeatable. Batch 005 adds six varied ages 0–5 events (five once-per-run, one lightly repeatable). Validation replaces capacity-only reasoning with schedulability checking that models once-per-run consumption, cooldown, max count, age windows and reachable selection history.
+> _Files changed_: Event Batch 005; Content Schema v0.3; `src/engine/simulation.ts` (escape hatch removed); `tests/phase1_1-acceptance.test.ts` §1.
+> _Outcome_: **Verified.** 0 coverage defects in 720 strict runs across all six species; minimum eligible non-fallback events at ages 0–5 is now ≥2 at every reachable state. The `reuse_baseline_repeatables` diagnostic policy has been deleted.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-02"></a>
+## Q-02 — How should the FIX economy reach the climax gates?
+
+**Owner** Balance · **Blocking** yes · **Status** `OPEN`
+**Evidence** [`PHASE1_CONFLICTS.md#C-6`](../../PHASE1_CONFLICTS.md) · [`PHASE1_FINDINGS.md §2`](../../PHASE1_FINDINGS.md)
+
+Every canonical ending arrives through a `climax`-priority schedule. The twelve
+climax events gate as follows:
+
+```
+FIX>=55  EVT-INS-COR-0003  EVT-INS-MUS-0003  EVT-INS-ARC-0002  EVT-ORD-FAM-0004
+         EVT-INS-FIN-0005  EVT-INS-REL-0003  EVT-INS-CIV-0006  EVT-INS-ACA-0005
+         EVT-INS-ACA-0006  EVT-INS-MUS-0005
+FIX>=50  EVT-INS-MED-0003
+FIX>=45  EVT-TRN-TEMP-0002
+```
+
+Total FIX available anywhere in the content slice is ~39 before commitment
+(commitment itself needs `FIX>=35`) and ~56 across an entire life. Reaching a
+climax therefore requires drafting nearly every FIX-granting event inside its age
+window, while those events are LOW/NORMAL weight against a much larger ORD/INS
+pool.
+
+Measured (10 000 runs × 5 scenarios):
+
+| Scenario | Completed | Committed | FIX p99 / max |
+|---|---:|---:|---:|
+| no-talents | 0.10% | 16.0% | 49 / 53 |
+| uniform-three | 0.73% | 22.0% | 51 / 61 |
+| threshold-talents | 0.09% | 15.5% | 49 / 52 |
+| material-talents | 0.16% | 15.2% | 50 / 52 |
+| anomalous-talents (holds T1027) | 6.42% | 81.7% | 55 / 62 |
+
+The anomalous scenario is the control: it differs only by T1027's provisional
++15 start FIX, and completion rises **64×**. FIX headroom — not route density,
+not channel weighting — is the single binding constraint.
+
+**This one finding causes** the miss on every `targetEndingAgeShare` band, the
+34–35% adult fallback share (Q-23), the 95–99% schedule expiry rate, and the
+1–14 of 24 ending coverage. Most other numbers in the report will move once this
+is decided, so it should be decided before anything downstream is tuned.
+
+**Options** (not mutually exclusive)
+
+| # | Option | Trade-off |
+|---|---|---|
+| A | Add a per-year FIX drift to `BALANCE_CONSTANTS` | Makes fixation a function of age; needs a new schema field — see Q-26 |
+| B | Lower climax thresholds (e.g. 55 → 40) | No new content; changes 10 authored `include` strings |
+| C | Add more FIX-granting events, especially ages 25–45 | Preserves thresholds; requires new prose |
+| D | Raise `ageChannelWeights` TRN share and/or transformation `weightClass` | Cheapest; raises the odds of drafting the existing FIX events without changing their values |
+| E | Raise the FIX values on existing manifestation events | Small edit; concentrates variance into fewer draws |
+
+**Engine today** No FIX drift exists, because no canonical file specifies one.
+All values above come from content and `BALANCE_CONSTANTS` unmodified.
+
+**Engine change required** Option A only, and only to read a new field; the
+engine hard-codes no FIX behaviour. B/C/D/E are content or balance edits.
+
+**Recommendation** Decide the *intended shape* first — is fixation something
+that accumulates with age (A), or something a life's events cause (C/D/E)? The
+answer determines whether B is a fix or a patch.
+
+> **Resolution** — _status_: **RESOLVED (design) / numbers experimental**
+> _Decision_: FIX stays **event-driven**; no passive drift. Batch 005 adds visible FIX sources and multi-year chains. Commitment/climax gates should be lower than the original provisional values, but exact numbers are not frozen — run LOW/MID/HIGH plus ORIGINAL_REFERENCE from the experiment matrix.
+> _Files changed_: Batch 005; `SOLID_STATE_PHASE1_1_EXPERIMENT_MATRIX_v0.1.json`; `src/sim/experiments.ts`.
+> _Outcome_: **Swept, not frozen.** Completion: LOW 64.0%, MID 47.7%, HIGH 35.8%, ORIGINAL_REFERENCE 9.9% (4 000 runs each). A new problem is now visible: endings arrive far too late in every profile — see [`PHASE1_1_FINDINGS.md`](../phase1/PHASE1_1_FINDINGS.md) finding 2 and the follow-up question raised there. Design still picks the profile.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: Do **not** select LOW/MID/HIGH and do **not** globally change existing climax thresholds in this patch. Route-specific low gates authored in Batch 006 are intentional where an external institution causes conversion without high spontaneous FIX. No sweep was run.
+> _Phase 1.2 outcome_: Under **authored current thresholds** the new content moves the distribution without any threshold change: completion 60.2%, mean FIX at commitment 28.4, mean FIX at ending 29.0, final FIX p50/p90/p99 = 29/48/55. The remaining misses are structural rather than numeric — see [`PHASE1_2_FINDINGS.md`](../../PHASE1_2_FINDINGS.md) §1.1. Thresholds stay unfrozen and the sweep harness stays available.
+>
+> _H2B.1A — LOW adopted as the WORKING canonical balance, still not frozen_: LOW's six gate values (commitment 28, temporal 34, medical 36, standard 40, anomalous 36, late 36) are now written into canonical content — **31 FIX gates rewritten** across event `include` conditions and every schedule `validityCondition` pointing at a gate-assigned event, so the profile cannot be half-applied. The Phase 1.1 experiment matrix and `applyThresholdProfile` are untouched and still layer on top. Measured over 3 000 runs: completion **71.6%**, commitment **83.4%**, ending coverage **25/25**, material entropy **3.132**, **zero guardrail failures**, all correctness counters zero. **Commitment timing needs both numbers: mean 41.4, median 36.** The median barely moved from H2B's 35; the mean is dragged by a long tail of late-life covered stabilizations created by A-04's unbounded review coverage (H2B1A-C1). **This is a working balance for Round 2, not a freeze** — the question stays open numerically.
+
+> _H2B Batch 008 (evidence only — this question stays OPEN numerically)_: LOW was re-run as the **provisional design baseline** against the expanded corpus, 5 000 runs, with a 2 500-run current-authored comparator. Completion **55.4%** (LOW+008) against 32.4% (current+008) and 42.5% (LOW alone in H2A). Ending coverage reached **25/25 for the first time**, material entropy rose to **3.054**, and the LOW arm produced **zero guardrail failures** — nonterminal fell to 44.6%, below the 50% line that had made `nonterminal-rate` a failure since Phase 1.1. **But mean Material Commitment age moved only 35.3 → 34.9.** Adding 28 events and a new pressure layer did not move commitment timing any more than rewriting the gates did. The one measured exception is instructive: a +12 FIX bargain landing at mean age 30.8 (`EVT-INS-ARC-2001`) converts to commitment within five years **65.4%** of the time, while a +14 FIX bargain landing at 19.8 (`EVT-INS-FIN-2001`) converts **9.0%** of the time — so the untried lever is *when* large-FIX bargains are offered, not how large they are. **LOW was not frozen**; freezing it on the same run that introduced Batch 008 would confound the two changes.
+
+> _H2A threshold calibration (evidence only — this question stays OPEN numerically)_: the sweep was re-run against the **current** corpus, 3 000 runs per arm, with `CURRENT_AUTHORED` as the control and the Phase 1.1 `ORIGINAL_REFERENCE` deliberately excluded. Completion **25.7% (current) / 42.5% LOW / 33.1% MID / 24.3% HIGH**; commitment **37.6 / 61.4 / 51.2 / 39.8%**; ending coverage **18 / 22 / 24 / 20 of 24**. **The decisive result is negative: mean Material Commitment age is 35.7 / 35.3 / 35.4 / 35.4 — a 0.4-year spread across an 18-point completion range.** Threshold height controls how many lives end, not when. All four arms pass every correctness counter. **No profile was selected, frozen, interpolated or written into content.** Full analysis in [`H2A_THRESHOLD_CALIBRATION_FINDINGS.md`](../h2a/H2A_THRESHOLD_CALIBRATION_FINDINGS.md); data in `reports/h2a-threshold-calibration.{json,md}`. The retained `reports/phase1_1-experiments.*` are untouched and are not superseded — the two runs use different corpora and different allocation policies.
+
+---
+
+<a id="q-03"></a>
+## Q-03 — Should any ending be reachable after age 64?
+
+**Owner** Content · **Blocking** yes · **Status** `OPEN`
+**Evidence** [`PHASE1_FINDINGS.md §2`](../../PHASE1_FINDINGS.md)
+
+The latest `age.max` on any climax event is **64** (`EVT-INS-CIV-0006`,
+`EVT-INS-ACA-0005`, `EVT-INS-ACA-0006`, `EVT-INS-MUS-0005`). But
+`targetEndingAgeShare` and `SOLID_STATE_ROUTE_RULES_v1.0.md` both allocate
+**2–5% of Permanent Forms to age 65+**, and 4–7% to 55–64.
+
+The 65+ band is therefore unreachable **by construction**, independent of any
+balance change. No amount of FIX tuning can produce an ending there.
+
+**Options**
+
+| # | Option | Trade-off |
+|---|---|---|
+| A | Extend `age.max` on one or more late climax events past 64 | Smallest change; may contradict the authored meaning of a mid-life climax |
+| B | Author a late-life climax family (65+) | Correct if late-life Permanent Forms are a distinct narrative |
+| C | Drop the 65+ target band from `targetEndingAgeShare` | Correct if the intent was always that lives end before 65 |
+
+**Engine change required** None. The engine reports the band as out-of-target and
+will keep doing so until content or the target changes.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Keep the 65+ target band. Late-life Permanent Forms are a distinct second-wave narrative rather than mid-life climaxes remaining eligible forever. Batch 005 adds dedicated 65+ Medical and Family route entries/climaxes.
+> _Files changed_: Batch 005 (`EVT-INS-MED-0012`, `EVT-ORD-FAM-0011`).
+> _Outcome_: **Reachable — and now over-reached.** Endings at 65+ occur, satisfying the addendum. But under the *authored* v0.2 gates the late climaxes gate at `FIX>=40` while mid-life ones gate at `FIX>=55`, making late-life the easiest ending path: 74–92% of endings land at 65+ against a 2–5% target. See findings finding 2.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+# Tier 2 — representational, blocking retirement of the adapter file
+
+These four exist only because canonical registries store prose where the engine
+needs codes. Resolving them lets
+`content/balance/SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json` be deleted
+and its content folded back into the registries.
+
+<a id="q-04"></a>
+## Q-04 — How do species tendency labels map to family codes?
+
+**Owner** Design · **Blocking** no · **Status** `OPEN`
+**Evidence** [`PHASE1_CONFLICTS.md#C-1`](../../PHASE1_CONFLICTS.md)
+
+`SOLID_STATE_SPECIES_REGISTRY_v1.1.json` lists tendencies as refinement labels
+(`METL_INDUSTRIAL`, `STON_FINE`, `GLAS_OBSIDIAN`, `BRONZE`, `CONCRETE_HEAVY`, …)
+which are not Event Taxonomy v0.2 family codes, so
+`familyEvidenceScalar.speciesPrimary/Secondary/Uncommon` cannot be applied
+without a mapping.
+
+**Three sub-decisions:**
+
+1. **The mapping itself.** The engine's provisional map is in
+   `speciesTendencyFamilyMap`. Please confirm or correct it.
+2. **`MAGICAL_SEAL`** (DEMONKIN secondary) has **no** plausible family code.
+   `ANOM` is the obvious candidate but is stated nowhere canonical. Currently
+   declared unmapped and contributing no scalar. **This needs an explicit answer.**
+3. **Tier collisions.** Collapsing loses information where one species lists two
+   refinements of the same family in different tiers:
+   - `WINGED_KIN`: `STON_FINE` (primary) and `CONCRETE_CRUDE` (uncommon) → both `STON`
+   - `DWARF`: `STON`/`CONCRETE` and `METL_INDUSTRIAL`/`BRONZE`
+   The engine resolves these strongest-tier-wins. Is that the intent, or should
+   fine/crude refinements be a separate axis from family tendency?
+
+**Proposed schema change** Add a family to each tendency entry:
+`"primary": [ { "label": "STON_FINE", "family": "STON" } ]`, or add a
+registry-level `tendency_family_map`.
+
+**Engine change required** `src/engine/content/load.ts::collapseSpeciesTendencies`
+would read the registry directly instead of the adapter.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Do not collapse refinement labels into broad-family tiers. Use two layers: (1) broad family tendency at family selection; (2) optional refinement hook at local event selection. No extra refinement drafting stage. `MAGICAL_SEAL` is a registered special hook with no broad material family.
+> _Files changed_: Species Registry v1.2; `src/engine/drafting.ts` (`familyEvidenceScalar` / `eventContextScalar`).
+> _Outcome_: Implemented and tested. The drafting pipeline still has exactly three weighted stages (asserted in `tests/phase1_1-acceptance.test.ts` §3). `MAGICAL_SEAL` carries `family: null` and contributes no family scalar anywhere.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-05"></a>
+## Q-05 — What polarity do talent channel/family hooks carry?
+
+**Owner** Design · **Blocking** no · **Status** `OPEN`
+**Evidence** [`PHASE1_CONFLICTS.md#C-2`](../../PHASE1_CONFLICTS.md) · anticipated by `BALANCE_CONSTANTS` note 4
+
+`channel_hooks` / `family_hooks` in the Talent Registry are prose labels with no
+polarity; whether a hook favours, strongly favours or suppresses is stated only
+in the English `hidden_effects` sentence. Many labels have no family code at all
+(`investigation`, `celebrity`, `luxury`, `outdoor`, `memorial`, `display`,
+`craft`, `restoration`, `symptom`, `labor`, `identity`, `continuity`,
+`bureaucracy`, `preservation`, `species_registration`, `reincarnation`,
+`fracture`, `anomaly`, `rare`, `hidden`, `art`, `ownership`, `soul`, `memory`,
+`insurance`, `transformation_symptom`, `political_symbol`).
+
+**Engine today** Conservative: a scalar is encoded **only** where the registry
+sentence states a family- or channel-level *Favors* / *Strongly favors* /
+*Suppresses*. "Unlocks", "enables", "may redirect" and hedged scope
+("suppresses **some** early warning events") grant nothing. That leaves **11 of
+30 talents with a drafting scalar and 19 with none**, with every unmapped label
+preserved verbatim under `unmappedHooks` beside its source sentence.
+
+**Two sub-decisions:**
+
+1. Confirm or correct the 11 encoded talents in `talentAdapters`.
+2. Decide what the unmapped labels are: (a) narrative-only, (b) future family
+   codes, or (c) a separate sub-family tag axis.
+
+**Proposed schema change** Add typed columns beside the prose ones:
+`drafting_favor`, `drafting_strongly_favor`, `drafting_suppress`.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Add typed talent machine semantics. `drafting_favor` / `drafting_strongly_favor` / `drafting_suppress` change weighted drafting; `unlock_tags` / `redirect_tags` / `narrative_tags` are structured metadata and never become multipliers automatically.
+> _Files changed_: Talent Registry v1.1; `src/engine/content/load.ts`; `src/engine/drafting.ts`.
+> _Outcome_: Implemented. 10 of 30 talents now carry a typed drafting operation. A test asserts that talents holding only unlock/redirect/narrative tags produce a scalar of exactly 1 on every channel and family.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-06"></a>
+## Q-06 — How should `default_awareness` prose be structured?
+
+**Owner** Design · **Blocking** no · **Status** `OPEN`
+**Evidence** [`PHASE1_CONFLICTS.md#C-3`](../../PHASE1_CONFLICTS.md)
+
+Three of the seven distinct `default_awareness` values are not single states:
+
+| Value | Endings | Problem |
+|---|---:|---|
+| `Unconscious; Suspended if temporal` | 2 | conditional rule expressed in prose |
+| `Unconscious or Uncertain` | 1 | two states, no precedence stated |
+| `Continuous or Intermittent` | 1 | two states, both authorization-gated |
+
+**Engine today** `endingAwarenessRules` maps each string to an ordered rule list
+with an optional material guard and authorization flag. `"Unconscious or
+Uncertain"` takes the first-listed state. `"Continuous or Intermittent"` resolves
+to `Continuous` only with an authorizing talent, else falls back to the contract
+default. Content loading **fails** if the registry gains an unmapped awareness
+string, so this cannot drift silently.
+
+**Proposed schema change** Split the column into
+`default_awareness`, `default_awareness_if_temporal`,
+`awareness_requires_authorization`.
+
+**Also confirm** the authorizing-talent table, currently read from the endings'
+designer notes: `END-ANO-001 → T1028`, `END-ANO-002 → T1029`.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Awareness must be machine-structured, not interpreted from prose. Ordinary solid → Unconscious; temporal → Suspended; `Uncertain` allowed with no special authorization; Continuous/Intermittent/Displaced require authored authorization; END-ANO-001 authorizes via T1028, END-ANO-002 via T1029.
+> _Files changed_: Ending Registry v1.1; `src/engine/endings.ts` (prose parsing deleted).
+> _Outcome_: Implemented. The adapter's `endingAwarenessRules` table is gone; awareness now comes from `default_awareness`, `awareness_if_temporal`, `allowed_awareness_states`, `authorization_required_states` and `authorizing_talents`.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-07"></a>
+## Q-07 — How do route tags map to route flag namespaces?
+
+**Owner** Design · **Blocking** no · **Status** `OPEN`
+**Evidence** [`PHASE1_CONFLICTS.md#C-4`](../../PHASE1_CONFLICTS.md)
+
+`familyEvidenceScalar.routeFavor` applies when "matching active route context" is
+present, but `routeTags` are authoring metadata while route state lives in flag
+namespaces (`ROUTE_COR_*`, `EDU_*`). Nothing canonical connects the vocabularies,
+and 17 of 28 authoring tags have no namespace.
+
+**Engine today** `routeTagFlagPrefixes` maps the 12 tags that have a namespace;
+the rest contribute nothing. An event gets at most one route-favor multiplier
+however many tags match.
+
+**See also Q-07a below** — a real rules violation was found and fixed here.
+
+**Proposed schema change** Declare it in the Tag Registry, one row per tag:
+`| Tag | Flag namespace | Favors transformation families |`
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Route-tag mapping is canonical data and must be validator-checked. Every event `routeTag` must exist in Route Tag Registry v1.0. Under the uniform-family baseline a matching active route grants at most one event-level favor scalar and never alters family probability. `academic` stays valid metadata on Temporal research events but cannot grant a Transformation-event favor.
+> _Files changed_: Route Tag Registry v1.0; `src/engine/drafting.ts`; `src/engine/content/load.ts` validation.
+> _Outcome_: Implemented; the Phase-1 adapter rule is retired. E-01 is ratified as canonical data (`allowTransformationEventFavor: false` on `academic`). Tests assert the one-scalar stacking rule and that route tags leave the family layer untouched.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+### Q-07a — academic route bias (fixed, needs ratification)
+
+`EVT-TRN-TEMP-0001` and `EVT-TRN-TEMP-0002` both carry the `academic` routeTag,
+so an unrestricted route-favor scalar multiplied the **TEMP family for every
+academic run** — precisely what `EVENT_DRAFTING_RULES_v0.2` §Comparative
+Materials forbids ("must not favor one specific final material merely because the
+route is active").
+
+**Fixed** in `src/engine/drafting.ts` via
+`routeTagsWithNoTransformationFavor: ["academic"]`: the tag grants no route-favor
+on TRN-channel events, and still applies on ORD/INS/SPC. Regression test in
+`tests/acceptance-l-m-n-endings.test.ts`.
+
+**Question** Is suppressing the scalar the right fix, or should the `academic`
+routeTag be removed from the two TEMP events instead? The engine fix is
+behaviour-preserving for every other route; the content fix would be cleaner if
+those events are not really "academic".
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify the behavioural intent of E-01 and move the rule out of the provisional adapter into canonical Route Tag Registry data. `academic` remains valid metadata on Temporal research events but grants no Transformation-event favor.
+> _Files changed_: Route Tag Registry v1.0 (`allowTransformationEventFavor: false`); `src/engine/drafting.ts`.
+> _Outcome_: The engine no longer carries a hard-coded tag exception; the rule is a per-tag registry field that any future tag can set.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+# Tier 3 — interpretations the engine already made
+
+The engine had to pick a reading to run at all. Each of these is reversible via
+`content/balance/SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json`. **Please
+ratify or correct.**
+
+<a id="q-08"></a>
+## Q-08 — Is `repeatCooldownYears` "at least C" or "more than C"?
+
+**Owner** Design · **Status** `RATIFY` · **Evidence** [`PHASE1_ASSUMPTIONS.md#A-7`](../../PHASE1_ASSUMPTIONS.md)
+
+Taxonomy v0.2 says "minimum full chronological years before the same event may
+recur", which admits both `AGE - L >= C` and `AGE - L > C`.
+
+**Settled by the content, not by preference.** Under `>=`, ages 0–5 supply
+exactly six event-years for six years. Under `>`, they supply five and **every**
+run fails at age 5. An exact fit under one reading and universal failure under
+the other is decisive — but it is still an interpretation, and it interacts with
+Q-01.
+
+**Engine today** `repeatCooldownSemantics: "at_least"`, plus an unconditional
+minimum of one year (the cadence is one event per year). `"strictly_greater"`
+remains selectable for comparison.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify `AGE - lastOccurrenceAge >= repeatCooldownYears`.
+> _Files changed_: Balance Constants v0.2 `repeatCooldownSemantics`; `src/engine/state.ts`.
+> _Outcome_: Moved out of the provisional adapter into canonical balance data.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-09"></a>
+## Q-09 — Is `validityCondition` a fire gate or a destruction test?
+
+**Owner** Design · **Status** `RATIFY` · **Evidence** [`PHASE1_ASSUMPTIONS.md#A-4`](../../PHASE1_ASSUMPTIONS.md)
+
+Contract §14: a schedule expires when "the window closes; **or** validity becomes
+impossible / current route state invalidates it". An engine cannot compute
+"impossible" in general.
+
+**Settled by the content.** Canonical schedules are routinely created while their
+validity is false — `EVT-INS-ACA-0004` schedules `EVT-INS-ACA-0005` with validity
+`FLAG[ROUTE_ACA_TENURE_REVIEW] & MAT!=NONE & FIX>=55` while `MAT` is still
+`NONE`. Under a destruction reading, every academic climax would be discarded the
+year it was created and **no canonical ending would ever fire**.
+
+**Engine today** `scheduleValidityIsFireGate: true` — validity is a yearly
+precondition for firing; a schedule is discarded only when `AGE > latestAge`.
+
+**Consequence for metrics** "Route abandonment/expiry" is measured as window
+expiry, the only expiry the engine can observe. If design wants a distinct
+notion of *abandonment* (route explicitly given up) versus *expiry* (window ran
+out), that needs an authored mechanism — currently there is none.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify `validityCondition` as a yearly fire gate. A false condition means "not ready this year", not "destroy the schedule". A future explicit `cancelCondition` may be introduced if authored route abandonment needs it.
+> _Files changed_: Balance Constants v0.2 `scheduleSemantics.validityCondition`; Content Schema v0.3.
+> _Outcome_: Ratified. Note the open consequence: "route abandonment" is still measured only as window expiry, because no cancellation mechanism exists yet.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-10"></a>
+## Q-10 — Should family weight follow content density?
+
+**Owner** Balance · **Status** `RATIFY` · **Evidence** [`PHASE1_ASSUMPTIONS.md#A-5`](../../PHASE1_ASSUMPTIONS.md)
+
+The contract specifies `channel → family → event` and supplies channel weights
+and per-event `weightClass`, but **no family-level weights**.
+
+**Engine today** `familyWeightMode: "sum_of_event_weights"` — a family's weight
+is the sum of its eligible events' weights, so family probability is proportional
+to authored content density. `"uniform"` is the alternative.
+
+**Why it matters now** Content density varies sharply (EDU 12 events, SYNT 1), so
+this choice materially shapes the observed family mix. Under `sum`, adding
+events to a family raises that family's share; under `uniform`, it dilutes each
+event's share within a fixed family share. **These are meaningfully different
+authoring contracts** and the choice should be explicit before more events are
+written.
+
+> **Resolution** — _status_: **RESOLVED for Phase 1.1**
+> _Decision_: Reject content-density family weighting as the design baseline. Phase 1.1 baseline is `channel -> uniform eligible family -> weighted event inside family`. Retain `sum_of_event_weights` only as one A/B comparison. If uniform performs badly, the next option is explicit family base weights, not accidental density weighting.
+> _Files changed_: Balance Constants v0.2 `familyWeightMode: uniform`; `src/engine/drafting.ts`.
+> _Outcome_: **A/B measured, baseline unchanged.** At MID: uniform 49.1% completion / 2.78 bits material entropy; `sum_of_event_weights` 51.2% / 2.86 bits. The two are close, so nothing forces a change. Family mix differs mildly (density weighting lifts INS/MED and TRN/STON). The baseline was not switched.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: **Closed.** Retain `channel -> uniform eligible family -> weighted event`. Do not rerun the A/B for this small patch; the tool stays available for future large content additions or drafting-rule changes.
+> _Phase 1.2 outcome_: The rule now has a visible consequence worth design's attention. `EVT-SPC-TLNT-0001` is the only member of `SPC/TLNT` and is unlocked by T1023; under uniform family weighting that single event carries the same family base weight (1.0) as the six-event `SPC/SECR` family, so it absorbs ~half of all SPC draws and measurably crowds out faction seeds — faction contact falls 38.5% → 32.3% in the arm that holds T1023. This is the specified rule working as written, not a defect. No change was made. See [`PHASE1_2_FINDINGS.md`](../../PHASE1_2_FINDINGS.md) §4.
+
+---
+
+<a id="q-11"></a>
+## Q-11 — How should same-class priority ties break?
+
+**Owner** Design · **Status** `RATIFY` · **Evidence** [`PHASE1_ASSUMPTIONS.md#A-10`](../../PHASE1_ASSUMPTIONS.md)
+
+Contract §8: "Within the same class: authored priority first; seeded RNG if truly
+equal." Neither "authored priority" nor "truly equal" is defined.
+
+**Engine today** Within a class, order by (1) soonest `latestAge` — the most
+urgent authored window — then (2) creation sequence. The sequence is unique, so
+the ordering is total and **the RNG tiebreak is never reached**. This keeps runs
+reproducible and avoids spending RNG draws on ties.
+
+**Alternative** Add an explicit `priorityOrder` integer to the Schedule schema so
+authors control the tiebreak directly.
+
+**Currently low-stakes** — collisions occur in only 1.2% of runs — but that is
+partly because so few climaxes fire (Q-02). Re-check after Q-02 is resolved.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Add `priorityOrder: integer = 0` to schedules. Within the same priority class: higher `priorityOrder` first, then seeded RNG on an actual tie. Creation order is not the permanent design tiebreak.
+> _Files changed_: Content Schema v0.3; `src/engine/schedules.ts::rankCandidates`.
+> _Outcome_: Implemented. Creation order now only stabilises the candidate list before the RNG draw; a test asserts the tie winner varies across seeds yet is identical for the same seed.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-12"></a>
+## Q-12 — Should visible stats be clamped?
+
+**Owner** Design · **Status** `RATIFY` · **Evidence** [`PHASE1_ASSUMPTIONS.md#A-6`](../../PHASE1_ASSUMPTIONS.md)
+
+No canonical file states stat bounds. Starting range is 0–10 before modifiers,
+but species modifiers can push below 0 (ELF `STR -1`) and events accumulate over
+120 years.
+
+**Engine today** `statClamp: { visibleMin: null, visibleMax: null, fixMin: 0,
+fixMax: null }` — visible stats unclamped; FIX floored at 0 because
+`fixTransformationChannelScalar`'s lowest band starts at `minFIX: 0`.
+
+**Not behaviour-neutral** — clamping at 0 would change the outcome of conditions
+such as `MNY<=2` and `STR<=4`, and therefore change which variants fire.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify visible stats unclamped and FIX minimum 0.
+> _Files changed_: Balance Constants v0.2 `statClamp`.
+> _Outcome_: Moved out of the provisional adapter.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _H2B.1A evidence (no change; no stat effect edited)_: the A-12 contributor audit ranks authored CHR/INT/SPR deltas by event variant and age band over 3 000 runs, as the input to the later Stat Ecology correction. Three concrete results. **`EVT-ORD-SOC-0004` alone is the CHR curve after 65** — total magnitude **−11 835**, an order of magnitude beyond anything else in that band, because the reunion is repeatable with no cap and a long survivor attends it dozens of times. **INT has exactly one authored negative source in the entire corpus** (`EVT-ORD-GEN-2001`, confined to 35–64), which is why 100% of runs still finish above their starting INT. **SPR's positives are broad rather than concentrated** — no single event dominates the way `EVT-ORD-SOC-0004` does for CHR — so SPR ≥ 15 still holds for 96.2% of 65+ survivors and a fix has to be structural. **No stat effect was mass-edited in H2B.1A**, per instruction.
+
+> _H2B evidence (no change; stats remain unclamped)_: Batch 008 patched the two largest SPR sources and added an authored INT decline, and a new **stat-curve lint** now fails if a visible stat has no authored negative delta anywhere. Result after the patch: **no visible stat is strictly monotonic in the corpus** — the lint requirement is met. At runtime the picture is more mixed. **STR now matches the intended curve** (drift +2.74 at 18, +6.03 at 35, +3.71 at 65, −0.29 final) and **MNY is no longer a one-way collapse** (final drift +1.63, was −2.01). **SPR improved but is not solved**: positive authored deltas fell 493.7 → **331.5** per 1 000 run-years and drift at 65 fell +30.5 → **+24.9**, yet SPR ≥ 15 still holds for **96.0%** of 65+ survivors (was 98.4%) — the remaining accumulation is spread across ordinary social/family content, not the two patched events. **INT satisfies the lint literally but not in behaviour**: `EVT-ORD-GEN-2001` fires in 49% of runs at −1/−2 against +147 positive deltas per 1 000 run-years, so **100% of runs still end with INT above their start**. No clamp was added and no stat effect was changed beyond the supplied patches.
+
+> _H2A evidence (no change; stats remain unclamped)_: the H2A calibration measured the full visible-stat distribution for the first time, and the unclamped decision now has consequences worth naming before the Pressure & Tone pass. **INT has no negative authored delta anywhere in the corpus** (0.0 per 1 000 run-years), so 100% of runs end with INT higher than they started. **SPR is a late-life runaway**: 493.7 positive authored deltas per 1 000 run-years against 136.7 negative, giving SPR ≥ 15 in **98.4%** of runs still alive at 65. **MNY drifts down** (mean −2.01 from the post-setup start, 51.1% of runs ending at MNY ≤ 2), and housing-tagged events carry **−0.89 MNY per event**. CHR and STR peak around 35–50 and then collapse (48.6% and 66.4% of runs end at ≤ 2). The first human playtest's impressions — "CHR and INT can exceed 15", "MNY and SPR looked flatter or downward" — are qualitative evidence: the first is confirmed, the MNY half of the second is confirmed, and the SPR half is **contradicted** (SPR is flat only until about 40). **No clamp, no stat-effect change and no pressure mechanic was added in this task.** See [`H2A_THRESHOLD_CALIBRATION_FINDINGS.md`](../h2a/H2A_THRESHOLD_CALIBRATION_FINDINGS.md) §3–§5.
+
+---
+
+<a id="q-13"></a>
+## Q-13 — What does `TMS` mean?
+
+**Owner** Design · **Status** `RATIFY` · **Evidence** [`PHASE1_ASSUMPTIONS.md#A-1`](../../PHASE1_ASSUMPTIONS.md)
+
+`TMS` is listed as a numeric condition reference in Contract §12 and the Content
+Schema but never defined, and no canonical event uses it.
+
+**Engine today** `TMS` = number of **completed prior runs** (reincarnation
+count), consistent with `AEVT` meaning completed prior runs only. A first life
+has `TMS = 0`.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify `TMS` as the number of completed prior runs. First life = 0.
+> _Files changed_: Content Schema v0.3 condition references.
+> _Outcome_: Now stated in canonical schema rather than only in an assumption note.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-14"></a>
+## Q-14 — How much starting FIX does T1027 grant?
+
+**Owner** Balance · **Status** `OPEN` · **Evidence** [`PHASE1_ASSUMPTIONS.md#A-2`](../../PHASE1_ASSUMPTIONS.md)
+
+The Talent Registry says T1027 "Raises starting FIX" with no magnitude, and
+`BALANCE_CONSTANTS` has no field for one.
+
+**Engine today** `talentAdapters.T1027.startFIX = 15`, on a baseline of 0.
+
+**Impact is large and deliberately surfaced.** The anomalous-talent scenario is
+the only one where endings occur at a measurable rate (6.42% vs 0.09–0.73%),
+purely because it holds T1027. Read that contrast as evidence about the FIX
+economy (Q-02), **not** as a recommendation for 15.
+
+This should probably be decided *after* Q-02, since the right value depends on
+the total FIX budget.
+
+> **Resolution** — _status_: **OPEN / DEFERRED**
+> _Decision_: Do **not** freeze T1027 at +15. Run sensitivity values 5 / 8 / 10 / 12 / 15 after the revised FIX economy is in place, and report separately.
+> _Files changed_: Talent Registry v1.1 leaves `start_fix_bonus` blank; `content/balance/SOLID_STATE_BALANCE_ADAPTERS_PROVISIONAL_v0.1.json` keeps the diagnostic value; `src/sim/experiments.ts::withT1027StartFix`.
+> _Outcome_: **Swept, still open.** Completion in the anomalous scenario at MID: 76.4% (5), 86.0% (8), 91.4% (10), 94.2% (12), 98.2% (15). Even +5 makes the talent close to an auto-completion; mean commitment age falls 36.0 → 32.7 across the range. Design picks a value — the engine does not.
+> _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: **OPEN / DEFER.** No T1027 sweep in Phase 1.2 and no starting-FIX bonus frozen. When the baseline economy stabilizes, rerun T1027 in isolation rather than bundled with T1028/T1030.
+> _Phase 1.2 outcome_: Not measured — `t1027_sensitivity` was deliberately skipped. `withT1027StartFix` and the matrix entry are retained unchanged and still run via `npm run experiment -- --only t1027_sensitivity`.
+
+---
+
+<a id="q-15"></a>
+## Q-15 — What registered species do T1025 and T1030 assign?
+
+**Owner** Design · **Status** `OPEN` · **Evidence** [`PHASE1_ASSUMPTIONS.md#A-3`](../../PHASE1_ASSUMPTIONS.md)
+
+T1030 "Wrong Species Certificate" says it "assigns a different registeredSpecies"
+but not which. T1025 "Unregistered Species" says institutional events "may treat
+species as unavailable" but names no value.
+
+**Engine today** T1030 → seeded uniform pick among the other five species.
+T1025 → `RSPECIES` becomes the literal `UNREGISTERED`. Both leave `SPECIES`
+untouched so material tendencies stay biological, as both registry rows require.
+
+**Low stakes today** — no canonical event condition reads `RSPECIES`, so this
+only affects the Ending Record's `registeredSpecies` field. It becomes
+consequential as soon as institutional classification events are authored.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Ratify T1025 → `RSPECIES = UNREGISTERED`, and T1030 → one seeded uniformly-selected species different from the true `SPECIES`, assigned once and fixed for the run.
+> _Files changed_: Talent Registry v1.1 `registered_species_rule`; `src/engine/setup.ts`.
+> _Outcome_: Canonical. The engine reads the registry column; the adapter rule is retired. A test asserts the T1030 pick is stable across repeated runs of the same seed.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-16"></a>
+## Q-16 — What is the baseline starting FIX?
+
+**Owner** Balance · **Status** `RATIFY` · **Evidence** [`PHASE1_ASSUMPTIONS.md#A-8`](../../PHASE1_ASSUMPTIONS.md)
+
+No canonical file states one. **Engine today** `startingFIX.base = 0`; T1027 adds
+on top. Tied to Q-02 and Q-26.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Baseline starting FIX = 0.
+> _Files changed_: Balance Constants v0.2 `startingFIX.base`.
+> _Outcome_: Moved out of the provisional adapter.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-17"></a>
+## Q-17 — Is the diagnostic allocation policy player-realistic?
+
+**Owner** Design · **Status** `OPEN` · **Evidence** [`PHASE1_ASSUMPTIONS.md#A-12`](../../PHASE1_ASSUMPTIONS.md)
+
+Species roll, talent choice and stat allocation are *player* decisions;
+simulation needs a stand-in policy.
+
+**Engine today** Allocation distributes points one at a time to a uniformly
+chosen stat with room in 0–10. This produces roughly-even spreads and
+**under-samples the extreme builds** (`CHR 10`, rest near 0) a real player would
+often make.
+
+**Consequence** Threshold-talent rates are distorted: `INT>=5` and `MNY<=3` are
+met almost immediately (activation ages 4.4 and 6.5). A build-realistic policy
+would push activation later and change the measured rates.
+
+**Options** (a) keep uniform-fill as the diagnostic baseline; (b) add a
+"min-max build" policy sampling extreme allocations; (c) run both and report
+each separately.
+
+**Recommendation** (c) — the contrast is itself the useful measurement.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Diagnostic allocation must not pretend one player style is representative. Report balanced/random fill, min-max primary/secondary, and a seeded archetype set **separately**; do not mix them into one headline statistic.
+> _Files changed_: `src/engine/setup.ts` (three policies); `src/cli/experiment.ts`; Balance Constants v0.2 `diagnosticSampling.allocationPolicies`.
+> _Outcome_: **Implemented and reported separately.** Outcome rates barely move (47.9–49.3% completion), but threshold-talent activation does: T1007 94% → 76%, T1009 86% → 69%, T1017 mean activation age 96.2 → 67.1 across balanced → archetype. This is exactly the distortion Q-17 warned about.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-18"></a>
+## Q-18 — Does `Uncertain` awareness require authorization?
+
+**Owner** Design · **Status** `RATIFY` · **Evidence** [`PHASE1_CONFLICTS.md#C-3`](../../PHASE1_CONFLICTS.md)
+
+Contract §23 lists `Intermittent`, `Continuous`, `Displaced`, `Uncertain` as
+"rare explicit states", then says **"Continuous/Intermittent/Displaced require
+authored authorization"** — omitting `Uncertain`. `END-MUS-003` uses `Uncertain`
+as its plain registry default, which only works if it is unrestricted.
+
+**Engine today** Follows the explicit authorization sentence over the list:
+`Uncertain` needs no authorization, the other three do. Please confirm the
+omission is intentional.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: `Uncertain` Awareness requires no special authorization.
+> _Files changed_: Ending Registry v1.1 `authorization_required_states`.
+> _Outcome_: Canonical: `Uncertain` never appears in any ending's `authorization_required_states`.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+# Tier 4 — content gaps and observations
+
+<a id="q-19"></a>
+## Q-19 — Should `SPC` channel content exist?
+
+**Owner** Content · **Status** `OPEN` · **Evidence** [`PHASE1_CONFLICTS.md#C-7`](../../PHASE1_CONFLICTS.md)
+
+`ageChannelWeights` allocates Route/Special up to **13%** of the channel budget
+from age 12, and T1023 "Main Character Syndrome" *strongly favours* the SPC
+channel — but **zero `SPC` events exist**. Observed SPC share is 0% in every age
+band; the weight is silently redistributed by empty-channel renormalization.
+
+T1023 currently does nothing at all, and its incompatibility with T1010 has no
+mechanical consequence.
+
+**Options** (a) author `ANO`/`REIN`/`TLNT`/`SECR` events; (b) zero the SPC
+column until content exists, so the budget is explicit rather than absorbed.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: SPC remains part of the v1 architecture. Batch 005 adds initial ANO/REIN/TLNT content. Do not zero the SPC channel.
+> _Files changed_: Batch 005 (8 SPC events).
+> _Outcome_: **Present but very thin.** SPC share of event-years: 0.00% (no-talents), 0.43% (uniform-three), 5.01% (anomalous-talents). Almost all SPC content gates on anomalous route flags, so a run without those talents effectively never sees the channel despite SPC carrying up to 13% of the neutral channel budget. Flagged in findings as a follow-up.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: SPC remains canonical. Batch 006 adds six broadly reachable `SPC/SECR` faction seeds. Run a dedicated T1023 diagnostic, but do **not** create a large standalone SPC filler batch.
+> _Phase 1.2 outcome_: **Reachability fixed.** SPC now reaches 53.4% of baseline runs (1.34% of event-years) without any anomalous talent, against 0.43% of event-years in Phase 1.1's comparable scenario. In the dedicated arms: control (no T1023) 38.5% of runs see SPC; with T1023, 99.7%. SPC events per completed run 1.41 baseline / 1.20 control / 1.74 with T1023. No filler batch was authored.
+
+---
+
+<a id="q-20"></a>
+## Q-20 — Should any route use `mandatory_only`?
+
+**Owner** Content · **Status** `OPEN`
+
+Priority class 2 (mandatory committed-route continuation) is fully implemented
+and fixture-tested, but **no canonical event uses `mandatory_only`** and no
+canonical schedule uses `mandatory` priority. Contract §15's "committed hard
+routes may reserve consecutive future years, generally 2–5" is therefore
+unexercised.
+
+Is this content not yet written, or is the priority class not actually needed?
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Mandatory committed routes are intentional. Batch 005 provides the controlled-hardening Medical sequence and the two anomalous sequences. Each remains one visible event per year.
+> _Files changed_: Batch 005 (4 `mandatory_only` events).
+> _Outcome_: **Exercised.** 40–88% of runs now use at least one `mandatory_only` event, and the one-event-per-year invariant holds through the sequences.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-21"></a>
+## Q-21 — How are `END-ANO-001` / `END-ANO-002` reached?
+
+**Owner** Content · **Status** `OPEN`
+
+Both anomalous endings are referenced by **no event variant**, so the endings
+that T1028 "Object Permanence" and T1029 "Soul Cannot Harden" exist to unlock
+cannot occur. Ending coverage is capped at **22/24 by content**, not by balance.
+
+Needs a climax event (or an authored redirect on an existing climax) gated on the
+relevant talent.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: END-ANO-001 and END-ANO-002 receive dedicated hidden SPC routes, not generic redirects attached to every ordinary ending.
+> _Files changed_: Batch 005 (`EVT-SPC-ANO-0002/0003/0005/0006`).
+> _Outcome_: **Both endings now occur.** Previously unreachable; both appear in ordinary diagnostic runs, and ending coverage rises from 13/24 to as much as 23/24.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-22"></a>
+## Q-22 — Should first manifestation be 52% WOOD and pinned to age 18?
+
+**Owner** Content · **Status** `OPEN` · **Evidence** [`PHASE1_FINDINGS.md §7`](../../PHASE1_FINDINGS.md)
+
+`EVT-TRN-WOOD-0001` (ages 12–17) is the **only** manifestation event available
+before 18; the other six open at exactly 18. So WOOD is the first manifestation
+in ~52% of runs while the other six families take ~8–10% each, and
+`averageFirstManifestationAge` is pinned at 18.3–18.5 in every scenario — there
+is no variance in manifestation timing at all.
+
+This does not currently distort *final* materials (see Q/finding on determinism),
+but early-life material identity is disproportionately wooden.
+
+**Options** (a) add adolescent manifestation events for other families;
+(b) stagger the age floors of the existing `*-0001` events; (c) accept it as
+authored intent.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: The ~52% Wood first-manifestation share is an availability artifact and is not intended. Batch 005 adds reversible adolescent STON/METL/CRYS/GLAS/CERA/TEMP events. Wood may keep a small age-window advantage but must not dominate a neutral Human.
+> _Files changed_: Batch 005 (6 adolescent manifestation events).
+> _Outcome_: **Fixed.** Neutral HUMAN / no talents / no material evidence (4 000 runs): WOOD 24.8%, CERA 13.8%, STON 13.4%, METL 13.0%, GLAS 12.7%, CRYS 12.7%, TEMP 9.7%. Well under the 50% failure line. WOOD keeps an earlier mean age (15.5 vs 18.7–20.6), which matches the intended small age-window advantage.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: No content change. The remaining structural WOOD lead is considered fixed. Add only the inexpensive neutral-Human age-18–20 manifestation diagnostic.
+> _Phase 1.2 outcome_: **Still fixed, and the 18–20 window is close to flat.** Conditional on a window-year with `MAT=NONE` and no matching prior evidence (5 941 observations), P(unprompted manifestation) is METL 2.49%, CERA 2.46%, STON 2.46%, GLAS 2.36%, WOOD 2.21%, CRYS 2.10%, TEMP 0.79% — six families within 14.2–16.8% of the unprompted total. TEMP's lower rate tracks its eligibility (`TRN/TEMP` eligible in 32.8% of window-years vs 96.8–97.7% for the others), not a weighting bias. Whole-run first-manifestation WOOD share is 26.5% neutral / 23.0% species-stratified.
+
+---
+
+<a id="q-23"></a>
+## Q-23 — Is a 35% adult fallback share acceptable?
+
+**Owner** Content · **Status** `OPEN` · **Evidence** [`PHASE1_FINDINGS.md §3`](../../PHASE1_FINDINGS.md)
+
+| Metric | Observed | Target |
+|---|---:|---:|
+| Fallback share of age-25+ event-years | 34.2–35.1% | 2% (warn above 5%) |
+| Pre-25 fallback events | 0 | 0 — satisfied |
+
+After roughly age 45 the `once_per_run` pool is exhausted and `EVT-ORD-GEN-0001`
+carries about a third of all adult years. Channel mix decays to 98% ORD by 65+.
+
+**Likely downstream of Q-02** — runs that should have ended at 30–45 instead
+continue to 120 through a nearly empty pool. **Re-measure after Q-02 is resolved
+before authoring more late-life content.**
+
+> **Resolution** — _status_: **OPEN / MONITOR**
+> _Decision_: ~35% adult fallback is unquestionably unintended, but do **not** respond by bulk-authoring late-life filler before the revised ending economy is measured. Target remains near 2%; >5% is a warning.
+> _Files changed_: No content change in this patch.
+> _Outcome_: **Re-measured, still high.** Age-25+ fallback share is 24.0–29.5% across threshold profiles and 25.7–26.2% in the base scenarios (7.1% in the anomalous scenario, where runs end early). Improved from ~35% but far above the 5% warning line. Above the addendum's ">10% → return to design" threshold, so this stays with design rather than being patched here.
+> _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: 24–30% is not acceptable, but do **not** bulk-author generic filler. Batch 006 faction follow-ups add meaningful adult density. The next report must break fallback down by age band and report it conditional on runs still active in each band.
+> _Phase 1.2 outcome_: **The requested breakdown localizes the problem completely.** Conditional on the run still being active: 0.0% fallback at every band from 0–5 through **45–54**, then 21.3% at 55–64 and 51.8% at 65+. The 26.7% aggregate age-25+ figure is produced entirely by the 55+ tail. **There is no adult content-density problem between 25 and 54**, so filler would be the wrong response; the 55+ share is a symptom of Q-27 — runs that should have ended at 25–44 are still walking through a pool never authored for a 120-year life. Stays open pending Q-27.
+>
+> _Phase 1.3 decision_: **OPEN / MONITOR.** No filler expansion. Lore fallback is for world texture, not a claim that generic fallback is solved. Report both metrics separately.
+> _H2B evidence_: Batch 008 adds 28 events, of which 14 are adult-eligible pressure/recovery events, so the adult pool is materially denser. Under LOW + Batch 008 the age-25+ generic fallback share is unchanged in character — the emptiness is still a late-life phenomenon, and it is still downstream of Q-27 rather than a content-density problem between 25 and 54. See [`H2B_BATCH008_FINDINGS.md`](../../H2B_BATCH008_FINDINGS.md).
+
+> _Phase 1.3 outcome_: **Reported separately, as required.** Conditional on the run still being active, generic fallback is still **0.0% at every band through 45–54**. At 55–64 generic fallback is **eliminated** (21.3% → 0.0%) and replaced by 12.6% lore. At 65+ generic falls 51.8% → **24.6%** while lore takes **29.6%**, so combined emptiness is essentially unchanged (51.8% → 54.2%). The honest reading: **lore fallback made the late-life years better to read, not fewer.** Still downstream of Q-27.
+
+---
+
+<a id="q-24"></a>
+## Q-24 — Is T1017's activation profile intended?
+
+**Owner** Balance · **Status** `RESOLVED` (Phase 1.2) · **Evidence** [`PHASE1_FINDINGS.md §8`](../../PHASE1_FINDINGS.md)
+
+`T1017 Late Bloomer` (`AGE>=35 & CHR<=5`) activates at an **average age of
+91.2** — far past any intended life span — because `CHR<=5` is usually only
+satisfied after decades of drift. In a run ending at the target 25–44 it would
+rarely fire at all. Its 78.7% activation rate is an artefact of runs continuing to
+120.
+
+Also downstream of Q-02; re-measure after that resolves.
+
+> **Resolution** — _status_: **OPEN / MONITOR**
+> _Decision_: Do not change T1017 yet. Re-measure activation age/rate under the revised ending economy and multiple allocation policies.
+> _Files changed_: No content change in this patch.
+> _Outcome_: **Re-measured.** T1017 activation is now 37% (balanced), 37% (min-max), 51% (archetype), with mean activation ages 96.2 / 70.4 / 67.1. Still far past a plausible life span under balanced fill, but markedly better under player-like builds — which is itself evidence that the Phase-1 reading was an allocation artifact. Stays open pending the frozen ending economy.
+> _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.2 decision_: **RESOLVED FOR NEXT TEST.** Change only the age floor: `AGE>=35 & CHR<=5` → `AGE>=25 & CHR<=5`. Keep the CHR threshold and the +4 effect unchanged, to isolate whether the old age floor was the main bottleneck. Revisit the CHR threshold later only if activation is still implausibly late once the ending economy improves.
+> _Files changed_: `content/registries/SOLID_STATE_TALENT_REGISTRY_v1.2.csv` (T1017 row only); v1.1 moved to `content/superseded/`.
+> _Phase 1.2 outcome_: **The age floor was the bottleneck.** Activation is 42.6% at a mean activation age of **49.7**, against 67.1–96.2 in Phase 1.1. The talent now fires inside a plausible life span, so the question it was opened for is answered. The CHR threshold and effect were not touched.
+
+---
+
+<a id="q-25"></a>
+## Q-25 — What is the achievements registry, for `ACH[id]`?
+
+**Owner** Design · **Status** `OPEN`
+
+`ACH[id]` is a required condition reference (Contract §12) and is implemented and
+tested, but **no achievements registry exists** — `SOLID_STATE_AGENTS_v0.2.md`
+lists it as a future deliverable. Unknown achievement IDs therefore evaluate to
+`false` rather than failing validation, which is the only safe behaviour without
+a registry but means a typo in a future event condition would fail silently.
+
+Once a registry exists, content validation should reject unknown `ACH` IDs the
+same way it already rejects unknown `TLT`, `EVT` and ending IDs.
+
+> **Resolution** — _status_: **OPEN / DEFERRED**
+> _Decision_: Achievement Registry belongs to the meta-progression phase. Until it exists, unknown `ACH` behaviour remains a documented provisional limitation.
+> _Files changed_: None.
+> _Outcome_: Unchanged. `ACH[id]` is implemented and tested; unknown IDs evaluate to false rather than failing validation, because no registry exists to validate against.
+> _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-26"></a>
+## Q-26 — Should FIX drift passively with age?
+
+**Owner** Balance · **Status** `OPEN` · **Evidence** [`PHASE1_CONFLICTS.md#C-6`](../../PHASE1_CONFLICTS.md)
+
+No canonical file specifies a per-year FIX drift, and `BALANCE_CONSTANTS` has no
+field for one. FIX changes **only** through authored event effects.
+
+If fixation was intended to accumulate with age — which would make the `FIX>=55`
+climax gates reachable naturally, and would fit "Fixation modifies transformation
+pressure" in Route Rules — then that field is simply **missing from the schema**,
+and adding it is the smallest change that reconciles the gates with the content.
+
+**Proposed schema addition**
+
+```json
+"fixAnnualDrift": [ { "minAge": 0, "maxAge": 17, "perYear": 0 },
+                    { "minAge": 18, "maxAge": null, "perYear": 0.5 } ]
+```
+
+Closely coupled to Q-02; decide together.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: **No passive annual FIX drift.** Age already changes transformation pressure through `ageChannelWeights`; a hidden yearly increment would duplicate that signal and be hard to explain to the player. FIX rises only through authored causes. Do not add `fixAnnualDrift`.
+> _Files changed_: Balance Constants v0.2 pins `fixAnnualDrift: null`; the engine reads no such field.
+> _Outcome_: Implemented. A behavioural test replays every run and asserts final FIX equals the sum of authored variant effects plus the start bonus — no year contributes FIX merely by passing.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-27"></a>
+## Q-27 — How should the ending-age distribution be shaped?
+
+**Owner** Content · **Blocking** yes · **Status** `OPEN` (content-shape decision resolved; a new gap is now measured) · **Evidence** [`PHASE1_2_FINDINGS.md §1`](../../PHASE1_2_FINDINGS.md)
+
+Phase 1.1 measured endings arriving far too late: 74.7% at 65+ against a 2–5%
+target, and the 18–24 band unreachable because the earliest climax in the corpus
+opened at 25. Phase 1.2 is design's answer to that.
+
+**Options considered by design** (recorded in
+[`PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md`](PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md)):
+treat it as a global FIX-threshold problem, or as a content-shape problem.
+Design chose content shape.
+
+**Engine today** Nothing in the engine sets ending age. It comes from event age
+windows, schedule `offsetYears` / `windowYears`, and `include` /
+`validityCondition` gates in canonical content.
+
+> **Resolution** — _status_: **RESOLVED FOR PHASE 1.2 CONTENT SHAPE; numeric balance remains open**
+> _Decision_: The missing 18–34 endings are primarily a **content-shape** problem, not a global FIX-threshold problem. Introduce short/sudden young-adult paths driven by bureaucracy, insurance/finance, commercial preservation, experiments, underground finance and cult/religious activity. Faction contact may begin at 16+ where age-appropriate, but no canonical Permanent Form ending may occur before 18. Some paths may transform a protagonist at relatively low FIX because the conversion is externally imposed rather than a spontaneous biological culmination. Other paths use repeated faction follow-ups to raise FIX over several years and mature in 25–34, which remains the intended modal window. Late-life endings remain a small survivor wave requiring meaningful prior route history, never a universal cheapest catch-all. Do not use passive age-based FIX drift.
+> _Files changed_: `SOLID_STATE_EVENT_BATCH_006_v0.1.json` (18 events: 6 faction seeds, 6 low-gate faction climaxes, 6 adult faction follow-ups); `SOLID_STATE_EVENT_BATCH_005_v0.2.json` (2 late-life entries made history-specific); `SOLID_STATE_FACTION_REGISTRY_v0.1.json`; `SOLID_STATE_ROUTE_TAG_REGISTRY_v1.1.json`. The two late-life climax `FIX>=40` gates were **not** changed.
+> _Outcome_: **Both ends moved as intended; the middle did not.** 18–24 went 0.0% → **31.5%** (target 18–22%, now overshooting) and 65+ went 74.7% → **37.8%** (target 2–5%). But 25–34, the intended modal window, is now the largest miss at **17.7%** against 35–40%, and the ending landscape is bimodal: every faction route lands at a median age of 22–25, `INS/MED` and `ORD/FAM` land at 67–68, and almost nothing occupies 26–60.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md
+
+### Still open: why the faction ladder does not reach 25–34
+
+The mechanism is fully determined by the authored content and is reproducible
+from `reports/phase1_2-diagnostic.md`:
+
+1. Faction seeds have age windows 16–24; mean age at first contact is **20.0**.
+2. Each seed schedules its climax at `offsetYears` **1–2**.
+3. The climax gates are low by design (`FIX>=8` / `FIX>=10` / `FIX>=12`, or
+   `MNY<=3/5`) and are satisfied immediately in most runs.
+4. The adult follow-ups that were meant to raise FIX over several years all open
+   at **age 23** — one to three years *after* the median climax has already
+   fired.
+
+Faction contacts resolve into 1 169 climaxes and 292 expired schedules out of
+~1 608 contacts, so the slow path is almost never taken. **Faction contact is
+behaving as a 1–3 year fuse, not as a multi-year route.**
+
+**Smallest content-shaped levers, for design to choose between** — none applied:
+
+| Option | Change | Trade-off |
+|---|---|---|
+| A | Widen faction climax `offsetYears` (e.g. 1–2 → 4–8) | One field per seed; pushes the whole faction wave later, may overshoot into 35–44 |
+| B | Add a follow-up flag to the climax `validityCondition` | Forces the ladder to be climbed; risks more expiries if the follow-up is not drafted in the window |
+| C | Lower the follow-up age floor below the climax's earliest fire age | Smallest edit; makes the ladder reachable without changing when the climax may fire |
+
+**Also for review:** the two `FIX>=40` late-life climaxes now supply 42.1% of all
+endings at a median age of 67–68. Whether they should require more prior route
+history is a separate decision, and was deliberately not made here.
+
+**Also for review:** the faction layer, introduced as lightweight context, now
+supplies **48.6%** of all endings.
+
+### Phase 1.3 — structural change approved, applied and measured
+
+> _Phase 1.3 decision_: **OPEN NUMERICALLY; the structural change is approved.** The Phase 1.2 fuse is replaced by `CONTACT -> DISPOSITION -> ENGAGED/EXIT -> ESCALATION -> COMMITTED/EXIT -> CLIMAX`. Only strongly conditioned disposition variants keep sudden 18–24 faction endings. Existing faction climaxes require `COMMITTED` and `age.min` 25, so ordinary faction terminal paths should populate 25–34 instead. Late-life Medical/Family entries are tightened by prior-route conjunctions; their `FIX>=40` climax gates stay unchanged. Do not run LOW/MID/HIGH or freeze global FIX thresholds until this structure is measured.
+> _Files changed_: `SOLID_STATE_EVENT_BATCH_007_v0.1.json` (30 events); `SOLID_STATE_EVENT_BATCH_006_v0.2.json`; `SOLID_STATE_EVENT_BATCH_005_v0.3.json`; `SOLID_STATE_FACTION_REGISTRY_v0.2.json`; `SOLID_STATE_ROUTE_TAG_REGISTRY_v1.2.json`.
+> _Phase 1.3 outcome_: **The ladder works; the supply collapsed.** Faction endings moved onto the intended path — median age 22–25 → **25.5–28.4**, and **94%** now arrive via the committed ladder with only 6% sudden. But 90% of faction contacts now end in a safe exit, so only 184 endings came through where Phase 1.2 produced 1 169, and nothing replaced them. Measured per 1 000 runs: **18–24 fell 189.5 → 1.8**, **25–34 fell 106.2 → 37.8**, 65+ fell 227.5 → 122.4, and 35–44 / 45–54 / 55–64 are unchanged. Completion fell **60.2% → 23.9%**; nonterminal rose to 76.1%.
+>
+> **The 25–34 shortfall is now larger in absolute terms than before the patch designed to close it.** That is a content-supply question, not a threshold question, and the engine will not answer it. See [`PHASE1_3_FINDINGS.md`](../../PHASE1_3_FINDINGS.md) §3.
+
+### Phase 1.3.1 — micro-calibration of four already-authored conditions
+
+> _Phase 1.3.1 decision_: **OPEN NUMERICALLY; micro-calibration approved.** The faction FSM and safe-exit architecture are unchanged. Four **condition-only** edits in Batch 007, described as *observability edits, not the final 18–24 balance target*: Last Posture's disposition safe exit `TLT[T1010] | INT>=8` → `TLT[T1010] | (INT>=8 & SPR>=6)`; Meridian's sudden preservation `CHR>=9 & FIX>=14` → `CHR>=8 & FIX>=12` in both variants; CRI's sudden experiment `FIX>=18 & STR<=3` → `FIX>=16 & STR<=3` in both variants; Black Ledger's sudden enforcement `MNY<=0 & MAT!=NONE` → `MNY<=1 & MAT!=NONE`. No age windows, schedules, lifecycle transitions, commitment ladders or global FIX thresholds changed.
+> _Files changed_: `SOLID_STATE_EVENT_BATCH_007_v0.2.json` — six `when` strings, nothing else. Verified field-by-field against v0.1.
+> _Phase 1.3.1 outcome_ (2 500 runs): **partial.** 18–24 endings went 9 → 11, i.e. **1.8 → 4.4 per 1 000 runs** and 0.8% → 1.8% of completions — a real increase (Poisson p≈0.007 against the Phase-1.3 rate) but still an order of magnitude below the plan's own 5–15% review band. Sudden faction endings stayed a clear minority at **13.9%** of faction endings, and faction terminality did not rebound: **16.7%**, nowhere near the Phase-1.2 48.6%. Every FSM, safe-exit and pre-25 correctness counter stayed **zero**. Completion barely moved (23.9% → 24.2%).
+>
+> **Last Posture is unblocked but still nearly filtered.** The disposition edit worked — ENGAGED went from 68/380 contacts (17.9%) to **76/180 (42.2%)** — and the faction now reaches COMMITTED and produces an ending, which it never did before. But that is **1** of 180 contacts, because the *escalation* event `EVT-SPC-SECR-0024` variant 1 still opts out on `INT>=8 | SPR>=8 | TLT[T1010]`, which the patch deliberately did not touch. The structural zero is gone; the practical floor is not.
+>
+> **The Black Ledger edit produced no observable change.** `MNY<=1 & MAT!=NONE` still fired 0 sudden endings, because it needs a committed material at ages 19–29 and the mean commitment age is 35.7. The gate that blocks it is `MAT!=NONE`, not the money threshold.
+
+### H2A transition — two follow-up condition corrections
+
+> _H2A pre-UI decision_: two condition-only corrections accepted from the Phase 1.3.1 analysis, applied before UI integration. **`EVT-SPC-SECR-0024`** `INT>=8 | SPR>=8 | TLT[T1010]` → `TLT[T1010] | (INT>=8 & SPR>=6)`, making Last Posture's *escalation* safe exit consistent with the disposition gate Phase 1.3.1 already corrected — the second filter that kept the faction at 1 COMMITTED in 180 contacts. **`EVT-SPC-SECR-0017`** `MNY<=1 & MAT!=NONE` → `MNY<=0 & MAT!=NONE`, reverting the Phase 1.3.1 money relaxation that measurably did nothing, so the retained LOW/MID/HIGH sweep can cleanly measure whether earlier Material Commitment alone makes the originally authored Black Ledger catastrophe reachable.
+> _Files changed_: `SOLID_STATE_EVENT_BATCH_007_v0.3.json` — two `when` strings, nothing else. Content fingerprint `f802a2524d2a16ab418bb7fe810a002335d94584d40614fcefbd061526f3d3a9`.
+> _Measurement_: **none, by instruction.** No Monte Carlo was run for these two edits. Deterministic validation, the mirror check and the full test suite passed, and goldens were regenerated for the fingerprint change. **This does not close Q-27** — nothing was measured, so nothing is claimed.
+
+### H2A threshold calibration — evidence, no decision
+
+> _H2A status_: **STILL OPEN.** This calibration measures; it does not close
+> anything. Q-27 stays open until design reviews it.
+>
+> _What was run_: four arms — `CURRENT_AUTHORED` (the canonical corpus, untouched, as the true control), LOW, MID, HIGH — at 3 000 runs each, species stratified, uniform-three talents, `ARCHETYPE_SET` allocation, uniform family weighting, max age 120, base seed `h2a_threshold_v01`. LOW/MID/HIGH used the retained reversible rewrite in `src/sim/experiments.ts`. **Canonical FIX gates were not edited.**
+>
+> _Evidence — the threshold lever does not reach the 18–34 gap._ Ending-age shares of completions:
+>
+> | Arm | Completion | 18–24 | 25–34 | 35–44 | 45–54 | 55–64 | 65+ |
+> |---|---|---|---|---|---|---|---|
+> | CURRENT_AUTHORED | 25.7% | 1.2% | 16.9% | 20.1% | 9.3% | 1.7% | **50.8%** |
+> | LOW | 42.5% | 1.1% | 16.6% | **48.4%** | 20.6% | 1.8% | 11.4% |
+> | MID | 33.1% | 0.7% | 17.1% | **52.5%** | 18.5% | 1.0% | 10.1% |
+> | HIGH | 24.3% | 2.2% | 18.1% | **51.2%** | 18.7% | 2.5% | 7.4% |
+>
+> The 65+ survivor pileup collapses in every rewrite arm, but the mass lands in **35–44**, not 25–34. **25–34 does not move at all** (16.9% → 16.6/17.1/18.1%) and 18–24 stays at 1–2%. Mean commitment age is 35.3–35.7 in all four arms, so the ending mass follows commitment wherever the gates are put. This confirms from the threshold side what Phase 1.3/1.3.1 concluded from the content side: **the 18–34 shortfall is a content-supply and commitment-timing problem.**
+>
+> _Evidence — option A from the Phase 1.4 table is measurable and large._ Endings per 3 000 runs on the five "never observed" routes plus archive and religious: `INS/CIV` 4 → **86**, `INS/MUS` 5 → **79**, `INS/REL` 3 → **48**, `INS/ARC` 2 → **26**, `INS/FIN` 1 → **11**, `INS/COR` 1 → 8, `INS/ACA` 1 → **6** (current → LOW). Under the current corpus those seven routes produce 17 endings in 3 000 runs; under LOW they produce 264. Ending coverage reaches **24/24 under MID** — the first time the whole registry has been observed in one pass.
+>
+> _Evidence — faction terminality did not rebound._ Faction-caused endings are 16.5% (current), 11.1% (LOW), 11.3% (MID), 16.6% (HIGH) of completions, all far below the Phase 1.2 48.6%.
+>
+> _Analysis, not a decision_: [`H2A_THRESHOLD_CALIBRATION_FINDINGS.md`](../h2a/H2A_THRESHOLD_CALIBRATION_FINDINGS.md) argues LOW is the most plausible of the four for a provisional playtest profile (completion, route breadth, lowest material determinism), while stating that **no arm is satisfactory** against the plan's own review bands. **Nothing was selected, frozen, interpolated or auto-tuned.**
+
+### H2B.1A — evidence, no decision
+
+> _H2B.1A status_: **STILL OPEN.** The timing design states explicitly that the current age shape is acceptable for Human Playtest Round 2 and that the original target remains long-range direction, **not a Round-2 blocker**. 35–44 remaining the largest bucket was therefore not chased, and no lethality was added to force the buckets.
+>
+> _Evidence — shares of completed runs, 3 000 runs:_
+>
+> | Bucket | H2B (LOW + 008) | **H2B.1A** |
+> |---|---|---|
+> | 18–24 | 1.3% | 0.9% |
+> | 25–34 | 19.6% | **21.2%** |
+> | 35–44 | 48.0% | **35.2%** |
+> | 45–54 | 20.8% | 14.0% |
+> | 55–64 | 1.6% | 1.7% |
+> | 65+ | 8.7% | **26.9%** |
+>
+> 35–44 fell 12.8 points without being targeted, and 25–34 rose 1.6. **The large move is 65+, up 18.2 points**, and it is a direct consequence of A-04's requirement that Continuity Insurance coverage not stop at 69: `END-MED-003` now produces 470 endings at a mean review age of 83.5. Recorded as **H2B1A-C1** — the decision on whether to cap, down-weight or accept that pathway is design's.
+>
+> _Evidence — new pathways that previously never fired._ `END-LEG-002` went from 0 to **15 endings** (A-08 architectural self-ownership), the expedited STR branch from 0 to **335 runs** (A-05), and the financial maturation event reaches **156 runs at mean age 25.8** (A-02). Ending coverage stays at **25/25**.
+>
+> _Not done_: LOW is not frozen, no threshold sweep was run, and no Batch 008 or H2B.1A condition was auto-tuned from its own regression.
+
+### H2B Batch 008 — evidence, no decision
+
+> _H2B status_: **STILL OPEN.** Q-27 stays open until design reviews this run.
+>
+> _What was run_: Batch 008 (28 events: 14 pressure/recovery/stat-ecology, 8 housing/structural-life, 6 faction intermediate touchpoints), 13 existing-event patches, `END-MED-003`, and the single-active-faction rule. Primary arm **LOW + Batch 008 at 5 000 runs**; comparator **CURRENT_AUTHORED + Batch 008 at 2 500 runs**. All correctness counters zero in both arms.
+>
+> _Evidence — the ending economy is fixed; the ending-age shape is not._ Shares of completed runs:
+>
+> | Arm | Completion | 18–24 | 25–34 | 35–44 | 45–54 | 55–64 | 65+ |
+> |---|---|---|---|---|---|---|---|
+> | LOW + Batch 008 | **55.4%** | 1.3% | 19.6% | **48.0%** | 20.8% | 1.6% | 8.7% |
+> | CURRENT + Batch 008 | 32.4% | 1.1% | 21.1% | 25.3% | 12.3% | 2.6% | 37.6% |
+>
+> 65+ falls to **8.7%** and the survivor pileup is gone, but **35–44 is still the largest bucket at 48.0%** and 25–34 does not move (16.6% under LOW alone → 19.6%). 18–24 stays at 1.3%.
+>
+> _Evidence — this is the third instrument to reach the same conclusion._ Mean Material Commitment age: 35.7 (untouched corpus) → 35.3 (LOW) → **34.9** (LOW + Batch 008). Threshold height did not move it; corpus volume did not move it. **The 18–34 gap is a commitment-timing problem, and the measured lever is the age at which large-FIX bargains land, not their magnitude** — see the Q-02 block and [`H2B_BATCH008_FINDINGS.md §2`](../../H2B_BATCH008_FINDINGS.md).
+>
+> _Evidence — new pathways do reach the target decade._ The housing-to-architecture route ends **65 runs (1.3%) at mean age 34.3**, and the new `END-MED-003 Benefit Approved` completes the registry: **ending coverage is 25/25 for the first time.**
+>
+> _Not done_: no threshold frozen, no profile selected, no Batch 008 condition auto-tuned, no canonical FIX gate rewritten.
+
+**Still open, restated for Phase 1.4:** where do 18–34 endings come from now that
+the faction layer is deliberately non-terminal for 90% of contacts? Three
+directions, none applied:
+
+| Option | Change | Trade-off |
+|---|---|---|
+| A | Make the non-faction mid-life ladders (academic, corporate, museum, legal, finance) reachable in 25–34 | Those are exactly the five routes whose endings are still never observed, so it fixes two findings at once; needs authored content |
+| B | Let more than 9.3% of faction contacts reach `COMMITTED` | Smallest edit — loosen the escalation conditions — but pushes faction terminality back up, against Q-29 |
+| C | Loosen the sudden branch so 18–24 is not empty | Restores the band directly; risks re-creating the Phase 1.2 fuse the spec just removed |
+
+**Also for review:** `END-REL-001` fell from 267 endings to 5, because Order of
+the Last Posture now reaches `COMMITTED` in **zero** runs — every one of its 380
+contacts opts out, most at the disposition stage.
+
+---
+
+<a id="q-28"></a>
+## Q-28 — What is the faction relationship model?
+
+**Owner** Design · **Blocking** no · **Status** `RESOLVED` · **Evidence** [`PHASE1_2_FINDINGS.md §3`](../../PHASE1_2_FINDINGS.md)
+
+Phase 1.2 stored faction involvement as a single `FAC_*_CONTACT` flag per
+faction. That flag could not express the difference between "heard of them",
+"they have a file on you" and "you signed something", and it could never be
+withdrawn — a life that crossed a faction's path once stayed personally
+entangled with it for 120 years.
+
+**Engine before** One discrete flag per faction, set once, never cleared.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: A small **flag-backed FSM** for lifecycle — `NONE -> CONTACTED -> ENGAGED -> COMMITTED`, with authored exits to `OPTED_OUT` / `CLOSED`. Roles (CASE, CLIENT, SUBJECT, AFFILIATE, MEMBER, DEBTOR, TARGETED, OBLIGATED) are **orthogonal flags, not FSM states**, and may coexist. Events use structured `factionTransitions`; conditions still use ordinary `FLAG[...]`. **No faction condition syntax and no numeric reputation/alignment meter.** `OPTED_OUT` is a genuine safe exit that blocks ordinary personalized faction chains. `COMMITTED` has no routine safe opt-out — only an explicitly authored `CLOSED` or a terminal ending leaves it.
+> _Files changed_: `SOLID_STATE_FACTION_REGISTRY_v0.2.json`; Content Schema v0.4; `src/engine/factions.ts`; `src/engine/types.ts`; `src/engine/content/schema.ts`; `src/engine/content/load.ts`; `src/engine/simulation.ts`.
+> _Engine change_: the transition helper is **atomic** — the next flag set is built to the side and only swapped in once the edge is known legal and every named role registered, so an illegal transition can never leave a half-applied state or two lifecycle flags for one faction. The FSM's shape (legal edges, active-context states, terminal states) lives in the registry, not in code.
+> _Outcome_: **Verified, not sampled.** Across 5 000 runs: 0 illegal transitions, 0 lifecycle collisions, 0 personalized faction events after a safe exit. 1 988 contacts produced 1 046 `ENGAGED`, 184 `COMMITTED`, 949 `OPTED_OUT` and 845 `CLOSED`. The registry schema pins `numericReputationMeter: false` and `playerChoosesFaction: false` as literals, and rejects a `COMMITTED -> OPTED_OUT` edge, so a later registry cannot reintroduce either by accident.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+<a id="q-29"></a>
+## Q-29 — How prominent should factions be?
+
+**Owner** Balance · **Blocking** no · **Status** **`OPEN`** (direction resolved, number not frozen) · **Evidence** [`PHASE1_3_FINDINGS.md §5`](../../PHASE1_3_FINDINGS.md)
+
+Phase 1.2 introduced factions as lightweight authored context and they ended up
+supplying **48.6%** of all endings — half the game's terminal outcomes came from
+a layer that was not meant to be a primary route.
+
+> **Resolution** — _status_: **RESOLVED IN DIRECTION / numeric target later**
+> _Decision_: Faction **presence** may be broad. Faction **terminality** should be substantially lower than 48.6%. Measure news exposure, contact, engagement, opt-out, closure, commitment, targeting and faction-caused endings separately. **Do not freeze a target percentage yet.**
+> _Files changed_: none directly; this is measured against the Q-28 restructure.
+> _Outcome_: **Direction achieved, possibly overshot.** Contact stayed broad at 34.9% of runs (35.9% in Phase 1.2) while faction-caused endings fell to **15.4%** of completions. News exposure is near-universal: every faction reaches **82.2–87.2%** of runs, because the twelve news events are `random`/`VERY_LOW`/`include: TRUE` over wide adult windows and the average run is 105 years long. Whether 15.4% is now too low, and whether 82–87% news exposure is more than "occasional world texture" was meant to mean, are the two open numbers. Nothing was tuned toward a target.
+> _Reviewed / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md
+>
+> _Phase 1.3.1 decision_: No target frozen. Keep the Phase 1.3 direction — presence may be common, faction-caused endings must stay substantially below 48.6% — and keep sudden faction endings a minority branch. **Do not globally raise faction COMMITTED rates.**
+> _Phase 1.3.1 outcome_: Held. Faction-caused endings **16.7%** of completions (from 15.4%), sudden branch **13.9%** of faction endings (from 6.0%), contact **36.0%** of runs. The four condition edits moved the sudden branch without touching the commitment ladder, exactly as scoped.
+>
+> _H2B.1A evidence (no decision; this question stays OPEN)_: A-03 made Black Ledger escalation depend on the **DEBTOR obligation plus FIX/material evidence** rather than on the protagonist staying poor. Measured: 98 contacts → 84 ENGAGED → **22 COMMITTED at mean age 28.2**, and all 22 held the DEBTOR role. **72 opt-outs remain**, so wealth and Property Lawyer still buy a genuine pre-COMMITTED exit, and OPTED_OUT stays permanent. Faction-caused endings held at **10.1%** of completions and the single-active-faction invariant held absolutely (max 1 simultaneously active, 0 contacts opened while another relationship was live). No FSM rule changed and no faction UI was added.
+
+> _H2B evidence (no decision; this question stays OPEN)_: the **single active personalized faction** rule is now an engine eligibility rule — a `contact` event is ineligible while another faction is CONTACTED/ENGAGED/COMMITTED; news and lore are unaffected; entering OPTED_OUT or CLOSED frees the slot from the next annual draft, and the exited faction stays terminal under the unchanged FSM. Measured over 5 000 runs: **maximum simultaneously-active factions 1, zero violations, zero contacts opened while a relationship was still active**, and **69 second contacts opened after a terminal exit** — sequential relationships work. Contact incidence barely moved (35.0% → **33.5%**), so exclusivity did not remove factions from the world. Batch 008's six intermediate touchpoints reach 1.9–6.3% of runs each, and the obvious failure mode — the new middle event pushing the existing escalations past their authored age windows — **did not occur: zero escalation schedules expired.** Faction-caused endings fell to **10.6%** of completions. No numeric target was frozen, no FSM rule changed and no faction UI was added.
+
+> _H2A chain-legibility evidence (no decision; this question stays OPEN)_: measured on the current corpus, 3 000 runs. Any-faction contact **35.0%** of runs, faction-caused endings **16.5%** of completions — the direction still holds. The new number is the **chain length**: a contacted faction gives a life a mean of **2.1–3.1 personalized touchpoints about two years apart**, and three of six factions exit at the very first disposition in more than half of contacts (DMMS **92.4%**, Meridian 59.6%, Last Posture 54.4%). With per-faction contact at 4–9%, a typical life meets one faction, twice. **The escalation path itself is not broken** — after ENGAGED a later touchpoint follows in 99–100% of runs, and after COMMITTED a climax follows in 83–100%. The first human playtest's impression that "faction chains feel disconnected and safe opt-out feels frequent" is therefore **qualitative evidence consistent with the measurement**, not itself a population fact. Faction FSM, conditions and prose were not changed. See [`H2A_THRESHOLD_CALIBRATION_FINDINGS.md`](../h2a/H2A_THRESHOLD_CALIBRATION_FINDINGS.md) §6.
+
+---
+
+<a id="q-30"></a>
+## Q-30 — Should passive faction news exist, and how?
+
+**Owner** Content · **Blocking** no · **Status** `RESOLVED` · **Evidence** [`PHASE1_3_FINDINGS.md §4`](../../PHASE1_3_FINDINGS.md)
+
+Factions could only reach the protagonist through personal contact, so a faction
+either had a file on you or did not exist. There was also no way to fill an empty
+late-life year with anything but the generic quiet-year fallback.
+
+> **Resolution** — _status_: **RESOLVED**
+> _Decision_: Most faction news is **once-per-run and protagonist-unrelated**, and creates no personal faction state. Add **`lore_fallback_only`** as a separate fallback tier **ahead of** generic fallback. One rare repeatable bulletin per faction is enough for the first slice. Report lore fallback **separately** from generic fallback.
+> _Files changed_: `SOLID_STATE_EVENT_BATCH_007_v0.1.json` (12 once-per-run news events forming progressions via `EVT[...]`, plus 6 lore-fallback bulletins); Content Schema v0.4; `src/engine/eligibility.ts`; `src/engine/simulation.ts`; `src/sim/metrics.ts`.
+> _Engine change_: fallback resolution is now scheduled → normal draft → eligible `lore_fallback_only` → generic `fallback_only`. Lore fallback is weighted **only** by `weightClass` — no route, talent or species modifier reaches the tier — and the schema rejects any lore-fallback variant that carries stats, flags, faction transitions, schedules, material or an ending, so the mode cannot become a normal event in disguise. `loreFallbackYears` is a separate diagnostic from `fallbackYears`.
+> _Outcome_: **Working, and honest about what it covers.** Conditional on the run still being active, lore fallback fills 12.6% of 55–64 years and 29.6% of 65+ years. Generic fallback at 55–64 went to **0.0%** and at 65+ fell 51.8% → 24.6%, but combined emptiness at 65+ is unchanged (51.8% → 54.2%). News is confirmed inert: all 12 events carry no effects, no flags and no transitions, and remain eligible after a safe exit without reopening personal state.
+> _Decided by / date_: 2026-08-13 · design (via ChatGPT review), merged from PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md
+
+---
+
+## Change log for this file
+
+| Date | Change |
+|---|---|
+| 2026-08-12 | Created at Phase-1 handoff with Q-01 … Q-26 |
+| 2026-08-13 | Phase 1.1: merged `PHASE1_1_DESIGN_RESOLUTIONS_v0.1.md`. 22 questions RESOLVED; Q-14, Q-23, Q-24, Q-25 deliberately remain open. Outcomes measured against the Phase 1.1 content and reported in `PHASE1_1_FINDINGS.md`. |
+| 2026-08-13 | Phase 1.2: merged `PHASE1_2_DESIGN_RESOLUTIONS_v0.1.md`. Added **Q-27**; added a `_Phase 1.2 outcome_` line to Q-02, Q-10, Q-14, Q-19, Q-22, Q-23, Q-24. **Q-24 is now RESOLVED.** Q-14, Q-23, Q-25 and Q-27 remain open. Outcomes measured against the Phase 1.2 content and reported in `PHASE1_2_FINDINGS.md`. |
+| 2026-08-13 | H2A UI foundation: two pre-UI condition corrections recorded under Q-27 as an H2A transition note, unmeasured by instruction. No question changed status. |
+| 2026-08-13 | Phase 1.3.1: merged `PHASE1_3_1_DESIGN_RESOLUTIONS_v0.1.md`. **P13-C1 CLOSED** and the derived Content Tool v0.3 / Route Tag Registry v1.2 ratified as canonical; the dangling "P13-C2" reference in `PHASE1_CONFLICTS.md` corrected (no such section ever existed). Four condition-only Batch 007 edits applied under Q-27. No question changed status. Outcomes in `PHASE1_3_1_FINDINGS.md`. |
+| 2026-08-14 | H2B.1A working balance & timing: **LOW adopted as the working canonical H2B balance** (31 FIX gates, historical machinery preserved, *not* a freeze); corrections A-01 … A-11; the A-04 data-driven state-trigger facility; the A-12 contributor audit with no stat effect edited. Evidence-only additions to **Q-02**, **Q-12**, **Q-27** and **Q-29**; **no question changed status**. Four observations recorded as **H2B1A-C1 … H2B1A-C4** in `PHASE1_CONFLICTS.md`. Analysis in `H2B1A_FINDINGS.md`. |
+| 2026-08-14 | H2B Pressure & Tone / Batch 008: integrated 28 blueprint events, `END-MED-003` (Ending Registry v1.2), 13 existing-event patches, the single-active-personalized-faction engine rule and the all-female / age-0-1 / stat-curve lints. Evidence-only additions to **Q-02**, **Q-12**, **Q-23**, **Q-27** and **Q-29**; **no question changed status**, LOW not frozen, Batch 008 not auto-tuned. Four observations for design review recorded as **H2B-C1 … H2B-C4** in `PHASE1_CONFLICTS.md`. Analysis in `H2B_BATCH008_FINDINGS.md`. |
+| 2026-08-14 | H2A UX micro-patch + threshold calibration: evidence-only additions to **Q-02**, **Q-12**, **Q-27** and **Q-29** from the four-arm current-corpus calibration (12 000 runs). **No question changed status**; no threshold profile selected, frozen or interpolated; no canonical content edited. Analysis in `H2A_THRESHOLD_CALIBRATION_FINDINGS.md`, data in `reports/h2a-threshold-calibration.{json,md}`. |
+| 2026-08-13 | Phase 1.3: merged `PHASE1_3_DESIGN_RESOLUTIONS_v0.1.md`. Added **Q-28** (RESOLVED), **Q-29** (open, direction only) and **Q-30** (RESOLVED); added `_Phase 1.3_` blocks to Q-23 and Q-27; ratified the P12-C1 duplicate-ID resolution. **H2A recorded as the next project milestone and its gate opened.** Q-14, Q-23, Q-25, Q-27 and Q-29 remain open. Outcomes measured against the Phase 1.3 content and reported in `PHASE1_3_FINDINGS.md`. |
