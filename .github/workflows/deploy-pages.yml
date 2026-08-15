@@ -6,6 +6,11 @@ name: Deploy GitHub Pages
 # ever deploys — development branches build nothing here. The Pages source is
 # configured in repository settings as "GitHub Actions"; no `gh-pages` branch
 # and no `/docs` publishing is used, and `dist/` is never committed.
+#
+# `workflow_dispatch` can be pointed at any branch from the Actions UI, so the
+# main-only rule is enforced twice: once by the push filter, and once by the
+# version-controlled ref guard on both jobs below. Dispatching a development
+# branch runs nothing rather than publishing it.
 on:
   push:
     branches:
@@ -28,6 +33,9 @@ concurrency:
 jobs:
   build:
     name: Verify and build
+    # Only `main` may ever produce a Pages artifact, however this workflow was
+    # started.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -65,8 +73,11 @@ jobs:
   deploy:
     name: Deploy to Pages
     # `needs` is what guarantees "never deploy after a verify/build failure":
-    # a failed build job leaves this job skipped.
+    # a failed build job leaves this job skipped. The ref guard is repeated here
+    # rather than inherited, so publishing cannot happen off `main` even if the
+    # build job's condition is ever relaxed.
     needs: build
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment:
       name: github-pages

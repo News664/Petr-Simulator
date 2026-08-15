@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment } from 'react';
 
 import type { ContentBundle } from '../../engine/content/load.js';
 import type { PlaybackFrame } from '../../engine/playback.js';
@@ -6,6 +6,7 @@ import type { SpeciesDef, VisibleStat } from '../../engine/types.js';
 import { useI18n } from '../i18n/index.js';
 import { formatDelta, materialLabel, STAT_ORDER, talentName } from '../presentation.js';
 import type { Speed } from '../state/reducer.js';
+import { usePresentFollow } from '../usePresentFollow.js';
 
 interface PlaybackProps {
   content: ContentBundle;
@@ -35,26 +36,11 @@ export function Playback({
   onSetSpeed,
 }: PlaybackProps) {
   const { t } = useI18n();
-  const endRef = useRef<HTMLDivElement>(null);
-  const [stuckToPresent, setStuckToPresent] = useState(true);
+  // Viewport following lives in its own hook so the reveal path here stays a
+  // pure render of what has already been revealed. It moves the viewport only —
+  // never the reveal clock.
+  const { anchorRef, following, returnToPresent } = usePresentFollow(frames.length);
   const current = frames.length > 0 ? frames[frames.length - 1] : null;
-
-  // Auto-scroll unless the player has scrolled up to re-read something.
-  // `scrollIntoView` is decorative and absent in some environments (jsdom), so a
-  // missing implementation must never break the reveal.
-  useEffect(() => {
-    if (!stuckToPresent) return;
-    endRef.current?.scrollIntoView?.({ block: 'end', behavior: 'auto' });
-  }, [frames.length, stuckToPresent]);
-
-  useEffect(() => {
-    const onScroll = (): void => {
-      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 120;
-      setStuckToPresent(nearBottom);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   const stats: Record<VisibleStat, number> = current
     ? current.statsAfter
@@ -96,16 +82,9 @@ export function Playback({
             );
           })}
         </ul>
-        <div ref={endRef} />
-        {!stuckToPresent ? (
-          <button
-            type="button"
-            className="btn return-to-present"
-            onClick={() => {
-              setStuckToPresent(true);
-              endRef.current?.scrollIntoView?.({ block: 'end', behavior: 'smooth' });
-            }}
-          >
+        <div ref={anchorRef} data-testid="playback-present-anchor" />
+        {!following ? (
+          <button type="button" className="btn return-to-present" onClick={returnToPresent}>
             {t('playback.returnToPresent')}
           </button>
         ) : null}
