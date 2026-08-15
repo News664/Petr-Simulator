@@ -61,7 +61,7 @@ design but **numerically unfrozen**, and is restated below for that reason.
 | [Q-14](#q-14) | How much starting FIX does T1027 grant? | Balance | no | **`OPEN`** / deferred |
 | [Q-23](#q-23) | Is a 35% adult fallback share acceptable? | Content | no | **`OPEN`** / monitor |
 | [Q-25](#q-25) | What is the achievements registry, for `ACH[id]`? | Design | no | **`OPEN`** / deferred |
-| [Q-27](#q-27) | How should the ending-age distribution be shaped? | Content | **yes** | **`OPEN`** |
+| [Q-27](#q-27) | How should the ending-age distribution be shaped? | Content | **yes** (balance freeze; *not* Round 2) | **`OPEN`** |
 | [Q-29](#q-29) | How prominent should factions be? | Balance | no | **`OPEN`** (direction resolved, number not frozen) |
 | [Q-02](#q-02) | How should the FIX economy reach the climax gates? | Balance | **yes** | `RESOLVED` (design) / **numbers not frozen** |
 
@@ -224,6 +224,13 @@ Round 2 and that the original target distribution is long-range direction, **not
 a Round-2 blocker**. 35–44 remaining the largest bucket was therefore not
 treated as a failure and no lethality was added to force the buckets. It fell
 12.8 points anyway.
+
+**What "blocking" means here.** Q-27 blocks the **balance freeze**, not Human
+Playtest Round 2. Round 2 may open on the current working balance, and the
+qualitative feedback it produces — whether long lives feel empty, whether the
+late-life review pathway reads as canonical or as a loophole — is an *input* to
+this question rather than something it waits on. Nothing about Round 2 readiness
+depends on Q-27 closing first.
 
 **Options — none applied**
 
@@ -409,4 +416,5 @@ is the compact version.
 | 2026-08-14 | H2A UX micro-patch + four-arm threshold calibration (12 000 runs): evidence only for Q-02, Q-12, Q-27, Q-29. No status change, no profile selected |
 | 2026-08-14 | H2B Pressure & Tone / Batch 008: 28 events, `END-MED-003`, single-active-faction rule, two new lints. Evidence only for Q-02, Q-12, Q-23, Q-27, Q-29. No status change |
 | 2026-08-14 | H2B.1A: **LOW adopted as the working canonical balance** (not a freeze); corrections A-01 … A-11; A-04 state-trigger facility; A-12 audit with no stat effect edited. Evidence only for Q-02, Q-12, Q-27, Q-29. No status change |
+| 2026-08-14 | **B.1 engineering patch.** Documentation only in this file: Q-27's "blocking" scope clarified as the balance freeze rather than Human Playtest Round 2, restating the H2B.1A timing design. **No question changed status; no decision added, altered or removed.** |
 | 2026-08-14 | **Part B compaction → v0.6.** Full register archived verbatim as `archive/decisions/DECISION_HISTORY.md`; this file rewritten to open/deferred questions in full plus a resolved index carrying every decision. **Every Q ID and recorded decision preserved; no question changed status; no gameplay, balance or content touched.** |

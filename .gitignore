@@ -18,3 +18,10 @@ reports/*
 !reports/h2b1a-regression.md
 scratch/
 dist/
+
+# Playwright output. The specs are tracked; traces, screenshots and the HTML
+# report are per-run artifacts.
+test-results/
+playwright-report/
+blob-report/
+.playwright/

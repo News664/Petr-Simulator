@@ -1,0 +1,66 @@
+name: PR checks
+
+# Everything that must be true before code reaches `main`, which is the branch
+# GitHub Pages publishes. This workflow deploys nothing — it only proves the
+# change is safe to publish.
+#
+# The job below is named `verify-build-e2e` so the status check has a stable
+# name the repository owner can mark as required in the `main` ruleset.
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+# One run per pull request. Pushing again supersedes the previous run rather
+# than queueing behind it.
+concurrency:
+  group: pr-checks-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-build-e2e:
+    name: verify-build-e2e
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Node 22: jsdom 30 and undici 8 require >= 22.22.2, which is also the
+      # floor recorded in package.json engines.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify
+        run: npm run verify
+
+      - name: Build
+        run: npm run build
+
+      # Chromium only. Both Playwright projects — desktop and the emulated
+      # mobile viewport — run on it, so no other browser is downloaded.
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      # `e2e:ci` skips the rebuild: the Build step above already produced dist/,
+      # which is what `vite preview` serves.
+      - name: Browser smoke tests
+        run: npm run e2e:ci
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+          if-no-files-found: ignore

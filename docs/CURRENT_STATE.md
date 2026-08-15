@@ -13,7 +13,7 @@ the browser build is playable, and the next gate is **Human Playtest Round 2**.
 | Events | **215** across 8 batches |
 | Endings | **25** — registry fully covered in the current regression |
 | Route tags / species / talents | **39** / 6 / 30 |
-| Tests | **366 passing** in 18 files |
+| Tests | **376 passing** in 19 files, plus a Chromium browser smoke suite |
 | Build | production Vite build clean; snapshot regenerated |
 
 Check with `npm run validate` and `npm test`.
@@ -44,9 +44,9 @@ untouched: the reversible LOW/MID/HIGH rewrite still applies on this baseline.
 
 ## UI
 
-A React browser app under `src/app`, served by Vite, playing one deterministic
-life: birth registration → three irregularities → initial assessment → record
-summary → annual playback → ending or open record → full record review.
+A React app under `src/app`, playing one deterministic life: birth registration →
+three irregularities → initial assessment → record summary → annual playback →
+ending or open record → full record review.
 
 The browser never loads the Node content loader: a generated snapshot carries the
 fingerprint verbatim, `npm run content:browser:check` fails if it goes stale, and
@@ -54,17 +54,32 @@ tests prove a hydrated bundle produces byte-identical runs. Playback is
 precomputed at `BEGIN LIFE`, so pause and 1×/2× change only *when* a frame is
 revealed, never what it contains. `?dev=1` adds a seed field and the inspector.
 
+**Mobile playback follow** was rewritten in B.1: reveals correct the viewport
+instantly, in the same commit as the entry, measured against the timeline's end
+anchor rather than the document bottom — which is what previously switched follow
+off on narrow layouts, where the status rail sits below the timeline. Reveal
+cadence is unchanged. Covered by unit tests and by Playwright on an emulated
+phone; **real-device confirmation is still the owner's to give.**
+
 ## Public playtest / Pages
 
-Pages source is **GitHub Actions**;
-[`.github/workflows/deploy-pages.yml`](../.github/workflows/deploy-pages.yml)
-deploys **only on pushes to `main`** (plus `workflow_dispatch`), and only after
-`npm run verify` and `npm run build` both pass. Expected URL:
-`https://news664.github.io/Petr-Simulator/`.
+**Live:** `https://news664.github.io/Petr-Simulator/`
 
-**Status: not verified live yet.** It becomes live when a post-merge run succeeds
-and [`playtest/GITHUB_PAGES_SMOKE_CHECK.md`](playtest/GITHUB_PAGES_SMOKE_CHECK.md)
-passes — which is also the **Round 2 gate**.
+Pages source is **GitHub Actions**.
+[`deploy-pages.yml`](../.github/workflows/deploy-pages.yml) publishes on pushes
+to `main`, only after `npm run verify` and `npm run build` pass, and only when
+the ref is `main` — so a manual dispatch cannot publish another branch. Pull
+requests into `main` first run `verify-build-e2e`
+([`pr-check.yml`](../.github/workflows/pr-check.yml)), which deploys nothing.
+
+## Round 2 readiness
+
+**Infrastructure is ready** — publishing, PR gating and automated functional
+smoke coverage. What remains is the owner's **real-device pass** over the short
+manual section of
+[`playtest/GITHUB_PAGES_SMOKE_CHECK.md`](playtest/GITHUB_PAGES_SMOKE_CHECK.md):
+mobile follow on real hardware, clipboard, other browsers, and judgement. Round 2
+is about UX, content, tone and pacing; routine function checks belong to CI.
 
 ## Open and deferred questions
 
@@ -72,7 +87,7 @@ Full entries in [`OPEN_QUESTIONS.md`](OPEN_QUESTIONS.md).
 
 | ID | |
 |---|---|
-| **Q-27** | *Blocking.* Where do 18–34 endings come from? Thresholds and corpus volume are both ruled out; the late-life review pathway (H2B1A-C1) is the largest mover. |
+| **Q-27** | Where do 18–34 endings come from? Thresholds and corpus volume are both ruled out; the late-life review pathway (H2B1A-C1) is the largest mover. **Blocks the balance freeze — explicitly *not* a Round-2 blocker:** the H2B.1A timing design calls the current age shape acceptable for Round 2, which is an input to this question rather than something waiting on it. |
 | **Q-29** | Faction terminality is ~10% of completions, down from 48.6% and never tuned toward a target. Too low? Is 82–87% news exposure more than world texture? |
 | **Q-23** | Adult generic fallback is still far above the 5% warning line — content supply, overlapping Q-27. |
 | **Q-14** | T1027's starting-FIX bonus is not frozen; the diagnostic value is +15. Decide after Q-02. |
@@ -84,12 +99,12 @@ Also awaiting decisions: **H2B1A-C1 … C4**, **H2B-C1 … C4** in
 
 ## Next milestones
 
-1. **Pages deploy + smoke check** on `main`.
-2. **Human Playtest Round 2** — needs neither the original ending-age
-   distribution nor `zh-TW`.
+1. **Owner real-device pass** over the manual section of the smoke check.
+2. **Human Playtest Round 2** — UX, content, tone and pacing. Needs neither the
+   original ending-age distribution nor `zh-TW`.
 3. **Localization L0** — not started; `zh-TW` is preserved empty and no
    translation has been invented.
-4. **Q-27 / H2B1A-C1 decision**, then the work it calls for.
+4. **Q-27 / H2B1A-C1 decision**, informed by Round 2, then the work it calls for.
 
 ## Read next
 
