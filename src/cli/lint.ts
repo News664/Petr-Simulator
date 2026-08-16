@@ -7,12 +7,14 @@
  *
  * Implements `docs/validation/SOLID_STATE_H2B_CONTENT_LINT_SPEC_v0.1.md`:
  * the all-female prose lint, the age-0/1 manual-review audit, and the
- * stat-curve audit.
+ * stat-curve audit — plus the hidden-token lint, which guards the H2A promise
+ * that internal state never reaches a player.
  *
- * The gender lint is a hard failure — canonical v1 prose is all-female by
- * design invariant. The other two are reports for human review: whether an
- * age-0 household event implies implausible protagonist agency is a judgement
- * this tool must not make on its own.
+ * The gender and hidden-token lints are hard failures — all-female prose is a
+ * design invariant, and a leaked `FIX` undoes the inference the whole playtest
+ * is about. The other two are reports for human review: whether an age-0
+ * household event implies implausible protagonist agency is a judgement this
+ * tool must not make on its own.
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -24,7 +26,7 @@ import {
   REPO_ROOT,
   type ContentBundle,
 } from '../engine/content/load.js';
-import { genderLint, preschoolAudit, statCurveAudit } from '../engine/content/lint.js';
+import { genderLint, hiddenTokenLint, preschoolAudit, statCurveAudit } from '../engine/content/lint.js';
 import { ALL_STATS, VISIBLE_STATS } from '../engine/types.js';
 import { boolFlag, optionalStringFlag, parseArgs } from './args.js';
 
@@ -42,6 +44,7 @@ Options:
 
 function renderReport(content: ContentBundle): string {
   const gender = genderLint(content);
+  const hidden = hiddenTokenLint(content);
   const preschool = preschoolAudit(content);
   const curve = statCurveAudit(content);
   const out: string[] = [];
@@ -77,7 +80,31 @@ function renderReport(content: ContentBundle): string {
   }
   out.push('');
 
-  out.push('## 2. Age 0–1 audit');
+  out.push('## 2. Hidden-token prose lint');
+  out.push('');
+  out.push(
+    `Scanned the same **${hidden.scanned}** player-facing strings for internal identifiers that must never ` +
+      'reach a player: word-bounded uppercase `FIX`, and the `ROUTE_` / `FAC_` namespaces. Conditions are not ' +
+      'prose and are out of scope — `FIX>=28` in an `include` is correct authoring. Lowercase "fix" is an ' +
+      'ordinary English word and is not matched.',
+  );
+  out.push('');
+  if (hidden.findings.length === 0) {
+    out.push('**PASS — 0 findings.**');
+  } else {
+    out.push(`**FAIL — ${hidden.findings.length} finding(s).**`);
+    out.push('');
+    out.push('| Kind | ID | Field | Token | String |');
+    out.push('|---|---|---|---|---|');
+    for (const finding of hidden.findings) {
+      out.push(
+        `| ${finding.kind} | \`${finding.id}\` | ${finding.field} | \`${finding.term}\` | ${finding.text.replace(/\|/g, '\\|')} |`,
+      );
+    }
+  }
+  out.push('');
+
+  out.push('## 3. Age 0–1 audit');
   out.push('');
   out.push(
     `**${preschool.length}** event(s) can fire at age 0 or 1. Human review must confirm protagonist agency is ` +
@@ -103,7 +130,7 @@ function renderReport(content: ContentBundle): string {
     out.push('');
   }
 
-  out.push('## 3. Stat-curve audit');
+  out.push('## 4. Stat-curve audit');
   out.push('');
   out.push(
     'Authored variant deltas counted statically over the corpus. An event contributes to every age band its ' +
@@ -175,6 +202,7 @@ function main(argv: string[]): number {
   writeFileSync(reportPath, renderReport(content), 'utf8');
 
   const gender = genderLint(content);
+  const hidden = hiddenTokenLint(content);
   const preschool = preschoolAudit(content);
   const curve = statCurveAudit(content);
 
@@ -186,6 +214,17 @@ function main(argv: string[]): number {
       `  monotonic visible stats ${curve.monotonicStats.length === 0 ? 'none' : curve.monotonicStats.join(', ')}`,
     );
   }
+
+  if (hidden.findings.length > 0) {
+    console.error(`Hidden-token prose lint FAILED — ${hidden.findings.length} string(s) naming internal state:`);
+    for (const finding of hidden.findings) {
+      console.error(`  - ${finding.kind} ${finding.id} (${finding.field}) matched "${finding.term}"`);
+      console.error(`      ${finding.text}`);
+    }
+    console.error('Rewrite the prose in the player\'s terms. Do not add the string to the allowlist to pass CI.');
+    return 1;
+  }
+  if (!quiet) console.log('Hidden-token prose lint: PASS (0 findings).');
 
   if (gender.findings.length > 0) {
     console.error(`All-female prose lint FAILED — ${gender.findings.length} male-coded string(s):`);

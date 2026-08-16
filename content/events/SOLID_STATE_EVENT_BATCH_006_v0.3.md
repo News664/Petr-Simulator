@@ -342,7 +342,7 @@ Phase 1.2 compact content-shape patch. Adds six lightweight faction contacts, si
 **Exclude:** `FALSE`
 
 **Variant 1 — when `TRUE`**
-> The Continuity Research Institute invites former subjects back for another longitudinal session. The dataset improves; your FIX reading does too.
+> The Continuity Research Institute invites former subjects back for another longitudinal session. The dataset improves; the Institute’s concern about your continuity status does too.
 - Effects: `{"FIX": 3, "INT": 1, "SPR": -1}`
 
 **Route tags:** `continuity_institute, research, academic`  

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { loadDefaultContent } from '../src/engine/content/load.js';
-import { genderLint, preschoolAudit, statCurveAudit } from '../src/engine/content/lint.js';
+import { genderLint, hiddenTokenLint, preschoolAudit, statCurveAudit } from '../src/engine/content/lint.js';
 import { factionSlotAllows, isEligible } from '../src/engine/eligibility.js';
 import { activeFaction, applyFactionTransition, factionState } from '../src/engine/factions.js';
 import { createRun, type SetupPolicy } from '../src/engine/setup.js';
@@ -355,6 +355,84 @@ describe('H2B — content lints', () => {
     const result = genderLint(content);
     expect(result.scanned).toBeGreaterThan(500);
     expect(result.findings).toEqual([]);
+  });
+
+  it('finds no internal identifier in player-facing prose', () => {
+    const result = hiddenTokenLint(content);
+    expect(result.scanned).toBeGreaterThan(500);
+    expect(result.findings).toEqual([]);
+  });
+
+  it('catches a hidden token wherever it hides in player prose', () => {
+    // The runtime hidden-state test plays a randomly seeded life, so it only
+    // catches a leak on the runs that happen to draw the offending event —
+    // which is exactly how `EVT-INS-ACA-0012` survived until CI drew it. This
+    // lint reads every authored string every time, so it must actually match.
+    const leaked = {
+      ...content,
+      events: [
+        {
+          ...content.events[0]!,
+          id: 'EVT-TEST-LEAK-0001',
+          variants: [
+            {
+              ...content.events[0]!.variants[0]!,
+              text: { en: 'The dataset improves; your FIX reading does too.', 'zh-TW': '' },
+            },
+          ],
+        },
+      ],
+    };
+
+    const result = hiddenTokenLint(leaked as typeof content);
+    expect(result.findings).toHaveLength(1);
+    expect(result.findings[0]!.term).toBe('FIX');
+    expect(result.findings[0]!.id).toBe('EVT-TEST-LEAK-0001');
+  });
+
+  it('reads conditions as machinery, and lowercase "fix" as English', () => {
+    // `FIX>=28` in an include and "a quick fix" in prose are both correct; only
+    // uppercase, word-bounded FIX in player-facing text is a leak.
+    const benign = {
+      ...content,
+      events: [
+        {
+          ...content.events[0]!,
+          id: 'EVT-TEST-BENIGN-0001',
+          include: 'FIX>=28 & FLAG[FAC_CRI_STATE_ENGAGED]',
+          variants: [
+            {
+              ...content.events[0]!.variants[0]!,
+              when: 'FIX>=30',
+              text: { en: 'The technician promises a quick fix and prefixes the form number.', 'zh-TW': '' },
+            },
+          ],
+        },
+      ],
+    };
+
+    expect(hiddenTokenLint(benign as typeof content).findings).toEqual([]);
+  });
+
+  it('catches leaked route and faction namespaces too', () => {
+    const leaked = {
+      ...content,
+      events: [
+        {
+          ...content.events[0]!,
+          id: 'EVT-TEST-LEAK-0002',
+          variants: [
+            {
+              ...content.events[0]!.variants[0]!,
+              text: { en: 'Your file is annotated ROUTE_ARC_SELF_OWNED by FAC_CRI staff.', 'zh-TW': '' },
+            },
+          ],
+        },
+      ],
+    };
+
+    const terms = hiddenTokenLint(leaked as typeof content).findings.map((finding) => finding.term);
+    expect(terms).toEqual(['ROUTE_ARC_SELF_OWNED', 'FAC_CRI']);
   });
 
   it('lists every age-0/1 event for manual review', () => {

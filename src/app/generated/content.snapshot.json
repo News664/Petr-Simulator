@@ -1,6 +1,6 @@
 {
   "snapshotSchemaVersion": 1,
-  "contentVersion": "8638e2e1ebd977878d09c28c1d554d7b85e2174f24fcf7aa568df018541d214e",
+  "contentVersion": "3af02c428c7fd5de7b64a3c1c07ae84b084ad1576b9ee9f35a8da06087b5b54d",
   "sourceFiles": [
     {
       "path": "content/events/SOLID_STATE_EVENT_BATCH_001_v0.4.json",
@@ -24,7 +24,7 @@
     },
     {
       "path": "content/events/SOLID_STATE_EVENT_BATCH_006_v0.3.json",
-      "sha256": "cae22f273f7c3280681b90944d73443b31c9ce69e37512cf35a0b8845c0ba083"
+      "sha256": "da4ba628f1d3557d9267122f7cfec35dcd1d97c7857fe9001c6bf785a31de8a1"
     },
     {
       "path": "content/events/SOLID_STATE_EVENT_BATCH_007_v0.5.json",
@@ -9094,7 +9094,7 @@
             {
               "when": "TRUE",
               "text": {
-                "en": "The Continuity Research Institute invites former subjects back for another longitudinal session. The dataset improves; your FIX reading does too.",
+                "en": "The Continuity Research Institute invites former subjects back for another longitudinal session. The dataset improves; the Institute’s concern about your continuity status does too.",
                 "zh-TW": ""
               },
               "effects": {

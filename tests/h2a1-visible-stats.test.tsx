@@ -44,6 +44,16 @@ function readoutCodes(container: HTMLElement): string[] {
   );
 }
 
+/**
+ * How a value is expected to read on screen.
+ *
+ * Negatives use a Unicode minus, matching the delta chips on the event cards —
+ * `String(-4)` would produce an ASCII hyphen and quietly disagree.
+ */
+function expectedValue(value: number): string {
+  return value < 0 ? `−${Math.abs(value)}` : String(value);
+}
+
 afterEach(cleanup);
 
 describe('visible stat readout', () => {
@@ -120,7 +130,7 @@ describe('playback status', () => {
     );
 
     expect(readoutCodes(container)).toEqual([...STAT_ORDER]);
-    expect(readoutValues(container)).toEqual(STAT_ORDER.map((stat) => String(current.statsAfter[stat])));
+    expect(readoutValues(container)).toEqual(STAT_ORDER.map((stat) => expectedValue(current.statsAfter[stat])));
     expect(screen.getByText(String(current.age))).toBeTruthy();
   });
 
@@ -256,7 +266,7 @@ describe('outcome screens', () => {
 
     const heading = last.endingAfter ? 'FINAL ASSESSMENT' : 'LATEST ASSESSMENT';
     expect(screen.getByText(heading)).toBeTruthy();
-    expect(readoutValues(container)).toEqual(STAT_ORDER.map((stat) => String(last.statsAfter[stat])));
+    expect(readoutValues(container)).toEqual(STAT_ORDER.map((stat) => expectedValue(last.statsAfter[stat])));
     expect(within(container).getAllByText(String(last.age)).length).toBeGreaterThan(0);
   });
 });

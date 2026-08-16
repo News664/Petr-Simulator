@@ -125,6 +125,69 @@ export function genderLint(content: ContentBundle): { scanned: number; findings:
 }
 
 // ---------------------------------------------------------------------------
+// Hidden-token prose lint
+// ---------------------------------------------------------------------------
+
+/**
+ * Internal identifiers that must never reach a player.
+ *
+ * `FIX` is the hidden fixation stat: the whole H2A premise is that a player
+ * infers transformation pressure from what happens, not from a number, and a
+ * single line of prose naming it undoes that for the run that draws it. The
+ * prefixes are the machine-facing namespaces — a route flag or faction flag in
+ * prose is a leaked implementation detail either way.
+ *
+ * This is deliberately a *static* check on canonical text. The UI already has a
+ * runtime test asserting no hidden token reaches the rendered DOM, but that test
+ * plays a randomly seeded life, so it only catches a leak on the runs that
+ * happen to draw the offending event. This lint reads every authored string
+ * every time.
+ *
+ * Scope is narrow on purpose: uppercase, word-bounded `FIX`, and the two
+ * obvious identifier prefixes. Lowercase "fix" is an ordinary English word and
+ * is not matched. Only player-facing prose is scanned — `include` / `when`
+ * conditions legitimately contain `FIX>=28` and `FLAG[FAC_CRI_STATE_ENGAGED]`,
+ * and are not prose.
+ */
+export const HIDDEN_TOKEN_PATTERNS: readonly { name: string; re: RegExp }[] = [
+  { name: 'FIX', re: /\bFIX\b/g },
+  { name: 'ROUTE_', re: /\bROUTE_[A-Z0-9_]*/g },
+  { name: 'FAC_', re: /\bFAC_[A-Z0-9_]*/g },
+];
+
+/**
+ * Reviewed exceptions, same contract as the gender allowlist: an entry is
+ * `${sourceId}:${field}:${term}`, and it stays empty until a human decides a
+ * given string really is meant to say this.
+ */
+export const HIDDEN_TOKEN_ALLOWLIST: readonly string[] = [];
+
+/** Player-facing prose naming an internal token. Hard failure. */
+export function hiddenTokenLint(content: ContentBundle): { scanned: number; findings: ProseFinding[] } {
+  const entries = collectProse(content);
+  const findings: ProseFinding[] = [];
+  for (const entry of entries) {
+    for (const pattern of HIDDEN_TOKEN_PATTERNS) {
+      pattern.re.lastIndex = 0;
+      let match: RegExpExecArray | null;
+      while ((match = pattern.re.exec(entry.text)) !== null) {
+        const term = match[0];
+        if (HIDDEN_TOKEN_ALLOWLIST.includes(`${entry.id}:${entry.field}:${term}`)) continue;
+        findings.push({
+          kind: entry.kind,
+          id: entry.id,
+          field: entry.field,
+          term,
+          text: entry.text,
+          excerpt: entry.text.slice(Math.max(0, match.index - 45), match.index + term.length + 45),
+        });
+      }
+    }
+  }
+  return { scanned: entries.length, findings };
+}
+
+// ---------------------------------------------------------------------------
 // Age 0-1 audit
 // ---------------------------------------------------------------------------
 

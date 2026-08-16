@@ -23,6 +23,13 @@ import {
  * life. The mobile project is where that is actually observable.
  */
 
+/**
+ * Seed fixtures are bound to the content fingerprint: the run seed is
+ * `contentVersion:seed`, so any canonical content edit re-rolls every life and a
+ * seed chosen for its outcome has to be re-picked. `open-a` currently reaches
+ * the horizon without an ending; `smoke-002` currently ends.
+ */
+
 function isMobile(projectName: string): boolean {
   return projectName === 'mobile';
 }
@@ -148,7 +155,7 @@ test('an open record shows reached age, material and current attributes', async 
   test.skip(isMobile(testInfo.project.name), 'covered once on desktop; identical on mobile');
   test.slow();
 
-  await playToPlayback(page, 'smoke-001');
+  await playToPlayback(page, 'open-a');
   await stepToOutcome(page);
 
   await expect(page.getByText('RECORD REMAINS OPEN')).toBeVisible();

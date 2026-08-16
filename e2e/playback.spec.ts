@@ -19,6 +19,13 @@ import {
  * screen" can only be asserted in a real browser.
  */
 
+/**
+ * Seed fixtures are bound to the content fingerprint: the run seed is
+ * `contentVersion:seed`, so any canonical content edit re-rolls every life and a
+ * seed chosen for its outcome has to be re-picked. `open-a` currently reaches
+ * the horizon without an ending; `smoke-002` currently ends.
+ */
+
 /** How far below the fold the newest entry may sit before follow has failed. */
 const FOLLOW_TOLERANCE_PX = 8;
 
@@ -56,7 +63,7 @@ test('a run that reaches the horizon reports an open record, not an error', asyn
   // both viewports, so it is paid for once rather than twice per CI run.
   test.skip(testInfo.project.name !== 'desktop', 'covered once; identical on mobile');
   test.slow();
-  await playToPlayback(page, 'smoke-001');
+  await playToPlayback(page, 'open-a');
   await stepToOutcome(page);
 
   await expect(page.getByText('RECORD REMAINS OPEN')).toBeVisible();
