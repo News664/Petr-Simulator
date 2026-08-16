@@ -2,7 +2,7 @@
 
 Generated from canonical content. **Reports only** — no lint rewrites prose.
 
-Content fingerprint: `8638e2e1ebd977878d09c28c1d554d7b85e2174f24fcf7aa568df018541d214e`
+Content fingerprint: `3af02c428c7fd5de7b64a3c1c07ae84b084ad1576b9ee9f35a8da06087b5b54d`
 
 ## 1. All-female prose lint
 
@@ -10,7 +10,13 @@ Scanned **661** canonical player-facing English strings across events, endings, 
 
 **PASS — 0 findings.**
 
-## 2. Age 0–1 audit
+## 2. Hidden-token prose lint
+
+Scanned the same **661** player-facing strings for internal identifiers that must never reach a player: word-bounded uppercase `FIX`, and the `ROUTE_` / `FAC_` namespaces. Conditions are not prose and are out of scope — `FIX>=28` in an `include` is correct authoring. Lowercase "fix" is an ordinary English word and is not matched.
+
+**PASS — 0 findings.**
+
+## 3. Age 0–1 audit
 
 **7** event(s) can fire at age 0 or 1. Human review must confirm protagonist agency is age-plausible, that purchases and decisions belong to the family or guardians, and that household changes do not imply implausibly poor preparation for an ordinary new baby without an explicit reason.
 
@@ -67,7 +73,7 @@ Include: `TRUE`
 - `TRUE` — Your household keeps rearranging rooms around your early growth. The adults discover that storage is a permanent condition.
   - effects: MNY -1, SPR +1
 
-## 3. Stat-curve audit
+## 4. Stat-curve audit
 
 Authored variant deltas counted statically over the corpus. An event contributes to every age band its window overlaps, because that is the set of ages at which it can fire. What a *run* observes is measured separately by the H2B diagnostic.
 

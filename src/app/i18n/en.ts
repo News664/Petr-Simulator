@@ -68,6 +68,11 @@ export const en: Messages = {
   'playback.timeline': 'Annual record',
   'playback.status': 'Current status',
   'status.age': 'Age',
+  'status.attributes': 'Assessed attributes',
+  'status.finalAssessment': 'FINAL ASSESSMENT',
+  'status.currentAssessment': 'CURRENT ASSESSMENT',
+  'status.latestAssessment': 'LATEST ASSESSMENT',
+  'status.mobileSummary': 'Record status and playback controls',
 
   'ending.notice': 'NOTICE OF PERMANENT STATUS',
   'ending.certificate': 'CERTIFICATE OF PERMANENT STATUS',
@@ -130,5 +135,7 @@ export const en: Messages = {
   'dev.stepFrame': 'Reveal one frame',
   'dev.importMismatch': 'Refused: reproduction record was filed under a different content revision.',
   'dev.importOk': 'Reproduction record loaded.',
+  'dev.copyTestSummary': 'COPY TEST SUMMARY',
+  'dev.testSummaryCopied': 'Test summary copied',
   'dev.none': '—',
 };

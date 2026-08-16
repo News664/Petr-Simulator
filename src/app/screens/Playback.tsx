@@ -1,8 +1,7 @@
-import { Fragment } from 'react';
-
 import type { ContentBundle } from '../../engine/content/load.js';
 import type { PlaybackFrame } from '../../engine/playback.js';
 import type { SpeciesDef, VisibleStat } from '../../engine/types.js';
+import { VisibleStats } from '../components/VisibleStats.js';
 import { useI18n } from '../i18n/index.js';
 import { formatDelta, materialLabel, STAT_ORDER, talentName } from '../presentation.js';
 import type { Speed } from '../state/reducer.js';
@@ -48,7 +47,43 @@ export function Playback({
 
   return (
     <div className="playback">
-      <section aria-label={t('playback.timeline')}>
+      {/* One status source for both layouts. It is first in the document so a
+          narrow viewport gets a sticky HUD above the timeline; on wide layouts
+          CSS places it back in the right-hand column, so the desktop rail is
+          visually unchanged. Rendering it twice would duplicate the live region
+          and read the record out twice to a screen reader. */}
+      <aside className="rail" aria-label={t('status.mobileSummary')}>
+        <div className="panel rail__facts">
+          <div className="status-grid" aria-label={t('playback.status')}>
+            <span className="label">{t('status.age')}</span>
+            <span className="status-grid__value">{current?.age ?? 0}</span>
+            <span className="label rail__species">{t('review.species')}</span>
+            <span className="status-grid__value rail__species">{species.name_en}</span>
+            <span className="label">{t('playback.material')}</span>
+            <span className="status-grid__value">
+              {materialLabel(current?.materialAfter ?? 'NONE', t('playback.materialMobile'))}
+            </span>
+          </div>
+        </div>
+
+        <div className="panel rail__stats">
+          <VisibleStats stats={stats} layout="responsive" />
+        </div>
+
+        <div className="controls">
+          <button type="button" className="btn" onClick={onTogglePause}>
+            {paused ? t('playback.resume') : t('playback.pause')}
+          </button>
+          <button type="button" className="btn" aria-pressed={speed === 1} onClick={() => onSetSpeed(1)}>
+            {t('playback.speed1x')}
+          </button>
+          <button type="button" className="btn" aria-pressed={speed === 2} onClick={() => onSetSpeed(2)}>
+            {t('playback.speed2x')}
+          </button>
+        </div>
+      </aside>
+
+      <section className="playback__timeline" aria-label={t('playback.timeline')}>
         <ul className="timeline">
           {frames.map((frame, index) => {
             const isCurrent = index === frames.length - 1;
@@ -89,44 +124,6 @@ export function Playback({
           </button>
         ) : null}
       </section>
-
-      <aside className="rail" aria-label={t('playback.status')}>
-        <div className="panel">
-          <div className="status-grid">
-            <span className="label">{t('status.age')}</span>
-            <span className="status-grid__value">{current?.age ?? 0}</span>
-            <span className="label">{t('review.species')}</span>
-            <span className="status-grid__value">{species.name_en}</span>
-            <span className="label">{t('playback.material')}</span>
-            <span className="status-grid__value">
-              {materialLabel(current?.materialAfter ?? 'NONE', t('playback.materialMobile'))}
-            </span>
-          </div>
-        </div>
-
-        <div className="panel">
-          <div className="status-grid">
-            {STAT_ORDER.map((stat) => (
-              <Fragment key={stat}>
-                <span className="label">{t(`stat.${stat}`)}</span>
-                <span className="status-grid__value">{stats[stat]}</span>
-              </Fragment>
-            ))}
-          </div>
-        </div>
-
-        <div className="controls">
-          <button type="button" className="btn" onClick={onTogglePause}>
-            {paused ? t('playback.resume') : t('playback.pause')}
-          </button>
-          <button type="button" className="btn" aria-pressed={speed === 1} onClick={() => onSetSpeed(1)}>
-            {t('playback.speed1x')}
-          </button>
-          <button type="button" className="btn" aria-pressed={speed === 2} onClick={() => onSetSpeed(2)}>
-            {t('playback.speed2x')}
-          </button>
-        </div>
-      </aside>
     </div>
   );
 }

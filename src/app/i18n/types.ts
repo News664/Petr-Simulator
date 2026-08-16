@@ -69,6 +69,11 @@ export type MessageKey =
   | 'playback.timeline'
   | 'playback.status'
   | 'status.age'
+  | 'status.attributes'
+  | 'status.finalAssessment'
+  | 'status.currentAssessment'
+  | 'status.latestAssessment'
+  | 'status.mobileSummary'
   | 'ending.notice'
   | 'ending.certificate'
   | 'ending.age'
@@ -123,6 +128,8 @@ export type MessageKey =
   | 'dev.stepFrame'
   | 'dev.importMismatch'
   | 'dev.importOk'
+  | 'dev.copyTestSummary'
+  | 'dev.testSummaryCopied'
   | 'dev.none';
 
 export type Messages = Record<MessageKey, string>;

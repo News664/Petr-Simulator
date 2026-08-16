@@ -2,8 +2,9 @@ import { useEffect, useRef } from 'react';
 
 import type { ContentBundle } from '../../engine/content/load.js';
 import type { PlaybackFrame } from '../../engine/playback.js';
+import { AssessmentPanel } from '../components/VisibleStats.js';
 import { useI18n } from '../i18n/index.js';
-import { formatDelta, STAT_ORDER, talentName } from '../presentation.js';
+import { formatDelta, materialLabel, STAT_ORDER, talentName } from '../presentation.js';
 
 interface LifeReviewProps {
   content: ContentBundle;
@@ -32,6 +33,11 @@ export function LifeReview({ content, frames, onBackToOutcome }: LifeReviewProps
     finalRef.current?.scrollIntoView?.({ block: 'center', behavior: 'auto' });
   }, []);
 
+  const last = frames.length > 0 ? frames[frames.length - 1] : null;
+  // The last frame already knows whether the life ended, so the heading can be
+  // accurate without threading the outcome through another prop.
+  const heading = last?.endingAfter ? t('status.finalAssessment') : t('status.latestAssessment');
+
   return (
     <section>
       <div className="review-head">
@@ -41,6 +47,17 @@ export function LifeReview({ content, frames, onBackToOutcome }: LifeReviewProps
         </button>
       </div>
       <p className="screen__lede">{t('lifeReview.lede', { years: frames.length })}</p>
+
+      {last ? (
+        <AssessmentPanel
+          heading={heading}
+          stats={last.statsAfter}
+          facts={[
+            [t('status.age'), String(last.age)],
+            [t('playback.material'), materialLabel(last.materialAfter, t('playback.materialMobile'))],
+          ]}
+        />
+      ) : null}
 
       <ul className="timeline" aria-label={t('playback.timeline')}>
         {frames.map((frame, index) => {

@@ -406,6 +406,20 @@ button {
   align-items: start;
 }
 
+/* The status rail comes first in the document so a narrow viewport can make it a
+   sticky HUD above the timeline. On wide layouts it is placed back into the
+   right-hand column, so the desktop rail looks exactly as it did. */
+.playback__timeline {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.playback > .rail {
+  grid-column: 2;
+  grid-row: 1;
+}
+
 .timeline {
   display: flex;
   flex-direction: column;
@@ -506,6 +520,162 @@ button {
 .status-grid__value {
   font-family: var(--font-record);
   text-align: right;
+}
+
+/* ------------------------------------------------- visible attributes ---- */
+
+/* The five visible stats: one markup, two shapes.
+   `--row` is the compact form, used on outcome screens at every width.
+   `--responsive` is the same compact form on narrow layouts, widening into the
+   labelled rail grid on desktop so the existing rail is visually unchanged.
+   Compact is the base, because that is the case that has to survive 360 CSS px.
+   `auto-fit` keeps all five on one line there and wraps rather than overflows if
+   a value grows to three digits or a minus sign. */
+.stat-readout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(3.5rem, 1fr));
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.stat-readout__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  padding: var(--space-2) var(--space-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-s);
+  background: var(--panel);
+}
+
+.stat-readout__term {
+  font-family: var(--font-record);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--text-dim);
+}
+
+.stat-readout__value {
+  font-family: var(--font-record);
+  font-size: 1.05rem;
+  color: var(--text);
+  margin: 0;
+}
+
+.stat-readout__value--negative {
+  color: var(--negative);
+}
+
+/* Each layout shows one of the two labels and leaves the other to assistive
+   technology, so a screen reader always hears the full attribute name and the
+   hidden copy is never a visible duplicate. Both directions are scoped to the
+   width that needs them, so nothing has to be un-hidden. */
+.stat-readout .stat-readout__name {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (min-width: 901px) {
+  .stat-readout--responsive {
+    grid-template-columns: 1fr auto;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  /* `display: contents` drops the card chrome, so the rail keeps its original
+     label/value grid without a second set of rules. */
+  .stat-readout--responsive .stat-readout__item {
+    display: contents;
+  }
+
+  .stat-readout--responsive .stat-readout__term {
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .stat-readout--responsive .stat-readout__value {
+    font-size: 1rem;
+    text-align: right;
+  }
+
+  .stat-readout--responsive .stat-readout__name {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  .stat-readout--responsive .stat-readout__code {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* ------------------------------------------------- assessment panel ------ */
+
+/* Game assessment information, deliberately outside the paper certificate:
+   certificate fields are legal and material status, these are attributes. */
+.assessment {
+  margin-top: var(--space-5);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-s);
+  background: var(--bg-elevated);
+}
+
+.assessment__heading {
+  font-family: var(--font-record);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  margin: 0 0 var(--space-3);
+}
+
+.assessment__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0 0 var(--space-3);
+}
+
+.assessment__fact {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.assessment__fact dt {
+  font-family: var(--font-record);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.assessment__fact dd {
+  margin: 0;
+  font-family: var(--font-record);
+  color: var(--text);
 }
 
 .controls {
@@ -625,8 +795,20 @@ button {
 }
 
 @media (max-width: 900px) {
+  /* One column, status first: the rail becomes a compact sticky HUD so age,
+     material, all five attributes and the playback controls stay reachable
+     while the timeline follows the present. Height matters more than elegance
+     here — the whole HUD has to fit a 360x640 screen without eating the newest
+     event. */
   .playback {
     grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .playback__timeline,
+  .playback > .rail {
+    grid-column: 1;
+    grid-row: auto;
   }
 
   .rail {
@@ -634,11 +816,61 @@ button {
     top: 0;
     z-index: 5;
     background: var(--bg);
-    padding-top: var(--space-2);
+    gap: var(--space-2);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .rail .panel {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  /* Species is the one status field a phone can afford to drop; it does not
+     change during a life and it is on the record summary and the certificate. */
+  .rail__species {
+    display: none;
+  }
+
+  .rail__facts .status-grid {
+    grid-template-columns: auto 1fr;
+    gap: 0 var(--space-2);
+    align-items: baseline;
+  }
+
+  .rail__facts .status-grid__value {
+    text-align: left;
+  }
+
+  .rail .controls {
+    gap: var(--space-2);
+  }
+
+  .rail .controls .btn {
+    flex: 1 1 auto;
+    padding: var(--space-2) var(--space-2);
+  }
+
+  /* Keep a re-read scroll from parking an event underneath the sticky HUD. */
+  .playback__timeline .event-card {
+    scroll-margin-top: 9rem;
   }
 
   .inspector {
     width: 100vw;
+  }
+}
+
+@media (max-width: 420px) {
+  .stat-readout--row {
+    gap: var(--space-1);
+  }
+
+  .stat-readout--row .stat-readout__item {
+    padding: var(--space-1) 2px;
+  }
+
+  .stat-readout--row .stat-readout__value {
+    font-size: 0.95rem;
   }
 }
 
