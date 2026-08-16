@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 
 import type { ContentBundle } from '../../engine/content/load.js';
-import type { EndingRecord } from '../../engine/types.js';
+import type { EndingRecord, VisibleStat } from '../../engine/types.js';
+import { AssessmentPanel } from '../components/VisibleStats.js';
 import { useI18n } from '../i18n/index.js';
 import { materialLabel } from '../presentation.js';
 
 interface EndingScreenProps {
   content: ContentBundle;
   ending: EndingRecord;
+  /** Visible attributes as they stood on the final frame. Never FIX. */
+  finalStats: Record<VisibleStat, number> | null;
   seed: string;
   contentVersion: string;
+  /** Developer-only extra action, supplied by `App`. Absent in normal mode. */
+  devAction?: ReactNode;
   onNewLife: () => void;
   onReviewLife: () => void;
 }
@@ -24,8 +29,10 @@ interface EndingScreenProps {
 export function EndingScreen({
   content,
   ending,
+  finalStats,
   seed,
   contentVersion,
+  devAction,
   onNewLife,
   onReviewLife,
 }: EndingScreenProps) {
@@ -86,6 +93,10 @@ export function EndingScreen({
         </div>
       </div>
 
+      {/* Outside the certificate on purpose: the certificate records legal and
+          material status, these are the game's assessment of the person. */}
+      {finalStats ? <AssessmentPanel heading={t('status.finalAssessment')} stats={finalStats} /> : null}
+
       <div className="actions">
         <button type="button" className="btn btn--primary" onClick={onNewLife}>
           {t('ending.newLife')}
@@ -97,6 +108,7 @@ export function EndingScreen({
           {t('ending.copySeed')}
         </button>
         {copied ? <span className="label" role="status">{t('ending.seedCopied')}</span> : null}
+        {devAction}
       </div>
     </section>
   );

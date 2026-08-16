@@ -4,6 +4,7 @@ import { computePlayback } from '../engine/playback.js';
 import { previewPlayerSetup } from '../engine/preview.js';
 import type { SetupPolicy } from '../engine/setup.js';
 import { browserContent, CONTENT_VERSION } from './content.js';
+import { CopyTestSummary } from './components/CopyTestSummary.js';
 import { DeveloperInspector } from './components/DeveloperInspector.js';
 import { I18nContext, translate, type Locale } from './i18n/index.js';
 import { toReproductionRecord, type H2AReproductionRecord } from './reproduction.js';
@@ -17,6 +18,7 @@ import { Playback } from './screens/Playback.js';
 import { RecordSummary } from './screens/RecordSummary.js';
 import { TalentSelection } from './screens/TalentSelection.js';
 import { createSeed } from './seed.js';
+import { buildTestSummary } from './testSummary.js';
 import { INTERVAL_MS } from './tokens.js';
 import {
   initialState,
@@ -156,6 +158,21 @@ export function App() {
   const frames = revealedFrames(state);
   const speciesDef = state.preview ? browserContent.species.get(state.preview.species) ?? null : null;
 
+  // The last computed frame carries the player-visible end state — attributes
+  // and material. Reading it here keeps the engine and the ending schema out of
+  // a UI concern; nothing hidden travels with it.
+  const finalFrame = state.life ? state.life.frames[state.life.frames.length - 1] ?? null : null;
+
+  // Developer-only playtest note helper, passed to the outcome screens as a slot
+  // so neither screen has to know about developer mode.
+  const life = state.life;
+  const devOutcomeAction =
+    devMode && life ? (
+      <CopyTestSummary
+        summary={() => buildTestSummary(life, browserContent, i18n.t('playback.materialMobile'))}
+      />
+    ) : null;
+
   const exportRecord = useCallback((): H2AReproductionRecord | null => {
     return state.life ? toReproductionRecord(state.life) : null;
   }, [state.life]);
@@ -275,16 +292,20 @@ export function App() {
         <EndingScreen
           content={browserContent}
           ending={outcome.ending}
+          finalStats={finalFrame?.statsAfter ?? null}
           seed={state.seed}
           contentVersion={state.contentVersion}
+          devAction={devOutcomeAction}
           onNewLife={newLife}
           onReviewLife={reviewLife}
         />
       ) : outcome.kind === 'nonterminal' ? (
         <OpenRecord
           reachedAge={outcome.reachedAge}
-          devMode={devMode}
+          material={finalFrame?.materialAfter ?? 'NONE'}
+          currentStats={finalFrame?.statsAfter ?? null}
           seed={state.seed}
+          devAction={devOutcomeAction}
           onNewLife={newLife}
           onReviewLife={reviewLife}
         />

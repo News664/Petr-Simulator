@@ -13,7 +13,7 @@ the browser build is playable, and the next gate is **Human Playtest Round 2**.
 | Events | **215** across 8 batches |
 | Endings | **25** — registry fully covered in the current regression |
 | Route tags / species / talents | **39** / 6 / 30 |
-| Tests | **376 passing** in 19 files, plus a Chromium browser smoke suite |
+| Tests | **392 passing** in 20 files, plus a Chromium browser smoke suite |
 | Build | production Vite build clean; snapshot regenerated |
 
 Check with `npm run validate` and `npm test`.
@@ -56,10 +56,17 @@ revealed, never what it contains. `?dev=1` adds a seed field and the inspector.
 
 **Mobile playback follow** was rewritten in B.1: reveals correct the viewport
 instantly, in the same commit as the entry, measured against the timeline's end
-anchor rather than the document bottom — which is what previously switched follow
-off on narrow layouts, where the status rail sits below the timeline. Reveal
-cadence is unchanged. Covered by unit tests and by Playwright on an emulated
-phone; **real-device confirmation is still the owner's to give.**
+anchor rather than the document bottom. Reveal cadence is unchanged, and the
+behaviour is confirmed on a real phone.
+
+**Visible attributes follow the player (H2A.1).** CHR / INT / STR / MNY / SPR
+render through one shared component. On narrow layouts the status rail is a
+compact sticky HUD above the timeline — age, material, all five attributes and
+the playback controls — instead of stacking below the whole life; on desktop the
+rail is unchanged. Every outcome screen now carries the attributes too: a
+`FINAL ASSESSMENT` beside (never inside) the ending certificate, reached age +
+material + `CURRENT ASSESSMENT` on an open record, and a summary at the top of
+the full record. FIX, flags, route and faction state stay hidden in normal mode.
 
 ## Public playtest / Pages
 
@@ -72,14 +79,13 @@ the ref is `main` — so a manual dispatch cannot publish another branch. Pull
 requests into `main` first run `verify-build-e2e`
 ([`pr-check.yml`](../.github/workflows/pr-check.yml)), which deploys nothing.
 
-## Round 2 readiness
+## Round 2
 
-**Infrastructure is ready** — publishing, PR gating and automated functional
-smoke coverage. What remains is the owner's **real-device pass** over the short
-manual section of
-[`playtest/GITHUB_PAGES_SMOKE_CHECK.md`](playtest/GITHUB_PAGES_SMOKE_CHECK.md):
-mobile follow on real hardware, clipboard, other browsers, and judgement. Round 2
-is about UX, content, tone and pacing; routine function checks belong to CI.
+**Human Playtest Round 2 is under way** — it is not complete, and no Round-2
+finding has been recorded yet. It is about UX, content, tone and pacing; routine
+function checks belong to CI. The manual section of
+[`playtest/GITHUB_PAGES_SMOKE_CHECK.md`](playtest/GITHUB_PAGES_SMOKE_CHECK.md)
+stays the short real-device list: clipboard, other browsers, and judgement.
 
 ## Open and deferred questions
 
@@ -99,12 +105,13 @@ Also awaiting decisions: **H2B1A-C1 … C4**, **H2B-C1 … C4** in
 
 ## Next milestones
 
-1. **Owner real-device pass** over the manual section of the smoke check.
-2. **Human Playtest Round 2** — UX, content, tone and pacing. Needs neither the
-   original ending-age distribution nor `zh-TW`.
-3. **Localization L0** — not started; `zh-TW` is preserved empty and no
+1. **Finish Human Playtest Round 2** — UX, content, tone and pacing. Needs
+   neither the original ending-age distribution nor `zh-TW`.
+2. **Localization L0** — not started; `zh-TW` is preserved empty and no
    translation has been invented.
-4. **Q-27 / H2B1A-C1 decision**, informed by Round 2, then the work it calls for.
+3. **Q-27 / H2B1A-C1 decision**, informed by Round 2, then the work it calls for.
+4. **Stat Ecology / content work**, using Round-2 feedback and the A-12
+   contributor audit.
 
 ## Read next
 

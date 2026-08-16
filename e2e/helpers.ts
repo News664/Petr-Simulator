@@ -132,6 +132,23 @@ export async function expectNoRecordDefect(page: Page): Promise<void> {
   await expect(page.locator('.notice-strip', { hasText: 'RECORD SUSPENDED' })).toHaveCount(0);
 }
 
+/** The five visible attributes, wherever they are currently rendered. */
+export function statReadout(page: Page): Locator {
+  return page.locator('.stat-readout');
+}
+
+export async function statCodes(page: Page): Promise<string[]> {
+  const codes = await page.locator('.stat-readout__code').allTextContents();
+  return codes.map((code) => code.trim());
+}
+
+export async function statValues(page: Page): Promise<string[]> {
+  const values = await page.locator('.stat-readout__value').allTextContents();
+  return values.map((value) => value.trim());
+}
+
+export const STAT_CODES = ['CHR', 'INT', 'STR', 'MNY', 'SPR'] as const;
+
 /** No horizontal overflow anywhere on the page. */
 export async function expectNoHorizontalOverflow(page: Page): Promise<void> {
   const overflow = await page.evaluate(
