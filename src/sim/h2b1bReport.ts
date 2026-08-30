@@ -455,6 +455,24 @@ export function renderH2b1bReport(content: ContentBundle, payload: H2b1bPayload)
   }
 
   if (general) {
+    // Part A changes no ending gate, but it does move the stats those gates
+    // read, so the resulting outcome shape is reported rather than assumed.
+    out.push('## Run outcomes (general arm)');
+    out.push('');
+    const o = general.summary.outcomes;
+    out.push(
+      `Completed ${o.completedRuns} (${pct(o.completionRate)}), nonterminal ${o.nonterminalRuns}, ` +
+        `coverage errors ${o.coverageErrorRuns}. Ending age: mean ${num(o.endingAge.mean, 1)}, ` +
+        `median ${num(o.endingAge.median, 1)}, p10 ${num(o.endingAge.p10, 1)}, p90 ${num(o.endingAge.p90, 1)}.`,
+    );
+    out.push('');
+    out.push('| Ending age band | Runs | Share of completed |');
+    out.push('|---|---|---|');
+    for (const [band, count] of Object.entries(o.endingAgeCountByBand)) {
+      out.push(`| ${band} | ${count} | ${pct(o.endingAgeShareByBand[band] ?? 0)} |`);
+    }
+    out.push('');
+
     out.push('## Mean drift by snapshot (general arm)');
     out.push('');
     out.push('| Snapshot | active runs | INT drift | CHR drift | SPR drift | INT | CHR | SPR |');

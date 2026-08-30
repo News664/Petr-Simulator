@@ -15,8 +15,12 @@
  * Writes `reports/h2b1b-a-regression.{json,md}`.
  *
  * The run seed is `contentVersion:seed`, so a pre-patch run cannot be
- * reproduced once canonical content changes. `--baseline` therefore takes the
- * JSON that run wrote, and the report records both fingerprints.
+ * reproduced against the current corpus once canonical content changes.
+ * `--baseline` therefore takes the JSON that run wrote, and the report records
+ * both fingerprints. `--content` points the loader at a reconstructed corpus
+ * — `content/superseded/` keeps every replaced batch — so a pre-patch
+ * measurement stays reproducible from the committed repository rather than
+ * living only in a findings table.
  */
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -54,6 +58,7 @@ Options:
   --targeted-runs <n>  Per targeted allocation arm (default 600)
   --seed <string>      Base seed (default "h2b1b_a")
   --baseline <file>    Earlier payload JSON to compare against
+  --content <dir>      Content root to load (default ./content)
   --out <dir>          Output directory (default ./reports)
   --name <stem>        Output file stem (default "h2b1b-a-regression")
   --quiet              Suppress progress output
@@ -95,9 +100,10 @@ function main(argv: string[]): number {
     return 0;
   }
 
+  const contentRoot = optionalStringFlag(args, 'content');
   let content: ContentBundle;
   try {
-    content = loadContent(defaultContentPaths());
+    content = loadContent(defaultContentPaths(contentRoot));
   } catch (error) {
     if (error instanceof ContentValidationError) {
       console.error('Content validation FAILED; refusing to run the H2B.1B Part A diagnostic.');

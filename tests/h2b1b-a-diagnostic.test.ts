@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { loadDefaultContent } from '../src/engine/content/load.js';
 import {
   AGE18,
+  ENDING_AGE_BANDS,
   explicitAllocationFor,
   HUMAN_SPARE_POINT_STAT,
   COMPRESSED_CHAIN_IDS,
@@ -215,6 +216,28 @@ describe('H2B.1B-A accumulator', () => {
     expect(c.contactWhileAnotherActive).toBe(0);
   });
 
+  it('splits every run into exactly one outcome bucket', () => {
+    const summary = smallArm();
+    const o = summary.outcomes;
+    expect(o.completedRuns + o.nonterminalRuns + o.coverageErrorRuns).toBe(summary.runs);
+    expect(o.completedRuns).toBe(summary.completedRuns);
+    expect(o.completionRate).toBeCloseTo(o.completedRuns / summary.runs, 10);
+    expect(o.endingAge.samples).toBe(o.completedRuns);
+  });
+
+  it('bands every ending age exactly once, and never below 18', () => {
+    const o = smallArm().outcomes;
+    const banded = Object.values(o.endingAgeCountByBand).reduce((a, b) => a + b, 0);
+    expect(banded).toBe(o.completedRuns);
+    if (o.endingAge.min !== null) expect(o.endingAge.min).toBeGreaterThanOrEqual(18);
+    for (const band of ENDING_AGE_BANDS) {
+      expect(o.endingAgeShareByBand[band.label]).toBeCloseTo(
+        (o.endingAgeCountByBand[band.label] ?? 0) / Math.max(o.completedRuns, 1),
+        10,
+      );
+    }
+  });
+
   it('never sees more than one personally-active faction', () => {
     const factions = smallArm().factions!;
     expect(factions.overall.maxSimultaneouslyActive).toBeLessThanOrEqual(1);
@@ -279,6 +302,15 @@ describe('H2B.1B-A review bands', () => {
             runs: 0,
             runsReachingAge18: 0,
             completedRuns: 0,
+            outcomes: {
+              completedRuns: 0,
+              nonterminalRuns: 0,
+              coverageErrorRuns: 0,
+              completionRate: 0,
+              endingAge: emptyDist,
+              endingAgeShareByBand: {},
+              endingAgeCountByBand: {},
+            },
             stats: [statRow('INT'), statRow('CHR'), statRow('SPR')],
             driftSnapshots: [],
             spr15At65: { activeRuns: 0, atLeast15: 0, share: null },

@@ -49,6 +49,19 @@ function contributorBand(age: number): ContributorBand {
   return '65+';
 }
 
+/**
+ * Ending-age bands, matching the canonical `ageChannelWeights` adult bands so
+ * this table can be read next to the existing reports without re-bucketing.
+ */
+export const ENDING_AGE_BANDS: { label: string; min: number; max: number }[] = [
+  { label: '18-24', min: 18, max: 24 },
+  { label: '25-34', min: 25, max: 34 },
+  { label: '35-44', min: 35, max: 44 },
+  { label: '45-54', min: 45, max: 54 },
+  { label: '55-64', min: 55, max: 64 },
+  { label: '65+', min: 65, max: Number.POSITIVE_INFINITY },
+];
+
 /** The compressed chain: disposition -> middle touchpoint -> escalation. */
 export const MIDDLE_TOUCHPOINT_IDS = [
   'EVT-SPC-SECR-2001',
@@ -308,10 +321,29 @@ export interface CorrectnessCounters {
   compressedChainExpiriesByEvent: Record<string, number>;
 }
 
+/**
+ * Run outcomes.
+ *
+ * Part A is not an ending-distribution patch, but the review checklist asks
+ * whether the compression or the ecology correction caused an unintended
+ * ending surge, so the shape is measured rather than assumed.
+ */
+export interface OutcomeSummary {
+  completedRuns: number;
+  nonterminalRuns: number;
+  coverageErrorRuns: number;
+  completionRate: number;
+  endingAge: Distribution;
+  /** Share of completed runs ending in each band. */
+  endingAgeShareByBand: Record<string, number>;
+  endingAgeCountByBand: Record<string, number>;
+}
+
 export interface H2b1bArmSummary {
   runs: number;
   runsReachingAge18: number;
   completedRuns: number;
+  outcomes: OutcomeSummary;
   stats: StatArmRow[];
   driftSnapshots: DriftSnapshotRow[];
   /** Share of runs still active entering 65 that hold SPR >= 15 there. */
@@ -357,7 +389,10 @@ export class H2b1bAccumulator {
 
   private runs = 0;
   private completedRuns = 0;
+  private nonterminalRuns = 0;
+  private coverageErrorRuns = 0;
   private runsReachingAge18 = 0;
+  private readonly endingAges: number[] = [];
 
   /** Per-stat samples, keyed by stat. */
   private readonly allocated = new Map<VisibleStat, number[]>();
@@ -488,7 +523,14 @@ export class H2b1bAccumulator {
   add(result: RunResult): void {
     const state = result.state;
     this.runs += 1;
-    if (result.outcome.kind === 'ended') this.completedRuns += 1;
+    if (result.outcome.kind === 'ended') {
+      this.completedRuns += 1;
+      this.endingAges.push(result.outcome.ending.endingAge);
+    } else if (result.outcome.kind === 'nonterminal') {
+      this.nonterminalRuns += 1;
+    } else {
+      this.coverageErrorRuns += 1;
+    }
 
     const start = this.scratchStart ?? pickVisible(state);
     const snapshots = this.scratchSnapshots;
@@ -791,10 +833,27 @@ export class H2b1bAccumulator {
       meanValue: Object.fromEntries(ECOLOGY_STATS.map((s) => [s, mean(this.finalValues.get(s)!)])),
     });
 
+    const endingAgeCountByBand: Record<string, number> = {};
+    const endingAgeShareByBand: Record<string, number> = {};
+    for (const band of ENDING_AGE_BANDS) {
+      const count = this.endingAges.filter((age) => age >= band.min && age <= band.max).length;
+      endingAgeCountByBand[band.label] = count;
+      endingAgeShareByBand[band.label] = share(count, this.completedRuns);
+    }
+
     return {
       runs: this.runs,
       runsReachingAge18: this.runsReachingAge18,
       completedRuns: this.completedRuns,
+      outcomes: {
+        completedRuns: this.completedRuns,
+        nonterminalRuns: this.nonterminalRuns,
+        coverageErrorRuns: this.coverageErrorRuns,
+        completionRate: share(this.completedRuns, this.runs),
+        endingAge: distribution(this.endingAges),
+        endingAgeShareByBand,
+        endingAgeCountByBand,
+      },
       stats,
       driftSnapshots,
       spr15At65: {

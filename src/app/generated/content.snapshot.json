@@ -1,38 +1,38 @@
 {
   "snapshotSchemaVersion": 1,
-  "contentVersion": "3af02c428c7fd5de7b64a3c1c07ae84b084ad1576b9ee9f35a8da06087b5b54d",
+  "contentVersion": "67ad9c4a336a947db9c1da85ea5e55c5b31853c7062966878d62976d8efe3482",
   "sourceFiles": [
     {
-      "path": "content/events/SOLID_STATE_EVENT_BATCH_001_v0.4.json",
-      "sha256": "9df471d98ed6f44d5091d1d2ac5a69185d408b160d7ec46d2a698bce2e5a2a06"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_001_v0.5.json",
+      "sha256": "d7b73935a2e05d26695c75f9f2eb21b378417cc1380fbc4e61c80b71fdc019f9"
     },
     {
-      "path": "content/events/SOLID_STATE_EVENT_BATCH_002_v0.4.json",
-      "sha256": "6164cc88f3ee90f8c2555f73846bf3d1cd850f86d3cc489743b010dbd2ebce58"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_002_v0.5.json",
+      "sha256": "283d2d0c62df2e2263e16ec1bfe3f74a4c441f1ee5efc2f637395228012c63bf"
     },
     {
-      "path": "content/events/SOLID_STATE_EVENT_BATCH_003_v0.2.json",
-      "sha256": "62dc9b6bd31ffefac30f885e6e7c12d16db8343510fbedb48eddeb941eaf7761"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_003_v0.3.json",
+      "sha256": "c35d243cf930128e7a39fdbcafbc90d0f313077a0eaaf71f45f7483a378e2bf7"
     },
     {
-      "path": "content/events/SOLID_STATE_EVENT_BATCH_004_v0.4.json",
-      "sha256": "44053bde587f9770cbeeadd151c77826646ea8ec7a97ced9b963fd60494279b3"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_004_v0.5.json",
+      "sha256": "cfd15f9b6868a775aff528d0f5d6a4c60d911c0b94f67f3e484075994184853b"
     },
     {
-      "path": "content/events/SOLID_STATE_EVENT_BATCH_005_v0.5.json",
-      "sha256": "70b9c1c85a6cae8ebb4e70917bc9d1cd6141897b24f4f219107da261ed8e1c16"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_005_v0.6.json",
+      "sha256": "a8d8270cffb07bb5d5707445799f91b11cb8b38589f2e7dbf0cdcef8b2d5daf4"
     },
     {
-      "path": "content/events/SOLID_STATE_EVENT_BATCH_006_v0.3.json",
-      "sha256": "da4ba628f1d3557d9267122f7cfec35dcd1d97c7857fe9001c6bf785a31de8a1"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_006_v0.4.json",
+      "sha256": "4bbfaf7fde28d76dee2aa4d7bb983073376c98e4e2ff2f472a3139a4fafbbb6d"
     },
     {
-      "path": "content/events/SOLID_STATE_EVENT_BATCH_007_v0.5.json",
-      "sha256": "876d05feb4ccbc1fa4c9df13fd7a1603de654b0d81d0f986167438f8460b7f4d"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_007_v0.6.json",
+      "sha256": "2a6a3a0cf85a3144b4ea63eee84fe4870bfba16c16ecc0b96d69252464729978"
     },
     {
-      "path": "content/events/SOLID_STATE_EVENT_BATCH_008_v0.2.json",
-      "sha256": "64917b51f7ab7fec77203dd9ca2cbe44a503e01f64904896bf18c9a26052f8d6"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_008_v0.3.json",
+      "sha256": "656a9d1dbef6e9196ede562faa7d9238600fe8ecc584455754d89e6c1776fcec"
     },
     {
       "path": "content/registries/SOLID_STATE_SPECIES_REGISTRY_v1.2.json",
@@ -70,12 +70,12 @@
   "batches": [
     {
       "batchId": "EVENT_BATCH_001",
-      "version": "0.4",
+      "version": "0.5",
       "languageStatus": {
         "en": "canonical_draft",
         "zh-TW": "reserved_empty"
       },
-      "notes": "First content batch, revised with explicit repeatability/fallback policy. JSON is canonical; Markdown is generated deterministically and MUST NOT be hand-edited. Revised to follow soft-evidence drafting: ordinary material commitment events use NORMAL local weight rather than HIGH.",
+      "notes": "First content batch, revised with explicit repeatability/fallback policy. JSON is canonical; Markdown is generated deterministically and MUST NOT be hand-edited. Revised to follow soft-evidence drafting: ordinary material commitment events use NORMAL local weight rather than HIGH. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
       "events": [
         {
           "id": "EVT-INS-CIV-0001",
@@ -236,7 +236,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": 1
               },
               "addFlags": [],
@@ -249,9 +248,7 @@
                 "en": "Solidification Safety Week ends with a smiling traffic-cone mascot and a mandatory quiz. Everyone receives a certificate for remaining mobile.",
                 "zh-TW": ""
               },
-              "effects": {
-                "INT": 1
-              },
+              "effects": {},
               "addFlags": [],
               "removeFlags": [],
               "schedules": []
@@ -410,7 +407,7 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 2,
+                "INT": 1,
                 "SPR": -1
               },
               "addFlags": [],
@@ -423,9 +420,7 @@
                 "en": "You complete a standardized aptitude test. The report confidently predicts a profession that will not exist by the time you graduate.",
                 "zh-TW": ""
               },
-              "effects": {
-                "INT": 1
-              },
+              "effects": {},
               "addFlags": [],
               "removeFlags": [],
               "schedules": []
@@ -463,7 +458,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": -1
               },
               "addFlags": [],
@@ -477,7 +471,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": -1
               },
               "addFlags": [],
@@ -490,9 +483,7 @@
                 "en": "Your career counselor asks whether you have considered contract law. You have not yet said anything about contracts.",
                 "zh-TW": ""
               },
-              "effects": {
-                "INT": 1
-              },
+              "effects": {},
               "addFlags": [],
               "removeFlags": [],
               "schedules": []
@@ -517,9 +508,7 @@
                 "en": "Your career counselor suggests conservation, forestry, or 'something tasteful.' You ask what that means and receive no useful answer.",
                 "zh-TW": ""
               },
-              "effects": {
-                "INT": 1
-              },
+              "effects": {},
               "addFlags": [],
               "removeFlags": [],
               "schedules": []
@@ -530,9 +519,7 @@
                 "en": "Your career counselor uses an algorithm to recommend your future. It recommends 'flexibility.'",
                 "zh-TW": ""
               },
-              "effects": {
-                "SPR": 1
-              },
+              "effects": {},
               "addFlags": [],
               "removeFlags": [],
               "schedules": []
@@ -689,7 +676,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "MNY": 1
               },
               "addFlags": [
@@ -1431,6 +1417,28 @@
           "exclude": "FALSE",
           "variants": [
             {
+              "when": "EVT[EVT-ORD-EDU-0004] & (INT>=8)",
+              "text": {
+                "en": "Another school year ends with excellent marks. The school recommends an enrichment program and three additional forms.",
+                "zh-TW": ""
+              },
+              "effects": {},
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
+              "when": "EVT[EVT-ORD-EDU-0004]",
+              "text": {
+                "en": "Another school year passes. You learn several useful things and one officially approved definition of 'permanent.'",
+                "zh-TW": ""
+              },
+              "effects": {},
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
               "when": "INT>=8",
               "text": {
                 "en": "Another school year ends with excellent marks. The school recommends an enrichment program and three additional forms.",
@@ -1484,6 +1492,17 @@
           "include": "TRUE",
           "exclude": "FALSE",
           "variants": [
+            {
+              "when": "EVT[EVT-ORD-SOC-0001]",
+              "text": {
+                "en": "You make a friend at school. You agree that neither of you wants to become part of the assembly hall.",
+                "zh-TW": ""
+              },
+              "effects": {},
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
             {
               "when": "TRUE",
               "text": {
@@ -1580,14 +1599,24 @@
           "exclude": "FALSE",
           "variants": [
             {
+              "when": "EVT[EVT-ORD-SOC-0002]",
+              "text": {
+                "en": "You spend more time with classmates after school. Someone starts a rumor about everyone's future Permanent Form; yours is inaccurate but flattering.",
+                "zh-TW": ""
+              },
+              "effects": {},
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
               "when": "TRUE",
               "text": {
                 "en": "You spend more time with classmates after school. Someone starts a rumor about everyone's future Permanent Form; yours is inaccurate but flattering.",
                 "zh-TW": ""
               },
               "effects": {
-                "CHR": 1,
-                "SPR": 1
+                "CHR": 1
               },
               "addFlags": [],
               "removeFlags": [],
@@ -1752,12 +1781,12 @@
     },
     {
       "batchId": "EVENT_BATCH_002",
-      "version": "0.4",
+      "version": "0.5",
       "languageStatus": {
         "en": "canonical_draft",
         "zh-TW": "reserved_empty"
       },
-      "notes": "Second content batch. Adds Stone/Metal/Glass/Crystal commitment, Museum and Medical climaxes, Temporal fixation, Architectural route, mid-life preservation culture, and 45+ mobile-survivor content. Revised to follow soft-evidence drafting: ordinary material commitment events use NORMAL local weight rather than HIGH.",
+      "notes": "Second content batch. Adds Stone/Metal/Glass/Crystal commitment, Museum and Medical climaxes, Temporal fixation, Architectural route, mid-life preservation culture, and 45+ mobile-survivor content. Revised to follow soft-evidence drafting: ordinary material commitment events use NORMAL local weight rather than HIGH. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
       "events": [
         {
           "id": "EVT-TRN-STON-0001",
@@ -2613,6 +2642,19 @@
           "exclude": "FALSE",
           "variants": [
             {
+              "when": "EVT[EVT-ORD-SOC-0003] & (CHR>=8)",
+              "text": {
+                "en": "Several friends begin discussing whether they should preserve themselves 'before anything starts to sag.' You are asked for recommendations.",
+                "zh-TW": ""
+              },
+              "effects": {
+                "SPR": -1
+              },
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
               "when": "CHR>=8",
               "text": {
                 "en": "Several friends begin discussing whether they should preserve themselves 'before anything starts to sag.' You are asked for recommendations.",
@@ -3140,7 +3182,7 @@
           "weightClass": "NORMAL",
           "repeatPolicy": "repeatable",
           "repeatCooldownYears": 5,
-          "repeatMaxCount": null,
+          "repeatMaxCount": 2,
           "routeTags": [
             "social",
             "baseline",
@@ -3150,6 +3192,28 @@
           "include": "TRUE",
           "exclude": "FALSE",
           "variants": [
+            {
+              "when": "EVT[EVT-ORD-SOC-0004] & (SPR>=8)",
+              "text": {
+                "en": "You attend another reunion and are once again the only person who arrives under her own power. Someone saves you the chair with the best view of everyone else.",
+                "zh-TW": ""
+              },
+              "effects": {},
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
+              "when": "EVT[EVT-ORD-SOC-0004]",
+              "text": {
+                "en": "You attend another reunion and are once again the only person who arrives under her own power. Nobody knows whether this is admirable or inconvenient.",
+                "zh-TW": ""
+              },
+              "effects": {},
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
             {
               "when": "SPR>=8",
               "text": {
@@ -3415,12 +3479,12 @@
     },
     {
       "batchId": "EVENT_BATCH_003",
-      "version": "0.2",
+      "version": "0.3",
       "languageStatus": {
         "en": "canonical_draft",
         "zh-TW": "reserved_empty"
       },
-      "notes": "Third content batch. Broadens ordinary life and institutions: species accommodations, Family, Legal, Finance, Religious, Civic, friendship, and associated endings. Avoids adding new material families.",
+      "notes": "Third content batch. Broadens ordinary life and institutions: species accommodations, Family, Legal, Finance, Religious, Civic, friendship, and associated endings. Avoids adding new material families. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
       "events": [
         {
           "id": "EVT-INS-EDU-0004",
@@ -3450,7 +3514,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": -1
               },
               "addFlags": [],
@@ -3491,7 +3554,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "CHR": 1,
                 "SPR": -1
               },
               "addFlags": [],
@@ -3532,7 +3594,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": -1
               },
               "addFlags": [],
@@ -4452,7 +4513,7 @@
                 "zh-TW": ""
               },
               "effects": {
-                "CHR": 2,
+                "CHR": 1,
                 "SPR": -1
               },
               "addFlags": [
@@ -4468,7 +4529,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": 1
               },
               "addFlags": [
@@ -4691,13 +4751,37 @@
           "exclude": "FALSE",
           "variants": [
             {
+              "when": "EVT[EVT-ORD-SOC-0006] & (MAT!=NONE)",
+              "text": {
+                "en": "You meet friends for dinner. Someone asks about your committed material, someone else changes the subject, and the evening improves immediately.",
+                "zh-TW": ""
+              },
+              "effects": {},
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
+              "when": "EVT[EVT-ORD-SOC-0006]",
+              "text": {
+                "en": "You meet friends for dinner and spend most of the evening discussing matters that will never appear on a Material Status form.",
+                "zh-TW": ""
+              },
+              "effects": {
+                "MNY": -1
+              },
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
               "when": "MAT!=NONE",
               "text": {
                 "en": "You meet friends for dinner. Someone asks about your committed material, someone else changes the subject, and the evening improves immediately.",
                 "zh-TW": ""
               },
               "effects": {
-                "SPR": 2
+                "SPR": 1
               },
               "addFlags": [],
               "removeFlags": [],
@@ -4711,7 +4795,7 @@
               },
               "effects": {
                 "MNY": -1,
-                "SPR": 2
+                "SPR": 1
               },
               "addFlags": [],
               "removeFlags": [],
@@ -4746,6 +4830,19 @@
           "exclude": "FALSE",
           "variants": [
             {
+              "when": "EVT[EVT-ORD-FAM-0005] & (SPR>=7)",
+              "text": {
+                "en": "A family gathering lasts longer than planned. Nobody discusses preservation until dessert, which counts as progress.",
+                "zh-TW": ""
+              },
+              "effects": {
+                "MNY": -1
+              },
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
               "when": "SPR>=7",
               "text": {
                 "en": "A family gathering lasts longer than planned. Nobody discusses preservation until dessert, which counts as progress.",
@@ -4753,7 +4850,7 @@
               },
               "effects": {
                 "MNY": -1,
-                "SPR": 2
+                "SPR": 1
               },
               "addFlags": [],
               "removeFlags": [],
@@ -4838,12 +4935,12 @@
     },
     {
       "batchId": "EVENT_BATCH_004",
-      "version": "0.4",
+      "version": "0.5",
       "languageStatus": {
         "en": "canonical_draft",
         "zh-TW": "reserved_empty"
       },
-      "notes": "Fourth content batch. Completes the ~100-event first slice with additional ordinary-life density, Ceramic and Synthetic progression, Academic endings, explicit Mixed Media transition, post-commitment medical directives, and late-mobile survivor content. Academic route revised so tenure follows an interdisciplinary research specialization rather than acting as the route's entire identity.",
+      "notes": "Fourth content batch. Completes the ~100-event first slice with additional ordinary-life density, Ceramic and Synthetic progression, Academic endings, explicit Mixed Media transition, post-commitment medical directives, and late-mobile survivor content. Academic route revised so tenure follows an interdisciplinary research specialization rather than acting as the route's entire identity. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
       "events": [
         {
           "id": "EVT-ORD-FAM-0006",
@@ -4926,7 +5023,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "CHR": 1,
                 "SPR": 1
               },
               "addFlags": [],
@@ -4940,7 +5036,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": 1
               },
               "addFlags": [],
@@ -4975,13 +5070,35 @@
           "exclude": "FALSE",
           "variants": [
             {
+              "when": "EVT[EVT-ORD-EDU-0007] & (INT>=8)",
+              "text": {
+                "en": "You take an advanced elective. The teacher warns that university credit is transferable but post-mobility credit is jurisdiction-dependent.",
+                "zh-TW": ""
+              },
+              "effects": {},
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
+              "when": "EVT[EVT-ORD-EDU-0007]",
+              "text": {
+                "en": "You take an elective mostly because your friends are there. It becomes unexpectedly useful several years later.",
+                "zh-TW": ""
+              },
+              "effects": {},
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
               "when": "INT>=8",
               "text": {
                 "en": "You take an advanced elective. The teacher warns that university credit is transferable but post-mobility credit is jurisdiction-dependent.",
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 2,
+                "INT": 1,
                 "SPR": -1
               },
               "addFlags": [],
@@ -4995,8 +5112,7 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
-                "SPR": 1
+                "INT": 1
               },
               "addFlags": [],
               "removeFlags": [],
@@ -5029,6 +5145,32 @@
           "include": "TRUE",
           "exclude": "FALSE",
           "variants": [
+            {
+              "when": "EVT[EVT-ORD-HEA-0002] & (STR<=4)",
+              "text": {
+                "en": "You attempt to get into better shape. Progress is slow, measurable, and not accepted by your insurer as a material-risk intervention.",
+                "zh-TW": ""
+              },
+              "effects": {
+                "STR": 2
+              },
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
+              "when": "EVT[EVT-ORD-HEA-0002]",
+              "text": {
+                "en": "You become temporarily serious about exercise. Your body responds better than your schedule does.",
+                "zh-TW": ""
+              },
+              "effects": {
+                "STR": 1
+              },
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
             {
               "when": "STR<=4",
               "text": {
@@ -5084,6 +5226,32 @@
           "include": "TRUE",
           "exclude": "FALSE",
           "variants": [
+            {
+              "when": "EVT[EVT-ORD-SOC-0007] & (CHR>=8)",
+              "text": {
+                "en": "Dating becomes easier than deciding what to write under 'long-term mobility expectations.' You leave the field blank.",
+                "zh-TW": ""
+              },
+              "effects": {
+                "MNY": -1
+              },
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
+              "when": "EVT[EVT-ORD-SOC-0007]",
+              "text": {
+                "en": "You go on a few dates. One person asks about your future Permanent Form before asking what music you like.",
+                "zh-TW": ""
+              },
+              "effects": {
+                "MNY": -1
+              },
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
             {
               "when": "CHR>=8",
               "text": {
@@ -5148,7 +5316,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "MNY": 3,
                 "SPR": -1
               },
@@ -5254,6 +5421,32 @@
           "include": "TRUE",
           "exclude": "FALSE",
           "variants": [
+            {
+              "when": "EVT[EVT-ORD-SOC-0008] & (MAT!=NONE)",
+              "text": {
+                "en": "An old friend asks how your material condition is progressing, then spends the rest of the evening talking about her divorce. You appreciate the change of subject.",
+                "zh-TW": ""
+              },
+              "effects": {
+                "MNY": -1
+              },
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
+              "when": "EVT[EVT-ORD-SOC-0008]",
+              "text": {
+                "en": "You reconnect with an old friend. Both of you have acquired enough paperwork to compare notes.",
+                "zh-TW": ""
+              },
+              "effects": {
+                "MNY": -1
+              },
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
             {
               "when": "MAT!=NONE",
               "text": {
@@ -6259,6 +6452,19 @@
           "exclude": "FALSE",
           "variants": [
             {
+              "when": "EVT[EVT-ORD-FAM-0007] & (MAT!=NONE)",
+              "text": {
+                "en": "A younger relative asks whether your committed material means you will stop aging soon. You discover that nobody in the family has a consistent answer.",
+                "zh-TW": ""
+              },
+              "effects": {
+                "SPR": 1
+              },
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
               "when": "MAT!=NONE",
               "text": {
                 "en": "A younger relative asks whether your committed material means you will stop aging soon. You discover that nobody in the family has a consistent answer.",
@@ -6618,12 +6824,12 @@
     },
     {
       "batchId": "EVENT_BATCH_005",
-      "version": "0.5",
+      "version": "0.6",
       "languageStatus": {
         "en": "canonical_draft",
         "zh-TW": "reserved_empty"
       },
-      "notes": "Phase 1.1 targeted design-resolution batch. Adds varied ages 0-5 coverage, competing adolescent manifestations, visible event-driven FIX chains, canonical SPC content, two anomalous endings, three committed mandatory sequences (medical + two anomalous), and dedicated 65+ ending routes. No passive FIX drift.",
+      "notes": "Phase 1.1 targeted design-resolution batch. Adds varied ages 0-5 coverage, competing adolescent manifestations, visible event-driven FIX chains, canonical SPC content, two anomalous endings, three committed mandatory sequences (medical + two anomalous), and dedicated 65+ ending routes. No passive FIX drift. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
       "events": [
         {
           "id": "EVT-ORD-FAM-0008",
@@ -6732,7 +6938,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "CHR": 1,
                 "SPR": 1
               },
               "addFlags": [],
@@ -6826,7 +7031,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": 1
               },
               "addFlags": [],
@@ -6866,7 +7070,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "STR": 1
               },
               "addFlags": [],
@@ -8159,12 +8362,12 @@
     },
     {
       "batchId": "EVENT_BATCH_006",
-      "version": "0.3",
+      "version": "0.4",
       "languageStatus": {
         "en": "canonical_draft",
         "zh-TW": "reserved_empty"
       },
-      "notes": "Phase 1.2 compact content-shape patch. Adds six lightweight faction contacts, six 18–32 faction-driven Permanent Form climaxes, and six adult follow-ups. Designed to populate 18–34 endings, make FIX growth perceivable through events, broaden SPC, and improve adult pool depth. No passive FIX drift and no global threshold change.",
+      "notes": "Phase 1.2 compact content-shape patch. Adds six lightweight faction contacts, six 18–32 faction-driven Permanent Form climaxes, and six adult follow-ups. Designed to populate 18–34 endings, make FIX growth perceivable through events, broaden SPC, and improve adult pool depth. No passive FIX drift and no global threshold change. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
       "events": [
         {
           "id": "EVT-SPC-SECR-0001",
@@ -8199,7 +8402,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": -1
               },
               "addFlags": [
@@ -9261,12 +9463,12 @@
     },
     {
       "batchId": "EVENT_BATCH_007",
-      "version": "0.5",
+      "version": "0.6",
       "languageStatus": {
         "en": "canonical_draft",
         "zh-TW": "reserved_empty"
       },
-      "notes": "Phase 1.3 faction-lifecycle batch. Adds 12 scheduled relationship/disposition events, 12 one-time progressive faction-news events, and 6 rare lore-fallback bulletins. Faction lifecycle is an FSM backed by flags; roles remain orthogonal flags. Most contacts can opt out or close without a faction ending. No passive FIX drift and no global threshold sweep.",
+      "notes": "Phase 1.3 faction-lifecycle batch. Adds 12 scheduled relationship/disposition events, 12 one-time progressive faction-news events, and 6 rare lore-fallback bulletins. Faction lifecycle is an FSM backed by flags; roles remain orthogonal flags. Most contacts can opt out or close without a faction ending. No passive FIX drift and no global threshold sweep. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
       "events": [
         {
           "id": "EVT-SPC-SECR-0013",
@@ -9302,7 +9504,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": 1
               },
               "addFlags": [],
@@ -9339,8 +9540,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-2001",
-                  "offsetYears": 3,
-                  "windowYears": 3,
+                  "offsetYears": 2,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_DMMS_STATE_ENGAGED]"
@@ -9353,9 +9554,7 @@
                 "en": "The Department keeps your case open for a second review cycle. Nothing irreversible happens, but the file now has its own reference number.",
                 "zh-TW": ""
               },
-              "effects": {
-                "INT": 1
-              },
+              "effects": {},
               "addFlags": [],
               "removeFlags": [],
               "factionTransitions": [
@@ -9370,8 +9569,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-2001",
-                  "offsetYears": 3,
-                  "windowYears": 3,
+                  "offsetYears": 2,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_DMMS_STATE_ENGAGED]"
@@ -9495,8 +9694,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-2002",
-                  "offsetYears": 3,
-                  "windowYears": 3,
+                  "offsetYears": 2,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_MERIDIAN_STATE_ENGAGED]"
@@ -9623,8 +9822,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-2003",
-                  "offsetYears": 3,
-                  "windowYears": 3,
+                  "offsetYears": 2,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_CRI_STATE_ENGAGED]"
@@ -9654,8 +9853,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-2003",
-                  "offsetYears": 3,
-                  "windowYears": 3,
+                  "offsetYears": 2,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_CRI_STATE_ENGAGED]"
@@ -9698,9 +9897,7 @@
                 "en": "You read the renewal terms closely enough to cancel before the policy acquires interesting clauses. Everlasting marks the account 'lost to informed behavior.'",
                 "zh-TW": ""
               },
-              "effects": {
-                "INT": 1
-              },
+              "effects": {},
               "addFlags": [],
               "removeFlags": [],
               "factionTransitions": [
@@ -9735,8 +9932,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-2004",
-                  "offsetYears": 4,
-                  "windowYears": 3,
+                  "offsetYears": 2,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_EVERLASTING_STATE_ENGAGED]"
@@ -9764,8 +9961,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-2004",
-                  "offsetYears": 4,
-                  "windowYears": 3,
+                  "offsetYears": 2,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_EVERLASTING_STATE_ENGAGED]"
@@ -9871,8 +10068,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-2005",
-                  "offsetYears": 3,
-                  "windowYears": 3,
+                  "offsetYears": 2,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_BLACK_LEDGER_STATE_ENGAGED]"
@@ -9902,8 +10099,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-2005",
-                  "offsetYears": 3,
-                  "windowYears": 3,
+                  "offsetYears": 2,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_BLACK_LEDGER_STATE_ENGAGED]"
@@ -10027,8 +10224,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-2006",
-                  "offsetYears": 3,
-                  "windowYears": 3,
+                  "offsetYears": 2,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]"
@@ -10058,8 +10255,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-2006",
-                  "offsetYears": 3,
-                  "windowYears": 3,
+                  "offsetYears": 2,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]"
@@ -10104,7 +10301,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": 1
               },
               "addFlags": [],
@@ -11477,12 +11673,12 @@
     },
     {
       "batchId": "EVENT_BATCH_008",
-      "version": "0.2",
+      "version": "0.3",
       "languageStatus": {
         "en": "canonical_draft",
         "zh-TW": "reserved_empty"
       },
-      "notes": "H2B Pressure & Tone batch. 14 pressure/recovery/stat-ecology/rare-high-stat events, 8 housing/structural-life events and 6 faction intermediate touchpoints, converted from the frozen H2B design blueprints. Adds the Basic Continuity Insurance chain (END-MED-003), a housing-to-architecture route and one personalized middle event per faction. LOW is the provisional diagnostic baseline only: no canonical FIX gate is rewritten here.",
+      "notes": "H2B Pressure & Tone batch. 14 pressure/recovery/stat-ecology/rare-high-stat events, 8 housing/structural-life events and 6 faction intermediate touchpoints, converted from the frozen H2B design blueprints. Adds the Basic Continuity Insurance chain (END-MED-003), a housing-to-architecture route and one personalized middle event per faction. LOW is the provisional diagnostic baseline only: no canonical FIX gate is rewritten here. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
       "events": [
         {
           "id": "EVT-INS-ARC-2001",
@@ -13683,7 +13879,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": 1
               },
               "addFlags": [],
@@ -13712,8 +13907,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0019",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_DMMS_STATE_ENGAGED]"
@@ -13727,7 +13922,6 @@
                 "zh-TW": ""
               },
               "effects": {
-                "INT": 1,
                 "SPR": -1
               },
               "addFlags": [],
@@ -13735,8 +13929,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0019",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_DMMS_STATE_ENGAGED]"
@@ -13808,8 +14002,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0020",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_MERIDIAN_STATE_ENGAGED]"
@@ -13831,8 +14025,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0020",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_MERIDIAN_STATE_ENGAGED]"
@@ -13905,8 +14099,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0021",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_CRI_STATE_ENGAGED]"
@@ -13929,8 +14123,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0021",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_CRI_STATE_ENGAGED]"
@@ -13952,8 +14146,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0021",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_CRI_STATE_ENGAGED]"
@@ -14025,8 +14219,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0022",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_EVERLASTING_STATE_ENGAGED]"
@@ -14048,8 +14242,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0022",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_EVERLASTING_STATE_ENGAGED]"
@@ -14122,8 +14316,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0023",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_BLACK_LEDGER_STATE_ENGAGED]"
@@ -14145,8 +14339,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0023",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_BLACK_LEDGER_STATE_ENGAGED]"
@@ -14218,8 +14412,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0024",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]"
@@ -14242,8 +14436,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0024",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]"
@@ -14265,8 +14459,8 @@
               "schedules": [
                 {
                   "eventId": "EVT-SPC-SECR-0024",
-                  "offsetYears": 2,
-                  "windowYears": 3,
+                  "offsetYears": 1,
+                  "windowYears": 2,
                   "priority": "scheduled",
                   "priorityOrder": 15,
                   "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]"
