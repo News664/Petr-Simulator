@@ -19,9 +19,13 @@ The site is published from `main` by GitHub Actions on every push.
 
 ## Status
 
-**Milestone H2B.1A is accepted.** 215 events across 8 batches, 25 endings, 39
-route tags, 376 tests passing, a browser smoke suite, clean production build,
-all correctness counters zero.
+**Milestone H2B.1A is accepted; H2B.1B Part A is implemented and awaiting owner
+review.** 215 events across 8 batches, 25 endings, 39 route tags, 448 tests
+passing, a browser smoke suite, clean production build, all correctness counters
+zero. Part A corrected the stat ecology so a starting allocation still means
+something in adulthood, and compressed the faction relationship chain so a
+contacted faction reads as one relationship — see
+[`docs/H2B1B_A_FINDINGS.md`](docs/H2B1B_A_FINDINGS.md).
 
 **LOW is the working canonical balance — not a freeze.** The one blocking design
 question is Q-27, the ending-age distribution: 35–44 is still the largest bucket
@@ -58,7 +62,7 @@ npm run validate              # load and cross-validate all canonical content
 npm run mirror:check          # batch Markdown is the exact render of batch JSON
 npm run content:browser:check # the generated browser snapshot is not stale
 npm run lint:content          # content lints
-npm test                      # 376 tests
+npm test                      # 448 tests
 ```
 
 ### Browser tests
@@ -80,7 +84,7 @@ human playtest — see
 for what is still checked by hand, and why.
 
 Simulation CLIs — `simulate`, `experiment`, `diagnostic`, `sanity`,
-`h2a:threshold`, `h2b:diagnostic`, `h2b1a` — write into `reports/`. See
+`h2a:threshold`, `h2b:diagnostic`, `h2b1a`, `h2b1b:a` — write into `reports/`. See
 [`reports/REPORT_INDEX.md`](reports/REPORT_INDEX.md) for what each one measures
 and which reports are tracked.
 
@@ -135,7 +139,9 @@ tools/              the canonical Python content tool
 ## Reading order for contributors and agents
 
 1. [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) — where the project is.
-2. [`docs/H2B1A_FINDINGS.md`](docs/H2B1A_FINDINGS.md) — the current measurements.
+2. [`docs/H2B1B_A_FINDINGS.md`](docs/H2B1B_A_FINDINGS.md) — the current
+   measurements; [`docs/H2B1A_FINDINGS.md`](docs/H2B1A_FINDINGS.md) is the
+   working-balance measurement they build on.
 3. [`docs/OPEN_QUESTIONS.md`](docs/OPEN_QUESTIONS.md) — the live decision
    register. **Anything decided but not written there is not official.**
 4. [`docs/PHASE1_CONFLICTS.md`](docs/PHASE1_CONFLICTS.md) — conflicts and

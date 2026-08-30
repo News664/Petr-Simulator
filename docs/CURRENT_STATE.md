@@ -2,18 +2,21 @@
 
 Where the project is right now; everything here is checkable against the repo.
 
-**Milestone: H2B.1A accepted.** Working balance and timing corrections are in,
-the browser build is playable, and the next gate is **Human Playtest Round 2**.
+**Milestone: H2B.1B Part A implemented, pending owner review.** H2B.1A is
+accepted; Part A corrects the stat ecology and compresses the faction ENGAGED
+chain on top of it, and the next gate is that review followed by **Human Playtest
+Round 2**. Part A's own measurements are in
+[`H2B1B_A_FINDINGS.md`](H2B1B_A_FINDINGS.md).
 
 ## Corpus
 
 | | |
 |---|---|
-| Content fingerprint | `8638e2e1ebd977878d09c28c1d554d7b85e2174f24fcf7aa568df018541d214e` |
+| Content fingerprint | `67ad9c4a336a947db9c1da85ea5e55c5b31853c7062966878d62976d8efe3482` |
 | Events | **215** across 8 batches |
 | Endings | **25** — registry fully covered in the current regression |
 | Route tags / species / talents | **39** / 6 / 30 |
-| Tests | **392 passing** in 20 files, plus a Chromium browser smoke suite |
+| Tests | **448 passing** in 23 files, plus a Chromium browser smoke suite (50 passed, 2 skipped) |
 | Build | production Vite build clean; snapshot regenerated |
 
 Check with `npm run validate` and `npm test`.
@@ -36,11 +39,28 @@ untouched: the reversible LOW/MID/HIGH rewrite still applies on this baseline.
 - **65+ is 26.9% of endings** because Continuity Review coverage was
   deliberately unbounded (A-04, a frozen instruction); `END-MED-003` alone
   supplies 15.7% of runs at a mean review age of 83.5. Open as **H2B1A-C1**.
-- **35–44 is still the largest bucket (35.2%)**, deliberately not chased.
-  **Completion is 71.6%**, just above the review band.
+- **35–44 is still the largest bucket**, deliberately not chased: 35.2% at
+  H2B.1A, 32.8% after Part A.
+- **Completion moved from 71.5% to 82.3%** under Part A's stat ecology, and 65+
+  endings from 27.6% to 32.1%. No ending gate or lethality was changed; lower INT
+  and SPR simply make authored ending paths reachable for lives that used to run
+  to the horizon. Recorded, not tuned — [`H2B1B_A_FINDINGS.md`](H2B1B_A_FINDINGS.md) §8.
 - All correctness counters are **zero** and the single-active-faction invariant
   holds. Earlier milestones used **different corpora** — see
   [`reports/REPORT_INDEX.md`](../reports/REPORT_INDEX.md).
+
+### H2B.1B Part A, in one paragraph
+
+Ordinary school attendance stopped behaving like passive INT drift: mean INT
+drift entering 18 fell from **+9.21 to +4.03** and CHR from **+4.08 to +1.92**,
+while a starting allocation now survives childhood (allocation INT 0 / 5 / 10
+land on a median of 4 / 9 / 15 at 18, Spearman 0.94). A repeated ordinary
+circumstance keeps its prose but grants its permanent growth only once. The
+faction ENGAGED chain was compressed — disposition → middle touchpoint +2y/2y,
+middle touchpoint → escalation +1y/2y — taking the contact-to-resolution span
+from 7 years to 5 and the p90 gap between personalized events from 3 to 2, with
+zero schedule expiries. Two review bands are open: the surviving SPR ≥ 15 share
+at 65 (84.0%, down from 95.3%) and faction endings at 7.6% of completions.
 
 ## UI
 

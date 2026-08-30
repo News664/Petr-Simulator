@@ -13,23 +13,32 @@ in git. Everything else regenerates on demand and is ignored by `.gitignore`.
 
 | File | What it is | Conclusions in |
 |---|---|---|
-| `h2b1a-regression.md` / `.json` | H2B.1A focused regression — 3 000 runs, seed `h2b1a_timing`, species-stratified, `uniform-three`, `ARCHETYPE_SET`, uniform family weighting, max age 120. The measurement the current working balance rests on. | [`docs/H2B1A_FINDINGS.md`](../docs/H2B1A_FINDINGS.md) |
+| `h2b1a-regression.md` / `.json` | H2B.1A focused regression — 3 000 runs, seed `h2b1a_timing`, species-stratified, `uniform-three`, `ARCHETYPE_SET`, uniform family weighting, max age 120. The measurement the LOW working balance rests on. Taken at fingerprint `3af02c42…b54d`, before the H2B.1B Part A ecology patch: its faction and stat numbers predate that change, and `docs/H2B1B_A_FINDINGS.md` carries the current before/after. | [`docs/H2B1A_FINDINGS.md`](../docs/H2B1A_FINDINGS.md) |
 | `h2b-batch008-diagnostic.md` | H2B Batch 008 diagnostic — the identically-sampled reference run H2B.1A is compared against. The bulky `.json` companion was dropped; regenerate it if machine-readable form is needed. | [`docs/H2B_BATCH008_FINDINGS.md`](../docs/H2B_BATCH008_FINDINGS.md) |
+| `h2b1b-a-regression.md` / `.json` | H2B.1B Part A regression — one 4 000-run general arm plus six 600-run targeted allocation arms, seed `h2b1b_a`, species-stratified, `uniform-three`, `ARCHETYPE_SET`, uniform family weighting, max age 120. The post-patch measurement the Part A review bands are read from. | [`docs/H2B1B_A_FINDINGS.md`](../docs/H2B1B_A_FINDINGS.md) |
 | `h2b-content-lint.md` | Content lint output for the current corpus. | [`docs/validation/SOLID_STATE_H2B_CONTENT_LINT_SPEC_v0.1.md`](../docs/validation/SOLID_STATE_H2B_CONTENT_LINT_SPEC_v0.1.md) |
 
 Regenerate:
 
 ```bash
 npm run h2b1a                 # h2b1a-regression.{json,md}
+npm run h2b1b:a               # h2b1b-a-regression.{json,md}
 npm run h2b:diagnostic        # h2b-batch008-diagnostic.{json,md}
 npm run lint:content          # h2b-content-lint.md
 ```
+
+`h2b1b:a` also accepts `--baseline <payload.json>` to compare against an earlier
+run, and `--content <dir>` to load a different corpus root. A run seed is
+`contentVersion + seed`, so a pre-patch measurement is **not** reproducible once
+canonical content changes: take it before the edit, or re-derive it by checking
+out the commit that carried both the diagnostic and the old corpus. The Part A
+findings record the exact commit.
 
 ## Not tracked (superseded, regenerable)
 
 These runs were taken against **earlier corpora**. Their numbers are not
 comparable with the current fingerprint
-`8638e2e1ebd977878d09c28c1d554d7b85e2174f24fcf7aa568df018541d214e`, and a fresh
+`67ad9c4a336a947db9c1da85ea5e55c5b31853c7062966878d62976d8efe3482`, and a fresh
 run against today's content will *not* reproduce the historical figures — that
 is the point of retiring them. Their conclusions are preserved in the findings
 documents named here; the harnesses are all still wired up and tested.

@@ -43,11 +43,19 @@ author creative content or rewrite registries without a decision here.**
 
 ### Current state
 
-Corpus fingerprint `8638e2e1ebd977878d09c28c1d554d7b85e2174f24fcf7aa568df018541d214e`
+Corpus fingerprint `67ad9c4a336a947db9c1da85ea5e55c5b31853c7062966878d62976d8efe3482`
 · 215 events · 25 endings · 39 route tags · LOW is the **working** H2B balance,
-not a freeze. Current measurements: [`H2B1A_FINDINGS.md`](H2B1A_FINDINGS.md) and
-[`reports/h2b1a-regression.md`](../reports/h2b1a-regression.md). Repository
-status: [`CURRENT_STATE.md`](CURRENT_STATE.md).
+not a freeze. Current measurements:
+[`H2B1B_A_FINDINGS.md`](H2B1B_A_FINDINGS.md) and
+[`reports/h2b1b-a-regression.md`](../reports/h2b1b-a-regression.md); the
+working-balance measurement they build on is
+[`H2B1A_FINDINGS.md`](H2B1A_FINDINGS.md). Repository status:
+[`CURRENT_STATE.md`](CURRENT_STATE.md).
+
+H2B.1B Part A decided nothing. It applied a frozen ledger and measured it; the
+three consequences that need a design call are **H2B1BA-C1 … H2B1BA-C3** in
+[`PHASE1_CONFLICTS.md`](PHASE1_CONFLICTS.md), and none of them is recorded here
+as decided.
 
 ---
 

@@ -22,8 +22,9 @@ import {
 /**
  * Seed fixtures are bound to the content fingerprint: the run seed is
  * `contentVersion:seed`, so any canonical content edit re-rolls every life and a
- * seed chosen for its outcome has to be re-picked. `open-a` currently reaches
- * the horizon without an ending; `smoke-002` currently ends.
+ * seed chosen for its outcome has to be re-picked. `open-06` currently reaches
+ * the horizon without an ending; `smoke-002` currently ends. H2B.1B Part A
+ * re-rolled every life, and `open-a` started ending; `open-06` replaces it.
  */
 
 /** How far below the fold the newest entry may sit before follow has failed. */
@@ -63,7 +64,7 @@ test('a run that reaches the horizon reports an open record, not an error', asyn
   // both viewports, so it is paid for once rather than twice per CI run.
   test.skip(testInfo.project.name !== 'desktop', 'covered once; identical on mobile');
   test.slow();
-  await playToPlayback(page, 'open-a');
+  await playToPlayback(page, 'open-06');
   await stepToOutcome(page);
 
   await expect(page.getByText('RECORD REMAINS OPEN')).toBeVisible();

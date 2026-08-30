@@ -36,6 +36,11 @@ export interface H2b1bArm {
  */
 export interface BaselineReference {
   contentVersion: string;
+  /** Reported, not banded: Part A owns no ending gate, but it moves what they read. */
+  completionRate: number | null;
+  medianEndingAge: number | null;
+  endingShare35to44: number | null;
+  endingShare65Plus: number | null;
   meanIntDriftAge18: number | null;
   meanChrDriftAge18: number | null;
   spr15At65Share: number | null;
@@ -466,6 +471,16 @@ export function renderH2b1bReport(content: ContentBundle, payload: H2b1bPayload)
         `median ${num(o.endingAge.median, 1)}, p10 ${num(o.endingAge.p10, 1)}, p90 ${num(o.endingAge.p90, 1)}.`,
     );
     out.push('');
+    if (payload.baseline) {
+      out.push('');
+      out.push(
+        `Pre-patch: completed ${pct(payload.baseline.completionRate)}, median ending age ` +
+          `${num(payload.baseline.medianEndingAge, 1)}, 35-44 ${pct(payload.baseline.endingShare35to44)}, ` +
+          `65+ ${pct(payload.baseline.endingShare65Plus)}. Part A changes no ending gate; this table is` +
+          ' reported so the shift caused by the stat ecology is visible, not treated as a target.',
+      );
+    }
+    out.push('');
     out.push('| Ending age band | Runs | Share of completed |');
     out.push('|---|---|---|');
     for (const [band, count] of Object.entries(o.endingAgeCountByBand)) {
@@ -610,8 +625,13 @@ export function renderH2b1bReport(content: ContentBundle, payload: H2b1bPayload)
 export function baselineFrom(payload: H2b1bPayload): BaselineReference {
   const general = armById(payload, 'general');
   const factions = general?.summary.factions ?? null;
+  const outcomes = general?.summary.outcomes;
   return {
     contentVersion: payload.contentVersion,
+    completionRate: outcomes?.completionRate ?? null,
+    medianEndingAge: outcomes?.endingAge.median ?? null,
+    endingShare35to44: outcomes?.endingAgeShareByBand['35-44'] ?? null,
+    endingShare65Plus: outcomes?.endingAgeShareByBand['65+'] ?? null,
     meanIntDriftAge18: general?.summary.stats.find((r) => r.stat === 'INT')?.drift.mean ?? null,
     meanChrDriftAge18: general?.summary.stats.find((r) => r.stat === 'CHR')?.drift.mean ?? null,
     spr15At65Share: general?.summary.spr15At65.share ?? null,

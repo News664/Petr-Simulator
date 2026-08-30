@@ -350,6 +350,10 @@ describe('H2B.1B-A review bands', () => {
     if (baselineDrift !== null) {
       base.baseline = {
         contentVersion: 'pre',
+        completionRate: null,
+        medianEndingAge: null,
+        endingShare35to44: null,
+        endingShare65Plus: null,
         meanIntDriftAge18: baselineDrift,
         meanChrDriftAge18: null,
         spr15At65Share: null,

@@ -16,6 +16,8 @@ reports/*
 !reports/h2b-content-lint.md
 !reports/h2b1a-regression.json
 !reports/h2b1a-regression.md
+!reports/h2b1b-a-regression.json
+!reports/h2b1b-a-regression.md
 scratch/
 dist/
 

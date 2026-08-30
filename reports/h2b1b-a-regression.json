@@ -1,0 +1,4398 @@
+{
+  "generatedAt": "2026-08-30T18:32:28.459Z",
+  "contentVersion": "67ad9c4a336a947db9c1da85ea5e55c5b31853c7062966878d62976d8efe3482",
+  "balanceVersion": "0.2",
+  "baseSeed": "h2b1b_a",
+  "sampling": {
+    "runs": 4000,
+    "targetedRuns": 600,
+    "speciesMode": "STRATIFY_EQUALLY_BY_SPECIES",
+    "talentScenario": "UNIFORM_RANDOM_THREE_COMPATIBLE_DIAGNOSTIC",
+    "generalAllocationPolicy": "ARCHETYPE_SET",
+    "familyWeightMode": "uniform",
+    "maxAge": 120
+  },
+  "arms": [
+    {
+      "id": "general",
+      "label": "general population (ARCHETYPE_SET)",
+      "runs": 4000,
+      "allocation": null,
+      "summary": {
+        "runs": 4000,
+        "runsReachingAge18": 4000,
+        "completedRuns": 3294,
+        "outcomes": {
+          "completedRuns": 3294,
+          "nonterminalRuns": 706,
+          "coverageErrorRuns": 0,
+          "completionRate": 0.8235,
+          "endingAge": {
+            "samples": 3294,
+            "mean": 55.07528840315726,
+            "median": 44,
+            "p10": 28.30000000000001,
+            "p25": 37,
+            "p75": 75,
+            "p90": 99,
+            "min": 19,
+            "max": 119
+          },
+          "endingAgeShareByBand": {
+            "18-24": 0.011839708561020037,
+            "25-34": 0.18973891924711597,
+            "35-44": 0.3284760170006072,
+            "45-54": 0.13782635094110504,
+            "55-64": 0.010625379477838493,
+            "65+": 0.3214936247723133
+          },
+          "endingAgeCountByBand": {
+            "18-24": 39,
+            "25-34": 625,
+            "35-44": 1082,
+            "45-54": 454,
+            "55-64": 35,
+            "65+": 1059
+          }
+        },
+        "stats": [
+          {
+            "stat": "INT",
+            "allocatedStart": {
+              "samples": 4000,
+              "mean": 4.108,
+              "median": 0,
+              "p10": 0,
+              "p25": 0,
+              "p75": 10,
+              "p90": 10,
+              "min": 0,
+              "max": 10
+            },
+            "effectiveStart": {
+              "samples": 4000,
+              "mean": 4.17425,
+              "median": 1,
+              "p10": 0,
+              "p25": 0,
+              "p75": 10,
+              "p90": 10,
+              "min": -3,
+              "max": 13
+            },
+            "age18": {
+              "samples": 4000,
+              "mean": 8.20825,
+              "median": 5,
+              "p10": 3,
+              "p25": 4,
+              "p75": 14,
+              "p90": 15,
+              "min": -2,
+              "max": 20
+            },
+            "drift": {
+              "samples": 4000,
+              "mean": 4.034,
+              "median": 4,
+              "p10": 3,
+              "p25": 3,
+              "p75": 5,
+              "p90": 5,
+              "min": 0,
+              "max": 7
+            },
+            "shareAge18AtLeast5": 0.59325,
+            "shareAge18AtLeast8": 0.411,
+            "shareAge18AtLeast10": 0.40775,
+            "shareAge18AtLeast15": 0.2025
+          },
+          {
+            "stat": "CHR",
+            "allocatedStart": {
+              "samples": 4000,
+              "mean": 2.0055,
+              "median": 0,
+              "p10": 0,
+              "p25": 0,
+              "p75": 1,
+              "p90": 10,
+              "min": 0,
+              "max": 10
+            },
+            "effectiveStart": {
+              "samples": 4000,
+              "mean": 3.21825,
+              "median": 1,
+              "p10": 0,
+              "p25": 1,
+              "p75": 4,
+              "p90": 11,
+              "min": -1,
+              "max": 17
+            },
+            "age18": {
+              "samples": 4000,
+              "mean": 5.142,
+              "median": 3,
+              "p10": 1,
+              "p25": 2,
+              "p75": 6,
+              "p90": 13,
+              "min": 0,
+              "max": 19
+            },
+            "drift": {
+              "samples": 4000,
+              "mean": 1.92375,
+              "median": 2,
+              "p10": 2,
+              "p25": 2,
+              "p75": 2,
+              "p90": 2,
+              "min": 0,
+              "max": 3
+            },
+            "shareAge18AtLeast5": 0.3515,
+            "shareAge18AtLeast8": 0.201,
+            "shareAge18AtLeast10": 0.19375,
+            "shareAge18AtLeast15": 0.0325
+          },
+          {
+            "stat": "SPR",
+            "allocatedStart": {
+              "samples": 4000,
+              "mean": 5.9565,
+              "median": 10,
+              "p10": 0,
+              "p25": 0,
+              "p75": 10,
+              "p90": 10,
+              "min": 0,
+              "max": 10
+            },
+            "effectiveStart": {
+              "samples": 4000,
+              "mean": 6.297,
+              "median": 9,
+              "p10": -1,
+              "p25": 1,
+              "p75": 10,
+              "p90": 12,
+              "min": -3,
+              "max": 17
+            },
+            "age18": {
+              "samples": 4000,
+              "mean": 9.8125,
+              "median": 14,
+              "p10": 0,
+              "p25": 2,
+              "p75": 16,
+              "p90": 17,
+              "min": -5,
+              "max": 23
+            },
+            "drift": {
+              "samples": 4000,
+              "mean": 3.5155,
+              "median": 4,
+              "p10": 0,
+              "p25": 1,
+              "p75": 6,
+              "p90": 7,
+              "min": -4,
+              "max": 9
+            },
+            "shareAge18AtLeast5": 0.641,
+            "shareAge18AtLeast8": 0.59725,
+            "shareAge18AtLeast10": 0.59225,
+            "shareAge18AtLeast15": 0.41125
+          }
+        ],
+        "driftSnapshots": [
+          {
+            "label": "age 18",
+            "age": 18,
+            "activeRuns": 4000,
+            "meanDrift": {
+              "INT": 4.034,
+              "CHR": 1.92375,
+              "SPR": 3.5155
+            },
+            "meanValue": {
+              "INT": 8.20825,
+              "CHR": 5.142,
+              "SPR": 9.8125
+            }
+          },
+          {
+            "label": "age 25",
+            "age": 25,
+            "activeRuns": 3961,
+            "meanDrift": {
+              "INT": 5.035092148447362,
+              "CHR": 3.8207523352688715,
+              "SPR": 3.8192375662711435
+            },
+            "meanValue": {
+              "INT": 9.207018429689473,
+              "CHR": 7.002524614996213,
+              "SPR": 10.118151981822772
+            }
+          },
+          {
+            "label": "age 35",
+            "age": 35,
+            "activeRuns": 3336,
+            "meanDrift": {
+              "INT": 5.83962829736211,
+              "CHR": 5.979016786570743,
+              "SPR": 2.4223621103117505
+            },
+            "meanValue": {
+              "INT": 10.242505995203837,
+              "CHR": 9.081235011990408,
+              "SPR": 8.493405275779377
+            }
+          },
+          {
+            "label": "age 50",
+            "age": 50,
+            "activeRuns": 1917,
+            "meanDrift": {
+              "INT": 6.605633802816901,
+              "CHR": 6.508607198748043,
+              "SPR": 6.51434533124674
+            },
+            "meanValue": {
+              "INT": 11.404799165362546,
+              "CHR": 9.457485654668753,
+              "SPR": 12.200834637454356
+            }
+          },
+          {
+            "label": "age 65",
+            "age": 65,
+            "activeRuns": 1765,
+            "meanDrift": {
+              "INT": 6.246458923512748,
+              "CHR": 5.303682719546742,
+              "SPR": 16.947308781869687
+            },
+            "meanValue": {
+              "INT": 11.144475920679886,
+              "CHR": 8.21813031161473,
+              "SPR": 22.527478753541075
+            }
+          },
+          {
+            "label": "final",
+            "age": null,
+            "activeRuns": 4000,
+            "meanDrift": {
+              "INT": 6.00425,
+              "CHR": 5.92075,
+              "SPR": 9.224
+            },
+            "meanValue": {
+              "INT": 10.1785,
+              "CHR": 9.139,
+              "SPR": 15.521
+            }
+          }
+        ],
+        "spr15At65": {
+          "activeRuns": 1765,
+          "atLeast15": 1482,
+          "share": 0.8396600566572238
+        },
+        "contributors": {
+          "bands": [
+            "0-17",
+            "18-34",
+            "35-64",
+            "65+"
+          ],
+          "byStat": {
+            "INT": {
+              "0-17": {
+                "positive": [
+                  {
+                    "stat": "INT",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0005",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 4078,
+                    "totalMagnitude": 4078,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0001",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 2616,
+                    "totalMagnitude": 2616,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0004",
+                    "variantIndex": 3,
+                    "delta": 1,
+                    "occurrences": 2092,
+                    "totalMagnitude": 2092,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0007",
+                    "variantIndex": 3,
+                    "delta": 1,
+                    "occurrences": 2065,
+                    "totalMagnitude": 2065,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0004",
+                    "variantIndex": 2,
+                    "delta": 1,
+                    "occurrences": 1420,
+                    "totalMagnitude": 1420,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0007",
+                    "variantIndex": 2,
+                    "delta": 1,
+                    "occurrences": 1394,
+                    "totalMagnitude": 1394,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0005",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 1320,
+                    "totalMagnitude": 1320,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0002",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 1151,
+                    "totalMagnitude": 1151,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ],
+                "negative": []
+              },
+              "18-34": {
+                "positive": [
+                  {
+                    "stat": "INT",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-EDU-2001",
+                    "variantIndex": 0,
+                    "delta": 4,
+                    "occurrences": 621,
+                    "totalMagnitude": 2484,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-CAR-0002",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 652,
+                    "totalMagnitude": 652,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-ACA-0001",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 582,
+                    "totalMagnitude": 582,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-REL-0001",
+                    "variantIndex": 3,
+                    "delta": 1,
+                    "occurrences": 539,
+                    "totalMagnitude": 539,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "18-34",
+                    "eventId": "EVT-SPC-REIN-0001",
+                    "variantIndex": 0,
+                    "delta": 2,
+                    "occurrences": 269,
+                    "totalMagnitude": 538,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "18-34",
+                    "eventId": "EVT-SPC-SECR-0003",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 307,
+                    "totalMagnitude": 307,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-ACA-0008",
+                    "variantIndex": 1,
+                    "delta": 3,
+                    "occurrences": 76,
+                    "totalMagnitude": 228,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-ACA-0007",
+                    "variantIndex": 2,
+                    "delta": 2,
+                    "occurrences": 89,
+                    "totalMagnitude": 178,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-ACA-0002",
+                    "variantIndex": 0,
+                    "delta": 2,
+                    "occurrences": 78,
+                    "totalMagnitude": 156,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "18-34",
+                    "eventId": "EVT-SPC-SECR-0015",
+                    "variantIndex": 3,
+                    "delta": 1,
+                    "occurrences": 155,
+                    "totalMagnitude": 155,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ],
+                "negative": []
+              },
+              "35-64": {
+                "positive": [
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-FAM-0007",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 942,
+                    "totalMagnitude": 942,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-ACA-0002",
+                    "variantIndex": 0,
+                    "delta": 2,
+                    "occurrences": 217,
+                    "totalMagnitude": 434,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-ACA-0009",
+                    "variantIndex": 1,
+                    "delta": 3,
+                    "occurrences": 82,
+                    "totalMagnitude": 246,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-ACA-0007",
+                    "variantIndex": 0,
+                    "delta": 2,
+                    "occurrences": 89,
+                    "totalMagnitude": 178,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-MED-0007",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 173,
+                    "totalMagnitude": 173,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-SPC-ANO-0001",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 161,
+                    "totalMagnitude": 161,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-SPC-REIN-0001",
+                    "variantIndex": 0,
+                    "delta": 2,
+                    "occurrences": 80,
+                    "totalMagnitude": 160,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-SPC-ANO-0004",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 132,
+                    "totalMagnitude": 132,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-LEG-0002",
+                    "variantIndex": 0,
+                    "delta": 2,
+                    "occurrences": 54,
+                    "totalMagnitude": 108,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-LEG-0001",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 99,
+                    "totalMagnitude": 99,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ],
+                "negative": [
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-GEN-2001",
+                    "variantIndex": 0,
+                    "delta": -2,
+                    "occurrences": 807,
+                    "totalMagnitude": -1614,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-GEN-2001",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 382,
+                    "totalMagnitude": -382,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ]
+              },
+              "65+": {
+                "positive": [],
+                "negative": [
+                  {
+                    "stat": "INT",
+                    "band": "65+",
+                    "eventId": "EVT-ORD-GEN-2001",
+                    "variantIndex": 0,
+                    "delta": -2,
+                    "occurrences": 2,
+                    "totalMagnitude": -4,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "INT",
+                    "band": "65+",
+                    "eventId": "EVT-ORD-GEN-2001",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 1,
+                    "totalMagnitude": -1,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ]
+              }
+            },
+            "CHR": {
+              "0-17": {
+                "positive": [
+                  {
+                    "stat": "CHR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-SOC-0001",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 3875,
+                    "totalMagnitude": 3875,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-SOC-0002",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 3789,
+                    "totalMagnitude": 3789,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "0-17",
+                    "eventId": "EVT-SPC-SECR-0002",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 31,
+                    "totalMagnitude": 31,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ],
+                "negative": []
+              },
+              "18-34": {
+                "positive": [
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-TRN-CRYS-0001",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 1697,
+                    "totalMagnitude": 1697,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-SOC-0007",
+                    "variantIndex": 3,
+                    "delta": 1,
+                    "occurrences": 1638,
+                    "totalMagnitude": 1638,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-TRN-GLAS-0001",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 1401,
+                    "totalMagnitude": 1401,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-TRN-CERA-0001",
+                    "variantIndex": 0,
+                    "delta": 2,
+                    "occurrences": 672,
+                    "totalMagnitude": 1344,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-CIV-2001",
+                    "variantIndex": 0,
+                    "delta": 4,
+                    "occurrences": 296,
+                    "totalMagnitude": 1184,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-TRN-CERA-0001",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 932,
+                    "totalMagnitude": 932,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-CIV-0002",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 826,
+                    "totalMagnitude": 826,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-CIV-2001",
+                    "variantIndex": 2,
+                    "delta": 4,
+                    "occurrences": 195,
+                    "totalMagnitude": 780,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-TRN-GLAS-0001",
+                    "variantIndex": 0,
+                    "delta": 2,
+                    "occurrences": 353,
+                    "totalMagnitude": 706,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-SOC-0007",
+                    "variantIndex": 2,
+                    "delta": 1,
+                    "occurrences": 507,
+                    "totalMagnitude": 507,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  }
+                ],
+                "negative": [
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-CIV-0007",
+                    "variantIndex": 0,
+                    "delta": -2,
+                    "occurrences": 10,
+                    "totalMagnitude": -20,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-CIV-0007",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 14,
+                    "totalMagnitude": -14,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ]
+              },
+              "35-64": {
+                "positive": [
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-SOC-0003",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 756,
+                    "totalMagnitude": 756,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-TRN-CRYS-0002",
+                    "variantIndex": 1,
+                    "delta": 2,
+                    "occurrences": 227,
+                    "totalMagnitude": 454,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-CIV-0005",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 428,
+                    "totalMagnitude": 428,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-CIV-0002",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 209,
+                    "totalMagnitude": 209,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-MUS-0001",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 160,
+                    "totalMagnitude": 160,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-TRN-CERA-0002",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 160,
+                    "totalMagnitude": 160,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-TRN-GLAS-0002",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 154,
+                    "totalMagnitude": 154,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-TRN-GLAS-0002",
+                    "variantIndex": 0,
+                    "delta": 2,
+                    "occurrences": 68,
+                    "totalMagnitude": 136,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-HOU-2003",
+                    "variantIndex": 3,
+                    "delta": 1,
+                    "occurrences": 119,
+                    "totalMagnitude": 119,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-TRN-CRYS-0002",
+                    "variantIndex": 0,
+                    "delta": 3,
+                    "occurrences": 17,
+                    "totalMagnitude": 51,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ],
+                "negative": [
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-SOC-0004",
+                    "variantIndex": 2,
+                    "delta": -1,
+                    "occurrences": 1673,
+                    "totalMagnitude": -1673,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": true
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-CIV-0007",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 463,
+                    "totalMagnitude": -463,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "CHR",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-CIV-0007",
+                    "variantIndex": 0,
+                    "delta": -2,
+                    "occurrences": 130,
+                    "totalMagnitude": -260,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ]
+              },
+              "65+": {
+                "positive": [],
+                "negative": [
+                  {
+                    "stat": "CHR",
+                    "band": "65+",
+                    "eventId": "EVT-ORD-SOC-0004",
+                    "variantIndex": 2,
+                    "delta": -1,
+                    "occurrences": 17,
+                    "totalMagnitude": -17,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  }
+                ]
+              }
+            },
+            "SPR": {
+              "0-17": {
+                "positive": [
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-SOC-0001",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 3875,
+                    "totalMagnitude": 3875,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-SOC-0009",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 3132,
+                    "totalMagnitude": 3132,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-HEA-0003",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 2841,
+                    "totalMagnitude": 2841,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0006",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 2564,
+                    "totalMagnitude": 2564,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-HOU-0003",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 1983,
+                    "totalMagnitude": 1983,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-INS-CIV-0001",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 1939,
+                    "totalMagnitude": 1939,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-HOU-0003",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 1560,
+                    "totalMagnitude": 1560,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-FAM-0009",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 1453,
+                    "totalMagnitude": 1453,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-FAM-0006",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 1124,
+                    "totalMagnitude": 1124,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-FAM-0008",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 1080,
+                    "totalMagnitude": 1080,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ],
+                "negative": [
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0004",
+                    "variantIndex": 2,
+                    "delta": -1,
+                    "occurrences": 1420,
+                    "totalMagnitude": -1420,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0007",
+                    "variantIndex": 2,
+                    "delta": -1,
+                    "occurrences": 1394,
+                    "totalMagnitude": -1394,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0005",
+                    "variantIndex": 0,
+                    "delta": -1,
+                    "occurrences": 1320,
+                    "totalMagnitude": -1320,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-ORD-EDU-0002",
+                    "variantIndex": 0,
+                    "delta": -1,
+                    "occurrences": 1151,
+                    "totalMagnitude": -1151,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-TRN-WOOD-0001",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 587,
+                    "totalMagnitude": -587,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-INS-EDU-0003",
+                    "variantIndex": 3,
+                    "delta": -1,
+                    "occurrences": 459,
+                    "totalMagnitude": -459,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-INS-EDU-0003",
+                    "variantIndex": 0,
+                    "delta": -1,
+                    "occurrences": 455,
+                    "totalMagnitude": -455,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-INS-EDU-0005",
+                    "variantIndex": 0,
+                    "delta": -1,
+                    "occurrences": 421,
+                    "totalMagnitude": -421,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-INS-EDU-0004",
+                    "variantIndex": 0,
+                    "delta": -1,
+                    "occurrences": 407,
+                    "totalMagnitude": -407,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "0-17",
+                    "eventId": "EVT-INS-EDU-0003",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 390,
+                    "totalMagnitude": -390,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ]
+              },
+              "18-34": {
+                "positive": [
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-FAM-0003",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 2168,
+                    "totalMagnitude": 2168,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-HEA-0002",
+                    "variantIndex": 3,
+                    "delta": 1,
+                    "occurrences": 1762,
+                    "totalMagnitude": 1762,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-HEA-2001",
+                    "variantIndex": 1,
+                    "delta": 4,
+                    "occurrences": 428,
+                    "totalMagnitude": 1712,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-CIV-0002",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 1693,
+                    "totalMagnitude": 1693,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-SOC-0007",
+                    "variantIndex": 3,
+                    "delta": 1,
+                    "occurrences": 1638,
+                    "totalMagnitude": 1638,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-SOC-0006",
+                    "variantIndex": 3,
+                    "delta": 1,
+                    "occurrences": 1505,
+                    "totalMagnitude": 1505,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-MED-0001",
+                    "variantIndex": 2,
+                    "delta": 1,
+                    "occurrences": 1364,
+                    "totalMagnitude": 1364,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-CAR-0008",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 1231,
+                    "totalMagnitude": 1231,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-HEA-0002",
+                    "variantIndex": 2,
+                    "delta": 1,
+                    "occurrences": 956,
+                    "totalMagnitude": 956,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-HOU-2002",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 888,
+                    "totalMagnitude": 888,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ],
+                "negative": [
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-TRN-TEMP-0001",
+                    "variantIndex": 1,
+                    "delta": -2,
+                    "occurrences": 1450,
+                    "totalMagnitude": -2900,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-TRN-CRYS-0001",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 1697,
+                    "totalMagnitude": -1697,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-TRN-STON-0001",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 1692,
+                    "totalMagnitude": -1692,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-CAR-0004",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 1607,
+                    "totalMagnitude": -1607,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-TRN-METL-0001",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 1405,
+                    "totalMagnitude": -1405,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-TRN-GLAS-0001",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 1401,
+                    "totalMagnitude": -1401,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-CAR-0007",
+                    "variantIndex": 0,
+                    "delta": -1,
+                    "occurrences": 1356,
+                    "totalMagnitude": -1356,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-TRN-WOOD-0002",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 1272,
+                    "totalMagnitude": -1272,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-INS-EDU-2001",
+                    "variantIndex": 0,
+                    "delta": -2,
+                    "occurrences": 621,
+                    "totalMagnitude": -1242,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "18-34",
+                    "eventId": "EVT-ORD-CAR-0001",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 1068,
+                    "totalMagnitude": -1068,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ]
+              },
+              "35-64": {
+                "positive": [
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-HEA-0001",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 4829,
+                    "totalMagnitude": 4829,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-FAM-0007",
+                    "variantIndex": 2,
+                    "delta": 2,
+                    "occurrences": 2260,
+                    "totalMagnitude": 4520,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-GEN-0002",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 3640,
+                    "totalMagnitude": 3640,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-CAR-0003",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 2364,
+                    "totalMagnitude": 2364,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-CIV-0002",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 1712,
+                    "totalMagnitude": 1712,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-FAM-0005",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 1474,
+                    "totalMagnitude": 1474,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-FAM-0005",
+                    "variantIndex": 2,
+                    "delta": 1,
+                    "occurrences": 1371,
+                    "totalMagnitude": 1371,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-CAR-0005",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 1347,
+                    "totalMagnitude": 1347,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-FIN-0003",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 1332,
+                    "totalMagnitude": 1332,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-HOU-2005",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 1241,
+                    "totalMagnitude": 1241,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ],
+                "negative": [
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-TRN-TEMP-0001",
+                    "variantIndex": 1,
+                    "delta": -2,
+                    "occurrences": 865,
+                    "totalMagnitude": -1730,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-CAR-0004",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 983,
+                    "totalMagnitude": -983,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-GEN-2001",
+                    "variantIndex": 0,
+                    "delta": -1,
+                    "occurrences": 807,
+                    "totalMagnitude": -807,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-SOC-0003",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 756,
+                    "totalMagnitude": -756,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-LEG-0002",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 485,
+                    "totalMagnitude": -485,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-CIV-0005",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 446,
+                    "totalMagnitude": -446,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-CIV-0005",
+                    "variantIndex": 0,
+                    "delta": -1,
+                    "occurrences": 428,
+                    "totalMagnitude": -428,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-ORD-FIN-0001",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 375,
+                    "totalMagnitude": -375,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 2,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-MED-0009",
+                    "variantIndex": 0,
+                    "delta": -1,
+                    "occurrences": 349,
+                    "totalMagnitude": -349,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "35-64",
+                    "eventId": "EVT-INS-MED-0008",
+                    "variantIndex": 0,
+                    "delta": -1,
+                    "occurrences": 323,
+                    "totalMagnitude": -323,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ]
+              },
+              "65+": {
+                "positive": [
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-INS-MED-2001",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 1299,
+                    "totalMagnitude": 1299,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-INS-MED-2002",
+                    "variantIndex": 3,
+                    "delta": 1,
+                    "occurrences": 908,
+                    "totalMagnitude": 908,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-ORD-FAM-0007",
+                    "variantIndex": 2,
+                    "delta": 2,
+                    "occurrences": 446,
+                    "totalMagnitude": 892,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-ORD-FAM-0010",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 554,
+                    "totalMagnitude": 554,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-ORD-FAM-0007",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 363,
+                    "totalMagnitude": 363,
+                    "repeatPolicy": "repeatable",
+                    "repeatMaxCount": 3,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-INS-CIV-0002",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 58,
+                    "totalMagnitude": 58,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-INS-MED-2003",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 31,
+                    "totalMagnitude": 31,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-INS-FIN-0003",
+                    "variantIndex": 1,
+                    "delta": 1,
+                    "occurrences": 27,
+                    "totalMagnitude": 27,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-INS-MED-0011",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 26,
+                    "totalMagnitude": 26,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-INS-FIN-0003",
+                    "variantIndex": 0,
+                    "delta": 1,
+                    "occurrences": 18,
+                    "totalMagnitude": 18,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ],
+                "negative": [
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-INS-CIV-0009",
+                    "variantIndex": 1,
+                    "delta": -1,
+                    "occurrences": 1705,
+                    "totalMagnitude": -1705,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  },
+                  {
+                    "stat": "SPR",
+                    "band": "65+",
+                    "eventId": "EVT-ORD-GEN-2001",
+                    "variantIndex": 0,
+                    "delta": -1,
+                    "occurrences": 2,
+                    "totalMagnitude": -2,
+                    "repeatPolicy": "once_per_run",
+                    "repeatMaxCount": 1,
+                    "repeatableOutlier": false
+                  }
+                ]
+              }
+            }
+          },
+          "repeatableOutliers": [
+            {
+              "stat": "CHR",
+              "band": "35-64",
+              "eventId": "EVT-ORD-SOC-0004",
+              "variantIndex": 2,
+              "delta": -1,
+              "occurrences": 1673,
+              "totalMagnitude": -1673,
+              "repeatPolicy": "repeatable",
+              "repeatMaxCount": 2,
+              "repeatableOutlier": true
+            }
+          ]
+        },
+        "factions": {
+          "byFaction": [
+            {
+              "factionId": "FCT-DMMS",
+              "shortName": "DMMS",
+              "contactRuns": 193,
+              "contactRate": 0.04825,
+              "dispositionRuns": 193,
+              "dispositionRate": 0.04825,
+              "engagedRuns": 151,
+              "engagedRate": 0.03775,
+              "committedRuns": 20,
+              "committedRate": 0.005,
+              "optedOutRuns": 0,
+              "closedRuns": 172,
+              "exitRate": 0.043,
+              "endingRuns": 20,
+              "endingShareOfCompleted": 0.006071645415907711,
+              "touchpointsPerContacted": {
+                "samples": 193,
+                "mean": 3.683937823834197,
+                "median": 4,
+                "p10": 2,
+                "p25": 4,
+                "p75": 4,
+                "p90": 5,
+                "min": 2,
+                "max": 6
+              },
+              "touchpointsPerEngaged": {
+                "samples": 151,
+                "mean": 4.152317880794702,
+                "median": 4,
+                "p10": 4,
+                "p25": 4,
+                "p75": 4,
+                "p90": 5,
+                "min": 3,
+                "max": 6
+              },
+              "engagedRunsWith3Plus": 151,
+              "engagedThreePlusShare": 1,
+              "gapYears": {
+                "samples": 518,
+                "mean": 1.7046332046332047,
+                "median": 2,
+                "p10": 1,
+                "p25": 1,
+                "p75": 2,
+                "p90": 2,
+                "min": 1,
+                "max": 4
+              },
+              "contactToTerminalYears": {
+                "samples": 192,
+                "mean": 4.369791666666667,
+                "median": 5,
+                "p10": 2,
+                "p25": 5,
+                "p75": 5,
+                "p90": 5,
+                "min": 2,
+                "max": 7
+              },
+              "firstDispositionRuns": 193,
+              "firstDispositionExitRuns": 42,
+              "firstDispositionExitRate": 0.21761658031088082,
+              "scheduleExpiries": 0
+            },
+            {
+              "factionId": "FCT-EVERLASTING",
+              "shortName": "Everlasting Mutual",
+              "contactRuns": 246,
+              "contactRate": 0.0615,
+              "dispositionRuns": 246,
+              "dispositionRate": 0.0615,
+              "engagedRuns": 163,
+              "engagedRate": 0.04075,
+              "committedRuns": 4,
+              "committedRate": 0.001,
+              "optedOutRuns": 152,
+              "closedRuns": 89,
+              "exitRate": 0.06025,
+              "endingRuns": 4,
+              "endingShareOfCompleted": 0.0012143290831815423,
+              "touchpointsPerContacted": {
+                "samples": 246,
+                "mean": 3.3008130081300813,
+                "median": 4,
+                "p10": 2,
+                "p25": 2,
+                "p75": 4,
+                "p90": 4,
+                "min": 2,
+                "max": 5
+              },
+              "touchpointsPerEngaged": {
+                "samples": 163,
+                "mean": 3.96319018404908,
+                "median": 4,
+                "p10": 4,
+                "p25": 4,
+                "p75": 4,
+                "p90": 4,
+                "min": 2,
+                "max": 5
+              },
+              "engagedRunsWith3Plus": 162,
+              "engagedThreePlusShare": 0.9938650306748467,
+              "gapYears": {
+                "samples": 566,
+                "mean": 1.7508833922261484,
+                "median": 2,
+                "p10": 1,
+                "p25": 1,
+                "p75": 2,
+                "p90": 2,
+                "min": 1,
+                "max": 4
+              },
+              "contactToTerminalYears": {
+                "samples": 245,
+                "mean": 4.020408163265306,
+                "median": 5,
+                "p10": 2,
+                "p25": 2,
+                "p75": 5,
+                "p90": 5,
+                "min": 2,
+                "max": 7
+              },
+              "firstDispositionRuns": 246,
+              "firstDispositionExitRuns": 83,
+              "firstDispositionExitRate": 0.33739837398373984,
+              "scheduleExpiries": 0
+            },
+            {
+              "factionId": "FCT-MERIDIAN",
+              "shortName": "Meridian",
+              "contactRuns": 248,
+              "contactRate": 0.062,
+              "dispositionRuns": 248,
+              "dispositionRate": 0.062,
+              "engagedRuns": 190,
+              "engagedRate": 0.0475,
+              "committedRuns": 69,
+              "committedRate": 0.01725,
+              "optedOutRuns": 114,
+              "closedRuns": 65,
+              "exitRate": 0.04475,
+              "endingRuns": 69,
+              "endingShareOfCompleted": 0.020947176684881604,
+              "touchpointsPerContacted": {
+                "samples": 248,
+                "mean": 3.7338709677419355,
+                "median": 4,
+                "p10": 2,
+                "p25": 4,
+                "p75": 4,
+                "p90": 5,
+                "min": 2,
+                "max": 5
+              },
+              "touchpointsPerEngaged": {
+                "samples": 190,
+                "mean": 4.2631578947368425,
+                "median": 4,
+                "p10": 4,
+                "p25": 4,
+                "p75": 5,
+                "p90": 5,
+                "min": 3,
+                "max": 5
+              },
+              "engagedRunsWith3Plus": 190,
+              "engagedThreePlusShare": 1,
+              "gapYears": {
+                "samples": 678,
+                "mean": 1.6976401179941003,
+                "median": 2,
+                "p10": 1,
+                "p25": 1,
+                "p75": 2,
+                "p90": 2,
+                "min": 1,
+                "max": 5
+              },
+              "contactToTerminalYears": {
+                "samples": 248,
+                "mean": 4.318548387096774,
+                "median": 5,
+                "p10": 2,
+                "p25": 5,
+                "p75": 5,
+                "p90": 5,
+                "min": 2,
+                "max": 6
+              },
+              "firstDispositionRuns": 248,
+              "firstDispositionExitRuns": 39,
+              "firstDispositionExitRate": 0.15725806451612903,
+              "scheduleExpiries": 0
+            },
+            {
+              "factionId": "FCT-CRI",
+              "shortName": "CRI",
+              "contactRuns": 307,
+              "contactRate": 0.07675,
+              "dispositionRuns": 307,
+              "dispositionRate": 0.07675,
+              "engagedRuns": 229,
+              "engagedRate": 0.05725,
+              "committedRuns": 77,
+              "committedRate": 0.01925,
+              "optedOutRuns": 67,
+              "closedRuns": 161,
+              "exitRate": 0.057,
+              "endingRuns": 77,
+              "endingShareOfCompleted": 0.023375834851244687,
+              "touchpointsPerContacted": {
+                "samples": 307,
+                "mean": 3.7068403908794787,
+                "median": 4,
+                "p10": 2,
+                "p25": 2,
+                "p75": 4,
+                "p90": 5,
+                "min": 2,
+                "max": 6
+              },
+              "touchpointsPerEngaged": {
+                "samples": 229,
+                "mean": 4.288209606986899,
+                "median": 4,
+                "p10": 4,
+                "p25": 4,
+                "p75": 5,
+                "p90": 5,
+                "min": 2,
+                "max": 6
+              },
+              "engagedRunsWith3Plus": 227,
+              "engagedThreePlusShare": 0.9912663755458515,
+              "gapYears": {
+                "samples": 831,
+                "mean": 1.6594464500601684,
+                "median": 2,
+                "p10": 1,
+                "p25": 1,
+                "p75": 2,
+                "p90": 2,
+                "min": 1,
+                "max": 4
+              },
+              "contactToTerminalYears": {
+                "samples": 305,
+                "mean": 4.272131147540984,
+                "median": 5,
+                "p10": 2,
+                "p25": 3,
+                "p75": 5,
+                "p90": 5,
+                "min": 2,
+                "max": 7
+              },
+              "firstDispositionRuns": 307,
+              "firstDispositionExitRuns": 67,
+              "firstDispositionExitRate": 0.2182410423452769,
+              "scheduleExpiries": 0
+            },
+            {
+              "factionId": "FCT-BLACK-LEDGER",
+              "shortName": "Black Ledger",
+              "contactRuns": 155,
+              "contactRate": 0.03875,
+              "dispositionRuns": 155,
+              "dispositionRate": 0.03875,
+              "engagedRuns": 135,
+              "engagedRate": 0.03375,
+              "committedRuns": 38,
+              "committedRate": 0.0095,
+              "optedOutRuns": 109,
+              "closedRuns": 7,
+              "exitRate": 0.029,
+              "endingRuns": 38,
+              "endingShareOfCompleted": 0.01153612629022465,
+              "touchpointsPerContacted": {
+                "samples": 155,
+                "mean": 3.9161290322580644,
+                "median": 4,
+                "p10": 2,
+                "p25": 4,
+                "p75": 4,
+                "p90": 5,
+                "min": 2,
+                "max": 5
+              },
+              "touchpointsPerEngaged": {
+                "samples": 135,
+                "mean": 4.2,
+                "median": 4,
+                "p10": 4,
+                "p25": 4,
+                "p75": 5,
+                "p90": 5,
+                "min": 3,
+                "max": 5
+              },
+              "engagedRunsWith3Plus": 135,
+              "engagedThreePlusShare": 1,
+              "gapYears": {
+                "samples": 452,
+                "mean": 1.3141592920353982,
+                "median": 1,
+                "p10": 1,
+                "p25": 1,
+                "p75": 2,
+                "p90": 2,
+                "min": 1,
+                "max": 4
+              },
+              "contactToTerminalYears": {
+                "samples": 154,
+                "mean": 3.551948051948052,
+                "median": 4,
+                "p10": 1,
+                "p25": 4,
+                "p75": 4,
+                "p90": 4,
+                "min": 1,
+                "max": 4
+              },
+              "firstDispositionRuns": 155,
+              "firstDispositionExitRuns": 20,
+              "firstDispositionExitRate": 0.12903225806451613,
+              "scheduleExpiries": 0
+            },
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "shortName": "Last Posture",
+              "contactRuns": 303,
+              "contactRate": 0.07575,
+              "dispositionRuns": 302,
+              "dispositionRate": 0.0755,
+              "engagedRuns": 258,
+              "engagedRate": 0.0645,
+              "committedRuns": 42,
+              "committedRate": 0.0105,
+              "optedOutRuns": 97,
+              "closedRuns": 159,
+              "exitRate": 0.064,
+              "endingRuns": 42,
+              "endingShareOfCompleted": 0.012750455373406194,
+              "touchpointsPerContacted": {
+                "samples": 303,
+                "mean": 3.8085808580858087,
+                "median": 4,
+                "p10": 2,
+                "p25": 4,
+                "p75": 4,
+                "p90": 5,
+                "min": 1,
+                "max": 5
+              },
+              "touchpointsPerEngaged": {
+                "samples": 258,
+                "mean": 4.127906976744186,
+                "median": 4,
+                "p10": 4,
+                "p25": 4,
+                "p75": 4,
+                "p90": 5,
+                "min": 2,
+                "max": 5
+              },
+              "engagedRunsWith3Plus": 257,
+              "engagedThreePlusShare": 0.9961240310077519,
+              "gapYears": {
+                "samples": 851,
+                "mean": 1.699177438307873,
+                "median": 2,
+                "p10": 1,
+                "p25": 1,
+                "p75": 2,
+                "p90": 2,
+                "min": 1,
+                "max": 4
+              },
+              "contactToTerminalYears": {
+                "samples": 298,
+                "mean": 4.560402684563758,
+                "median": 5,
+                "p10": 2,
+                "p25": 5,
+                "p75": 5,
+                "p90": 5,
+                "min": 2,
+                "max": 6
+              },
+              "firstDispositionRuns": 302,
+              "firstDispositionExitRuns": 42,
+              "firstDispositionExitRate": 0.1390728476821192,
+              "scheduleExpiries": 0
+            }
+          ],
+          "overall": {
+            "anyContactRuns": 1402,
+            "anyContactRate": 0.3505,
+            "factionEndingRuns": 250,
+            "factionEndingShareOfCompleted": 0.07589556769884638,
+            "engagedRuns": 1126,
+            "engagedRunsWith3Plus": 1122,
+            "engagedThreePlusShare": 0.9964476021314387,
+            "touchpointsPerEngaged": {
+              "samples": 1126,
+              "mean": 4.171403197158082,
+              "median": 4,
+              "p10": 4,
+              "p25": 4,
+              "p75": 4,
+              "p90": 5,
+              "min": 2,
+              "max": 6
+            },
+            "gapYears": {
+              "samples": 3896,
+              "mean": 1.6540041067761806,
+              "median": 2,
+              "p10": 1,
+              "p25": 1,
+              "p75": 2,
+              "p90": 2,
+              "min": 1,
+              "max": 5
+            },
+            "contactToTerminalYears": {
+              "samples": 1442,
+              "mean": 4.233009708737864,
+              "median": 5,
+              "p10": 2,
+              "p25": 4,
+              "p75": 5,
+              "p90": 5,
+              "min": 1,
+              "max": 7
+            },
+            "maxSimultaneouslyActive": 1
+          }
+        },
+        "correctness": {
+          "endingsBefore18": 0,
+          "materialCommitmentsBefore18": 0,
+          "coverageDefects": 0,
+          "pre25FallbackYears": 0,
+          "multipleVisibleEventsInAYear": 0,
+          "illegalFactionTransitions": 0,
+          "lifecycleCollisions": 0,
+          "personalEventsAfterTerminalExit": 0,
+          "runsWithTwoActiveFactions": 0,
+          "contactWhileAnotherActive": 0,
+          "compressedChainScheduleExpiries": 0,
+          "compressedChainExpiriesByEvent": {}
+        }
+      }
+    },
+    {
+      "id": "int-0",
+      "label": "allocation INT 0",
+      "runs": 600,
+      "allocation": {
+        "CHR": 4,
+        "INT": 0,
+        "STR": 3,
+        "MNY": 10,
+        "SPR": 3
+      },
+      "summary": {
+        "runs": 600,
+        "runsReachingAge18": 600,
+        "completedRuns": 558,
+        "outcomes": {
+          "completedRuns": 558,
+          "nonterminalRuns": 42,
+          "coverageErrorRuns": 0,
+          "completionRate": 0.93,
+          "endingAge": {
+            "samples": 558,
+            "mean": 65.64336917562724,
+            "median": 52.5,
+            "p10": 31.700000000000003,
+            "p25": 40,
+            "p75": 95,
+            "p90": 103,
+            "min": 21,
+            "max": 119
+          },
+          "endingAgeShareByBand": {
+            "18-24": 0.007168458781362007,
+            "25-34": 0.11469534050179211,
+            "35-44": 0.26344086021505375,
+            "45-54": 0.12186379928315412,
+            "55-64": 0.007168458781362007,
+            "65+": 0.48566308243727596
+          },
+          "endingAgeCountByBand": {
+            "18-24": 4,
+            "25-34": 64,
+            "35-44": 147,
+            "45-54": 68,
+            "55-64": 4,
+            "65+": 271
+          }
+        },
+        "stats": [
+          {
+            "stat": "INT",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 0,
+              "median": 0,
+              "p10": 0,
+              "p25": 0,
+              "p75": 0,
+              "p90": 0,
+              "min": 0,
+              "max": 0
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 0.03333333333333333,
+              "median": 0,
+              "p10": -1,
+              "p25": 0,
+              "p75": 0,
+              "p90": 1,
+              "min": -3,
+              "max": 3
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 3.83,
+              "median": 4,
+              "p10": 2,
+              "p25": 3,
+              "p75": 5,
+              "p90": 6,
+              "min": -1,
+              "max": 8
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 3.796666666666667,
+              "median": 4,
+              "p10": 3,
+              "p25": 3,
+              "p75": 4,
+              "p90": 5,
+              "min": 0,
+              "max": 6
+            },
+            "shareAge18AtLeast5": 0.30666666666666664,
+            "shareAge18AtLeast8": 0.0033333333333333335,
+            "shareAge18AtLeast10": 0,
+            "shareAge18AtLeast15": 0
+          },
+          {
+            "stat": "CHR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 4,
+              "median": 4,
+              "p10": 4,
+              "p25": 4,
+              "p75": 4,
+              "p90": 4,
+              "min": 4,
+              "max": 4
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 5.216666666666667,
+              "median": 5,
+              "p10": 3,
+              "p25": 4,
+              "p75": 6,
+              "p90": 7,
+              "min": 3,
+              "max": 11
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 7.155,
+              "median": 7,
+              "p10": 5,
+              "p25": 6,
+              "p75": 8,
+              "p90": 9,
+              "min": 4,
+              "max": 13
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 1.9383333333333332,
+              "median": 2,
+              "p10": 2,
+              "p25": 2,
+              "p75": 2,
+              "p90": 2,
+              "min": 0,
+              "max": 3
+            },
+            "shareAge18AtLeast5": 0.9883333333333333,
+            "shareAge18AtLeast8": 0.37666666666666665,
+            "shareAge18AtLeast10": 0.08333333333333333,
+            "shareAge18AtLeast15": 0
+          },
+          {
+            "stat": "SPR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 3,
+              "median": 3,
+              "p10": 3,
+              "p25": 3,
+              "p75": 3,
+              "p90": 3,
+              "min": 3,
+              "max": 3
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 3.368333333333333,
+              "median": 3,
+              "p10": 2,
+              "p25": 2,
+              "p75": 4,
+              "p90": 6,
+              "min": 0,
+              "max": 10
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 7.745,
+              "median": 8,
+              "p10": 5,
+              "p25": 6,
+              "p75": 9,
+              "p90": 11,
+              "min": 0,
+              "max": 14
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 4.376666666666667,
+              "median": 4,
+              "p10": 2,
+              "p25": 3,
+              "p75": 5,
+              "p90": 6,
+              "min": -2,
+              "max": 8
+            },
+            "shareAge18AtLeast5": 0.9466666666666667,
+            "shareAge18AtLeast8": 0.5383333333333333,
+            "shareAge18AtLeast10": 0.18,
+            "shareAge18AtLeast15": 0
+          }
+        ],
+        "driftSnapshots": [
+          {
+            "label": "age 18",
+            "age": 18,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 3.796666666666667,
+              "CHR": 1.9383333333333332,
+              "SPR": 4.376666666666667
+            },
+            "meanValue": {
+              "INT": 3.83,
+              "CHR": 7.155,
+              "SPR": 7.745
+            }
+          },
+          {
+            "label": "age 25",
+            "age": 25,
+            "activeRuns": 596,
+            "meanDrift": {
+              "INT": 5.276845637583893,
+              "CHR": 3.6778523489932886,
+              "SPR": 4.600671140939597
+            },
+            "meanValue": {
+              "INT": 5.315436241610739,
+              "CHR": 8.89765100671141,
+              "SPR": 7.954697986577181
+            }
+          },
+          {
+            "label": "age 35",
+            "age": 35,
+            "activeRuns": 532,
+            "meanDrift": {
+              "INT": 5.958646616541353,
+              "CHR": 5.977443609022556,
+              "SPR": 3.0601503759398496
+            },
+            "meanValue": {
+              "INT": 6.0056390977443606,
+              "CHR": 11.18984962406015,
+              "SPR": 6.417293233082707
+            }
+          },
+          {
+            "label": "age 50",
+            "age": 50,
+            "activeRuns": 332,
+            "meanDrift": {
+              "INT": 6.542168674698795,
+              "CHR": 6.945783132530121,
+              "SPR": 7.087349397590361
+            },
+            "meanValue": {
+              "INT": 6.542168674698795,
+              "CHR": 12.156626506024097,
+              "SPR": 10.478915662650602
+            }
+          },
+          {
+            "label": "age 65",
+            "age": 65,
+            "activeRuns": 313,
+            "meanDrift": {
+              "INT": 6.616613418530352,
+              "CHR": 5.722044728434505,
+              "SPR": 17.7444089456869
+            },
+            "meanValue": {
+              "INT": 6.60702875399361,
+              "CHR": 10.929712460063898,
+              "SPR": 21.13418530351438
+            }
+          },
+          {
+            "label": "final",
+            "age": null,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 6.31,
+              "CHR": 6.155,
+              "SPR": 11.126666666666667
+            },
+            "meanValue": {
+              "INT": 6.343333333333334,
+              "CHR": 11.371666666666666,
+              "SPR": 14.495
+            }
+          }
+        ],
+        "spr15At65": {
+          "activeRuns": 313,
+          "atLeast15": 280,
+          "share": 0.8945686900958466
+        },
+        "contributors": null,
+        "factions": null,
+        "correctness": {
+          "endingsBefore18": 0,
+          "materialCommitmentsBefore18": 0,
+          "coverageDefects": 0,
+          "pre25FallbackYears": 0,
+          "multipleVisibleEventsInAYear": 0,
+          "illegalFactionTransitions": 0,
+          "lifecycleCollisions": 0,
+          "personalEventsAfterTerminalExit": 0,
+          "runsWithTwoActiveFactions": 0,
+          "contactWhileAnotherActive": 0,
+          "compressedChainScheduleExpiries": 0,
+          "compressedChainExpiriesByEvent": {}
+        }
+      }
+    },
+    {
+      "id": "int-5",
+      "label": "allocation INT 5",
+      "runs": 600,
+      "allocation": {
+        "CHR": 4,
+        "INT": 5,
+        "STR": 3,
+        "MNY": 5,
+        "SPR": 3
+      },
+      "summary": {
+        "runs": 600,
+        "runsReachingAge18": 600,
+        "completedRuns": 534,
+        "outcomes": {
+          "completedRuns": 534,
+          "nonterminalRuns": 66,
+          "coverageErrorRuns": 0,
+          "completionRate": 0.89,
+          "endingAge": {
+            "samples": 534,
+            "mean": 64.97940074906367,
+            "median": 51,
+            "p10": 34,
+            "p25": 40,
+            "p75": 91,
+            "p90": 103,
+            "min": 21,
+            "max": 119
+          },
+          "endingAgeShareByBand": {
+            "18-24": 0.0018726591760299626,
+            "25-34": 0.10861423220973783,
+            "35-44": 0.2696629213483146,
+            "45-54": 0.1404494382022472,
+            "55-64": 0.003745318352059925,
+            "65+": 0.4756554307116105
+          },
+          "endingAgeCountByBand": {
+            "18-24": 1,
+            "25-34": 58,
+            "35-44": 144,
+            "45-54": 75,
+            "55-64": 2,
+            "65+": 254
+          }
+        },
+        "stats": [
+          {
+            "stat": "INT",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 5,
+              "median": 5,
+              "p10": 5,
+              "p25": 5,
+              "p75": 5,
+              "p90": 5,
+              "min": 5,
+              "max": 5
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 5.033333333333333,
+              "median": 5,
+              "p10": 4,
+              "p25": 5,
+              "p75": 5,
+              "p90": 6,
+              "min": 2,
+              "max": 8
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 9.17,
+              "median": 9,
+              "p10": 7,
+              "p25": 8,
+              "p75": 10,
+              "p90": 11,
+              "min": 4,
+              "max": 14
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 4.136666666666667,
+              "median": 4,
+              "p10": 3,
+              "p25": 3,
+              "p75": 5,
+              "p90": 6,
+              "min": 0,
+              "max": 7
+            },
+            "shareAge18AtLeast5": 0.9983333333333333,
+            "shareAge18AtLeast8": 0.8516666666666667,
+            "shareAge18AtLeast10": 0.3983333333333333,
+            "shareAge18AtLeast15": 0
+          },
+          {
+            "stat": "CHR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 4,
+              "median": 4,
+              "p10": 4,
+              "p25": 4,
+              "p75": 4,
+              "p90": 4,
+              "min": 4,
+              "max": 4
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 5.216666666666667,
+              "median": 5,
+              "p10": 3,
+              "p25": 4,
+              "p75": 6,
+              "p90": 7,
+              "min": 3,
+              "max": 11
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 7.155,
+              "median": 7,
+              "p10": 5,
+              "p25": 6,
+              "p75": 8,
+              "p90": 9,
+              "min": 4,
+              "max": 13
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 1.9383333333333332,
+              "median": 2,
+              "p10": 2,
+              "p25": 2,
+              "p75": 2,
+              "p90": 2,
+              "min": 0,
+              "max": 3
+            },
+            "shareAge18AtLeast5": 0.9883333333333333,
+            "shareAge18AtLeast8": 0.37666666666666665,
+            "shareAge18AtLeast10": 0.08333333333333333,
+            "shareAge18AtLeast15": 0
+          },
+          {
+            "stat": "SPR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 3,
+              "median": 3,
+              "p10": 3,
+              "p25": 3,
+              "p75": 3,
+              "p90": 3,
+              "min": 3,
+              "max": 3
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 3.368333333333333,
+              "median": 3,
+              "p10": 2,
+              "p25": 2,
+              "p75": 4,
+              "p90": 6,
+              "min": 0,
+              "max": 10
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 6.751666666666667,
+              "median": 7,
+              "p10": 4,
+              "p25": 5,
+              "p75": 8,
+              "p90": 10.100000000000023,
+              "min": -2,
+              "max": 14
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 3.3833333333333333,
+              "median": 4,
+              "p10": 1,
+              "p25": 2,
+              "p75": 5,
+              "p90": 5,
+              "min": -4,
+              "max": 8
+            },
+            "shareAge18AtLeast5": 0.8466666666666667,
+            "shareAge18AtLeast8": 0.32166666666666666,
+            "shareAge18AtLeast10": 0.13166666666666665,
+            "shareAge18AtLeast15": 0
+          }
+        ],
+        "driftSnapshots": [
+          {
+            "label": "age 18",
+            "age": 18,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 4.136666666666667,
+              "CHR": 1.9383333333333332,
+              "SPR": 3.3833333333333333
+            },
+            "meanValue": {
+              "INT": 9.17,
+              "CHR": 7.155,
+              "SPR": 6.751666666666667
+            }
+          },
+          {
+            "label": "age 25",
+            "age": 25,
+            "activeRuns": 599,
+            "meanDrift": {
+              "INT": 5.011686143572621,
+              "CHR": 3.701168614357262,
+              "SPR": 3.358931552587646
+            },
+            "meanValue": {
+              "INT": 10.046744574290484,
+              "CHR": 8.919866444073456,
+              "SPR": 6.729549248747913
+            }
+          },
+          {
+            "label": "age 35",
+            "age": 35,
+            "activeRuns": 541,
+            "meanDrift": {
+              "INT": 5.791127541589649,
+              "CHR": 5.939001848428836,
+              "SPR": 1.9611829944547134
+            },
+            "meanValue": {
+              "INT": 10.833641404805915,
+              "CHR": 11.162661737523106,
+              "SPR": 5.349353049907578
+            }
+          },
+          {
+            "label": "age 50",
+            "age": 50,
+            "activeRuns": 340,
+            "meanDrift": {
+              "INT": 6.564705882352941,
+              "CHR": 6.905882352941177,
+              "SPR": 5.552941176470588
+            },
+            "meanValue": {
+              "INT": 11.547058823529412,
+              "CHR": 12.141176470588235,
+              "SPR": 8.964705882352941
+            }
+          },
+          {
+            "label": "age 65",
+            "age": 65,
+            "activeRuns": 320,
+            "meanDrift": {
+              "INT": 6.14375,
+              "CHR": 5.74375,
+              "SPR": 16.18125
+            },
+            "meanValue": {
+              "INT": 11.115625,
+              "CHR": 10.9875,
+              "SPR": 19.571875
+            }
+          },
+          {
+            "label": "final",
+            "age": null,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 6.086666666666667,
+              "CHR": 6.17,
+              "SPR": 10.025
+            },
+            "meanValue": {
+              "INT": 11.12,
+              "CHR": 11.386666666666667,
+              "SPR": 13.393333333333333
+            }
+          }
+        ],
+        "spr15At65": {
+          "activeRuns": 320,
+          "atLeast15": 271,
+          "share": 0.846875
+        },
+        "contributors": null,
+        "factions": null,
+        "correctness": {
+          "endingsBefore18": 0,
+          "materialCommitmentsBefore18": 0,
+          "coverageDefects": 0,
+          "pre25FallbackYears": 0,
+          "multipleVisibleEventsInAYear": 0,
+          "illegalFactionTransitions": 0,
+          "lifecycleCollisions": 0,
+          "personalEventsAfterTerminalExit": 0,
+          "runsWithTwoActiveFactions": 0,
+          "contactWhileAnotherActive": 0,
+          "compressedChainScheduleExpiries": 0,
+          "compressedChainExpiriesByEvent": {}
+        }
+      }
+    },
+    {
+      "id": "int-10",
+      "label": "allocation INT 10",
+      "runs": 600,
+      "allocation": {
+        "CHR": 4,
+        "INT": 10,
+        "STR": 3,
+        "MNY": 0,
+        "SPR": 3
+      },
+      "summary": {
+        "runs": 600,
+        "runsReachingAge18": 600,
+        "completedRuns": 531,
+        "outcomes": {
+          "completedRuns": 531,
+          "nonterminalRuns": 69,
+          "coverageErrorRuns": 0,
+          "completionRate": 0.885,
+          "endingAge": {
+            "samples": 531,
+            "mean": 61.51224105461394,
+            "median": 47,
+            "p10": 32,
+            "p25": 39,
+            "p75": 87,
+            "p90": 99,
+            "min": 21,
+            "max": 119
+          },
+          "endingAgeShareByBand": {
+            "18-24": 0.003766478342749529,
+            "25-34": 0.12617702448210924,
+            "35-44": 0.288135593220339,
+            "45-54": 0.1487758945386064,
+            "55-64": 0.007532956685499058,
+            "65+": 0.4256120527306968
+          },
+          "endingAgeCountByBand": {
+            "18-24": 2,
+            "25-34": 67,
+            "35-44": 153,
+            "45-54": 79,
+            "55-64": 4,
+            "65+": 226
+          }
+        },
+        "stats": [
+          {
+            "stat": "INT",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 10,
+              "median": 10,
+              "p10": 10,
+              "p25": 10,
+              "p75": 10,
+              "p90": 10,
+              "min": 10,
+              "max": 10
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 10.033333333333333,
+              "median": 10,
+              "p10": 9,
+              "p25": 10,
+              "p75": 10,
+              "p90": 11,
+              "min": 7,
+              "max": 13
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 14.556666666666667,
+              "median": 15,
+              "p10": 13,
+              "p25": 14,
+              "p75": 16,
+              "p90": 16,
+              "min": 10,
+              "max": 19
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 4.523333333333333,
+              "median": 4,
+              "p10": 3,
+              "p25": 4,
+              "p75": 5,
+              "p90": 6,
+              "min": 0,
+              "max": 7
+            },
+            "shareAge18AtLeast5": 1,
+            "shareAge18AtLeast8": 1,
+            "shareAge18AtLeast10": 1,
+            "shareAge18AtLeast15": 0.5016666666666667
+          },
+          {
+            "stat": "CHR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 4,
+              "median": 4,
+              "p10": 4,
+              "p25": 4,
+              "p75": 4,
+              "p90": 4,
+              "min": 4,
+              "max": 4
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 5.216666666666667,
+              "median": 5,
+              "p10": 3,
+              "p25": 4,
+              "p75": 6,
+              "p90": 7,
+              "min": 3,
+              "max": 11
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 7.155,
+              "median": 7,
+              "p10": 5,
+              "p25": 6,
+              "p75": 8,
+              "p90": 9,
+              "min": 4,
+              "max": 13
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 1.9383333333333332,
+              "median": 2,
+              "p10": 2,
+              "p25": 2,
+              "p75": 2,
+              "p90": 2,
+              "min": 0,
+              "max": 3
+            },
+            "shareAge18AtLeast5": 0.9883333333333333,
+            "shareAge18AtLeast8": 0.37666666666666665,
+            "shareAge18AtLeast10": 0.08333333333333333,
+            "shareAge18AtLeast15": 0
+          },
+          {
+            "stat": "SPR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 3,
+              "median": 3,
+              "p10": 3,
+              "p25": 3,
+              "p75": 3,
+              "p90": 3,
+              "min": 3,
+              "max": 3
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 3.368333333333333,
+              "median": 3,
+              "p10": 2,
+              "p25": 2,
+              "p75": 4,
+              "p90": 6,
+              "min": 0,
+              "max": 10
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 5.7,
+              "median": 6,
+              "p10": 3,
+              "p25": 4,
+              "p75": 7,
+              "p90": 9,
+              "min": -2,
+              "max": 13
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 2.3316666666666666,
+              "median": 2,
+              "p10": 0,
+              "p25": 1,
+              "p75": 3,
+              "p90": 4,
+              "min": -4,
+              "max": 6
+            },
+            "shareAge18AtLeast5": 0.7266666666666667,
+            "shareAge18AtLeast8": 0.185,
+            "shareAge18AtLeast10": 0.055,
+            "shareAge18AtLeast15": 0
+          }
+        ],
+        "driftSnapshots": [
+          {
+            "label": "age 18",
+            "age": 18,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 4.523333333333333,
+              "CHR": 1.9383333333333332,
+              "SPR": 2.3316666666666666
+            },
+            "meanValue": {
+              "INT": 14.556666666666667,
+              "CHR": 7.155,
+              "SPR": 5.7
+            }
+          },
+          {
+            "label": "age 25",
+            "age": 25,
+            "activeRuns": 598,
+            "meanDrift": {
+              "INT": 5.326086956521739,
+              "CHR": 3.6638795986622075,
+              "SPR": 1.9732441471571907
+            },
+            "meanValue": {
+              "INT": 15.362876254180602,
+              "CHR": 8.882943143812708,
+              "SPR": 5.337792642140468
+            }
+          },
+          {
+            "label": "age 35",
+            "age": 35,
+            "activeRuns": 531,
+            "meanDrift": {
+              "INT": 6.216572504708098,
+              "CHR": 5.851224105461394,
+              "SPR": 0.4670433145009416
+            },
+            "meanValue": {
+              "INT": 16.26553672316384,
+              "CHR": 11.069679849340867,
+              "SPR": 3.853107344632768
+            }
+          },
+          {
+            "label": "age 50",
+            "age": 50,
+            "activeRuns": 321,
+            "meanDrift": {
+              "INT": 6.744548286604362,
+              "CHR": 6.788161993769471,
+              "SPR": 4.062305295950155
+            },
+            "meanValue": {
+              "INT": 16.753894080996886,
+              "CHR": 12.065420560747663,
+              "SPR": 7.482866043613707
+            }
+          },
+          {
+            "label": "age 65",
+            "age": 65,
+            "activeRuns": 295,
+            "meanDrift": {
+              "INT": 5.928813559322034,
+              "CHR": 5.593220338983051,
+              "SPR": 14.484745762711864
+            },
+            "meanValue": {
+              "INT": 15.935593220338983,
+              "CHR": 10.864406779661017,
+              "SPR": 17.847457627118644
+            }
+          },
+          {
+            "label": "final",
+            "age": null,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 6.148333333333333,
+              "CHR": 6.1033333333333335,
+              "SPR": 7.763333333333334
+            },
+            "meanValue": {
+              "INT": 16.18166666666667,
+              "CHR": 11.32,
+              "SPR": 11.131666666666666
+            }
+          }
+        ],
+        "spr15At65": {
+          "activeRuns": 295,
+          "atLeast15": 235,
+          "share": 0.7966101694915254
+        },
+        "contributors": null,
+        "factions": null,
+        "correctness": {
+          "endingsBefore18": 0,
+          "materialCommitmentsBefore18": 0,
+          "coverageDefects": 0,
+          "pre25FallbackYears": 0,
+          "multipleVisibleEventsInAYear": 0,
+          "illegalFactionTransitions": 0,
+          "lifecycleCollisions": 0,
+          "personalEventsAfterTerminalExit": 0,
+          "runsWithTwoActiveFactions": 0,
+          "contactWhileAnotherActive": 0,
+          "compressedChainScheduleExpiries": 0,
+          "compressedChainExpiriesByEvent": {}
+        }
+      }
+    },
+    {
+      "id": "chr-0",
+      "label": "allocation CHR 0",
+      "runs": 600,
+      "allocation": {
+        "CHR": 0,
+        "INT": 4,
+        "STR": 3,
+        "MNY": 10,
+        "SPR": 3
+      },
+      "summary": {
+        "runs": 600,
+        "runsReachingAge18": 600,
+        "completedRuns": 527,
+        "outcomes": {
+          "completedRuns": 527,
+          "nonterminalRuns": 73,
+          "coverageErrorRuns": 0,
+          "completionRate": 0.8783333333333333,
+          "endingAge": {
+            "samples": 527,
+            "mean": 69.87666034155598,
+            "median": 74,
+            "p10": 36.6,
+            "p25": 42,
+            "p75": 95,
+            "p90": 107,
+            "min": 25,
+            "max": 119
+          },
+          "endingAgeShareByBand": {
+            "18-24": 0,
+            "25-34": 0.0683111954459203,
+            "35-44": 0.25426944971537,
+            "45-54": 0.11385199240986717,
+            "55-64": 0.003795066413662239,
+            "65+": 0.5597722960151803
+          },
+          "endingAgeCountByBand": {
+            "18-24": 0,
+            "25-34": 36,
+            "35-44": 134,
+            "45-54": 60,
+            "55-64": 2,
+            "65+": 295
+          }
+        },
+        "stats": [
+          {
+            "stat": "INT",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 4,
+              "median": 4,
+              "p10": 4,
+              "p25": 4,
+              "p75": 4,
+              "p90": 4,
+              "min": 4,
+              "max": 4
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 4.033333333333333,
+              "median": 4,
+              "p10": 3,
+              "p25": 4,
+              "p75": 4,
+              "p90": 5,
+              "min": 1,
+              "max": 7
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 7.916666666666667,
+              "median": 8,
+              "p10": 6,
+              "p25": 7,
+              "p75": 9,
+              "p90": 10,
+              "min": 3,
+              "max": 13
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 3.8833333333333333,
+              "median": 4,
+              "p10": 3,
+              "p25": 3,
+              "p75": 5,
+              "p90": 5,
+              "min": 0,
+              "max": 7
+            },
+            "shareAge18AtLeast5": 0.9883333333333333,
+            "shareAge18AtLeast8": 0.6066666666666667,
+            "shareAge18AtLeast10": 0.12666666666666668,
+            "shareAge18AtLeast15": 0
+          },
+          {
+            "stat": "CHR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 0,
+              "median": 0,
+              "p10": 0,
+              "p25": 0,
+              "p75": 0,
+              "p90": 0,
+              "min": 0,
+              "max": 0
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 1.2166666666666666,
+              "median": 1,
+              "p10": -1,
+              "p25": 0,
+              "p75": 2,
+              "p90": 3,
+              "min": -1,
+              "max": 7
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 3.155,
+              "median": 3,
+              "p10": 1,
+              "p25": 2,
+              "p75": 4,
+              "p90": 5,
+              "min": 0,
+              "max": 9
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 1.9383333333333332,
+              "median": 2,
+              "p10": 2,
+              "p25": 2,
+              "p75": 2,
+              "p90": 2,
+              "min": 0,
+              "max": 3
+            },
+            "shareAge18AtLeast5": 0.16333333333333333,
+            "shareAge18AtLeast8": 0.006666666666666667,
+            "shareAge18AtLeast10": 0,
+            "shareAge18AtLeast15": 0
+          },
+          {
+            "stat": "SPR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 3,
+              "median": 3,
+              "p10": 3,
+              "p25": 3,
+              "p75": 3,
+              "p90": 3,
+              "min": 3,
+              "max": 3
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 3.368333333333333,
+              "median": 3,
+              "p10": 2,
+              "p25": 2,
+              "p75": 4,
+              "p90": 6,
+              "min": 0,
+              "max": 10
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 7.366666666666666,
+              "median": 7,
+              "p10": 5,
+              "p25": 6,
+              "p75": 9,
+              "p90": 11,
+              "min": 0,
+              "max": 14
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 3.9983333333333335,
+              "median": 4,
+              "p10": 2,
+              "p25": 3,
+              "p75": 5,
+              "p90": 6,
+              "min": -2,
+              "max": 8
+            },
+            "shareAge18AtLeast5": 0.9133333333333333,
+            "shareAge18AtLeast8": 0.46,
+            "shareAge18AtLeast10": 0.15,
+            "shareAge18AtLeast15": 0
+          }
+        ],
+        "driftSnapshots": [
+          {
+            "label": "age 18",
+            "age": 18,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 3.8833333333333333,
+              "CHR": 1.9383333333333332,
+              "SPR": 3.9983333333333335
+            },
+            "meanValue": {
+              "INT": 7.916666666666667,
+              "CHR": 3.155,
+              "SPR": 7.366666666666666
+            }
+          },
+          {
+            "label": "age 25",
+            "age": 25,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 4.745,
+              "CHR": 3.9716666666666667,
+              "SPR": 4.666666666666667
+            },
+            "meanValue": {
+              "INT": 8.778333333333334,
+              "CHR": 5.1883333333333335,
+              "SPR": 8.035
+            }
+          },
+          {
+            "label": "age 35",
+            "age": 35,
+            "activeRuns": 564,
+            "meanDrift": {
+              "INT": 5.439716312056738,
+              "CHR": 6.166666666666667,
+              "SPR": 3.395390070921986
+            },
+            "meanValue": {
+              "INT": 9.47517730496454,
+              "CHR": 7.3953900709219855,
+              "SPR": 6.75354609929078
+            }
+          },
+          {
+            "label": "age 50",
+            "age": 50,
+            "activeRuns": 383,
+            "meanDrift": {
+              "INT": 5.989556135770235,
+              "CHR": 6.806788511749347,
+              "SPR": 7.908616187989556
+            },
+            "meanValue": {
+              "INT": 9.934725848563968,
+              "CHR": 8.02088772845953,
+              "SPR": 11.349869451697128
+            }
+          },
+          {
+            "label": "age 65",
+            "age": 65,
+            "activeRuns": 368,
+            "meanDrift": {
+              "INT": 5.725543478260869,
+              "CHR": 5.616847826086956,
+              "SPR": 18.48913043478261
+            },
+            "meanValue": {
+              "INT": 9.66304347826087,
+              "CHR": 6.815217391304348,
+              "SPR": 21.9375
+            }
+          },
+          {
+            "label": "final",
+            "age": null,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 5.751666666666667,
+              "CHR": 6.01,
+              "SPR": 13.265
+            },
+            "meanValue": {
+              "INT": 9.785,
+              "CHR": 7.226666666666667,
+              "SPR": 16.633333333333333
+            }
+          }
+        ],
+        "spr15At65": {
+          "activeRuns": 368,
+          "atLeast15": 341,
+          "share": 0.9266304347826086
+        },
+        "contributors": null,
+        "factions": null,
+        "correctness": {
+          "endingsBefore18": 0,
+          "materialCommitmentsBefore18": 0,
+          "coverageDefects": 0,
+          "pre25FallbackYears": 0,
+          "multipleVisibleEventsInAYear": 0,
+          "illegalFactionTransitions": 0,
+          "lifecycleCollisions": 0,
+          "personalEventsAfterTerminalExit": 0,
+          "runsWithTwoActiveFactions": 0,
+          "contactWhileAnotherActive": 0,
+          "compressedChainScheduleExpiries": 0,
+          "compressedChainExpiriesByEvent": {}
+        }
+      }
+    },
+    {
+      "id": "chr-5",
+      "label": "allocation CHR 5",
+      "runs": 600,
+      "allocation": {
+        "CHR": 5,
+        "INT": 4,
+        "STR": 3,
+        "MNY": 5,
+        "SPR": 3
+      },
+      "summary": {
+        "runs": 600,
+        "runsReachingAge18": 600,
+        "completedRuns": 547,
+        "outcomes": {
+          "completedRuns": 547,
+          "nonterminalRuns": 53,
+          "coverageErrorRuns": 0,
+          "completionRate": 0.9116666666666666,
+          "endingAge": {
+            "samples": 547,
+            "mean": 64.41681901279708,
+            "median": 51,
+            "p10": 31,
+            "p25": 40,
+            "p75": 91,
+            "p90": 103,
+            "min": 21,
+            "max": 119
+          },
+          "endingAgeShareByBand": {
+            "18-24": 0.003656307129798903,
+            "25-34": 0.1316270566727605,
+            "35-44": 0.263254113345521,
+            "45-54": 0.12614259597806216,
+            "55-64": 0.003656307129798903,
+            "65+": 0.4716636197440585
+          },
+          "endingAgeCountByBand": {
+            "18-24": 2,
+            "25-34": 72,
+            "35-44": 144,
+            "45-54": 69,
+            "55-64": 2,
+            "65+": 258
+          }
+        },
+        "stats": [
+          {
+            "stat": "INT",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 4,
+              "median": 4,
+              "p10": 4,
+              "p25": 4,
+              "p75": 4,
+              "p90": 4,
+              "min": 4,
+              "max": 4
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 4.033333333333333,
+              "median": 4,
+              "p10": 3,
+              "p25": 4,
+              "p75": 4,
+              "p90": 5,
+              "min": 1,
+              "max": 7
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 7.916666666666667,
+              "median": 8,
+              "p10": 6,
+              "p25": 7,
+              "p75": 9,
+              "p90": 10,
+              "min": 3,
+              "max": 13
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 3.8833333333333333,
+              "median": 4,
+              "p10": 3,
+              "p25": 3,
+              "p75": 5,
+              "p90": 5,
+              "min": 0,
+              "max": 7
+            },
+            "shareAge18AtLeast5": 0.9883333333333333,
+            "shareAge18AtLeast8": 0.6066666666666667,
+            "shareAge18AtLeast10": 0.12666666666666668,
+            "shareAge18AtLeast15": 0
+          },
+          {
+            "stat": "CHR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 5,
+              "median": 5,
+              "p10": 5,
+              "p25": 5,
+              "p75": 5,
+              "p90": 5,
+              "min": 5,
+              "max": 5
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 6.216666666666667,
+              "median": 6,
+              "p10": 4,
+              "p25": 5,
+              "p75": 7,
+              "p90": 8,
+              "min": 4,
+              "max": 12
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 8.155,
+              "median": 8,
+              "p10": 6,
+              "p25": 7,
+              "p75": 9,
+              "p90": 10,
+              "min": 5,
+              "max": 14
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 1.9383333333333332,
+              "median": 2,
+              "p10": 2,
+              "p25": 2,
+              "p75": 2,
+              "p90": 2,
+              "min": 0,
+              "max": 3
+            },
+            "shareAge18AtLeast5": 1,
+            "shareAge18AtLeast8": 0.6383333333333333,
+            "shareAge18AtLeast10": 0.16333333333333333,
+            "shareAge18AtLeast15": 0
+          },
+          {
+            "stat": "SPR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 3,
+              "median": 3,
+              "p10": 3,
+              "p25": 3,
+              "p75": 3,
+              "p90": 3,
+              "min": 3,
+              "max": 3
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 3.368333333333333,
+              "median": 3,
+              "p10": 2,
+              "p25": 2,
+              "p75": 4,
+              "p90": 6,
+              "min": 0,
+              "max": 10
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 7.453333333333333,
+              "median": 7,
+              "p10": 5,
+              "p25": 6,
+              "p75": 9,
+              "p90": 11,
+              "min": 0,
+              "max": 15
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 4.085,
+              "median": 4,
+              "p10": 2,
+              "p25": 3,
+              "p75": 5,
+              "p90": 6,
+              "min": -2,
+              "max": 8
+            },
+            "shareAge18AtLeast5": 0.92,
+            "shareAge18AtLeast8": 0.47,
+            "shareAge18AtLeast10": 0.155,
+            "shareAge18AtLeast15": 0.0016666666666666668
+          }
+        ],
+        "driftSnapshots": [
+          {
+            "label": "age 18",
+            "age": 18,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 3.8833333333333333,
+              "CHR": 1.9383333333333332,
+              "SPR": 4.085
+            },
+            "meanValue": {
+              "INT": 7.916666666666667,
+              "CHR": 8.155,
+              "SPR": 7.453333333333333
+            }
+          },
+          {
+            "label": "age 25",
+            "age": 25,
+            "activeRuns": 598,
+            "meanDrift": {
+              "INT": 4.6923076923076925,
+              "CHR": 3.817725752508361,
+              "SPR": 4.010033444816053
+            },
+            "meanValue": {
+              "INT": 8.729096989966555,
+              "CHR": 10.036789297658864,
+              "SPR": 7.374581939799331
+            }
+          },
+          {
+            "label": "age 35",
+            "age": 35,
+            "activeRuns": 526,
+            "meanDrift": {
+              "INT": 5.399239543726236,
+              "CHR": 6.192015209125476,
+              "SPR": 2.4486692015209126
+            },
+            "meanValue": {
+              "INT": 9.437262357414449,
+              "CHR": 12.425855513307985,
+              "SPR": 5.815589353612167
+            }
+          },
+          {
+            "label": "age 50",
+            "age": 50,
+            "activeRuns": 331,
+            "meanDrift": {
+              "INT": 6.027190332326284,
+              "CHR": 7.2749244712990935,
+              "SPR": 5.694864048338369
+            },
+            "meanValue": {
+              "INT": 9.975830815709969,
+              "CHR": 13.525679758308158,
+              "SPR": 9.123867069486405
+            }
+          },
+          {
+            "label": "age 65",
+            "age": 65,
+            "activeRuns": 311,
+            "meanDrift": {
+              "INT": 5.662379421221865,
+              "CHR": 6.061093247588424,
+              "SPR": 16.334405144694532
+            },
+            "meanValue": {
+              "INT": 9.588424437299036,
+              "CHR": 12.30225080385852,
+              "SPR": 19.7459807073955
+            }
+          },
+          {
+            "label": "final",
+            "age": null,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 5.6066666666666665,
+              "CHR": 6.408333333333333,
+              "SPR": 10.201666666666666
+            },
+            "meanValue": {
+              "INT": 9.64,
+              "CHR": 12.625,
+              "SPR": 13.57
+            }
+          }
+        ],
+        "spr15At65": {
+          "activeRuns": 311,
+          "atLeast15": 276,
+          "share": 0.887459807073955
+        },
+        "contributors": null,
+        "factions": null,
+        "correctness": {
+          "endingsBefore18": 0,
+          "materialCommitmentsBefore18": 0,
+          "coverageDefects": 0,
+          "pre25FallbackYears": 0,
+          "multipleVisibleEventsInAYear": 0,
+          "illegalFactionTransitions": 0,
+          "lifecycleCollisions": 0,
+          "personalEventsAfterTerminalExit": 0,
+          "runsWithTwoActiveFactions": 0,
+          "contactWhileAnotherActive": 0,
+          "compressedChainScheduleExpiries": 0,
+          "compressedChainExpiriesByEvent": {}
+        }
+      }
+    },
+    {
+      "id": "chr-10",
+      "label": "allocation CHR 10",
+      "runs": 600,
+      "allocation": {
+        "CHR": 10,
+        "INT": 4,
+        "STR": 3,
+        "MNY": 0,
+        "SPR": 3
+      },
+      "summary": {
+        "runs": 600,
+        "runsReachingAge18": 600,
+        "completedRuns": 559,
+        "outcomes": {
+          "completedRuns": 559,
+          "nonterminalRuns": 41,
+          "coverageErrorRuns": 0,
+          "completionRate": 0.9316666666666666,
+          "endingAge": {
+            "samples": 559,
+            "mean": 58.88550983899821,
+            "median": 46,
+            "p10": 28.800000000000004,
+            "p25": 37,
+            "p75": 87,
+            "p90": 99,
+            "min": 21,
+            "max": 119
+          },
+          "endingAgeShareByBand": {
+            "18-24": 0.0035778175313059034,
+            "25-34": 0.2110912343470483,
+            "35-44": 0.24686940966010734,
+            "45-54": 0.1413237924865832,
+            "55-64": 0.008944543828264758,
+            "65+": 0.3881932021466905
+          },
+          "endingAgeCountByBand": {
+            "18-24": 2,
+            "25-34": 118,
+            "35-44": 138,
+            "45-54": 79,
+            "55-64": 5,
+            "65+": 217
+          }
+        },
+        "stats": [
+          {
+            "stat": "INT",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 4,
+              "median": 4,
+              "p10": 4,
+              "p25": 4,
+              "p75": 4,
+              "p90": 4,
+              "min": 4,
+              "max": 4
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 4.033333333333333,
+              "median": 4,
+              "p10": 3,
+              "p25": 4,
+              "p75": 4,
+              "p90": 5,
+              "min": 1,
+              "max": 7
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 7.916666666666667,
+              "median": 8,
+              "p10": 6,
+              "p25": 7,
+              "p75": 9,
+              "p90": 10,
+              "min": 3,
+              "max": 13
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 3.8833333333333333,
+              "median": 4,
+              "p10": 3,
+              "p25": 3,
+              "p75": 5,
+              "p90": 5,
+              "min": 0,
+              "max": 7
+            },
+            "shareAge18AtLeast5": 0.9883333333333333,
+            "shareAge18AtLeast8": 0.6066666666666667,
+            "shareAge18AtLeast10": 0.12666666666666668,
+            "shareAge18AtLeast15": 0
+          },
+          {
+            "stat": "CHR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 10,
+              "median": 10,
+              "p10": 10,
+              "p25": 10,
+              "p75": 10,
+              "p90": 10,
+              "min": 10,
+              "max": 10
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 11.216666666666667,
+              "median": 11,
+              "p10": 9,
+              "p25": 10,
+              "p75": 12,
+              "p90": 13,
+              "min": 9,
+              "max": 17
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 13.155,
+              "median": 13,
+              "p10": 11,
+              "p25": 12,
+              "p75": 14,
+              "p90": 15,
+              "min": 10,
+              "max": 19
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 1.9383333333333332,
+              "median": 2,
+              "p10": 2,
+              "p25": 2,
+              "p75": 2,
+              "p90": 2,
+              "min": 0,
+              "max": 3
+            },
+            "shareAge18AtLeast5": 1,
+            "shareAge18AtLeast8": 1,
+            "shareAge18AtLeast10": 1,
+            "shareAge18AtLeast15": 0.16333333333333333
+          },
+          {
+            "stat": "SPR",
+            "allocatedStart": {
+              "samples": 600,
+              "mean": 3,
+              "median": 3,
+              "p10": 3,
+              "p25": 3,
+              "p75": 3,
+              "p90": 3,
+              "min": 3,
+              "max": 3
+            },
+            "effectiveStart": {
+              "samples": 600,
+              "mean": 3.368333333333333,
+              "median": 3,
+              "p10": 2,
+              "p25": 2,
+              "p75": 4,
+              "p90": 6,
+              "min": 0,
+              "max": 10
+            },
+            "age18": {
+              "samples": 600,
+              "mean": 8.116666666666667,
+              "median": 8,
+              "p10": 5,
+              "p25": 7,
+              "p75": 9,
+              "p90": 11.100000000000023,
+              "min": 1,
+              "max": 16
+            },
+            "drift": {
+              "samples": 600,
+              "mean": 4.748333333333333,
+              "median": 5,
+              "p10": 3,
+              "p25": 4,
+              "p75": 6,
+              "p90": 7,
+              "min": 0,
+              "max": 9
+            },
+            "shareAge18AtLeast5": 0.955,
+            "shareAge18AtLeast8": 0.585,
+            "shareAge18AtLeast10": 0.24666666666666667,
+            "shareAge18AtLeast15": 0.005
+          }
+        ],
+        "driftSnapshots": [
+          {
+            "label": "age 18",
+            "age": 18,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 3.8833333333333333,
+              "CHR": 1.9383333333333332,
+              "SPR": 4.748333333333333
+            },
+            "meanValue": {
+              "INT": 7.916666666666667,
+              "CHR": 13.155,
+              "SPR": 8.116666666666667
+            }
+          },
+          {
+            "label": "age 25",
+            "age": 25,
+            "activeRuns": 598,
+            "meanDrift": {
+              "INT": 4.533444816053512,
+              "CHR": 3.8846153846153846,
+              "SPR": 4.351170568561873
+            },
+            "meanValue": {
+              "INT": 8.570234113712374,
+              "CHR": 15.103678929765886,
+              "SPR": 7.7157190635451505
+            }
+          },
+          {
+            "label": "age 35",
+            "age": 35,
+            "activeRuns": 480,
+            "meanDrift": {
+              "INT": 5.25,
+              "CHR": 6.26875,
+              "SPR": 2.6333333333333333
+            },
+            "meanValue": {
+              "INT": 9.316666666666666,
+              "CHR": 17.470833333333335,
+              "SPR": 5.995833333333334
+            }
+          },
+          {
+            "label": "age 50",
+            "age": 50,
+            "activeRuns": 283,
+            "meanDrift": {
+              "INT": 6.031802120141343,
+              "CHR": 7.406360424028269,
+              "SPR": 5.763250883392226
+            },
+            "meanValue": {
+              "INT": 10.042402826855124,
+              "CHR": 18.692579505300355,
+              "SPR": 9.212014134275618
+            }
+          },
+          {
+            "label": "age 65",
+            "age": 65,
+            "activeRuns": 258,
+            "meanDrift": {
+              "INT": 5.6937984496124034,
+              "CHR": 6.166666666666667,
+              "SPR": 16.37984496124031
+            },
+            "meanValue": {
+              "INT": 9.678294573643411,
+              "CHR": 17.46511627906977,
+              "SPR": 19.8062015503876
+            }
+          },
+          {
+            "label": "final",
+            "age": null,
+            "activeRuns": 600,
+            "meanDrift": {
+              "INT": 5.423333333333333,
+              "CHR": 6.461666666666667,
+              "SPR": 8.968333333333334
+            },
+            "meanValue": {
+              "INT": 9.456666666666667,
+              "CHR": 17.678333333333335,
+              "SPR": 12.336666666666666
+            }
+          }
+        ],
+        "spr15At65": {
+          "activeRuns": 258,
+          "atLeast15": 227,
+          "share": 0.8798449612403101
+        },
+        "contributors": null,
+        "factions": null,
+        "correctness": {
+          "endingsBefore18": 0,
+          "materialCommitmentsBefore18": 0,
+          "coverageDefects": 0,
+          "pre25FallbackYears": 0,
+          "multipleVisibleEventsInAYear": 0,
+          "illegalFactionTransitions": 0,
+          "lifecycleCollisions": 0,
+          "personalEventsAfterTerminalExit": 0,
+          "runsWithTwoActiveFactions": 0,
+          "contactWhileAnotherActive": 0,
+          "compressedChainScheduleExpiries": 0,
+          "compressedChainExpiriesByEvent": {}
+        }
+      }
+    }
+  ],
+  "derived": {
+    "intSpearman": 0.9374403858661486,
+    "chrSpearman": 0.9326382682361708,
+    "intMedianGap0to10": 11,
+    "chrMedianGap0to10": 10
+  },
+  "baseline": {
+    "contentVersion": "3af02c428c7fd5de7b64a3c1c07ae84b084ad1576b9ee9f35a8da06087b5b54d",
+    "completionRate": 0.7145,
+    "medianEndingAge": 43,
+    "endingShare35to44": 0.34009797060881736,
+    "endingShare65Plus": 0.2760671798460462,
+    "meanIntDriftAge18": 9.2125,
+    "meanChrDriftAge18": 4.08375,
+    "spr15At65Share": 0.9533920248575868,
+    "engagedThreePlusShare": 0.9988913525498891,
+    "medianGapYears": 2,
+    "p90GapYears": 3,
+    "contactRate": 0.337,
+    "factionEndingShare": 0.09972008397480756
+  }
+}

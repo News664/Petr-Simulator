@@ -58,6 +58,91 @@
 
 ---
 
+> ### H2B.1B Part A status (2026-08-30)
+>
+> The frozen Part A patch ledger applied with **zero source mismatches**: every
+> condition, effect set, schedule and repeat policy it asserted matched live
+> `main`. Six of the eight stat review bands and five of the six judged faction
+> bands land in band, and every hard correctness counter is zero. Three
+> consequences are recorded below as **H2B1BA-C1 … H2B1BA-C3**. None was tuned
+> away: two follow from the ledger's own scope, one is a measured side effect of
+> the ecology correction.
+>
+> H2B1A-C1 is unchanged in kind and larger in size: 65+ endings moved from 26.9%
+> to 32.1% of completions, for the reason recorded in H2B1BA-C3.
+
+---
+
+## H2B1BA-C1 — The largest repeatable positive-SPR source is outside the ledger's scope
+
+**Files.** `02_PART_A_PATCH_LEDGER.md` §3 vs the 4 000-run Part A contributor
+audit.
+
+**Observation.** The ledger scopes `EVT-ORD-FAM-0007` to "every branch that
+currently grants positive INT". Only its `MAT!=NONE` branch does. Its `TRUE`
+branch is repeatable (cooldown 5, max 3) and grants **SPR +2**, and was therefore
+left exactly as authored. After the patch it is the corpus's largest repeatable
+positive-SPR source at **+4 520** in the 35–64 band, second only to the
+non-repeatable `EVT-ORD-HEA-0001`.
+
+`EVT-ORD-FAM-0005` has the same shape one step down: the ledger scopes it to
+"every branch currently granting SPR +2", which is its `SPR>=7` branch only, so
+a later occurrence falling through to `TRUE` still gains SPR +1.
+
+**Why it matters.** Review band S9 — the share of runs active at 65 holding
+SPR ≥ 15 — fell from 95.3% to 84.0%, which is materially downward but less than
+the 15-point drop the diagnostic uses as its threshold. `FAM-0007`'s untouched
+branch is the obvious remaining lever.
+
+**Not fixed.** Extending the ledger to a branch it deliberately did not name, in
+order to move a review band, is exactly the auto-tuning Part A forbids. Whether
+that branch should become first-occurrence-only is a design decision.
+
+---
+
+## H2B1BA-C2 — Faction endings fell below the review band because CRI's exit is low-INT gated
+
+**Files.** `01_PART_A_SCOPE_AND_DESIGN.md` §A4/§A6 vs the measured faction table.
+
+**Observation.** Faction endings are **7.6%** of completions, 0.4 points below
+the 8–15% band. The cause is one faction. CRI's first-disposition exit condition
+is `INT<=3 | TLT[T1010]` — a **low**-INT exit — so the INT correction made it
+easier to reach: CRI's first-disposition exit rate rose 9.1% → 21.8%, its
+COMMITTED share halved, and its endings fell 152 → 77. CRI alone supplied 152 of
+the 285 pre-patch faction endings. Every other faction's endings held or rose.
+
+The mirror image is visible in the same table: exits gated on **high** INT/SPR
+became rarer (DMMS 54.0% → 21.8%, Meridian 53.0% → 15.7%, Last Posture
+46.3% → 13.9%), which is why 224 more runs reach ENGAGED.
+
+**Not fixed.** The scope document says opt-out thresholds are not to be altered
+in Part A — "INT/CHR ecology changes will already change their reachability.
+Re-measure before deciding whether exits need redesign" — and §A6 says success in
+Part A does not mean more faction endings. Measured, not tuned.
+
+---
+
+## H2B1BA-C3 — Completion rose 10.8 points without any ending gate changing
+
+**Files.** the pre- and post-patch Part A general arms, 4 000 runs each.
+
+**Observation.** Completion moved from **71.5% to 82.3%**, open records from
+1 142 to 706, and the 65+ ending share from 27.6% to 32.1%. Median ending age
+moved only 43 → 44, and 35–44 remains the largest bucket at 32.8%.
+
+No FIX gate, ending gate, opt-out threshold or lethality value was touched. The
+mechanism is indirect: several authored ending paths — including the unbounded
+Continuity Review chain that H2B1A-C1 already identified as the 65+ driver — are
+gated on stats that are now lower, so lives that previously ran to the horizon
+holding a high-stat open record now resolve.
+
+**Not fixed.** It is a consequence of a frozen instruction applied faithfully,
+and Part A is explicitly forbidden from touching Q-27 or increasing lethality to
+shape the age distribution. Whether an 82.3% completion rate is the intended
+shape is design's call, and it interacts with H2B1A-C1.
+
+---
+
 ## H2B1A-C1 — Unbounded Continuity Review coverage moved 18 points of endings into 65+
 
 **Files.** `H2B1A_TIMING_DESIGN_v0.1.md` (*"Coverage does not stop at 69"*) vs the
