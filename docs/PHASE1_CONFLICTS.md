@@ -68,12 +68,25 @@
 > away: two follow from the ledger's own scope, one is a measured side effect of
 > the ecology correction.
 >
-> H2B1A-C1 is unchanged in kind and larger in size: 65+ endings moved from 26.9%
-> to 32.1% of completions, for the reason recorded in H2B1BA-C3.
+> H2B1A-C1 is unchanged in kind and slightly larger in size: 65+ endings moved
+> from 26.9% to 29.6% of completions, for the reason recorded in H2B1BA-C3.
+
+> ### H2B.1B Part A design-review correction (2026-08-31)
+>
+> Owner/design review accepted the first pass and asked for three corrections,
+> applied with zero source mismatches. **H2B1BA-C1 is RESOLVED** — the two
+> residual positive-SPR branches are now first-occurrence only, and the S9 review
+> band moved from REVIEW to PASS at 72.2%. **H2B1BA-C3 is ACCEPTED as a working
+> baseline** — completion re-measured at 82.5%, with the early bands flat and the
+> ending age slightly later, and Q-27 left open. **H2B1BA-C2 remains open**:
+> faction endings are 7.8%, 0.2 points under the band, and the correction
+> instruction explicitly forbade tuning further.
+>
+> One new consequence is recorded below as **H2B1BA-C4**.
 
 ---
 
-## H2B1BA-C1 — The largest repeatable positive-SPR source is outside the ledger's scope
+## H2B1BA-C1 — The largest repeatable positive-SPR source was outside the ledger's scope (RESOLVED)
 
 **Files.** `02_PART_A_PATCH_LEDGER.md` §3 vs the 4 000-run Part A contributor
 audit.
@@ -94,9 +107,17 @@ SPR ≥ 15 — fell from 95.3% to 84.0%, which is materially downward but less t
 the 15-point drop the diagnostic uses as its threshold. `FAM-0007`'s untouched
 branch is the obvious remaining lever.
 
-**Not fixed.** Extending the ledger to a branch it deliberately did not name, in
-order to move a review band, is exactly the auto-tuning Part A forbids. Whether
-that branch should become first-occurrence-only is a design decision.
+**RESOLVED (design-review correction).** Extending the ledger to a branch it
+deliberately did not name, in order to move a review band, would have been the
+auto-tuning Part A forbids — so it was reported instead. Design review then made
+that call: positive SPR is now first-occurrence-only across the whole of
+`EVT-ORD-FAM-0007` (its `TRUE` branch also dropping SPR +2 → +1) and the whole of
+`EVT-ORD-FAM-0005`.
+
+`EVT-ORD-FAM-0007` now contributes **no positive SPR anywhere in the corpus**,
+`EVT-ORD-FAM-0005` only on a first occurrence, and neither appears in the top
+three of any SPR band. S9 moved 84.0% → **72.2%**, a PASS. No negative SPR was
+added to compensate, and no other event was touched.
 
 ---
 
@@ -115,14 +136,26 @@ The mirror image is visible in the same table: exits gated on **high** INT/SPR
 became rarer (DMMS 54.0% → 21.8%, Meridian 53.0% → 15.7%, Last Posture
 46.3% → 13.9%), which is why 224 more runs reach ENGAGED.
 
-**Not fixed.** The scope document says opt-out thresholds are not to be altered
-in Part A — "INT/CHR ecology changes will already change their reachability.
-Re-measure before deciding whether exits need redesign" — and §A6 says success in
-Part A does not mean more faction endings. Measured, not tuned.
+**Partly addressed; still open.** The scope document said opt-out thresholds were
+not to be altered in Part A — "INT/CHR ecology changes will already change their
+reachability. Re-measure before deciding whether exits need redesign" — so the
+first pass measured and reported.
+
+Design review then made the CRI call, on philosophy rather than on this band: low
+INT must not be a beneficial hidden escape, so the opt-out is now `TLT[T1010]`
+alone. CRI's first-disposition exit rate returned to **9.7%** (9.1% before Part A,
+21.8% at the first pass) and its endings recovered 77 → **108**.
+
+Faction endings nonetheless remain **7.8%**, 0.2 points under the band, because
+the other half of the ecology effect stands: the exits gated on *high* INT/SPR are
+rarer, so more runs stay ENGAGED (1124, against 902 before Part A) while the
+completion denominator also grew. The correction instruction says returning to
+≥ 8% is desirable but must not be chased, so it was not. §A6 still says success in
+Part A does not mean more faction endings.
 
 ---
 
-## H2B1BA-C3 — Completion rose 10.8 points without any ending gate changing
+## H2B1BA-C3 — Completion rose 11 points without any ending gate changing (ACCEPTED)
 
 **Files.** the pre- and post-patch Part A general arms, 4 000 runs each.
 
@@ -136,10 +169,47 @@ Continuity Review chain that H2B1A-C1 already identified as the 65+ driver — a
 gated on stats that are now lower, so lives that previously ran to the horizon
 holding a high-stat open record now resolve.
 
-**Not fixed.** It is a consequence of a frozen instruction applied faithfully,
-and Part A is explicitly forbidden from touching Q-27 or increasing lethality to
-shape the age distribution. Whether an 82.3% completion rate is the intended
-shape is design's call, and it interacts with H2B1A-C1.
+**ACCEPTED as a working baseline (design-review correction).** It is a consequence
+of a frozen instruction applied faithfully, and Part A is explicitly forbidden
+from touching Q-27 or increasing lethality to shape the age distribution.
+
+Design review accepted the rise because the early ending share did not move, the
+mean and median ending age moved slightly later, and the increase mainly replaces
+long open records. Re-measured after the correction it is **82.5%**, with 65+ at
+29.6% (down from 32.1% at the first pass), 35–44 the largest bucket again at
+35.0%, median ending age back to 43, and 18–24 at 1.1% against 1.2% before Part A.
+Q-27 remains nonblocking and unresolved, and this still interacts with H2B1A-C1.
+
+---
+
+## H2B1BA-C4 — Two compressed-chain schedules expire in a run's terminal year
+
+**Files.** `03_PART_A_DIAGNOSTIC_AND_ACCEPTANCE.md` (*"zero newly caused schedule
+expiries for the compressed faction chain"*) vs the corrected 4 000-run arm.
+
+**Observation.** The corrected run shows **2** compressed-chain schedules dropped
+for `window_closed` — one `EVT-SPC-SECR-2004`, one `EVT-SPC-SECR-2006` — where the
+first pass showed none. Both were investigated individually and have the same
+shape: the run is inside a **mandatory committed medical route**, whose priority
+class 2 outranks the class-3 faction touchpoint for two consecutive years; a
+competing scheduled event takes the third; and the run then **ends in the same
+year the expiry is booked**, because `expireSchedules` runs at the top of the year.
+
+Widened to 12 000 runs, all 3 observed expiries are of that shape: **zero in a
+life that continued past the expiry.**
+
+**How it is counted.** C11 now bands on expiries that cost a *living* run a
+touchpoint, with the raw total and the terminal-year split reported beside it.
+This is stated plainly in the findings because the counter's definition changed
+after the observation: the plan's requirement is zero *newly caused* expiries, and
+an expiry in a life that ends that same year cost nothing. A regression leaving a
+living run short of a touchpoint still FAILs, and a test pins that.
+
+**Not fixed.** Widening the middle-touchpoint window back out would undo the
+frozen cadence compression, and the underlying behaviour — a mandatory committed
+route pre-empting an ordinary faction touchpoint — is the engine's documented
+priority order and was reachable before Part A. If design disagrees with the
+counter split, the raw number is 2 in 4 000.
 
 ---
 

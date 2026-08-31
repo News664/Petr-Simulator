@@ -26,8 +26,8 @@ const content = loadDefaultContent();
  * stats a later occurrence of each may no longer raise.
  *
  * The scope is per event because the ledger is: `EVT-ORD-SOC-0003` loses only
- * repeated CHR, `EVT-ORD-FAM-0007` only repeated INT, and `EVT-ORD-FAM-0005`
- * only the SPR +2 branch. Nothing here is a corpus-wide transformation.
+ * repeated CHR, while `EVT-ORD-HEA-0002` keeps its STR on every occurrence.
+ * Nothing here is a corpus-wide transformation.
  */
 const CONVERTED: { id: string; stats: readonly ('INT' | 'CHR' | 'SPR')[]; everyBranch: boolean }[] = [
   { id: 'EVT-ORD-EDU-0004', stats: ['INT', 'SPR'], everyBranch: true },
@@ -39,11 +39,13 @@ const CONVERTED: { id: string; stats: readonly ('INT' | 'CHR' | 'SPR')[]; everyB
   { id: 'EVT-ORD-SOC-0007', stats: ['CHR', 'SPR'], everyBranch: true },
   { id: 'EVT-ORD-SOC-0008', stats: ['SPR'], everyBranch: true },
   { id: 'EVT-ORD-HEA-0002', stats: ['SPR'], everyBranch: true },
+  // The design review closed the two residual positive-SPR loopholes the first
+  // ledger's wording left open, so both are now converted on every branch.
+  { id: 'EVT-ORD-FAM-0005', stats: ['SPR'], everyBranch: true },
+  { id: 'EVT-ORD-FAM-0007', stats: ['INT', 'SPR'], everyBranch: true },
   // Partially converted: only the branch the ledger names is guarded, so the
   // unguarded branch still behaves exactly as it did before.
   { id: 'EVT-ORD-SOC-0003', stats: ['CHR'], everyBranch: false },
-  { id: 'EVT-ORD-FAM-0005', stats: ['SPR'], everyBranch: false },
-  { id: 'EVT-ORD-FAM-0007', stats: ['INT'], everyBranch: false },
 ];
 
 describe('H2B.1B-A — the first-occurrence mechanism', () => {

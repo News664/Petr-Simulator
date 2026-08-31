@@ -22,9 +22,11 @@ import {
 /**
  * Seed fixtures are bound to the content fingerprint: the run seed is
  * `contentVersion:seed`, so any canonical content edit re-rolls every life and a
- * seed chosen for its outcome has to be re-picked. `open-06` currently reaches
- * the horizon without an ending; `smoke-002` currently ends. H2B.1B Part A
- * re-rolled every life, and `open-a` started ending; `open-06` replaces it.
+ * seed chosen for its outcome has to be re-picked. The fixtures are named for
+ * the outcome they are chosen for — `open-record-fixture` reaches the horizon
+ * without an ending, `ending-fixture` ends — and `tests/e2e-seed-fixtures.test.ts`
+ * fails in `npm run verify` the moment one of them stops doing so, rather than
+ * leaving it to be discovered two minutes into a browser run.
  */
 
 /** How far below the fold the newest entry may sit before follow has failed. */
@@ -43,7 +45,7 @@ test('a deterministic run reaches its outcome and can be reviewed', async ({ pag
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(String(error)));
 
-  await playToPlayback(page, 'smoke-002');
+  await playToPlayback(page, 'ending-fixture');
   await stepToOutcome(page);
 
   await expect(outcomeNotice(page)).toBeVisible();
@@ -64,7 +66,7 @@ test('a run that reaches the horizon reports an open record, not an error', asyn
   // both viewports, so it is paid for once rather than twice per CI run.
   test.skip(testInfo.project.name !== 'desktop', 'covered once; identical on mobile');
   test.slow();
-  await playToPlayback(page, 'open-06');
+  await playToPlayback(page, 'open-record-fixture');
   await stepToOutcome(page);
 
   await expect(page.getByText('RECORD REMAINS OPEN')).toBeVisible();

@@ -2,17 +2,17 @@
 
 Generated from canonical content. **Reports only** — no lint rewrites prose.
 
-Content fingerprint: `67ad9c4a336a947db9c1da85ea5e55c5b31853c7062966878d62976d8efe3482`
+Content fingerprint: `a764cf41467fe8db3ab2db0f985188f606f735d92c3ed8e6457595a85d5d08f2`
 
 ## 1. All-female prose lint
 
-Scanned **680** canonical player-facing English strings across events, endings, talents, species and factions for standalone male-coded terms. Designer notes are authoring commentary and are out of scope. Matching is case-insensitive and word-bounded, so `Human`, `woman` and `management` cannot false-positive.
+Scanned **682** canonical player-facing English strings across events, endings, talents, species and factions for standalone male-coded terms. Designer notes are authoring commentary and are out of scope. Matching is case-insensitive and word-bounded, so `Human`, `woman` and `management` cannot false-positive.
 
 **PASS — 0 findings.**
 
 ## 2. Hidden-token prose lint
 
-Scanned the same **680** player-facing strings for internal identifiers that must never reach a player: word-bounded uppercase `FIX`, and the `ROUTE_` / `FAC_` namespaces. Conditions are not prose and are out of scope — `FIX>=28` in an `include` is correct authoring. Lowercase "fix" is an ordinary English word and is not matched.
+Scanned the same **682** player-facing strings for internal identifiers that must never reach a player: word-bounded uppercase `FIX`, and the `ROUTE_` / `FAC_` namespaces. Conditions are not prose and are out of scope — `FIX>=28` in an `include` is correct authoring. Lowercase "fix" is an ordinary English word and is not matched.
 
 **PASS — 0 findings.**
 
@@ -85,7 +85,7 @@ Authored variant deltas counted statically over the corpus. An event contributes
 | INT | 49 | +75 | 2 | -3 |
 | STR | 35 | +58 | 7 | -7 |
 | MNY | 101 | +176 | 68 | -93 |
-| SPR | 119 | +138 | 141 | -154 |
+| SPR | 118 | +136 | 141 | -154 |
 | FIX | 128 | +674 | 0 | 0 |
 
 **No visible stat is strictly monotonic** — every one has at least one authored negative delta.
@@ -156,6 +156,6 @@ Authored variant deltas counted statically over the corpus. An event contributes
 | 18-24 | 73 | +90 | 96 | -108 |
 | 25-34 | 79 | +97 | 108 | -120 |
 | 35-44 | 63 | +81 | 88 | -96 |
-| 45-54 | 32 | +35 | 28 | -29 |
-| 55-64 | 26 | +27 | 9 | -9 |
-| 65+ | 19 | +20 | 3 | -3 |
+| 45-54 | 31 | +33 | 28 | -29 |
+| 55-64 | 25 | +25 | 9 | -9 |
+| 65+ | 18 | +18 | 3 | -3 |

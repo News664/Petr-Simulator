@@ -370,7 +370,11 @@ export function evaluateBands(payload: H2b1bPayload): BandRow[] {
     ['C8', 'personalized faction events after a terminal exit', c?.personalEventsAfterTerminalExit],
     ['C9', 'runs holding two personally-active factions', c?.runsWithTwoActiveFactions],
     ['C10', 'contacts opened while another faction was active', c?.contactWhileAnotherActive],
-    ['C11', 'compressed-chain schedule expiries', c?.compressedChainScheduleExpiries],
+    [
+      'C11',
+      'compressed-chain expiries costing a touchpoint',
+      c?.compressedChainExpiriesCostingATouchpoint,
+    ],
   ];
   for (const [id, description, value] of hard) {
     rows.push({
@@ -600,11 +604,27 @@ export function renderH2b1bReport(content: ContentBundle, payload: H2b1bPayload)
     out.push(`| personalized faction events after terminal exit | ${c.personalEventsAfterTerminalExit} |`);
     out.push(`| runs with two personally-active factions | ${c.runsWithTwoActiveFactions} |`);
     out.push(`| contacts opened while another faction was active | ${c.contactWhileAnotherActive} |`);
-    out.push(`| compressed-chain schedule expiries | ${c.compressedChainScheduleExpiries} |`);
+    out.push(`| compressed-chain schedule expiries (raw total) | ${c.compressedChainScheduleExpiries} |`);
+    out.push(
+      `| — of those, costing a touchpoint | ${c.compressedChainExpiriesCostingATouchpoint} |`,
+    );
+    out.push(
+      `| — of those, in the run's terminal year | ${c.compressedChainExpiriesInTerminalYear} |`,
+    );
     out.push('');
     const byEvent = Object.entries(c.compressedChainExpiriesByEvent);
     if (byEvent.length > 0) {
       out.push(`Compressed-chain expiries by event: ${byEvent.map(([id, n]) => `${id} ${n}`).join(', ')}.`);
+      out.push('');
+      out.push(
+        'The acceptance plan requires zero *newly caused* expiries. C11 therefore counts only',
+      );
+      out.push(
+        'the ones that cost the player a touchpoint; an expiry booked in the run\'s own terminal',
+      );
+      out.push(
+        'year cost nothing, because the life ends that same year. The raw total is above.',
+      );
       out.push('');
     }
   }

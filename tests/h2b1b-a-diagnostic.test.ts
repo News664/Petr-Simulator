@@ -214,6 +214,18 @@ describe('H2B.1B-A accumulator', () => {
     expect(c.personalEventsAfterTerminalExit).toBe(0);
     expect(c.runsWithTwoActiveFactions).toBe(0);
     expect(c.contactWhileAnotherActive).toBe(0);
+    expect(c.compressedChainExpiriesCostingATouchpoint).toBe(0);
+  });
+
+  it('splits compressed-chain expiries into costing and terminal-year', () => {
+    // The band is the costing half; the raw total must always be the sum, so the
+    // split can never quietly absorb a real regression.
+    const c = smallArm().correctness;
+    expect(c.compressedChainExpiriesCostingATouchpoint + c.compressedChainExpiriesInTerminalYear).toBe(
+      c.compressedChainScheduleExpiries,
+    );
+    const byEvent = Object.values(c.compressedChainExpiriesByEvent).reduce((a, b) => a + b, 0);
+    expect(byEvent).toBe(c.compressedChainScheduleExpiries);
   });
 
   it('splits every run into exactly one outcome bucket', () => {
@@ -328,6 +340,8 @@ describe('H2B.1B-A review bands', () => {
               runsWithTwoActiveFactions: 0,
               contactWhileAnotherActive: 0,
               compressedChainScheduleExpiries: 0,
+              compressedChainExpiriesCostingATouchpoint: 0,
+              compressedChainExpiriesInTerminalYear: 0,
               compressedChainExpiriesByEvent: {},
             },
           },
@@ -388,6 +402,21 @@ describe('H2B.1B-A review bands', () => {
     base.arms[0]!.summary.correctness.endingsBefore18 = 1;
     expect(verdict(evaluateBands(base), 'C1')).toBe('FAIL');
     expect(verdict(evaluateBands(base), 'C2')).toBe('PASS');
+  });
+
+  it('bands C11 on lost touchpoints, not on expiries in a run\'s terminal year', () => {
+    // An expiry booked in the year the life ends cost nothing. One that leaves a
+    // living run short of a touchpoint is a real regression and must FAIL.
+    const terminal = payload();
+    terminal.arms[0]!.summary.correctness.compressedChainScheduleExpiries = 4;
+    terminal.arms[0]!.summary.correctness.compressedChainExpiriesInTerminalYear = 4;
+    expect(verdict(evaluateBands(terminal), 'C11')).toBe('PASS');
+
+    const costing = payload();
+    costing.arms[0]!.summary.correctness.compressedChainScheduleExpiries = 4;
+    costing.arms[0]!.summary.correctness.compressedChainExpiriesInTerminalYear = 3;
+    costing.arms[0]!.summary.correctness.compressedChainExpiriesCostingATouchpoint = 1;
+    expect(verdict(evaluateBands(costing), 'C11')).toBe('FAIL');
   });
 
   it('FAILs an unlimited repeatable flagged as a late-CHR outlier', () => {

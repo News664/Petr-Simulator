@@ -1,6 +1,6 @@
 {
   "snapshotSchemaVersion": 1,
-  "contentVersion": "67ad9c4a336a947db9c1da85ea5e55c5b31853c7062966878d62976d8efe3482",
+  "contentVersion": "a764cf41467fe8db3ab2db0f985188f606f735d92c3ed8e6457595a85d5d08f2",
   "sourceFiles": [
     {
       "path": "content/events/SOLID_STATE_EVENT_BATCH_001_v0.5.json",
@@ -11,12 +11,12 @@
       "sha256": "283d2d0c62df2e2263e16ec1bfe3f74a4c441f1ee5efc2f637395228012c63bf"
     },
     {
-      "path": "content/events/SOLID_STATE_EVENT_BATCH_003_v0.3.json",
-      "sha256": "c35d243cf930128e7a39fdbcafbc90d0f313077a0eaaf71f45f7483a378e2bf7"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_003_v0.4.json",
+      "sha256": "8f976f8a98e0eafd118f525369df5ad25045a16e1053afe50302ad1086a263bf"
     },
     {
-      "path": "content/events/SOLID_STATE_EVENT_BATCH_004_v0.5.json",
-      "sha256": "cfd15f9b6868a775aff528d0f5d6a4c60d911c0b94f67f3e484075994184853b"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_004_v0.6.json",
+      "sha256": "80517172ea52af1ecc3bca46e4fdc6298ce2dc3aeb0319b11253a775e1381d88"
     },
     {
       "path": "content/events/SOLID_STATE_EVENT_BATCH_005_v0.6.json",
@@ -27,8 +27,8 @@
       "sha256": "4bbfaf7fde28d76dee2aa4d7bb983073376c98e4e2ff2f472a3139a4fafbbb6d"
     },
     {
-      "path": "content/events/SOLID_STATE_EVENT_BATCH_007_v0.6.json",
-      "sha256": "2a6a3a0cf85a3144b4ea63eee84fe4870bfba16c16ecc0b96d69252464729978"
+      "path": "content/events/SOLID_STATE_EVENT_BATCH_007_v0.7.json",
+      "sha256": "abd56a7280997503d9cd58e530086ca136b6e221f6ce680ec49d7bf03075c833"
     },
     {
       "path": "content/events/SOLID_STATE_EVENT_BATCH_008_v0.3.json",
@@ -3479,12 +3479,12 @@
     },
     {
       "batchId": "EVENT_BATCH_003",
-      "version": "0.3",
+      "version": "0.4",
       "languageStatus": {
         "en": "canonical_draft",
         "zh-TW": "reserved_empty"
       },
-      "notes": "Third content batch. Broadens ordinary life and institutions: species accommodations, Family, Legal, Finance, Religious, Civic, friendship, and associated endings. Avoids adding new material families. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
+      "notes": "Third content batch. Broadens ordinary life and institutions: species accommodations, Family, Legal, Finance, Religious, Civic, friendship, and associated endings. Avoids adding new material families. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite. H2B.1B Part A design-review correction: low INT no longer cleanly exits CRI, and the two residual repeat-driven positive-SPR branches are first-occurrence only.",
       "events": [
         {
           "id": "EVT-INS-EDU-0004",
@@ -4843,6 +4843,17 @@
               "schedules": []
             },
             {
+              "when": "EVT[EVT-ORD-FAM-0005]",
+              "text": {
+                "en": "A family gathering lasts longer than planned. Three relatives offer incompatible advice about your future Permanent Form.",
+                "zh-TW": ""
+              },
+              "effects": {},
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
               "when": "SPR>=7",
               "text": {
                 "en": "A family gathering lasts longer than planned. Nobody discusses preservation until dessert, which counts as progress.",
@@ -4935,12 +4946,12 @@
     },
     {
       "batchId": "EVENT_BATCH_004",
-      "version": "0.5",
+      "version": "0.6",
       "languageStatus": {
         "en": "canonical_draft",
         "zh-TW": "reserved_empty"
       },
-      "notes": "Fourth content batch. Completes the ~100-event first slice with additional ordinary-life density, Ceramic and Synthetic progression, Academic endings, explicit Mixed Media transition, post-commitment medical directives, and late-mobile survivor content. Academic route revised so tenure follows an interdisciplinary research specialization rather than acting as the route's entire identity. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
+      "notes": "Fourth content batch. Completes the ~100-event first slice with additional ordinary-life density, Ceramic and Synthetic progression, Academic endings, explicit Mixed Media transition, post-commitment medical directives, and late-mobile survivor content. Academic route revised so tenure follows an interdisciplinary research specialization rather than acting as the route's entire identity. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite. H2B.1B Part A design-review correction: low INT no longer cleanly exits CRI, and the two residual repeat-driven positive-SPR branches are first-occurrence only.",
       "events": [
         {
           "id": "EVT-ORD-FAM-0006",
@@ -6457,9 +6468,18 @@
                 "en": "A younger relative asks whether your committed material means you will stop aging soon. You discover that nobody in the family has a consistent answer.",
                 "zh-TW": ""
               },
-              "effects": {
-                "SPR": 1
+              "effects": {},
+              "addFlags": [],
+              "removeFlags": [],
+              "schedules": []
+            },
+            {
+              "when": "EVT[EVT-ORD-FAM-0007]",
+              "text": {
+                "en": "A younger relative asks why you are still mobile. You give a simpler answer than the insurance industry would.",
+                "zh-TW": ""
               },
+              "effects": {},
               "addFlags": [],
               "removeFlags": [],
               "schedules": []
@@ -6485,7 +6505,7 @@
                 "zh-TW": ""
               },
               "effects": {
-                "SPR": 2
+                "SPR": 1
               },
               "addFlags": [],
               "removeFlags": [],
@@ -9463,12 +9483,12 @@
     },
     {
       "batchId": "EVENT_BATCH_007",
-      "version": "0.6",
+      "version": "0.7",
       "languageStatus": {
         "en": "canonical_draft",
         "zh-TW": "reserved_empty"
       },
-      "notes": "Phase 1.3 faction-lifecycle batch. Adds 12 scheduled relationship/disposition events, 12 one-time progressive faction-news events, and 6 rare lore-fallback bulletins. Faction lifecycle is an FSM backed by flags; roles remain orthogonal flags. Most contacts can opt out or close without a faction ending. No passive FIX drift and no global threshold sweep. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
+      "notes": "Phase 1.3 faction-lifecycle batch. Adds 12 scheduled relationship/disposition events, 12 one-time progressive faction-news events, and 6 rare lore-fallback bulletins. Faction lifecycle is an FSM backed by flags; roles remain orthogonal flags. Most contacts can opt out or close without a faction ending. No passive FIX drift and no global threshold sweep. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite. H2B.1B Part A design-review correction: low INT no longer cleanly exits CRI, and the two residual repeat-driven positive-SPR branches are first-occurrence only.",
       "events": [
         {
           "id": "EVT-SPC-SECR-0013",
@@ -9734,9 +9754,9 @@
           "exclude": "FALSE",
           "variants": [
             {
-              "when": "INT<=3 | TLT[T1010]",
+              "when": "TLT[T1010]",
               "text": {
-                "en": "The Institute decides you are a poor fit for longitudinal work, and you are equally happy to stop being measured. Your subject file closes.",
+                "en": "You would rather not spend decades as a data point, and withdraw from the longitudinal study before it properly begins. Your subject file closes.",
                 "zh-TW": ""
               },
               "effects": {

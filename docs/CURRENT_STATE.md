@@ -2,21 +2,24 @@
 
 Where the project is right now; everything here is checkable against the repo.
 
-**Milestone: H2B.1B Part A implemented, pending owner review.** H2B.1A is
-accepted; Part A corrects the stat ecology and compresses the faction ENGAGED
-chain on top of it, and the next gate is that review followed by **Human Playtest
-Round 2**. Part A's own measurements are in
+**Milestone: H2B.1B Part A implemented and design-review corrected, pending
+merge review.** H2B.1A is accepted; Part A corrects the stat ecology and
+compresses the faction ENGAGED chain on top of it, and a second pass applied the
+owner/design-review corrections — low INT no longer cleanly exits CRI, and the
+two residual repeat-driven positive-SPR branches are first-occurrence only. The
+next gate is merge review followed by **Human Playtest Round 2**. Part A's own
+measurements, in all three states, are in
 [`H2B1B_A_FINDINGS.md`](H2B1B_A_FINDINGS.md).
 
 ## Corpus
 
 | | |
 |---|---|
-| Content fingerprint | `67ad9c4a336a947db9c1da85ea5e55c5b31853c7062966878d62976d8efe3482` |
+| Content fingerprint | `a764cf41467fe8db3ab2db0f985188f606f735d92c3ed8e6457595a85d5d08f2` |
 | Events | **215** across 8 batches |
 | Endings | **25** — registry fully covered in the current regression |
 | Route tags / species / talents | **39** / 6 / 30 |
-| Tests | **448 passing** in 23 files, plus a Chromium browser smoke suite (50 passed, 2 skipped) |
+| Tests | **455 passing** in 24 files, plus a Chromium browser smoke suite (50 passed, 2 skipped) |
 | Build | production Vite build clean; snapshot regenerated |
 
 Check with `npm run validate` and `npm test`.
@@ -40,11 +43,13 @@ untouched: the reversible LOW/MID/HIGH rewrite still applies on this baseline.
   deliberately unbounded (A-04, a frozen instruction); `END-MED-003` alone
   supplies 15.7% of runs at a mean review age of 83.5. Open as **H2B1A-C1**.
 - **35–44 is still the largest bucket**, deliberately not chased: 35.2% at
-  H2B.1A, 32.8% after Part A.
-- **Completion moved from 71.5% to 82.3%** under Part A's stat ecology, and 65+
-  endings from 27.6% to 32.1%. No ending gate or lethality was changed; lower INT
+  H2B.1A, 35.0% after Part A.
+- **Completion moved from 71.5% to 82.5%** under Part A's stat ecology, and 65+
+  endings from 27.6% to 29.6%. No ending gate or lethality was changed; lower INT
   and SPR simply make authored ending paths reachable for lives that used to run
-  to the horizon. Recorded, not tuned — [`H2B1B_A_FINDINGS.md`](H2B1B_A_FINDINGS.md) §8.
+  to the horizon. The design review accepted this as a working-baseline side
+  effect: early bands did not rise and the ending age moved slightly later.
+  Recorded, not tuned — [`H2B1B_A_FINDINGS.md`](H2B1B_A_FINDINGS.md) §8.
 - All correctness counters are **zero** and the single-active-faction invariant
   holds. Earlier milestones used **different corpora** — see
   [`reports/REPORT_INDEX.md`](../reports/REPORT_INDEX.md).
@@ -59,8 +64,10 @@ circumstance keeps its prose but grants its permanent growth only once. The
 faction ENGAGED chain was compressed — disposition → middle touchpoint +2y/2y,
 middle touchpoint → escalation +1y/2y — taking the contact-to-resolution span
 from 7 years to 5 and the p90 gap between personalized events from 3 to 2, with
-zero schedule expiries. Two review bands are open: the surviving SPR ≥ 15 share
-at 65 (84.0%, down from 95.3%) and faction endings at 7.6% of completions.
+zero expiries costing a touchpoint. After the design-review correction the SPR
+≥ 15 share among runs active at 65 is **72.2%**, down from 95.3%, and one review
+band is open: faction endings at 7.8% of completions, 0.2 points under the band
+and deliberately not chased.
 
 ## UI
 

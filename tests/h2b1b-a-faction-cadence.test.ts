@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { loadDefaultContent } from '../src/engine/content/load.js';
+import { selectVariantIndex } from '../src/engine/eligibility.js';
 import { isPersonallyActive, factionState } from '../src/engine/factions.js';
 import { runSimulation } from '../src/engine/simulation.js';
 import { SPECIES_IDS, type GameEvent, type ScheduleSpec } from '../src/engine/types.js';
@@ -170,11 +171,12 @@ describe('H2B.1B-A — faction continuity Part A must not disturb', () => {
 
   it('keeps the first-disposition exit conditions', () => {
     // Part A re-measures these rather than retuning them, so the authored
-    // conditions must be byte-identical to the pre-patch corpus.
+    // conditions stay byte-identical to the pre-patch corpus — with the one
+    // exception the design review asked for, `EVT-SPC-SECR-0015`, covered below.
     const exits: Record<string, string> = {
       'EVT-SPC-SECR-0013': 'TLT[T1013] | TLT[T1024] | (INT>=9 & SPR>=6)',
       'EVT-SPC-SECR-0014': 'TLT[T1010] | (SPR>=9 & INT>=7)',
-      'EVT-SPC-SECR-0015': 'INT<=3 | TLT[T1010]',
+      'EVT-SPC-SECR-0015': 'TLT[T1010]',
       'EVT-SPC-SECR-0016': 'TLT[T1013] | MNY>=8',
       'EVT-SPC-SECR-0017': 'TLT[T1013] | MNY>=7',
       'EVT-SPC-SECR-0018': 'TLT[T1010] | (INT>=9 & SPR>=7)',
@@ -182,6 +184,61 @@ describe('H2B.1B-A — faction continuity Part A must not disturb', () => {
     for (const [id, condition] of Object.entries(exits)) {
       expect(content.eventsById.get(id)!.variants[0]!.when, id).toBe(condition);
     }
+  });
+
+  it('does not let low INT alone opt out of CRI', () => {
+    // Design review: vulnerability leads to intervention or risk, never to an
+    // automatic safe exit. A low-INT protagonist without T1010 must fall through
+    // to the ordinary longitudinal-subject relationship.
+    const disposition = content.eventsById.get('EVT-SPC-SECR-0015')!;
+    const cri = content.factions.get('FCT-CRI')!;
+
+    const state = runSimulation('cri-low-int', content, {
+      species: { kind: 'fixed', species: 'HUMAN' },
+      talents: { kind: 'none' },
+      allocation: { kind: 'explicit', allocation: { CHR: 5, INT: 0, STR: 6, MNY: 5, SPR: 5 } },
+    }, { maxAge: 0 }).state;
+    state.flags.add(cri.lifecycleFlags.CONTACTED);
+
+    for (const int of [0, 1, 2, 3]) {
+      state.stats.INT = int;
+      const chosen = disposition.variants[selectVariantIndex(disposition, state)]!;
+      const target = chosen.factionTransitions?.find((t) => t.factionId === cri.id)?.to;
+      expect(target, `INT ${int} must not opt out of CRI`).not.toBe('OPTED_OUT');
+      expect(target, `INT ${int} should enter the subject relationship`).toBe('ENGAGED');
+    }
+
+    // The talent is still a clean exit, which is the whole remaining condition.
+    state.stats.INT = 0;
+    state.talents.add('T1010');
+    const withTalent = disposition.variants[selectVariantIndex(disposition, state)]!;
+    expect(withTalent.factionTransitions?.[0]?.to).toBe('OPTED_OUT');
+  });
+
+  it('reaches the CRI opt-out only through the talent, in whole runs', () => {
+    // The unit check above proves the branch; this proves nothing else in the
+    // corpus reintroduces a low-INT escape at the disposition.
+    let optOutsAtDisposition = 0;
+    let optOutsWithoutTalent = 0;
+    const cri = content.factions.get('FCT-CRI')!;
+
+    for (let index = 0; index < 400; index++) {
+      const result = runSimulation(`cri-exit-${index}`, content, {
+        species: { kind: 'fixed', species: SPECIES_IDS[index % SPECIES_IDS.length]! },
+        talents: { kind: 'seeded_random_compatible' },
+        allocation: { kind: 'seeded_random' },
+      }, { maxAge: 120 });
+
+      for (const record of result.state.diagnostics.factionTransitions) {
+        if (record.factionId !== cri.id || record.to !== 'OPTED_OUT') continue;
+        if (record.eventId !== 'EVT-SPC-SECR-0015') continue;
+        optOutsAtDisposition += 1;
+        if (!result.state.talents.has('T1010')) optOutsWithoutTalent += 1;
+      }
+    }
+
+    expect(optOutsAtDisposition, 'the CRI opt-out must still be reachable').toBeGreaterThan(0);
+    expect(optOutsWithoutTalent).toBe(0);
   });
 
   it('keeps every faction ending id reachable from its own chain', () => {

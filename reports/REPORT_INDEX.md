@@ -38,7 +38,7 @@ findings record the exact commit.
 
 These runs were taken against **earlier corpora**. Their numbers are not
 comparable with the current fingerprint
-`67ad9c4a336a947db9c1da85ea5e55c5b31853c7062966878d62976d8efe3482`, and a fresh
+`a764cf41467fe8db3ab2db0f985188f606f735d92c3ed8e6457595a85d5d08f2`, and a fresh
 run against today's content will *not* reproduce the historical figures — that
 is the point of retiring them. Their conclusions are preserved in the findings
 documents named here; the harnesses are all still wired up and tested.

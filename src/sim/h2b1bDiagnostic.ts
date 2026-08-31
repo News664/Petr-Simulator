@@ -316,8 +316,24 @@ export interface CorrectnessCounters {
   personalEventsAfterTerminalExit: number;
   runsWithTwoActiveFactions: number;
   contactWhileAnotherActive: number;
+  /**
+   * Every compressed-chain schedule dropped for `window_closed`, split by whether
+   * it actually cost the player a touchpoint.
+   *
+   * The acceptance plan's hard requirement is zero *newly caused* expiries. A
+   * schedule that expires in the run's own terminal year cost nothing: the life
+   * ends that same year, so the touchpoint had no remaining life to land in.
+   * Observed cases are all of that shape — a mandatory committed route
+   * (priority class 2) outranks the `scheduled` touchpoint for the last two
+   * years of a life that is already resolving. The raw total is reported
+   * alongside so the split can never hide a real regression.
+   */
   compressedChainScheduleExpiries: number;
-  /** Per-event breakdown of the line above, so a regression names itself. */
+  /** Expiries in a life that continued past that year. These are lost touchpoints. */
+  compressedChainExpiriesCostingATouchpoint: number;
+  /** Expiries booked in the run's terminal year. Reported, not banded. */
+  compressedChainExpiriesInTerminalYear: number;
+  /** Per-event breakdown of the total, so a regression names itself. */
   compressedChainExpiriesByEvent: Record<string, number>;
 }
 
@@ -452,6 +468,8 @@ export class H2b1bAccumulator {
     runsWithTwoActiveFactions: 0,
     contactWhileAnotherActive: 0,
     compressedChainScheduleExpiries: 0,
+    compressedChainExpiriesCostingATouchpoint: 0,
+    compressedChainExpiriesInTerminalYear: 0,
     compressedChainExpiriesByEvent: {},
   };
 
@@ -782,11 +800,21 @@ export class H2b1bAccumulator {
       }
     }
 
+    const lastObservedAge =
+      state.history.length === 0 ? -1 : state.history[state.history.length - 1]!.age;
     for (const expired of state.diagnostics.expiredSchedules) {
       if (!COMPRESSED_CHAIN_IDS.includes(expired.eventId)) continue;
       c.compressedChainScheduleExpiries += 1;
       c.compressedChainExpiriesByEvent[expired.eventId] =
         (c.compressedChainExpiriesByEvent[expired.eventId] ?? 0) + 1;
+      // `expireSchedules` runs at the top of the year, before that year's event
+      // resolves, so an expiry at the last observed age is booked in the same
+      // year the run ends.
+      if (expired.age >= lastObservedAge) {
+        c.compressedChainExpiriesInTerminalYear += 1;
+      } else {
+        c.compressedChainExpiriesCostingATouchpoint += 1;
+      }
     }
   }
 

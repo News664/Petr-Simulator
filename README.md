@@ -19,12 +19,13 @@ The site is published from `main` by GitHub Actions on every push.
 
 ## Status
 
-**Milestone H2B.1A is accepted; H2B.1B Part A is implemented and awaiting owner
-review.** 215 events across 8 batches, 25 endings, 39 route tags, 448 tests
-passing, a browser smoke suite, clean production build, all correctness counters
-zero. Part A corrected the stat ecology so a starting allocation still means
-something in adulthood, and compressed the faction relationship chain so a
-contacted faction reads as one relationship — see
+**Milestone H2B.1A is accepted; H2B.1B Part A is implemented, design-review
+corrected, and awaiting merge review.** 215 events across 8 batches, 25 endings,
+39 route tags, 455 tests passing, a browser smoke suite, clean production build,
+all correctness counters zero. Part A corrected the stat ecology so a starting
+allocation still means something in adulthood, and compressed the faction
+relationship chain so a contacted faction reads as one relationship; a second
+pass applied the owner/design-review corrections — see
 [`docs/H2B1B_A_FINDINGS.md`](docs/H2B1B_A_FINDINGS.md).
 
 **LOW is the working canonical balance — not a freeze.** The one blocking design
@@ -62,7 +63,7 @@ npm run validate              # load and cross-validate all canonical content
 npm run mirror:check          # batch Markdown is the exact render of batch JSON
 npm run content:browser:check # the generated browser snapshot is not stale
 npm run lint:content          # content lints
-npm test                      # 448 tests
+npm test                      # 455 tests
 ```
 
 ### Browser tests
