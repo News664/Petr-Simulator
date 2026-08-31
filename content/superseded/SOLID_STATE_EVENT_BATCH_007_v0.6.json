@@ -1,0 +1,2180 @@
+{
+  "batchId": "EVENT_BATCH_007",
+  "version": "0.6",
+  "languageStatus": {
+    "en": "canonical_draft",
+    "zh-TW": "reserved_empty"
+  },
+  "notes": "Phase 1.3 faction-lifecycle batch. Adds 12 scheduled relationship/disposition events, 12 one-time progressive faction-news events, and 6 rare lore-fallback bulletins. Faction lifecycle is an FSM backed by flags; roles remain orthogonal flags. Most contacts can opt out or close without a faction ending. No passive FIX drift and no global threshold sweep. H2B.1B Part A: ordinary repeatable growth is first-occurrence only, obvious faction-bureaucracy INT grants are removed, and the ENGAGED chain schedule is compressed. Effects and schedules only; no prose rewrite.",
+  "events": [
+    {
+      "id": "EVT-SPC-SECR-0013",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 18,
+        "max": 28
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "dmms",
+        "civic",
+        "legal"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-DMMS"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_DMMS_STATE_CONTACTED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1013] | TLT[T1024] | (INT>=9 & SPR>=6)",
+          "text": {
+            "en": "You answer the Department's follow-up with enough documentation to make the case officer close the file. The confirmation letter is longer than the case.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-DMMS",
+              "to": "CLOSED"
+            }
+          ]
+        },
+        {
+          "when": "MNY<=2 | TLT[T1030]",
+          "text": {
+            "en": "The Department decides your record requires continuing supervision. You become an active Material Status case, although nobody agrees on whether that counts as assistance.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-2001",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_DMMS_STATE_ENGAGED]"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-DMMS",
+              "to": "ENGAGED",
+              "addRoles": [
+                "CASE",
+                "TARGETED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Department keeps your case open for a second review cycle. Nothing irreversible happens, but the file now has its own reference number.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-2001",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_DMMS_STATE_ENGAGED]"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-DMMS",
+              "to": "ENGAGED",
+              "addRoles": [
+                "CASE"
+              ]
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Strong legal/intellectual runs close safely; others enter a real case instead of jumping to an ending."
+    },
+    {
+      "id": "EVT-SPC-SECR-0014",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 18,
+        "max": 28
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "meridian",
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-MERIDIAN"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_MERIDIAN_STATE_CONTACTED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1010] | (SPR>=9 & INT>=7)",
+          "text": {
+            "en": "You decline Meridian's follow-up package and let the voucher expire. The sales representative calls this 'voluntary loss of future value.'",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-MERIDIAN",
+              "to": "OPTED_OUT"
+            }
+          ]
+        },
+        {
+          "when": "CHR>=8 & FIX>=12 & MAT=NONE",
+          "text": {
+            "en": "Meridian's campaign team decides your current appearance meets a short-lived premium criterion. A preservation procedure becomes permanent before the campaign does.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MED-001",
+          "setMaterialCommitment": "SYNT",
+          "factionTransitions": [
+            {
+              "factionId": "FCT-MERIDIAN",
+              "to": "COMMITTED",
+              "addRoles": [
+                "CLIENT",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "CHR>=8 & FIX>=12",
+          "text": {
+            "en": "Meridian's campaign team finalizes your existing material trajectory while your promotional eligibility is still current.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-MED-001",
+          "factionTransitions": [
+            {
+              "factionId": "FCT-MERIDIAN",
+              "to": "COMMITTED",
+              "addRoles": [
+                "CLIENT",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You accept a nonpermanent Meridian consultation. The company opens a client file and schedules another eligibility review several years out.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-2002",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_MERIDIAN_STATE_ENGAGED]"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-MERIDIAN",
+              "to": "ENGAGED",
+              "addRoles": [
+                "CLIENT"
+              ]
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Most contacts become a client relationship or safe opt-out. Only extreme CHR+FIX preserves a sudden young-adult ending."
+    },
+    {
+      "id": "EVT-SPC-SECR-0015",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 18,
+        "max": 28
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "continuity_institute",
+        "research",
+        "academic"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-CRI"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_CRI_STATE_CONTACTED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "INT<=3 | TLT[T1010]",
+          "text": {
+            "en": "The Institute decides you are a poor fit for longitudinal work, and you are equally happy to stop being measured. Your subject file closes.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-CRI",
+              "to": "OPTED_OUT"
+            }
+          ]
+        },
+        {
+          "when": "FIX>=16 & STR<=3 & MAT=NONE",
+          "text": {
+            "en": "A repeat calibration fails to release you from one experimental second. The Institute logs the result as stable temporal preservation and suspends the protocol.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-TMP-001",
+          "setMaterialCommitment": "TEMP",
+          "factionTransitions": [
+            {
+              "factionId": "FCT-CRI",
+              "to": "COMMITTED",
+              "addRoles": [
+                "SUBJECT",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "FIX>=16 & STR<=3",
+          "text": {
+            "en": "A repeat calibration pushes your existing material trajectory past the study's stopping criterion. The Institute gets a publishable result and you get a final one.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-ACA-002",
+          "factionTransitions": [
+            {
+              "factionId": "FCT-CRI",
+              "to": "COMMITTED",
+              "addRoles": [
+                "SUBJECT",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "INT>=7",
+          "text": {
+            "en": "The Institute invites you back as both a paid subject and a junior research affiliate. The distinction matters mostly for whose name appears on the forms.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "MNY": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-2003",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_CRI_STATE_ENGAGED]"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-CRI",
+              "to": "ENGAGED",
+              "addRoles": [
+                "SUBJECT",
+                "AFFILIATE"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You remain in the Institute's longitudinal subject pool. The next study is scheduled far enough away to feel hypothetical.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-2003",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_CRI_STATE_ENGAGED]"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-CRI",
+              "to": "ENGAGED",
+              "addRoles": [
+                "SUBJECT"
+              ]
+            }
+          ]
+        }
+      ],
+      "designerNotes": "CRI can safely end, become a subject relationship, or rarely produce a sudden experimental ending."
+    },
+    {
+      "id": "EVT-SPC-SECR-0016",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 18,
+        "max": 28
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "everlasting",
+        "finance"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-EVERLASTING"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_EVERLASTING_STATE_CONTACTED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1013] | MNY>=8",
+          "text": {
+            "en": "You read the renewal terms closely enough to cancel before the policy acquires interesting clauses. Everlasting marks the account 'lost to informed behavior.'",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-EVERLASTING",
+              "to": "OPTED_OUT"
+            }
+          ]
+        },
+        {
+          "when": "MNY<=3",
+          "text": {
+            "en": "You keep the starter policy because the alternatives are worse. Everlasting now treats you as both a client and a future-credit risk.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-2004",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_EVERLASTING_STATE_ENGAGED]"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-EVERLASTING",
+              "to": "ENGAGED",
+              "addRoles": [
+                "CLIENT",
+                "DEBTOR"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The starter policy renews on ordinary terms. You remain a client, which is less dramatic than the brochure had promised.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-2004",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_EVERLASTING_STATE_ENGAGED]"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-EVERLASTING",
+              "to": "ENGAGED",
+              "addRoles": [
+                "CLIENT"
+              ]
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Insurance contact becomes a longer relationship or clean cancellation; it no longer schedules a climax immediately."
+    },
+    {
+      "id": "EVT-SPC-SECR-0017",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 19,
+        "max": 29
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "black_ledger",
+        "finance",
+        "legal"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-BLACK-LEDGER"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_BLACK_LEDGER_STATE_CONTACTED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1013] | MNY>=7",
+          "text": {
+            "en": "You unwind the Black Ledger arrangement before the paperwork becomes enforceable. The intermediary stops returning messages, which is the closest thing they offer to a receipt.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-BLACK-LEDGER",
+              "to": "OPTED_OUT"
+            }
+          ]
+        },
+        {
+          "when": "MNY<=0 & MAT!=NONE",
+          "text": {
+            "en": "The Black Ledger discovers that the collateral is no longer hypothetical. Enforcement arrives before your next ordinary bill and your existing material condition is realized as the asset.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-FIN-001",
+          "factionTransitions": [
+            {
+              "factionId": "FCT-BLACK-LEDGER",
+              "to": "COMMITTED",
+              "addRoles": [
+                "DEBTOR",
+                "TARGETED",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "MNY<=2",
+          "text": {
+            "en": "The arrangement survives its first review and becomes harder to describe as a favor. You are now both a debtor and a person the Cooperative actively tracks.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-2005",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_BLACK_LEDGER_STATE_ENGAGED]"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-BLACK-LEDGER",
+              "to": "ENGAGED",
+              "addRoles": [
+                "DEBTOR",
+                "TARGETED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Cooperative keeps the account open. You remain a debtor, although for now the debt is more theoretical than your anxiety about it.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-2005",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_BLACK_LEDGER_STATE_ENGAGED]"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-BLACK-LEDGER",
+              "to": "ENGAGED",
+              "addRoles": [
+                "DEBTOR"
+              ]
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Underground contact can be exited safely, remain a debt relationship, or rarely become immediate enforcement."
+    },
+    {
+      "id": "EVT-SPC-SECR-0018",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 18,
+        "max": 28
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "last_posture",
+        "religious"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-LAST-POSTURE"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_LAST_POSTURE_STATE_CONTACTED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1010] | (INT>=9 & SPR>=7)",
+          "text": {
+            "en": "You decline the Order's next workshop and stop answering the increasingly poetic invitations. Nobody follows up.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "to": "OPTED_OUT"
+            }
+          ]
+        },
+        {
+          "when": "FIX>=18 & SPR<=1 & MAT=NONE",
+          "text": {
+            "en": "A supposedly reversible stillness rite does not reverse. The Order calls the stone form sacred before the civil authorities decide what to call it.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-REL-001",
+          "setMaterialCommitment": "STON",
+          "factionTransitions": [
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "to": "COMMITTED",
+              "addRoles": [
+                "MEMBER",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "FIX>=18 & SPR<=1",
+          "text": {
+            "en": "A supposedly reversible stillness rite finalizes your existing material state. The Order calls the result sacred before the civil authorities decide what to call it.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "endingId": "END-REL-001",
+          "factionTransitions": [
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "to": "COMMITTED",
+              "addRoles": [
+                "MEMBER",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "SPR<=3",
+          "text": {
+            "en": "The Order assigns you a mentor with unusual interest in your future form. You are not a member, but the attention becomes difficult to ignore.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-2006",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "to": "ENGAGED",
+              "addRoles": [
+                "TARGETED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "You keep attending occasional ceremonies without formally joining. The Order records you as an affiliate and continues sending invitations.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-2006",
+              "offsetYears": 2,
+              "windowYears": 2,
+              "priority": "scheduled",
+              "priorityOrder": 15,
+              "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "to": "ENGAGED",
+              "addRoles": [
+                "AFFILIATE"
+              ]
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Cult contact supports safe exit, affiliation/targeting, and a rare sudden ritual outcome."
+    },
+    {
+      "id": "EVT-SPC-SECR-0019",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 21,
+        "max": 34
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "dmms",
+        "civic",
+        "legal"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-DMMS"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_DMMS_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1013] | TLT[T1024] | INT>=9",
+          "text": {
+            "en": "The second review finally closes your Material Status case without further conditions. Several departments retain copies for reasons outside your control.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-DMMS",
+              "to": "CLOSED"
+            }
+          ]
+        },
+        {
+          "when": "FIX<15 & MAT=NONE",
+          "text": {
+            "en": "The Department decides continued supervision is unnecessary. Your case closes as 'provisionally ordinary,' a category that sounds more temporary than it is.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-DMMS",
+              "to": "CLOSED"
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Department converts your open case into a binding structural-compliance order. Routine appeal is no longer available; the next review concerns how the order will be carried out.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": -2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0007",
+              "offsetYears": 1,
+              "windowYears": 6,
+              "priority": "climax",
+              "priorityOrder": 25,
+              "validityCondition": "FLAG[FAC_DMMS_STATE_COMMITTED] & (FIX>=8 | MAT!=NONE)"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-DMMS",
+              "to": "COMMITTED",
+              "addRoles": [
+                "CASE",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        }
+      ],
+      "designerNotes": "DMMS escalation either closes the case or creates a true committed route."
+    },
+    {
+      "id": "EVT-SPC-SECR-0020",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 21,
+        "max": 34
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "meridian",
+        "medical"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-MERIDIAN"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_MERIDIAN_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "SPR>=8 & !TLT[T1026]",
+          "text": {
+            "en": "You decline Meridian's second eligibility review before any permanent service begins. The client file closes and the company stops calling.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-MERIDIAN",
+              "to": "OPTED_OUT"
+            }
+          ]
+        },
+        {
+          "when": "MNY<=1 & !TLT[T1026]",
+          "text": {
+            "en": "Meridian decides the projected maintenance revenue no longer justifies keeping your case open. For once, being unprofitable is protective.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-MERIDIAN",
+              "to": "CLOSED"
+            }
+          ]
+        },
+        {
+          "when": "TLT[T1026] | CHR>=8 | FIX>=20 | MAT!=NONE",
+          "text": {
+            "en": "Meridian upgrades your consultation into a binding preservation program. The remaining paperwork is about implementation, not whether the program happens.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "FIX": 2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0008",
+              "offsetYears": 1,
+              "windowYears": 6,
+              "priority": "climax",
+              "priorityOrder": 25,
+              "validityCondition": "FLAG[FAC_MERIDIAN_STATE_COMMITTED] & (FIX>=10 | MAT!=NONE | CHR>=8)"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-MERIDIAN",
+              "to": "COMMITTED",
+              "addRoles": [
+                "CLIENT",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Meridian's campaign moves on before your case does. The company closes the file without permanent treatment and sends you a satisfaction survey.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-MERIDIAN",
+              "to": "CLOSED"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Only a subset of Meridian clients become committed preservation cases."
+    },
+    {
+      "id": "EVT-SPC-SECR-0021",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 21,
+        "max": 34
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "continuity_institute",
+        "research",
+        "academic"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-CRI"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_CRI_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "STR<=2 & FIX<18",
+          "text": {
+            "en": "The Institute removes you from further exposure studies on safety grounds. Your subject relationship closes with a surprisingly sincere apology.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-CRI",
+              "to": "CLOSED"
+            }
+          ]
+        },
+        {
+          "when": "INT>=8 & SPR>=6 & FIX<20",
+          "text": {
+            "en": "The longitudinal study finishes cleanly. You receive an acknowledgment in the paper and leave the subject pool without becoming the result.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 2,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-CRI",
+              "to": "CLOSED"
+            }
+          ]
+        },
+        {
+          "when": "FIX>=20 | MAT!=NONE",
+          "text": {
+            "en": "The Institute moves you into a protocol whose stopping condition is now defined in terms of permanent continuity. Withdrawal is no longer treated as an ordinary study procedure.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "INT": 1,
+            "FIX": 3,
+            "SPR": -2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0009",
+              "offsetYears": 1,
+              "windowYears": 6,
+              "priority": "climax",
+              "priorityOrder": 25,
+              "validityCondition": "FLAG[FAC_CRI_STATE_COMMITTED] & FIX>=12"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-CRI",
+              "to": "COMMITTED",
+              "addRoles": [
+                "SUBJECT",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Institute completes the study without escalating exposure. You leave with a modest payment, several test results and no active research relationship.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-CRI",
+              "to": "CLOSED"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "CRI escalation has several nonterminal exits; only material/FIX pressure commits it."
+    },
+    {
+      "id": "EVT-SPC-SECR-0022",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 22,
+        "max": 35
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "everlasting",
+        "finance"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-EVERLASTING"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_EVERLASTING_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "MNY>=6 | TLT[T1009] | TLT[T1013]",
+          "text": {
+            "en": "You terminate the policy before its preservation clauses become useful to anyone. Everlasting sends a retention offer after the cancellation is final.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -1,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-EVERLASTING",
+              "to": "OPTED_OUT"
+            }
+          ]
+        },
+        {
+          "when": "MNY<=2 & (FIX>=12 | MAT!=NONE)",
+          "text": {
+            "en": "Everlasting restructures your policy into a binding settlement plan secured against future Permanent Form rights. The next qualifying event will be treated as performance, not a new decision.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0010",
+              "offsetYears": 1,
+              "windowYears": 6,
+              "priority": "climax",
+              "priorityOrder": 25,
+              "validityCondition": "FLAG[FAC_EVERLASTING_STATE_COMMITTED] & MNY<=3"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-EVERLASTING",
+              "to": "COMMITTED",
+              "addRoles": [
+                "CLIENT",
+                "DEBTOR",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The policy reaches an uneventful renewal point and you let it lapse. Everlasting records the relationship as successfully concluded because nothing expensive happened.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-EVERLASTING",
+              "to": "CLOSED"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Everlasting commits only financially stressed qualifying cases."
+    },
+    {
+      "id": "EVT-SPC-SECR-0023",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 21,
+        "max": 35
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "black_ledger",
+        "finance",
+        "legal"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-BLACK-LEDGER"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_BLACK_LEDGER_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1013] | TLT[T1022] | MNY>=6",
+          "text": {
+            "en": "You force a settlement that extinguishes the Black Ledger claim before it attaches to your body. Nobody congratulates you, which is how you know the exit is real.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -2,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-BLACK-LEDGER",
+              "to": "OPTED_OUT"
+            }
+          ]
+        },
+        {
+          "when": "FLAG[FAC_BLACK_LEDGER_ROLE_DEBTOR] & (FIX>=10 | MAT!=NONE)",
+          "text": {
+            "en": "The Cooperative converts your account into enforceable future-form collateral. At this point repayment terms and bodily terms have become the same document.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": 1,
+            "SPR": -2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0011",
+              "offsetYears": 1,
+              "windowYears": 6,
+              "priority": "climax",
+              "priorityOrder": 25,
+              "validityCondition": "FLAG[FAC_BLACK_LEDGER_STATE_COMMITTED] & (FIX>=8 | MAT!=NONE)"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-BLACK-LEDGER",
+              "to": "COMMITTED",
+              "addRoles": [
+                "DEBTOR",
+                "TARGETED",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The arrangement collapses under its own accounting and the Cooperative closes your position rather than litigate it. You lose money but keep the more important asset.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "MNY": -2,
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-BLACK-LEDGER",
+              "to": "CLOSED"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Black Ledger has a real safe exit, mundane bad outcome, and committed enforcement path."
+    },
+    {
+      "id": "EVT-SPC-SECR-0024",
+      "channel": "SPC",
+      "family": "SECR",
+      "age": {
+        "min": 21,
+        "max": 35
+      },
+      "selectionMode": "scheduled_only",
+      "weightClass": "NORMAL",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "last_posture",
+        "religious"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-LAST-POSTURE"
+      ],
+      "factionInteraction": "personal",
+      "include": "FLAG[FAC_LAST_POSTURE_STATE_ENGAGED]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TLT[T1010] | (INT>=8 & SPR>=6)",
+          "text": {
+            "en": "You stop attending before the Order asks for a permanent vow. The messages taper off, and the last invitation eventually becomes ordinary recycling.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "to": "OPTED_OUT"
+            }
+          ]
+        },
+        {
+          "when": "FIX>=16 & SPR<=4",
+          "text": {
+            "en": "The Order accepts you into a permanent-vow track whose final rite is no longer described as symbolic. Leaving would now break obligations the group treats as binding.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "FIX": 2,
+            "SPR": -2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0012",
+              "offsetYears": 1,
+              "windowYears": 6,
+              "priority": "climax",
+              "priorityOrder": 25,
+              "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_COMMITTED] & FIX>=8"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "to": "COMMITTED",
+              "addRoles": [
+                "MEMBER",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "CHR>=8 & FIX>=14",
+          "text": {
+            "en": "The Order elevates you from affiliate to public exemplar. The ceremonial program now ends in an explicitly permanent rite.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "CHR": 1,
+            "FIX": 2
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [
+            {
+              "eventId": "EVT-SPC-SECR-0012",
+              "offsetYears": 1,
+              "windowYears": 6,
+              "priority": "climax",
+              "priorityOrder": 25,
+              "validityCondition": "FLAG[FAC_LAST_POSTURE_STATE_COMMITTED] & FIX>=8"
+            }
+          ],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "to": "COMMITTED",
+              "addRoles": [
+                "AFFILIATE",
+                "OBLIGATED"
+              ]
+            }
+          ]
+        },
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Order's interest moves elsewhere before you take a permanent vow. Your affiliation ends without ceremony, which is probably the healthiest possible ceremony.",
+            "zh-TW": ""
+          },
+          "effects": {
+            "SPR": 1
+          },
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": [],
+          "factionTransitions": [
+            {
+              "factionId": "FCT-LAST-POSTURE",
+              "to": "CLOSED"
+            }
+          ]
+        }
+      ],
+      "designerNotes": "Most affiliates leave/close; commitment needs vulnerability/material pressure or public-symbol conditions."
+    },
+    {
+      "id": "EVT-INS-CIV-1001",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 22,
+        "max": 44
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-DMMS"
+      ],
+      "factionInteraction": "news",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Department of Mobility and Material Status announces a simplified classification form. The new form has three more pages and one fewer appeal box.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-CIV-1002",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 40,
+        "max": 69
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-DMMS"
+      ],
+      "factionInteraction": "news",
+      "include": "EVT[EVT-INS-CIV-1001]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A high court rules that the Department's simplified classification form was never legally simple. DMMS issues a replacement while the judgment is still being summarized.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-FIN-1001",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 25,
+        "max": 46
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-EVERLASTING"
+      ],
+      "factionInteraction": "news",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Everlasting Mutual publishes a new actuarial table assigning projected values to future Permanent Forms. Several economists object to the decimal places.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-FIN-1002",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 42,
+        "max": 70
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-EVERLASTING"
+      ],
+      "factionInteraction": "news",
+      "include": "EVT[EVT-INS-FIN-1001]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Everlasting Mutual settles a long-running dispute over whether post-immobility maintenance counts as healthcare or asset servicing. Both sides claim the wording favors them.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-COR-1001",
+      "channel": "INS",
+      "family": "COR",
+      "age": {
+        "min": 22,
+        "max": 43
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-MERIDIAN"
+      ],
+      "factionInteraction": "news",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Meridian Preservation Group launches a 'Forever Twenty-Four' campaign. Regulators object mainly to the asterisk after 'forever.'",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-COR-1002",
+      "channel": "INS",
+      "family": "COR",
+      "age": {
+        "min": 38,
+        "max": 66
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-MERIDIAN"
+      ],
+      "factionInteraction": "news",
+      "include": "EVT[EVT-INS-COR-1001]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Meridian recalls a generation of preservation pedestals after discovering that a decorative finish interferes with standard maintenance scans. The bodies are unaffected, according to Meridian.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-ACA-1001",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 24,
+        "max": 45
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-CRI"
+      ],
+      "factionInteraction": "news",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Continuity Research Institute publishes a study arguing that legal identity survives more transformation categories than existing forms acknowledge. Three ministries request different corrections.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-ACA-1002",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 40,
+        "max": 68
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-CRI"
+      ],
+      "factionInteraction": "news",
+      "include": "EVT[EVT-INS-ACA-1001]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Continuity Research Institute suspends one laboratory after an ethics review finds that 'temporary' had been defined by the researchers rather than by clocks.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-FIN-1011",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 25,
+        "max": 47
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-BLACK-LEDGER"
+      ],
+      "factionInteraction": "news",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Authorities seize a portfolio of future-form rights linked to the Black Ledger Cooperative. Nobody can agree whether the seized assets currently exist.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-FIN-1012",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 44,
+        "max": 72
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-BLACK-LEDGER"
+      ],
+      "factionInteraction": "news",
+      "include": "EVT[EVT-INS-FIN-1011]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A new consultancy begins offering suspiciously familiar future-form financing services. It denies any connection to the Black Ledger while using the same office furniture.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-REL-1001",
+      "channel": "INS",
+      "family": "REL",
+      "age": {
+        "min": 22,
+        "max": 43
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-LAST-POSTURE"
+      ],
+      "factionInteraction": "news",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Order of the Last Posture gains attention after several universities recognize its stillness society as a legitimate student organization. The insurance office is less enthusiastic.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-REL-1002",
+      "channel": "INS",
+      "family": "REL",
+      "age": {
+        "min": 40,
+        "max": 72
+      },
+      "selectionMode": "random",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "once_per_run",
+      "repeatCooldownYears": 0,
+      "repeatMaxCount": 1,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-LAST-POSTURE"
+      ],
+      "factionInteraction": "news",
+      "include": "EVT[EVT-INS-REL-1001]",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "A sacred-property case involving the Order reaches national court. The central question is whether a consecrated Permanent Citizen can also be venue infrastructure.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "One-time world-lore news. Does not create personal faction state."
+    },
+    {
+      "id": "EVT-INS-CIV-1003",
+      "channel": "INS",
+      "family": "CIV",
+      "age": {
+        "min": 55,
+        "max": null
+      },
+      "selectionMode": "lore_fallback_only",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 12,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-DMMS"
+      ],
+      "factionInteraction": "lore_fallback",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Department issues another Material Status circular clarifying a rule that most people only learn exists when the clarification arrives.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Late-life lore fallback. Rarely repeatable, mechanically inert, and reported separately from generic fallback."
+    },
+    {
+      "id": "EVT-INS-FIN-1003",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 55,
+        "max": null
+      },
+      "selectionMode": "lore_fallback_only",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 12,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-EVERLASTING"
+      ],
+      "factionInteraction": "lore_fallback",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Everlasting Mutual updates another line of its actuarial guidance. The financial press spends a day debating whether the change is reassuring.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Late-life lore fallback. Rarely repeatable, mechanically inert, and reported separately from generic fallback."
+    },
+    {
+      "id": "EVT-INS-COR-1003",
+      "channel": "INS",
+      "family": "COR",
+      "age": {
+        "min": 55,
+        "max": null
+      },
+      "selectionMode": "lore_fallback_only",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 12,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-MERIDIAN"
+      ],
+      "factionInteraction": "lore_fallback",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Meridian launches another preservation service with a new name, a familiar maintenance contract, and a waiting list.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Late-life lore fallback. Rarely repeatable, mechanically inert, and reported separately from generic fallback."
+    },
+    {
+      "id": "EVT-INS-ACA-1003",
+      "channel": "INS",
+      "family": "ACA",
+      "age": {
+        "min": 55,
+        "max": null
+      },
+      "selectionMode": "lore_fallback_only",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 12,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-CRI"
+      ],
+      "factionInteraction": "lore_fallback",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Continuity Research Institute publishes another result that slightly changes how professionals describe a Permanent Form and not at all how ordinary people do.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Late-life lore fallback. Rarely repeatable, mechanically inert, and reported separately from generic fallback."
+    },
+    {
+      "id": "EVT-INS-FIN-1013",
+      "channel": "INS",
+      "family": "FIN",
+      "age": {
+        "min": 55,
+        "max": null
+      },
+      "selectionMode": "lore_fallback_only",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 12,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-BLACK-LEDGER"
+      ],
+      "factionInteraction": "lore_fallback",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "Another future-form financing scandal is rumored to involve the Black Ledger. The organization, if it still exists, does not comment.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Late-life lore fallback. Rarely repeatable, mechanically inert, and reported separately from generic fallback."
+    },
+    {
+      "id": "EVT-INS-REL-1003",
+      "channel": "INS",
+      "family": "REL",
+      "age": {
+        "min": 55,
+        "max": null
+      },
+      "selectionMode": "lore_fallback_only",
+      "weightClass": "VERY_LOW",
+      "repeatPolicy": "repeatable",
+      "repeatCooldownYears": 12,
+      "repeatMaxCount": 3,
+      "routeTags": [
+        "faction_news"
+      ],
+      "materialTags": [],
+      "refinementTags": [],
+      "factionIds": [
+        "FCT-LAST-POSTURE"
+      ],
+      "factionInteraction": "lore_fallback",
+      "include": "TRUE",
+      "exclude": "FALSE",
+      "variants": [
+        {
+          "when": "TRUE",
+          "text": {
+            "en": "The Order of the Last Posture appears in the news again over a ceremony, a property dispute, or both. The details differ more than the photographs.",
+            "zh-TW": ""
+          },
+          "effects": {},
+          "addFlags": [],
+          "removeFlags": [],
+          "schedules": []
+        }
+      ],
+      "designerNotes": "Late-life lore fallback. Rarely repeatable, mechanically inert, and reported separately from generic fallback."
+    }
+  ]
+}

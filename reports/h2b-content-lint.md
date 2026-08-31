@@ -2,17 +2,17 @@
 
 Generated from canonical content. **Reports only** — no lint rewrites prose.
 
-Content fingerprint: `3af02c428c7fd5de7b64a3c1c07ae84b084ad1576b9ee9f35a8da06087b5b54d`
+Content fingerprint: `a764cf41467fe8db3ab2db0f985188f606f735d92c3ed8e6457595a85d5d08f2`
 
 ## 1. All-female prose lint
 
-Scanned **661** canonical player-facing English strings across events, endings, talents, species and factions for standalone male-coded terms. Designer notes are authoring commentary and are out of scope. Matching is case-insensitive and word-bounded, so `Human`, `woman` and `management` cannot false-positive.
+Scanned **682** canonical player-facing English strings across events, endings, talents, species and factions for standalone male-coded terms. Designer notes are authoring commentary and are out of scope. Matching is case-insensitive and word-bounded, so `Human`, `woman` and `management` cannot false-positive.
 
 **PASS — 0 findings.**
 
 ## 2. Hidden-token prose lint
 
-Scanned the same **661** player-facing strings for internal identifiers that must never reach a player: word-bounded uppercase `FIX`, and the `ROUTE_` / `FAC_` namespaces. Conditions are not prose and are out of scope — `FIX>=28` in an `include` is correct authoring. Lowercase "fix" is an ordinary English word and is not matched.
+Scanned the same **682** player-facing strings for internal identifiers that must never reach a player: word-bounded uppercase `FIX`, and the `ROUTE_` / `FAC_` namespaces. Conditions are not prose and are out of scope — `FIX>=28` in an `include` is correct authoring. Lowercase "fix" is an ordinary English word and is not matched.
 
 **PASS — 0 findings.**
 
@@ -55,7 +55,7 @@ Include: `TRUE`
 Include: `TRUE`
 
 - `TRUE` — Another year is mostly spent growing, falling down, making demands with increasing precision, and being told not to touch things.
-  - effects: INT +1, STR +1
+  - effects: STR +1
 
 ### `EVT-ORD-HEA-0003` — ORD/HEA, ages 1–4, random, NORMAL
 
@@ -81,11 +81,11 @@ Authored variant deltas counted statically over the corpus. An event contributes
 
 | Stat | + variants | + magnitude | − variants | − magnitude |
 |---|---|---|---|---|
-| CHR | 39 | +58 | 3 | -4 |
-| INT | 71 | +99 | 2 | -3 |
-| STR | 33 | +55 | 7 | -7 |
-| MNY | 101 | +176 | 62 | -87 |
-| SPR | 121 | +143 | 140 | -153 |
+| CHR | 36 | +54 | 3 | -4 |
+| INT | 49 | +75 | 2 | -3 |
+| STR | 35 | +58 | 7 | -7 |
+| MNY | 101 | +176 | 68 | -93 |
+| SPR | 118 | +136 | 141 | -154 |
 | FIX | 128 | +674 | 0 | 0 |
 
 **No visible stat is strictly monotonic** — every one has at least one authored negative delta.
@@ -94,12 +94,12 @@ Authored variant deltas counted statically over the corpus. An event contributes
 
 | Band | + variants | + magnitude | − variants | − magnitude |
 |---|---|---|---|---|
-| 0-5 | 1 | +1 | 0 | 0 |
-| 6-11 | 3 | +3 | 0 | 0 |
-| 12-17 | 3 | +3 | 0 | 0 |
-| 18-24 | 32 | +51 | 0 | 0 |
-| 25-34 | 32 | +51 | 2 | -3 |
-| 35-44 | 19 | +27 | 2 | -3 |
+| 0-5 | 0 | +0 | 0 | 0 |
+| 6-11 | 1 | +1 | 0 | 0 |
+| 12-17 | 2 | +2 | 0 | 0 |
+| 18-24 | 32 | +50 | 0 | 0 |
+| 25-34 | 32 | +50 | 2 | -3 |
+| 35-44 | 19 | +26 | 2 | -3 |
 | 45-54 | 2 | +2 | 2 | -3 |
 | 55-64 | 0 | +0 | 1 | -1 |
 | 65+ | 0 | +0 | 1 | -1 |
@@ -108,12 +108,12 @@ Authored variant deltas counted statically over the corpus. An event contributes
 
 | Band | + variants | + magnitude | − variants | − magnitude |
 |---|---|---|---|---|
-| 0-5 | 2 | +2 | 0 | 0 |
-| 6-11 | 9 | +10 | 0 | 0 |
-| 12-17 | 13 | +15 | 0 | 0 |
-| 18-24 | 45 | +71 | 0 | 0 |
-| 25-34 | 46 | +72 | 0 | 0 |
-| 35-44 | 33 | +50 | 0 | 0 |
+| 0-5 | 0 | +0 | 0 | 0 |
+| 6-11 | 4 | +4 | 0 | 0 |
+| 12-17 | 5 | +5 | 0 | 0 |
+| 18-24 | 34 | +60 | 0 | 0 |
+| 25-34 | 37 | +63 | 0 | 0 |
+| 35-44 | 30 | +47 | 0 | 0 |
 | 45-54 | 13 | +25 | 2 | -3 |
 | 55-64 | 4 | +4 | 2 | -3 |
 | 65+ | 2 | +2 | 2 | -3 |
@@ -125,8 +125,8 @@ Authored variant deltas counted statically over the corpus. An event contributes
 | 0-5 | 4 | +4 | 0 | 0 |
 | 6-11 | 0 | +0 | 0 | 0 |
 | 12-17 | 2 | +2 | 0 | 0 |
-| 18-24 | 22 | +41 | 4 | -4 |
-| 25-34 | 26 | +48 | 4 | -4 |
+| 18-24 | 24 | +44 | 4 | -4 |
+| 25-34 | 28 | +51 | 4 | -4 |
 | 35-44 | 18 | +37 | 2 | -2 |
 | 45-54 | 8 | +16 | 2 | -2 |
 | 55-64 | 6 | +14 | 2 | -2 |
@@ -139,11 +139,11 @@ Authored variant deltas counted statically over the corpus. An event contributes
 | 0-5 | 3 | +3 | 3 | -3 |
 | 6-11 | 0 | +0 | 0 | 0 |
 | 12-17 | 2 | +2 | 2 | -2 |
-| 18-24 | 79 | +144 | 40 | -61 |
-| 25-34 | 85 | +155 | 49 | -74 |
-| 35-44 | 58 | +99 | 45 | -65 |
-| 45-54 | 11 | +16 | 15 | -23 |
-| 55-64 | 5 | +5 | 6 | -12 |
+| 18-24 | 79 | +144 | 42 | -63 |
+| 25-34 | 85 | +155 | 52 | -77 |
+| 35-44 | 58 | +99 | 49 | -69 |
+| 45-54 | 11 | +16 | 18 | -26 |
+| 55-64 | 5 | +5 | 9 | -15 |
 | 65+ | 2 | +2 | 3 | -9 |
 
 ### SPR by age band
@@ -152,10 +152,10 @@ Authored variant deltas counted statically over the corpus. An event contributes
 |---|---|---|---|---|
 | 0-5 | 9 | +9 | 0 | 0 |
 | 6-11 | 4 | +4 | 4 | -4 |
-| 12-17 | 5 | +5 | 18 | -18 |
+| 12-17 | 2 | +2 | 18 | -18 |
 | 18-24 | 73 | +90 | 96 | -108 |
-| 25-34 | 79 | +99 | 108 | -120 |
-| 35-44 | 63 | +84 | 87 | -95 |
-| 45-54 | 31 | +35 | 28 | -29 |
-| 55-64 | 25 | +27 | 9 | -9 |
-| 65+ | 18 | +19 | 3 | -3 |
+| 25-34 | 79 | +97 | 108 | -120 |
+| 35-44 | 63 | +81 | 88 | -96 |
+| 45-54 | 31 | +33 | 28 | -29 |
+| 55-64 | 25 | +25 | 9 | -9 |
+| 65+ | 18 | +18 | 3 | -3 |

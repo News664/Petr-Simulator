@@ -131,7 +131,10 @@ describe('playback status', () => {
 
     expect(readoutCodes(container)).toEqual([...STAT_ORDER]);
     expect(readoutValues(container)).toEqual(STAT_ORDER.map((stat) => expectedValue(current.statsAfter[stat])));
-    expect(screen.getByText(String(current.age))).toBeTruthy();
+    // Scoped to the status grid: an unscoped text query collides whenever an
+    // attribute happens to hold the same number as the age.
+    const status = container.querySelector('.status-grid') as HTMLElement;
+    expect(within(status).getByText(String(current.age))).toBeTruthy();
   });
 
   it('puts the status source before the timeline so a narrow layout can pin it', () => {

@@ -69,10 +69,20 @@ describe('H2B — Batch 008 integration', () => {
   it('keeps the existing-event patches: SPR farming reduced, one move per run', () => {
     // The late-life baseline no longer grants SPR every year.
     expect(eventById('EVT-ORD-GEN-0003').variants[0]!.effects).toEqual({ STR: -1 });
-    // High-SPR survivors no longer gain SPR from every reunion; the TRUE branch still can.
+    // High-SPR survivors no longer gain SPR from every reunion; the TRUE branch
+    // still can, on its first occurrence. H2B.1B Part A added the
+    // first-occurrence guards ahead of these, so the authored branches are
+    // found by condition rather than by position.
     const reunion = eventById('EVT-ORD-SOC-0004');
-    expect(reunion.variants[0]!.effects).toEqual({ CHR: -1 });
-    expect(reunion.variants[1]!.effects).toEqual({ SPR: 1 });
+    const branch = (when: string) => reunion.variants.find((variant) => variant.when === when);
+    expect(branch('SPR>=8')?.effects).toEqual({ CHR: -1 });
+    expect(branch('TRUE')?.effects).toEqual({ SPR: 1 });
+    // H2B.1B Part A: and a repeat now grants nothing, at most twice per run.
+    expect(reunion.repeatMaxCount).toBe(2);
+    for (const variant of reunion.variants) {
+      if (!variant.when.includes('EVT[EVT-ORD-SOC-0004]')) continue;
+      expect(variant.effects).toEqual({});
+    }
     // The repeated move is now once per run.
     expect(eventById('EVT-ORD-HOU-0002').repeatMaxCount).toBe(1);
   });

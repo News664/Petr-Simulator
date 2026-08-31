@@ -1,7 +1,7 @@
 import type { ContentBundle } from '../engine/content/load.js';
 import { runSimulation, type RunResult, type SimulationOptions } from '../engine/simulation.js';
 import type { AllocationPolicy, SetupPolicy } from '../engine/setup.js';
-import { SPECIES_IDS, type SpeciesId } from '../engine/types.js';
+import { SPECIES_IDS, type SpeciesId, type VisibleStat } from '../engine/types.js';
 import { aggregate, type MetricsSummary } from './metrics.js';
 import type { ScenarioDef } from './scenarios.js';
 
@@ -19,6 +19,15 @@ export interface ScenarioRunOptions {
   keepRuns?: boolean;
   /** Per-year observers for targeted diagnostics that need in-run state. */
   hooks?: Pick<SimulationOptions, 'onBeforeYear' | 'onYear'>;
+  /**
+   * Rewrites an explicit allocation per species.
+   *
+   * `explicit` allocations must total the species' free points, and Human has
+   * one more than everyone else. A targeted arm states one allocation and uses
+   * this to place the spare point somewhere that does not perturb the stat the
+   * arm is about. Ignored for every other allocation policy.
+   */
+  allocationOverride?: (species: SpeciesId) => Record<VisibleStat, number>;
   /**
    * Called as each run finishes. Lets a streaming accumulator read the whole
    * result without `keepRuns` retaining every timeline at high run counts.
@@ -66,10 +75,15 @@ export function runScenario(
       species = { kind: 'seeded_random' };
     }
 
+    let allocation: AllocationPolicy = options.allocation ?? { kind: 'seeded_random' };
+    if (allocation.kind === 'explicit' && options.allocationOverride && species.kind === 'fixed') {
+      allocation = { kind: 'explicit', allocation: options.allocationOverride(species.species) };
+    }
+
     const policy: SetupPolicy = {
       species,
       talents: scenario.talents,
-      allocation: options.allocation ?? { kind: 'seeded_random' },
+      allocation,
     };
 
     const result = runSimulation(runSeed(options.baseSeed, scenario.id, index), content, policy, {

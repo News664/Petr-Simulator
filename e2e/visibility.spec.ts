@@ -26,8 +26,11 @@ import {
 /**
  * Seed fixtures are bound to the content fingerprint: the run seed is
  * `contentVersion:seed`, so any canonical content edit re-rolls every life and a
- * seed chosen for its outcome has to be re-picked. `open-a` currently reaches
- * the horizon without an ending; `smoke-002` currently ends.
+ * seed chosen for its outcome has to be re-picked. The fixtures are named for
+ * the outcome they are chosen for — `open-record-fixture` reaches the horizon
+ * without an ending, `ending-fixture` ends — and `tests/e2e-seed-fixtures.test.ts`
+ * fails in `npm run verify` the moment one of them stops doing so, rather than
+ * leaving it to be discovered two minutes into a browser run.
  */
 
 function isMobile(projectName: string): boolean {
@@ -116,7 +119,7 @@ test('the HUD does not break B.1 follow or hide the newest entry', async ({ page
 });
 
 test('a Permanent Form ending shows the final assessment', async ({ page }) => {
-  await playToPlayback(page, 'smoke-002');
+  await playToPlayback(page, 'ending-fixture');
   await stepToOutcome(page);
   await expect(outcomeNotice(page)).toBeVisible();
 
@@ -130,7 +133,7 @@ test('a Permanent Form ending shows the final assessment', async ({ page }) => {
 });
 
 test('the final assessment is normal-mode information, not a developer view', async ({ page }) => {
-  await playToPlayback(page, 'smoke-002');
+  await playToPlayback(page, 'ending-fixture');
   await stepToOutcome(page);
   await expect(outcomeNotice(page)).toBeVisible();
 
@@ -155,7 +158,7 @@ test('an open record shows reached age, material and current attributes', async 
   test.skip(isMobile(testInfo.project.name), 'covered once on desktop; identical on mobile');
   test.slow();
 
-  await playToPlayback(page, 'open-a');
+  await playToPlayback(page, 'open-record-fixture');
   await stepToOutcome(page);
 
   await expect(page.getByText('RECORD REMAINS OPEN')).toBeVisible();
@@ -171,7 +174,7 @@ test('an open record shows reached age, material and current attributes', async 
 });
 
 test('the full record opens with the final assessment', async ({ page }) => {
-  await playToPlayback(page, 'smoke-002');
+  await playToPlayback(page, 'ending-fixture');
   await stepToOutcome(page);
 
   await page.getByRole('button', { name: 'REVIEW LIFE' }).click();
@@ -185,7 +188,7 @@ test('the full record opens with the final assessment', async ({ page }) => {
 
 test('the developer test summary copies player-visible information only', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-write', 'clipboard-read']);
-  await playToPlayback(page, 'smoke-002');
+  await playToPlayback(page, 'ending-fixture');
   await stepToOutcome(page);
 
   const copy = page.getByRole('button', { name: 'COPY TEST SUMMARY' });
@@ -194,7 +197,7 @@ test('the developer test summary copies player-visible information only', async 
   await expect(page.getByText('Test summary copied')).toBeVisible();
 
   const clipboard = await page.evaluate(() => navigator.clipboard.readText());
-  expect(clipboard).toContain('seed: smoke-002');
+  expect(clipboard).toContain('seed: ending-fixture');
   expect(clipboard).toContain('outcome:');
   for (const code of STAT_CODES) expect(clipboard).toContain(code);
   // The reproduction export stays the deeper tool; this is a player-visible note.

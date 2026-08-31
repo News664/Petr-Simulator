@@ -99,10 +99,17 @@ describe('A. Content loading', () => {
     return defaultContentPaths(root);
   }
 
-  const canonicalBatch = (): RawBatch =>
-    JSON.parse(
-      readFileSync(path.join(CONTENT_ROOT, 'events', 'SOLID_STATE_EVENT_BATCH_001_v0.4.json'), 'utf8'),
-    ) as RawBatch;
+  // Resolved by batch prefix rather than by pinned version: a batch version bump
+  // renames the file, and this harness is about the loader, not about which
+  // revision of Batch 001 happens to be canonical today.
+  const canonicalBatch = (): RawBatch => {
+    const name = readdirSync(path.join(CONTENT_ROOT, 'events'))
+      .filter((file) => file.startsWith('SOLID_STATE_EVENT_BATCH_001_v') && file.endsWith('.json'))
+      .sort()
+      .at(-1);
+    if (!name) throw new Error('no canonical Batch 001 JSON found');
+    return JSON.parse(readFileSync(path.join(CONTENT_ROOT, 'events', name), 'utf8')) as RawBatch;
+  };
 
   it('loads the full corpus through the throwaway-root harness unchanged', () => {
     expect(() => loadContent(contentRootWith([]))).not.toThrow();

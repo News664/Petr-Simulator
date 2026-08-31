@@ -43,11 +43,20 @@ author creative content or rewrite registries without a decision here.**
 
 ### Current state
 
-Corpus fingerprint `8638e2e1ebd977878d09c28c1d554d7b85e2174f24fcf7aa568df018541d214e`
+Corpus fingerprint `a764cf41467fe8db3ab2db0f985188f606f735d92c3ed8e6457595a85d5d08f2`
 · 215 events · 25 endings · 39 route tags · LOW is the **working** H2B balance,
-not a freeze. Current measurements: [`H2B1A_FINDINGS.md`](H2B1A_FINDINGS.md) and
-[`reports/h2b1a-regression.md`](../reports/h2b1a-regression.md). Repository
-status: [`CURRENT_STATE.md`](CURRENT_STATE.md).
+not a freeze. Current measurements:
+[`H2B1B_A_FINDINGS.md`](H2B1B_A_FINDINGS.md) and
+[`reports/h2b1b-a-regression.md`](../reports/h2b1b-a-regression.md); the
+working-balance measurement they build on is
+[`H2B1A_FINDINGS.md`](H2B1A_FINDINGS.md). Repository status:
+[`CURRENT_STATE.md`](CURRENT_STATE.md).
+
+H2B.1B Part A decided nothing on its own. It applied a frozen ledger, measured
+it, and then applied the owner/design-review corrections that measurement
+prompted. The consequences are **H2B1BA-C1 … H2B1BA-C3** in
+[`PHASE1_CONFLICTS.md`](PHASE1_CONFLICTS.md): C1 and C3 are now resolved by that
+review, C2 remains open, and none of them is recorded here as decided.
 
 ---
 
